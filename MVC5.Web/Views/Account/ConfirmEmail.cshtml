@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "فعال سازی حساب کاربری";
+}
+
+<h2>@ViewBag.Title.</h2>
+<div class="alert alert-success">
+    <p class="lead">
+     با تشکر از عضویت شما در سایت. حساب شما با موفقیت فعال شد. برای ورود به حساب خود کلیک کنید 
+
+    </p>
+    @Html.ActionLink("ورود به حساب", MVC.Account.ActionNames.Login, MVC.Account.Name, routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink", @class = "btn btn-success" })
+</div>

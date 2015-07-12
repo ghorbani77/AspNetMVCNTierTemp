@@ -1,0 +1,71 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@using MVC5.ViewModel.Account
+@model RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<hr />
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-9">
+            <section id="loginForm">
+                @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post, new { area = "", @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>عضویت در سایت</h4>
+                    <hr />
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @Html.MathCaptcha(MVC.Shared.Views._CaptchaPartial)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-info btn-block" value="ثبت اطلاعات" />
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+        <div class="col-md-3">
+            <section id="socialLoginForm">
+                <h4>عضویت با سایر حساب ها</h4>
+                <hr />
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel())
+            </section>
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

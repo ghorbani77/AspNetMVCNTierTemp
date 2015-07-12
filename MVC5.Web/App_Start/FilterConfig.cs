@@ -1,0 +1,16 @@
+﻿using System.Web.Mvc;
+using MVC5.Common.Filters;
+using MVC5.Web.Filters;
+
+namespace MVC5.Web
+{
+    public class FilterConfig
+    {
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
+           // filters.Add(new ElmahHandledErrorLoggerFilter());
+         //   filters.Add(new ForceWww("root url"));
+            filters.Add(new ContentSecurityPolicyFilterAttribute());
+        }
+    }
+}

@@ -1,0 +1,28 @@
+﻿@model MVC5.ViewModel.Account.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    var authenticationDescriptions = loginProviders as AuthenticationDescription[] ?? loginProviders.ToArray();
+}
+
+@if (authenticationDescriptions.Any())
+{
+
+    using (Html.BeginForm(MVC.Account.ActionNames.ExternalLogin, MVC.Account.Name, new { ReturnUrl = Model.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        <div id="socialLoginList">
+            <p>
+                @foreach (var p in authenticationDescriptions)
+                {
+                    <button type="submit" class="btn btn-danger btn-block"  id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="@p.Caption ورود با حساب">
+
+                        <span>@p.AuthenticationType</span> 
+                        <span class="fa fa-align-right fa-@p.AuthenticationType.ToLower()"></span>
+                    </button>
+                }
+            </p>
+        </div>
+    }
+}
+
