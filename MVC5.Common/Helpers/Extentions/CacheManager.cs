@@ -7,6 +7,15 @@ namespace MVC5.Common.Helpers.Extentions
 {
     public static class CacheManager
     {
+            public static void DisableBrowserCache(this HttpContextBase httpContext)
+            {
+                httpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+                httpContext.Response.Cache.SetValidUntilExpires(false);
+                httpContext.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+                httpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                httpContext.Response.Cache.SetNoStore();
+            }
+        
         public static void CacheInsert(this HttpContextBase httpContext, string key, object data, int durationMinutes)
         {
             if (data == null) return;

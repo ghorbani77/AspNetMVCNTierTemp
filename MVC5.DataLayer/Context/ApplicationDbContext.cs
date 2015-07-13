@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Infrastructure.Interception;
+﻿using System;
+using System.Data.Entity.Infrastructure.Interception;
 using System.Linq;
 using EFSecondLevelCache;
 using EntityFramework.BulkInsert.Extensions;
@@ -6,33 +7,42 @@ using EntityFramework.Filters;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MVC5.DomainClasses.Configurations;
 using MVC5.DomainClasses.Entities;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using MVC5.Utility;
 using System.Data.Objects;
+using RefactorThis.GraphDiff;
 
 namespace MVC5.DataLayer.Context
 {
     public class ApplicationDbContext :
-           IdentityDbContext<ApplicationUser, ApplicationRole, int, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>,
-           IUnitOfWork
+        IdentityDbContext
+            <ApplicationUser, ApplicationRole, int, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>,
+        IUnitOfWork
     {
-     
+
         #region Constructor
 
 
         public ApplicationDbContext()
             : base("DefaultConnection")
         {
-           // Configuration.LazyLoadingEnabled = false;
+            //this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.LazyLoadingEnabled = false;
+            //for bulk insert
+            //this.Configuration.AutoDetectChangesEnabled = false;
+
 
         }
+
         #endregion
 
         #region IUnitOfWork
-
+        public T Update<T>(T entity, System.Linq.Expressions.Expression<Func<IUpdateConfiguration<T>, object>> mapping) where T : class,new()
+        {
+            return this.UpdateGraph(entity, mapping);
+        }
         private string[] GetChangedEntityNames()
         {
             return ChangeTracker.Entries()
@@ -43,6 +53,7 @@ namespace MVC5.DataLayer.Context
                 .Distinct()
                 .ToArray();
         }
+
         public new System.Data.Entity.IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
@@ -50,13 +61,14 @@ namespace MVC5.DataLayer.Context
 
         public void MarkAsChanged<TEntity>(TEntity entity) where TEntity : class
         {
-            Entry(entity).State=EntityState.Modified;
+            Entry(entity).State = EntityState.Modified;
         }
 
         public void MarkAsAdded<TEntity>(TEntity entity) where TEntity : class
         {
             Entry(entity).State = EntityState.Added;
         }
+
         public void MarkAsDeleted<TEntity>(TEntity entity) where TEntity : class
         {
             Entry(entity).State = EntityState.Deleted;
@@ -66,6 +78,7 @@ namespace MVC5.DataLayer.Context
         {
             return Database.SqlQuery<T>(sql, parameters).ToList();
         }
+
         public override int SaveChanges()
         {
             return SaveAllChanges();
@@ -79,11 +92,12 @@ namespace MVC5.DataLayer.Context
             new EFCacheServiceProvider().InvalidateCacheDependencies(changedEntityNames);
             return result;
         }
-       
+
         public override Task<int> SaveChangesAsync()
         {
             return SaveAllChangesAsync();
         }
+
         public Task<int> SaveAllChangesAsync(bool invalidateCacheDependencies = true)
         {
             var result = base.SaveChangesAsync();
@@ -101,10 +115,10 @@ namespace MVC5.DataLayer.Context
 
         public IEnumerable<TEntity> AddThisRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            return ((DbSet<TEntity>) Set<TEntity>()).AddRange(entities);
+            return ((DbSet<TEntity>)Set<TEntity>()).AddRange(entities);
         }
 
-      
+
         public void ForceDatabaseInitialize()
         {
             base.Database.Initialize(force: true);
@@ -129,6 +143,7 @@ namespace MVC5.DataLayer.Context
         {
             this.BulkInsert(data);
         }
+
         #endregion
 
         #region Override OnModelCreating
@@ -136,28 +151,45 @@ namespace MVC5.DataLayer.Context
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            Config(modelBuilder);
             DbInterception.Add(new FilterInterceptor());
             DbInterception.Add(new YeKeInterceptor());
 
-            modelBuilder.Configurations.Add(new ApplicationRoleGroupConfig());
-            modelBuilder.Configurations.Add(new ApplicationUserGroupConfig());
-            modelBuilder.Configurations.Add(new ApplicationGroupConfig());
+            modelBuilder.Configurations.Add(new SettingConfig());
+            modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
+            modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
+            modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
+        }
 
-            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
-            modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
+        #endregion
+
+        #region AspNetIdentityConfig
+
+        private static void Config(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>()
+                .ToTable("Users")
+                .Filter("IsDeleted_User", a => a.Condition(u => u.IsDeleted))
+                .Filter("IsBanned_User", a => a.Condition(u => u.IsBanned))
+                .Filter("IsSystemAccount", a => a.Condition(u => u.IsSystemAccount));
+
+            modelBuilder.Entity<ApplicationRole>()
+                .ToTable("Roles")
+                .Filter("IsSystemRole", a => a.Condition(r => r.IsSystemRole));
+
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
             modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
         }
+
         #endregion
 
         #region IDbSets
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<ApplicationPermission> ApplicationPermissions { get; set; }
 
-        public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { get; set; }
-        public DbSet<ApplicationGroup> ApplicationGroups { get; set; }
-        public DbSet<ApplicationUserGroup> ApplicationUserGroups { get; set; }
         #endregion
+
       
     }
 }

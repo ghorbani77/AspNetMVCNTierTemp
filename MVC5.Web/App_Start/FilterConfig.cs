@@ -8,8 +8,11 @@ namespace MVC5.Web
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-           // filters.Add(new ElmahHandledErrorLoggerFilter());
-         //   filters.Add(new ForceWww("root url"));
+            //logg action errors
+            filters.Add(new ElmahHandledErrorLoggerFilter());
+            //logg xss attacks 
+            filters.Add(new ElmahRequestValidationErrorFilter());
+            //filters.Add(new ForceWww("root url"));
             filters.Add(new ContentSecurityPolicyFilterAttribute());
         }
     }

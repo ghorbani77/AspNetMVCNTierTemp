@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
+using RefactorThis.GraphDiff;
 
 namespace MVC5.ServiceLayer.EFServiecs
 {
@@ -14,6 +15,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region Fields
         private readonly IDbSet<ApplicationUser> _users;
         private readonly IRoleStore<ApplicationRole, int> _roleStore;
+        private readonly IDbSet<ApplicationPermission> _permissions;
         private readonly IUnitOfWork _unitOfWork;
         #endregion
 
@@ -25,6 +27,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             _roleStore = roleStore;
             _unitOfWork = unitOfWork;
             _users = _unitOfWork.Set<ApplicationUser>();
+            _permissions = _unitOfWork.Set<ApplicationPermission>();
         }
         #endregion
 
@@ -40,12 +43,11 @@ namespace MVC5.ServiceLayer.EFServiecs
             return this.Create(role); // RoleManagerExtensions
         }
 
-        public IList<ApplicationUserRole> GetCustomUsersInRole(string roleName)
+        public IList<ApplicationUserRole> GetUsersOfRole(string roleName)
         {
             return this.Roles.Where(role => role.Name == roleName)
                              .SelectMany(role => role.Users)
                              .ToList();
-            // = this.FindByName(roleName).Users
         }
 
         public IList<ApplicationUser> GetApplicationUsersInRole(string roleName)
@@ -54,6 +56,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                                    where role.Name == roleName
                                    from user in role.Users
                                    select user.UserId;
+
             return _users.Where(applicationUser => roleUserIdsQuery.Contains(applicationUser.Id))
                          .ToList();
         }
@@ -90,11 +93,74 @@ namespace MVC5.ServiceLayer.EFServiecs
             return userRole != null;
         }
 
-        public Task<List<ApplicationRole>> GetAllApplicationRolesAsync()
+        public async Task<IList<ApplicationRole>> GetAllApplicationRolesAsync()
         {
-            return this.Roles.ToListAsync();
+            return await this.Roles.ToListAsync();
         }
 
+        public async Task<IList<string>> GetPermissionsOfUser(int userId)
+        {
+            var rolesOfUser = GetRolesForUser(userId);
+            var permissions = new List<string>();
+
+            foreach (var role in rolesOfUser)
+            {
+                var roleName = role;
+                var permissionsOfRole =
+                    await
+                        Roles.Where(a => a.Name == roleName)
+                            .SelectMany(a => a.Permissionses)
+                            .Select(a => a.Name)
+                            .ToListAsync();
+                permissions.AddRange(permissionsOfRole);
+            }
+
+            return permissions;
+        }
+
+        public async Task<IList<string>> GetPermissionsOfRole(int roleId)
+        {
+            return
+                await Roles.Where(a => a.Id == roleId)
+                    .SelectMany(a => a.Permissionses)
+                    .Select(a => a.Name)
+                    .ToListAsync();
+        }
         #endregion
+
+
+        public async Task<IList<ApplicationPermission>> GetAllPermissions()
+        {
+            return await _permissions.AsNoTracking().ToListAsync();
+        }
+
+        public async Task AddPermissionsToRole(int roleId, params int[] permissions)
+        {
+            var role = await _roleStore.FindByIdAsync(roleId);
+
+            if (role != null)
+            {
+                var actualPermissions = await _permissions.Where(a => permissions.Contains(a.Id)).ToListAsync();
+                actualPermissions.ForEach(a => role.Permissionses.Add(a));
+
+                _unitOfWork.Update(role, a => a.AssociatedCollection(b => b.Permissionses));
+            }
+        }
+
+
+        public async Task EditPermissionsToRole(int roleId, params int[] permissions)
+        {
+            var role = await _roleStore.FindByIdAsync(roleId);
+
+            if (role != null)
+            {
+                role.Permissionses.Clear();
+
+                var actualPermissions = await _permissions.Where(a => permissions.Contains(a.Id)).ToListAsync();
+                actualPermissions.ForEach(a => role.Permissionses.Add(a));
+
+                _unitOfWork.Update(role, a => a.AssociatedCollection(b => b.Permissionses));
+            }
+        }
     }
 }

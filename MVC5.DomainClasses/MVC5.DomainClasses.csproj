@@ -59,20 +59,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\ApplicationGroupConfig.cs" />
-    <Compile Include="Configurations\ApplicationRoleGroup.cs" />
-    <Compile Include="Configurations\ApplicationUserGroupConfig.cs" />
-    <Compile Include="Entities\ApplicationGroup.cs" />
+    <Compile Include="Configurations\ApplicationPermissionConfig.cs" />
+    <Compile Include="Configurations\SettingConfig.cs" />
+    <Compile Include="Entities\ApplicationPermission.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
-    <Compile Include="Entities\ApplicationRoleGroup.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\ApplicationUserClaim.cs" />
-    <Compile Include="Entities\ApplicationUserGroup.cs" />
     <Compile Include="Entities\ApplicationUserLogin.cs" />
     <Compile Include="Entities\ApplicationUserRole.cs" />
-    <Compile Include="Entities\SiteOption.cs" />
+    <Compile Include="Entities\Setting.cs" />
+    <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\SocialSetting.cs" />
+    <Compile Include="Settings\SystemSetting.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\UserSetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -57,14 +57,19 @@ namespace MVC5.ServiceLayer.Contracts
 
 
         // Our new custom methods
-
+        
         ApplicationRole FindRoleByName(string roleName);
         IdentityResult CreateRole(ApplicationRole role);
-        IList<ApplicationUserRole> GetCustomUsersInRole(string roleName);
+        IList<ApplicationUserRole> GetUsersOfRole(string roleName);
         IList<ApplicationUser> GetApplicationUsersInRole(string roleName);
         IList<ApplicationRole> FindUserRoles(int userId);
         string[] GetRolesForUser(int userId);
         bool IsUserInRole(int userId, string roleName);
-        Task<List<ApplicationRole>> GetAllApplicationRolesAsync();
+        Task<IList<string>> GetPermissionsOfUser(int userId);
+        Task<IList<string>> GetPermissionsOfRole(int roleId);
+        Task<IList<ApplicationRole>> GetAllApplicationRolesAsync();
+        Task<IList<DomainClasses.Entities.ApplicationPermission>> GetAllPermissions();
+        Task AddPermissionsToRole(int roleId, params int[] permissions);
+        Task EditPermissionsToRole(int roleId, params int[] permissions);
     }
 }
