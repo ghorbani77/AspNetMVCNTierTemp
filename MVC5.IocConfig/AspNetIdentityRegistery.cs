@@ -3,7 +3,6 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using Postal;
 using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
@@ -45,7 +44,6 @@ namespace MVC5.IocConfig
             For<IIdentityMessageService>().Use<SmsService>();
             For<IIdentityMessageService>().Use<ServiceLayer.EFServiecs.EmailService>();
 
-            For<IEmailService>().Use<Postal.EmailService>();
             
             For<IApplicationUserManager>().HybridHttpOrThreadLocalScoped()
                  .Use<ApplicationUserManager>()

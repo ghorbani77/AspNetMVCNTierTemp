@@ -1,14 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MVC5.ServiceLayer.Mailers;
-using MVC5.Web.Controllers;
 using NUnit.Framework;
 
 namespace MVC5.Tests.Controllers
 {
     [TestFixture]
-    public class HomeControllerTest
+    public class AccountControllerTest
     {
         #region Fields
         
@@ -18,7 +17,6 @@ namespace MVC5.Tests.Controllers
         [SetUp]
         public void InitBeforeEachTest()
         {
-            
         }
 
         [TearDown]

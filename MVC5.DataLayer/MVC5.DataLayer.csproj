@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Fakes Include="Fakes\Microsoft.AspNet.Identity.EntityFramework.fakes" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

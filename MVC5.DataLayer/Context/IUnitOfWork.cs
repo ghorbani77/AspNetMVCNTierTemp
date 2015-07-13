@@ -11,6 +11,7 @@ namespace MVC5.DataLayer.Context
         Task<int> SaveChangesAsync();
         void MarkAsChanged<TEntity>(TEntity entity) where TEntity : class;
         void MarkAsDeleted<TEntity>(TEntity entity) where TEntity : class;
+         void MarkAsAdded<TEntity>(TEntity entity) where TEntity : class;
         IList<T> GetRows<T>(string sql, params object[] parameters) where T : class;
         int SaveAllChanges(bool invalidateCacheDependencies = true);
         Task<int> SaveAllChangesAsync(bool invalidateCacheDependencies = true);

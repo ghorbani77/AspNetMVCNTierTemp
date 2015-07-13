@@ -87,6 +87,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\CookieTempDataProvider.cs" />
+    <Compile Include="Controller\ISessionProvider.cs" />
+    <Compile Include="Controller\SessionProvider.cs" />
     <Compile Include="Filters\AjaxOnlyAttribute.cs" />
     <Compile Include="Filters\AllowUploadSafeFilesAttribute.cs" />
     <Compile Include="Filters\AllowUploadSpecialFilesAttribute.cs" />
@@ -99,7 +102,7 @@
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\Extentions\CacheManager.cs" />
     <Compile Include="Helpers\Extentions\ControllerExtentions.cs" />
-    <Compile Include="Helpers\Extentions\CookieHelper.cs" />
+    <Compile Include="Helpers\Extentions\CookieExtention.cs" />
     <Compile Include="Helpers\Extentions\HttpExtentions.cs" />
     <Compile Include="Helpers\Extentions\ImageManage.cs" />
     <Compile Include="Helpers\Extentions\JsonHelper.cs" />
@@ -116,6 +119,7 @@
     <Compile Include="RSS\FeedItem.cs" />
     <Compile Include="RSS\FeedResult.cs" />
     <Compile Include="RSS\RtlHelper.cs" />
+    <Compile Include="Security\FilePermissionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

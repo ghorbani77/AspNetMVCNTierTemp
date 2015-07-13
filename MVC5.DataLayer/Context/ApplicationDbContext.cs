@@ -1,4 +1,6 @@
 ﻿using System.Data.Entity.Infrastructure.Interception;
+using System.Linq;
+using EFSecondLevelCache;
 using EntityFramework.BulkInsert.Extensions;
 using EntityFramework.Filters;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using MVC5.Utility;
+using System.Data.Objects;
 
 namespace MVC5.DataLayer.Context
 {
@@ -30,7 +33,16 @@ namespace MVC5.DataLayer.Context
 
         #region IUnitOfWork
 
-     
+        private string[] GetChangedEntityNames()
+        {
+            return ChangeTracker.Entries()
+                .Where(x => x.State == EntityState.Added ||
+                            x.State == EntityState.Modified ||
+                            x.State == EntityState.Deleted)
+                .Select(x => ObjectContext.GetObjectType(x.Entity.GetType()).FullName)
+                .Distinct()
+                .ToArray();
+        }
         public new System.Data.Entity.IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
@@ -38,27 +50,48 @@ namespace MVC5.DataLayer.Context
 
         public void MarkAsChanged<TEntity>(TEntity entity) where TEntity : class
         {
-            throw new NotImplementedException();
+            Entry(entity).State=EntityState.Modified;
         }
 
+        public void MarkAsAdded<TEntity>(TEntity entity) where TEntity : class
+        {
+            Entry(entity).State = EntityState.Added;
+        }
         public void MarkAsDeleted<TEntity>(TEntity entity) where TEntity : class
         {
-            throw new NotImplementedException();
+            Entry(entity).State = EntityState.Deleted;
         }
 
         public IList<T> GetRows<T>(string sql, params object[] parameters) where T : class
         {
-            throw new NotImplementedException();
+            return Database.SqlQuery<T>(sql, parameters).ToList();
+        }
+        public override int SaveChanges()
+        {
+            return SaveAllChanges();
         }
 
         public int SaveAllChanges(bool invalidateCacheDependencies = true)
         {
-            throw new NotImplementedException();
+            var result = base.SaveChanges();
+            if (!invalidateCacheDependencies) return result;
+            var changedEntityNames = GetChangedEntityNames();
+            new EFCacheServiceProvider().InvalidateCacheDependencies(changedEntityNames);
+            return result;
         }
-
+       
+        public override Task<int> SaveChangesAsync()
+        {
+            return SaveAllChangesAsync();
+        }
         public Task<int> SaveAllChangesAsync(bool invalidateCacheDependencies = true)
         {
-            throw new NotImplementedException();
+            var result = base.SaveChangesAsync();
+            if (!invalidateCacheDependencies) return result;
+
+            var changedEntityNames = GetChangedEntityNames();
+            new EFCacheServiceProvider().InvalidateCacheDependencies(changedEntityNames);
+            return result;
         }
 
         public void AutoDetectChangesEnabled(bool flag = true)
@@ -68,7 +101,7 @@ namespace MVC5.DataLayer.Context
 
         public IEnumerable<TEntity> AddThisRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            throw new NotImplementedException();
+            return ((DbSet<TEntity>) Set<TEntity>()).AddRange(entities);
         }
 
       
@@ -76,8 +109,6 @@ namespace MVC5.DataLayer.Context
         {
             base.Database.Initialize(force: true);
         }
-
-     
 
         public void EnableFiltering(string name)
         {

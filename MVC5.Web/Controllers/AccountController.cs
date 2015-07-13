@@ -6,16 +6,16 @@ using System.Web.Mvc;
 using System.Web.UI;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Mvc.Mailer;
 using MVC5.Common.Filters;
 using MVC5.DomainClasses.Entities;
+using MVC5.ServiceLayer.Mailers;
 using MVC5.Utility;
-using MVC5.ViewModel.Email;
 using MVC5.Web.Extention;
 using MVC5.Web.Filters;
 using AutoMapper;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ViewModel.Account;
-using Postal;
 
 namespace MVC5.Web.Controllers
 {
@@ -29,23 +29,23 @@ namespace MVC5.Web.Controllers
         private readonly IAuthenticationManager _authenticationManager;
         private readonly IApplicationSignInManager _signInManager;
         private readonly IApplicationUserManager _userManager;
-       private readonly IEmailService _emailService;
+        private readonly IUserMailer _userMailer;
         #endregion
 
         #region Constructor
 
         public AccountController(IApplicationUserManager userManager,
             IApplicationSignInManager signInManager,
-            IAuthenticationManager authenticationManager, 
-            HttpRequestBase httpRequestBase, IMappingEngine mapperEngine,
-            IEmailService emailService)
+            IAuthenticationManager authenticationManager,
+            HttpRequestBase httpRequestBase, IMappingEngine mapperEngine, IUserMailer userMailer
+           )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _authenticationManager = authenticationManager;
             _httpRequestBase = httpRequestBase;
             _mapperEngine = mapperEngine;
-            _emailService = emailService;
+            _userMailer = userMailer;
         }
 
         #endregion
@@ -253,17 +253,19 @@ namespace MVC5.Web.Controllers
             if (!result.Succeeded) return View(model);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-            var callbackUrl = Url.Action(MVC.Account.ActionNames.ConfirmEmail, MVC.Account.Name,
-                new { userId = user.Id, code, area = "" }, protocol: Request.Url.Scheme);
-               
-            var email = new EmailConfirmEmail
+            var callbackUrl = Url.Abs(Url.Action(MVC.Account.ActionNames.ConfirmEmail, MVC.Account.Name,
+                new { userId = user.Id, code, area = "" }, protocol: Request.Url.Scheme));
+
+            var email = new ConfirmAccountEmail
             {
-                ConfirmationToken = code,
+                From = "me",
                 To = model.Email,
-                ViewName = MVC.Emails.Views.ViewNames.EmailConfirm,
-                Link = callbackUrl
+                Message = "با سلام. لطفا برای تایید حساب خود بر روی لینک زیر کلیک کنید ",
+                Url = callbackUrl,
+                UrlText = "برای فعال سازی اینجا کلیک کنید"
             };
-            await _emailService.SendAsync(email);
+
+            await _userMailer.ConfirmAccount(email).SendAsync();
 
             return View(MVC.Account.Views.DisplayEmail);
         }
@@ -296,7 +298,7 @@ namespace MVC5.Web.Controllers
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-           this.AddErrors(result);
+            this.AddErrors(result);
             return View(model);
         }
 
@@ -385,7 +387,7 @@ namespace MVC5.Web.Controllers
         #endregion
 
         #region Validation
-     
+
         [ChildActionOnly]
         private ActionResult RedirectToLocal(string returnUrl)
         {

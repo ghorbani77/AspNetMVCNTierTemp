@@ -2,6 +2,7 @@
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
+using MVC5.Common.Controller;
 using MVC5.DataLayer.Context;
 using StructureMap;
 using StructureMap.Web;
@@ -36,6 +37,7 @@ namespace MVC5.IocConfig
                 ioc.For<HttpContextBase>().Use(() => new HttpContextWrapper(HttpContext.Current));
                 ioc.For<HttpServerUtilityBase>().Use(() => new HttpServerUtilityWrapper(HttpContext.Current.Server));
                 ioc.For<HttpRequestBase>().Use(ctx => ctx.GetInstance<HttpContextBase>().Request);
+                ioc.For<ISessionProvider>().Use<SessionProvider>();
 
                 ioc.AddRegistry<AspNetIdentityRegistery>();
                 ioc.AddRegistry<AutoMapperRegistery>();

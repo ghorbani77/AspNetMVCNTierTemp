@@ -179,20 +179,15 @@
     <Reference Include="MiniProfiler">
       <HintPath>..\packages\MiniProfiler.3.1.1.140\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
+    <Reference Include="Mvc.Mailer">
+      <HintPath>..\packages\MvcMailer-vs2013.4.5.1-pre\lib\45\Mvc.Mailer.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Postal">
-      <HintPath>..\packages\Postal.Mvc5.1.2.0\lib\net45\Postal.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="RazorEngine">
-      <HintPath>..\packages\RazorEngine.3.7.0\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RazorGenerator.Mvc">
@@ -429,21 +424,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_ExternalLoginsListPartial.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Emails\EmailConfirm.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmailConfirm.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Emails\_EmailLayout.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_EmailLayout.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Emails\_ViewStart.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_ViewStart.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Home\About.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -648,19 +628,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Emails\EmailConfirm.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>EmailConfirm.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Emails\Web.config" />
-    <Content Include="Views\Emails\_EmailLayout.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_EmailLayout.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Emails\_ViewStart.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Home\About.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>About.generated.cs</LastGenOutput>
@@ -778,6 +745,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ExternalLoginsListPartial.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\UserMailer\_Layout.cshtml" />
+    <Content Include="Views\UserMailer\ConfirmAccount.cshtml" />
+    <Content Include="Views\UserMailer\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
