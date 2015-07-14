@@ -9,9 +9,20 @@
 #pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
+using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
+using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
+using System.Web.Mvc.Html;
+using System.Web.Routing;
+using T4MVC;
 namespace T4MVC.Adminstrator
 {
     public class SharedController
@@ -27,13 +38,6 @@ namespace T4MVC.Adminstrator
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-            }
-            static readonly _EditorTemplatesClass s_EditorTemplates = new _EditorTemplatesClass();
-            public _EditorTemplatesClass EditorTemplates { get { return s_EditorTemplates; } }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public partial class _EditorTemplatesClass
-            {
-                public readonly string EditGroupTemplate = "EditGroupTemplate";
             }
         }
     }

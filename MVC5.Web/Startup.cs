@@ -22,7 +22,7 @@ namespace MVC5.Web
                 .HybridHttpOrThreadLocalScoped()
                 .Use(() => appBuilder.GetDataProtectionProvider()));
             
-         //   ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>().SeedDatabase();
+         //ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>().SeedDatabase();
 
             appBuilder.CreatePerOwinContext(() => ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>());
             appBuilder.CreatePerOwinContext(() => ProjectObjectFactory.Container.GetInstance<IApplicationRoleManager>());

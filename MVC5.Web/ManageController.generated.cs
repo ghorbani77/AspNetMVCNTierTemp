@@ -9,10 +9,19 @@
 #pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
+using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
+using System.Web.Mvc.Html;
+using System.Web.Routing;
 using T4MVC;
 namespace MVC5.Web.Controllers
 {

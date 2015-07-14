@@ -9,18 +9,24 @@
 #pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
+using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
+using System.Web.Mvc.Html;
+using System.Web.Routing;
 using T4MVC;
 namespace MVC5.Web.Areas.Adminstrator.Controllers
 {
     public partial class RoleController
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public RoleController() { }
-
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RoleController(Dummy d) { }
 
@@ -66,13 +72,13 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
+            public readonly string Create = "";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
+            public const string Create = "";
         }
 
 
@@ -96,13 +102,13 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         public T4MVC_RoleController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Create()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
+            CreateOverride(callInfo);
             return callInfo;
         }
 

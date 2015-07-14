@@ -43,11 +43,12 @@ namespace MVC5.Web
         #region Application_BeginRequest
         private void Application_BeginRequest(object sender, EventArgs e)
         {
-
+#if DEBUG
             if (Request.IsLocal)
             {
                 MiniProfiler.Start();
             }
+#endif
         }
         #endregion
 

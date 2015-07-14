@@ -31,12 +31,12 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public virtual ActionResult Create()
-        {
-            return View();
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public virtual ActionResult Create()
+        //{
+        //    return View();
+        //}
         #endregion
         
     }

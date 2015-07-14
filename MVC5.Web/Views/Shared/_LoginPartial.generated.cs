@@ -11,14 +11,31 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-#line 1 "..\..\Views\Shared\_LoginPartial.cshtml"
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    
+    #line 1 "..\..\Views\Shared\_LoginPartial.cshtml"
     using Microsoft.AspNet.Identity;
     
     #line default
     #line hidden
-
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_LoginPartial.cshtml")]
     public partial class _Views_Shared__LoginPartial_cshtml : System.Web.Mvc.WebViewPage<dynamic>
@@ -63,7 +80,7 @@ WriteLiteral("                ");
 
             
             #line 10 "..\..\Views\Shared\_LoginPartial.cshtml"
-           Write(Html.ActionLink("سلام " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new {area=""}, htmlAttributes: new { title = "Manage" }));
+           Write(Html.ActionLink("سلام " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage", @class = "nofollow" }));
 
             
             #line default
@@ -92,7 +109,7 @@ WriteLiteral(">\r\n        <li>");
 
             
             #line 19 "..\..\Views\Shared\_LoginPartial.cshtml"
-       Write(Html.ActionLink("عضویت", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" }));
+       Write(Html.ActionLink("عضویت", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink"  ,@class="nofollow"}));
 
             
             #line default
@@ -101,7 +118,7 @@ WriteLiteral("</li>\r\n        <li>");
 
             
             #line 20 "..\..\Views\Shared\_LoginPartial.cshtml"
-       Write(Html.ActionLink("ورود", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" }));
+       Write(Html.ActionLink("ورود", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" ,@class="nofollow"}));
 
             
             #line default

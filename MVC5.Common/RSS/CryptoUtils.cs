@@ -6,7 +6,7 @@ namespace MVC5.Common.RSS
 {
     public static class CryptoUtils
     {
-        public static string SHA1(this string data)
+        public static string Sha1(this string data)
         {
             using (var sha1 = new SHA1Managed())
             {

@@ -8,10 +8,10 @@ using VikingErik.Mvc.ResumingActionResults;
 
 namespace MVC5.Web.Controllers
 {
-    public class ExportController : Controller
+    public partial class ExportController : Controller
     {
         [Route("Export/{*id}")]
-        public ActionResult Index(string id)
+        public virtual ActionResult Index(string id)
         {
             if (string.IsNullOrEmpty(id))
             {

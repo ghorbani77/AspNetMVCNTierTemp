@@ -8,7 +8,6 @@ namespace MVC5.IocConfig
     {
         public ServiceLayerRegistery()
         {
-            For<IGroupService>().Use<GroupService>();
             For<IUserMailer>().Use<UserMailer>();
         }
     }

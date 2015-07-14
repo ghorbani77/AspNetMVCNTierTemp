@@ -96,6 +96,7 @@
     <Compile Include="Filters\CheckReferrerAttribute.cs" />
     <Compile Include="Filters\ElmahRequestValidationErrorFilter.cs" />
     <Compile Include="Filters\NoBrowserCacheAttribute.cs" />
+    <Compile Include="Helpers\RegexHelpers.cs" />
     <Compile Include="HttpCompress\CompressingFilter.cs" />
     <Compile Include="Controller\CookieTempDataProvider.cs" />
     <Compile Include="Controller\ISessionProvider.cs" />

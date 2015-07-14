@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 
 namespace MVC5.Common.HttpCompress
@@ -180,10 +181,8 @@ namespace MVC5.Common.HttpCompress
             bool isAcceptableGZip;
             bool isAcceptableStar;
 
-            for (var i = 0; i < schemes.Length; i++)
+            foreach (var acceptEncodingValue in schemes.Select(t => t.Trim().ToLower()))
             {
-                var acceptEncodingValue = schemes[i].Trim().ToLower();
-
                 if (acceptEncodingValue.StartsWith("deflate"))
                 {
                     foundDeflate = true;

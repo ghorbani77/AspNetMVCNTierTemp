@@ -9,12 +9,23 @@
 #pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
+using System;
 using System.Diagnostics;
 using System.CodeDom.Compiler;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Hosting;
+using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
+using System.Web.Mvc.Html;
+using System.Web.Routing;
+using T4MVC;
 namespace T4MVC
 {
-    public class EmailsController
+    public class UserMailerController
     {
 
         static readonly ViewsClass s_views = new ViewsClass();
@@ -27,15 +38,13 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _EmailLayout = "_EmailLayout";
-                public readonly string _ViewStart = "_ViewStart";
-                public readonly string EmailConfirm = "EmailConfirm";
-                public readonly string Web = "Web";
+                public readonly string _Layout = "_Layout";
+                public readonly string ConfirmAccount = "ConfirmAccount";
+                public readonly string ResetPassword = "ResetPassword";
             }
-            public readonly string _EmailLayout = "~/Views/Emails/_EmailLayout.cshtml";
-            public readonly string _ViewStart = "~/Views/Emails/_ViewStart.cshtml";
-            public readonly string EmailConfirm = "~/Views/Emails/EmailConfirm.cshtml";
-            public readonly string Web = "~/Views/Emails/Web.config";
+            public readonly string _Layout = "~/Views/UserMailer/_Layout.cshtml";
+            public readonly string ConfirmAccount = "~/Views/UserMailer/ConfirmAccount.cshtml";
+            public readonly string ResetPassword = "~/Views/UserMailer/ResetPassword.cshtml";
         }
     }
 

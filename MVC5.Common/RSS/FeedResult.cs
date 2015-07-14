@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
+using MVC5.Common.HtmlCleaner;
 using MVC5.Common.RSS;
 
 
@@ -30,8 +31,8 @@ namespace MVC5.Web.RSS
             foreach (var item in rssItems)
             {
                 var uri = new Uri(item.Url);
-                var feedItem = new SyndicationItem(item.Title.CorrectRtl(),
-                    SyndicationContent.CreateHtmlContent(item.Content.CorrectRtlBody()), uri, item.Url.SHA1(),
+                var feedItem = new SyndicationItem(item.Title.CorrectRtl().RemoveHexadecimalSymbols(),
+                    SyndicationContent.CreateHtmlContent(item.Content.CorrectRtlBody().RemoveHexadecimalSymbols()), uri, item.Url.Sha1(),
                     item.LastUpdatedTime
                     ) { PublishDate = item.LastUpdatedTime };
                 feedItem.Authors.Add(new SyndicationPerson(item.AuthorName, item.AuthorName, uri.Host));
@@ -65,6 +66,7 @@ namespace MVC5.Web.RSS
             var response = httpContext.Response;
             response.ContentEncoding = Encoding.UTF8;
             response.ContentType = "application/rss+xml";
+            
             response.Write(feedData);
             response.End();
         }

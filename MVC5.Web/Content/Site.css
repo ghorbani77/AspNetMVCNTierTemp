@@ -7,26 +7,17 @@
 }
 
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
     font-family: 'wYekan' !important;
-    overflow-x:hidden !important;
     background-color: #eee !important;
 }
-footer {
-    bottom: 0 !important;
-    font-size: 1.3em !important;
-}
+
 
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'wYekan' !important;
 }
 /* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
+
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -36,30 +27,16 @@ textarea {
 }
 
 /* styles for validation helpers */
-.field-validation-error {
-    color: #b94a48;
-}
 
-.field-validation-valid {
-    display: none;
-}
-
-input.input-validation-error {
-    border: 1px solid #b94a48;
-}
-
-input[type="checkbox"].input-validation-error {
-    border: 0 none;
-}
-
-.validation-summary-errors {
-    color: #b94a48;
-}
-
-.validation-summary-valid {
-    display: none;
-}
-
-.jumbotron {
-    background-color: white !important;
+.overlay {
+    width: 90%;
+    margin: 0 auto 20px auto;
+    height: 400px;
+    background-position: center,center;
+    background-repeat: repeat,no-repeat;
+    -moz-background-size: 1px 1px,cover;
+    -o-background-size: 1px 1px,cover;
+    -webkit-background-size: 1px 1px,cover;
+    background-size: 1px 1px,cover;
+    background-image: url(images/Overlays/01.png),url(images/herftwandeling2.jpg);
 }

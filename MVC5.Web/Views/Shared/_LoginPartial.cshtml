@@ -7,7 +7,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("سلام " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new {area=""}, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("سلام " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage", @class = "nofollow" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
@@ -16,7 +16,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("عضویت", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("ورود", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("عضویت", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink"  ,@class="nofollow"})</li>
+        <li>@Html.ActionLink("ورود", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" ,@class="nofollow"})</li>
     </ul>
 }

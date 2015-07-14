@@ -12,7 +12,7 @@ namespace MVC5.Web
             filters.Add(new ElmahHandledErrorLoggerFilter());
             //logg xss attacks 
             filters.Add(new ElmahRequestValidationErrorFilter());
-            //filters.Add(new ForceWww("root url"));
+            filters.Add(new ForceWww(""));
             filters.Add(new ContentSecurityPolicyFilterAttribute());
         }
     }

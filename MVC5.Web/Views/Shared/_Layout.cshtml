@@ -1,36 +1,26 @@
 ﻿@using StackExchange.Profiling
 <!DOCTYPE html>
-<html>
+<html lang="fa">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @RenderSection("meta",false)
+
+   
     <!--[if lt IE 9]>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
     <![endif]-->
+    <!--[if lte IE 6]>
+        <script src="/Scripts/warning.js"></script>
+        <script>window.onload = function () { e("js/ie6/") ;}</script><![endif]-->
+    <!--noscript-->
 
-
-    <!--[if lte IE 6]><script src="/Scripts/warning.js"></script><script>window.onload=function()
-    {e("js/ie6/");}</script><![endif]-->
-
-    <title>@ViewBag.Title </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("css", false)
 
-    <!--noscript-->
     <noscript>
-        <meta http-equiv="refresh" content="0;url=http://www.google.com">
+        <meta http-equiv="refresh" content="0;url=/Content/NoScript.html">
     </noscript>
-
-    @Scripts.Render("~/bundles/jquery")
-
-    @Styles.Render("~/bundles/kendo/css")
-    @Scripts.Render("~/bundles/kendo/js")
-
-    <!--[if lte IE 6]>
-    <script src="/Scripts/warning.js"></script>
-    <script>window.onload = function () { e("js/ie6/") ;}</script><![endif]-->
-
 </head>
 <body>
     <header>
@@ -73,7 +63,7 @@
         <div class="row"><p>&copy; @DateTime.Now.Year غلامرضا ربال</p></div>
     </footer>
 
-
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @MiniProfiler.RenderIncludes()
