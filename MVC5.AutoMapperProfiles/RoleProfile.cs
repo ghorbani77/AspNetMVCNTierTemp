@@ -2,7 +2,7 @@
 using AutoMapper;
 using MVC5.AutoMapperProfiles.Extentions;
 using MVC5.DomainClasses.Entities;
-using MVC5.ViewModel.Role;
+using MVC5.ViewModel.AdminArea.Role;
 
 namespace MVC5.AutoMapperProfiles
 {

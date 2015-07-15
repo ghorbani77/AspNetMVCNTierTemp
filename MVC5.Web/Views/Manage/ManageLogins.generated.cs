@@ -12,11 +12,26 @@
 namespace ASP
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-#line 2 "..\..\Views\Manage\ManageLogins.cshtml"
-#line default
-    #line hidden
-
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    using MvcSiteMapProvider.Web.Html;
+    using MvcSiteMapProvider.Web.Html.Models;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Manage/ManageLogins.cshtml")]
     public partial class _Views_Manage_ManageLogins_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.ManageLoginsViewModel>
@@ -27,7 +42,7 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 3 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 2 "..\..\Views\Manage\ManageLogins.cshtml"
   
     ViewBag.Title = "Manage your external logins";
 
@@ -37,7 +52,7 @@ namespace ASP
 WriteLiteral("\r\n\r\n<h2>");
 
             
-            #line 7 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 6 "..\..\Views\Manage\ManageLogins.cshtml"
 Write(ViewBag.Title);
 
             
@@ -50,7 +65,7 @@ WriteLiteral(" class=\"text-success\"");
 WriteLiteral(">");
 
             
-            #line 9 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 8 "..\..\Views\Manage\ManageLogins.cshtml"
                    Write(ViewBag.StatusMessage);
 
             
@@ -59,7 +74,7 @@ WriteLiteral(">");
 WriteLiteral("</p>\r\n");
 
             
-            #line 10 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 9 "..\..\Views\Manage\ManageLogins.cshtml"
  if (Model.CurrentLogins.Count > 0)
 {
 
@@ -75,13 +90,13 @@ WriteLiteral(" class=\"table table-striped table-hover table-bordered table-cond
 WriteLiteral(">\r\n        <tbody>\r\n");
 
             
-            #line 15 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 14 "..\..\Views\Manage\ManageLogins.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 15 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 14 "..\..\Views\Manage\ManageLogins.cshtml"
              foreach (var account in Model.CurrentLogins)
             {
 
@@ -91,7 +106,7 @@ WriteLiteral(">\r\n        <tbody>\r\n");
 WriteLiteral("                <tr>\r\n                    <td>");
 
             
-            #line 18 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 17 "..\..\Views\Manage\ManageLogins.cshtml"
                    Write(account.LoginProvider);
 
             
@@ -100,13 +115,13 @@ WriteLiteral("                <tr>\r\n                    <td>");
 WriteLiteral("</td>\r\n                    <td>\r\n");
 
             
-            #line 20 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 19 "..\..\Views\Manage\ManageLogins.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 20 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 19 "..\..\Views\Manage\ManageLogins.cshtml"
                          if (ViewBag.ShowRemoveButton)
                         {
                             using (Html.BeginForm("RemoveLogin", "Manage"))
@@ -116,14 +131,14 @@ WriteLiteral("</td>\r\n                    <td>\r\n");
             #line default
             #line hidden
             
-            #line 24 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 23 "..\..\Views\Manage\ManageLogins.cshtml"
                            Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 24 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 23 "..\..\Views\Manage\ManageLogins.cshtml"
                                                         
 
             
@@ -134,7 +149,7 @@ WriteLiteral("                                <div>\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 26 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 25 "..\..\Views\Manage\ManageLogins.cshtml"
                                Write(Html.Hidden("loginProvider", account.LoginProvider));
 
             
@@ -145,7 +160,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 27 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 26 "..\..\Views\Manage\ManageLogins.cshtml"
                                Write(Html.Hidden("providerKey", account.ProviderKey));
 
             
@@ -159,26 +174,26 @@ WriteLiteral(" class=\"btn btn-default\"");
 
 WriteLiteral(" value=\"Remove\"");
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1133), Tuple.Create("\"", 1199)
-, Tuple.Create(Tuple.Create("", 1141), Tuple.Create("Remove", 1141), true)
-, Tuple.Create(Tuple.Create(" ", 1147), Tuple.Create("this", 1148), true)
+WriteAttribute("title", Tuple.Create(" title=\"", 1101), Tuple.Create("\"", 1167)
+, Tuple.Create(Tuple.Create("", 1109), Tuple.Create("Remove", 1109), true)
+, Tuple.Create(Tuple.Create(" ", 1115), Tuple.Create("this", 1116), true)
             
-            #line 28 "..\..\Views\Manage\ManageLogins.cshtml"
-                                  , Tuple.Create(Tuple.Create(" ", 1152), Tuple.Create<System.Object, System.Int32>(account.LoginProvider
+            #line 27 "..\..\Views\Manage\ManageLogins.cshtml"
+                                  , Tuple.Create(Tuple.Create(" ", 1120), Tuple.Create<System.Object, System.Int32>(account.LoginProvider
             
             #line default
             #line hidden
-, 1153), false)
-, Tuple.Create(Tuple.Create(" ", 1175), Tuple.Create("login", 1176), true)
-, Tuple.Create(Tuple.Create(" ", 1181), Tuple.Create("from", 1182), true)
-, Tuple.Create(Tuple.Create(" ", 1186), Tuple.Create("your", 1187), true)
-, Tuple.Create(Tuple.Create(" ", 1191), Tuple.Create("account", 1192), true)
+, 1121), false)
+, Tuple.Create(Tuple.Create(" ", 1143), Tuple.Create("login", 1144), true)
+, Tuple.Create(Tuple.Create(" ", 1149), Tuple.Create("from", 1150), true)
+, Tuple.Create(Tuple.Create(" ", 1154), Tuple.Create("your", 1155), true)
+, Tuple.Create(Tuple.Create(" ", 1159), Tuple.Create("account", 1160), true)
 );
 
 WriteLiteral(" />\r\n                                </div>\r\n");
 
             
-            #line 30 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 29 "..\..\Views\Manage\ManageLogins.cshtml"
                             }
                         }
                         else
@@ -192,7 +207,7 @@ WriteLiteral("                            ");
 WriteLiteral(" &nbsp;\r\n");
 
             
-            #line 35 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 34 "..\..\Views\Manage\ManageLogins.cshtml"
                         }
 
             
@@ -201,7 +216,7 @@ WriteLiteral(" &nbsp;\r\n");
 WriteLiteral("                    </td>\r\n                </tr>\r\n");
 
             
-            #line 38 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 37 "..\..\Views\Manage\ManageLogins.cshtml"
             }
 
             
@@ -210,14 +225,14 @@ WriteLiteral("                    </td>\r\n                </tr>\r\n");
 WriteLiteral("        </tbody>\r\n    </table>\r\n");
 
             
-            #line 41 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 40 "..\..\Views\Manage\ManageLogins.cshtml"
 }
 
             
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 41 "..\..\Views\Manage\ManageLogins.cshtml"
  if (Model.OtherLogins.Count > 0)
 {
 
@@ -229,7 +244,7 @@ WriteLiteral("    <h4>Add another service to log in.</h4>\r\n");
 WriteLiteral("    <hr />\r\n");
 
             
-            #line 46 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 45 "..\..\Views\Manage\ManageLogins.cshtml"
     using (Html.BeginForm("LinkLogin", "Manage"))
     {
         
@@ -237,14 +252,14 @@ WriteLiteral("    <hr />\r\n");
             #line default
             #line hidden
             
-            #line 48 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 47 "..\..\Views\Manage\ManageLogins.cshtml"
    Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 48 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 47 "..\..\Views\Manage\ManageLogins.cshtml"
                                 
 
             
@@ -257,13 +272,13 @@ WriteLiteral(" id=\"socialLoginList\"");
 WriteLiteral(">\r\n        <p>\r\n");
 
             
-            #line 51 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 50 "..\..\Views\Manage\ManageLogins.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 51 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 50 "..\..\Views\Manage\ManageLogins.cshtml"
              foreach (var p in Model.OtherLogins)
             {
 
@@ -276,47 +291,47 @@ WriteLiteral(" type=\"submit\"");
 
 WriteLiteral(" class=\"btn btn-default\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 1889), Tuple.Create("\"", 1915)
+WriteAttribute("id", Tuple.Create(" id=\"", 1857), Tuple.Create("\"", 1883)
             
-            #line 53 "..\..\Views\Manage\ManageLogins.cshtml"
-, Tuple.Create(Tuple.Create("", 1894), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+            #line 52 "..\..\Views\Manage\ManageLogins.cshtml"
+, Tuple.Create(Tuple.Create("", 1862), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
             
             #line default
             #line hidden
-, 1894), false)
+, 1862), false)
 );
 
 WriteLiteral(" name=\"provider\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1932), Tuple.Create("\"", 1961)
+WriteAttribute("value", Tuple.Create(" value=\"", 1900), Tuple.Create("\"", 1929)
             
-            #line 53 "..\..\Views\Manage\ManageLogins.cshtml"
-                                , Tuple.Create(Tuple.Create("", 1940), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+            #line 52 "..\..\Views\Manage\ManageLogins.cshtml"
+                                , Tuple.Create(Tuple.Create("", 1908), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
             
             #line default
             #line hidden
-, 1940), false)
+, 1908), false)
 );
 
-WriteAttribute("title", Tuple.Create(" title=\"", 1962), Tuple.Create("\"", 2006)
-, Tuple.Create(Tuple.Create("", 1970), Tuple.Create("Log", 1970), true)
-, Tuple.Create(Tuple.Create(" ", 1973), Tuple.Create("in", 1974), true)
-, Tuple.Create(Tuple.Create(" ", 1976), Tuple.Create("using", 1977), true)
-, Tuple.Create(Tuple.Create(" ", 1982), Tuple.Create("your", 1983), true)
+WriteAttribute("title", Tuple.Create(" title=\"", 1930), Tuple.Create("\"", 1974)
+, Tuple.Create(Tuple.Create("", 1938), Tuple.Create("Log", 1938), true)
+, Tuple.Create(Tuple.Create(" ", 1941), Tuple.Create("in", 1942), true)
+, Tuple.Create(Tuple.Create(" ", 1944), Tuple.Create("using", 1945), true)
+, Tuple.Create(Tuple.Create(" ", 1950), Tuple.Create("your", 1951), true)
             
-            #line 53 "..\..\Views\Manage\ManageLogins.cshtml"
-                                                                               , Tuple.Create(Tuple.Create(" ", 1987), Tuple.Create<System.Object, System.Int32>(p.Caption
+            #line 52 "..\..\Views\Manage\ManageLogins.cshtml"
+                                                                               , Tuple.Create(Tuple.Create(" ", 1955), Tuple.Create<System.Object, System.Int32>(p.Caption
             
             #line default
             #line hidden
-, 1988), false)
-, Tuple.Create(Tuple.Create(" ", 1998), Tuple.Create("account", 1999), true)
+, 1956), false)
+, Tuple.Create(Tuple.Create(" ", 1966), Tuple.Create("account", 1967), true)
 );
 
 WriteLiteral(">");
 
             
-            #line 53 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 52 "..\..\Views\Manage\ManageLogins.cshtml"
                                                                                                                                                                                Write(p.AuthenticationType);
 
             
@@ -325,7 +340,7 @@ WriteLiteral(">");
 WriteLiteral("</button>\r\n");
 
             
-            #line 54 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 53 "..\..\Views\Manage\ManageLogins.cshtml"
             }
 
             
@@ -334,7 +349,7 @@ WriteLiteral("</button>\r\n");
 WriteLiteral("        </p>\r\n        </div>\r\n");
 
             
-            #line 57 "..\..\Views\Manage\ManageLogins.cshtml"
+            #line 56 "..\..\Views\Manage\ManageLogins.cshtml"
     }
 }
 

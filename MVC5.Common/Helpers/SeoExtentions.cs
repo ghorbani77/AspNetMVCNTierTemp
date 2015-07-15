@@ -46,7 +46,7 @@ namespace MVC5.Common.Helpers
         #endregion
 
         #region MetaTag
-        private const string FaviconPath = "~/Images/favicon.ico";
+        private const string FaviconPath = "~/Content/favicon/favicon.ico";
 
         public static string GenerateMetaTag(string title, string description, string canonicalUrl, string googlePlusUrl, bool allowIndexPage, bool allowCache,
             bool allowFollowLinks, string author = "", string lastmodified = "", string expires = "never",
@@ -67,6 +67,7 @@ namespace MVC5.Common.Helpers
             meta += string.Format("<link rel=\"canonical\" href=\"{0}\"/>\n", canonicalUrl);
             meta += string.Format("<link rel=\"shortcut icon\" href=\"{0}\" type=\"image/x-icon\" />\n", FaviconPath);
             meta += string.Format("<meta name=\"application-name\" content=\"{0}\" />\n", applicationName);
+            meta += string.Format("<meta name=\"msapplication-config\" content=\"/browserconfig.xml\" />\n");
             meta += string.Format("<meta http-equiv=\"content-language\" content=\"{0}\"/>\n", language);
             if (allowTranslate)
                 meta += string.Format("<meta name=\"google\" content=\"notranslate\" />\n");

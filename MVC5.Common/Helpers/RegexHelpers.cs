@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MVC5.Common.Helpers
 {
-   public   static class RegexHelpers
+    public static class RegexHelpers
     {
         private static readonly Regex HtmlRegex = new Regex("<.*?>", RegexOptions.Compiled);
         /// <summary>
@@ -17,7 +17,15 @@ namespace MVC5.Common.Helpers
         /// <returns></returns>
         public static string CleanTags(this string html)
         {
-            return HtmlRegex.Replace(html, string.Empty);
+            HtmlRegex.Replace(html, string.Empty);
+
+            html = html.Replace("&nbsp;", " ");
+            html = html.Replace("&zwnj;", " ");
+            html = html.Replace("&quot;", " ");
+            html = html.Replace("amp;", "");
+            html = html.Replace("&laquo;", "«");
+            html = html.Replace("&raquo;", "»");
+            return html;
         }
 
         private static readonly Regex ContentRegex = new Regex(@"<\/?script[^>]*?>", RegexOptions.Compiled | RegexOptions.IgnoreCase);

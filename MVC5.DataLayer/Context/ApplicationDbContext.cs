@@ -156,6 +156,8 @@ namespace MVC5.DataLayer.Context
             DbInterception.Add(new YeKeInterceptor());
 
             modelBuilder.Configurations.Add(new SettingConfig());
+            modelBuilder.Configurations.Add(new ActivityLogConfig());
+            modelBuilder.Configurations.Add(new ActivityLogTypeConfig());
             modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
             modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
             modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
@@ -187,7 +189,8 @@ namespace MVC5.DataLayer.Context
         #region IDbSets
         public DbSet<Setting> Settings { get; set; }
         public DbSet<ApplicationPermission> ApplicationPermissions { get; set; }
-
+        public DbSet<ActivityLog> ActivityLogs { get; set; }
+        public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
         #endregion
 
       

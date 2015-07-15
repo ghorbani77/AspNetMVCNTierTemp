@@ -6,11 +6,9 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
-using MVC5.Common.HtmlCleaner;
-using MVC5.Common.RSS;
 
 
-namespace MVC5.Web.RSS
+namespace MVC5.Common.RSS
 {
     public class FeedResult : ActionResult
     {

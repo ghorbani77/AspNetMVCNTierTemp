@@ -59,8 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ActivityLogConfig.cs" />
+    <Compile Include="Configurations\ActivityLogTypeConfig.cs" />
     <Compile Include="Configurations\ApplicationPermissionConfig.cs" />
     <Compile Include="Configurations\SettingConfig.cs" />
+    <Compile Include="Entities\ActivityLog.cs" />
+    <Compile Include="Entities\ActivityLogType.cs" />
     <Compile Include="Entities\ApplicationPermission.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />

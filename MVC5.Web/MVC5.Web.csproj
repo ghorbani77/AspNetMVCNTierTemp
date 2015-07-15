@@ -195,6 +195,12 @@
     <Reference Include="Mvc.Mailer">
       <HintPath>..\packages\MvcMailer-vs2013.4.5.1-pre\lib\45\Mvc.Mailer.dll</HintPath>
     </Reference>
+    <Reference Include="MvcSiteMapProvider">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.18\lib\net45\MvcSiteMapProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcSiteMapProvider.WebActivator">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.4.6.18\lib\net45\MvcSiteMapProvider.WebActivator.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -336,6 +342,36 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Adminstrator\Views\Role\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Adminstrator\Views\Role\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Adminstrator\Views\Role\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Adminstrator\Views\User\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Adminstrator\Views\User\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Adminstrator\Views\User\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Adminstrator\Views\_ViewStart1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -349,7 +385,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Extention\ControllerExtention.cs" />
-    <Compile Include="GlimpseSecurityPolicy.cs" />
+    <Compile Include="App_Start\GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -490,6 +526,46 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VerifyPhoneNumber.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CanonicalHelperModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\MenuHelperModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MenuHelperModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetaRobotsHelperModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SiteMapHelperModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SiteMapNodeModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SiteMapNodeModelList.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SiteMapPathHelperModel.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SiteMapTitleHelperModel.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\Error.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -515,6 +591,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_LoginPartial.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserMailer\ConfirmAccount.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ConfirmAccount.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserMailer\ResetPassword.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResetPassword.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserMailer\_Layout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\_ViewStart.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -522,16 +613,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Adminstrator\app\app.js" />
-    <Content Include="Areas\Adminstrator\app\controllers\roleController.js" />
-    <Content Include="Areas\Adminstrator\app\directives.js" />
-    <Content Include="Areas\Adminstrator\app\filters.js" />
-    <Content Include="Areas\Adminstrator\app\models\PermissionModel.js" />
-    <Content Include="Areas\Adminstrator\app\models\roleModel.js" />
-    <Content Include="Areas\Adminstrator\app\models\UserModel.js" />
-    <Content Include="Areas\Adminstrator\app\services\PermissionService.js" />
-    <Content Include="Areas\Adminstrator\app\services\roleService.js" />
-    <Content Include="Areas\Adminstrator\app\services\UserService.js" />
+    <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\controllers\roleController.js" />
+    <Content Include="Scripts\app\directives\directives.js" />
+    <Content Include="Scripts\app\filters\filters.js" />
+    <Content Include="Scripts\app\models\PermissionModel.js" />
+    <Content Include="Scripts\app\models\roleModel.js" />
+    <Content Include="Scripts\app\models\UserModel.js" />
+    <Content Include="Scripts\app\services\PermissionService.js" />
+    <Content Include="Scripts\app\services\roleService.js" />
+    <Content Include="Scripts\app\services\UserService.js" />
+    <Content Include="browserconfig.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -547,7 +639,6 @@
     <Content Include="Content\Plugins\font-awesome.css" />
     <Content Include="Content\Plugins\font-awesome.min.css" />
     <Content Include="Content\Plugins\slider-pro.min.css" />
-    <Content Include="Content\Plugins\slideshow.css" />
     <Content Include="Content\Plugins\star-rating.css" />
     <Content Include="Content\Plugins\star-rating.min.css" />
     <Content Include="Content\Plugins\xeditable.css" />
@@ -557,13 +648,37 @@
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
+    <Content Include="Content\favicon\android-chrome-144x144.png" />
+    <Content Include="Content\favicon\android-chrome-192x192.png" />
+    <Content Include="Content\favicon\android-chrome-36x36.png" />
+    <Content Include="Content\favicon\android-chrome-48x48.png" />
+    <Content Include="Content\favicon\android-chrome-72x72.png" />
+    <Content Include="Content\favicon\android-chrome-96x96.png" />
+    <Content Include="Content\favicon\apple-touch-icon-114x114.png" />
+    <Content Include="Content\favicon\apple-touch-icon-120x120.png" />
+    <Content Include="Content\favicon\apple-touch-icon-144x144.png" />
+    <Content Include="Content\favicon\apple-touch-icon-152x152.png" />
+    <Content Include="Content\favicon\apple-touch-icon-180x180.png" />
+    <Content Include="Content\favicon\apple-touch-icon-57x57.png" />
+    <Content Include="Content\favicon\apple-touch-icon-60x60.png" />
+    <Content Include="Content\favicon\apple-touch-icon-72x72.png" />
+    <Content Include="Content\favicon\apple-touch-icon-76x76.png" />
+    <Content Include="Content\favicon\apple-touch-icon-precomposed.png" />
+    <Content Include="Content\favicon\apple-touch-icon.png" />
+    <Content Include="Content\favicon\favicon-16x16.png" />
+    <Content Include="Content\favicon\favicon-32x32.png" />
+    <Content Include="Content\favicon\favicon-96x96.png" />
+    <Content Include="Content\favicon\favicon.ico" />
+    <Content Include="Content\siteImg\mstile-144x144.png" />
+    <Content Include="Content\siteImg\mstile-150x150.png" />
+    <Content Include="Content\siteImg\mstile-310x150.png" />
+    <Content Include="Content\siteImg\mstile-310x310.png" />
+    <Content Include="Content\siteImg\mstile-70x70.png" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
-    <Content Include="Content\Images\favicon.ico" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\Images\Icon.png" />
     <Content Include="Content\Images\Overlays\01.png" />
     <Content Include="Content\Images\Overlays\02.png" />
     <Content Include="Content\Images\Overlays\03.png" />
@@ -579,7 +694,6 @@
     <Content Include="Content\Images\Overlays\13.png" />
     <Content Include="Content\Images\Overlays\14.png" />
     <Content Include="Content\Images\Overlays\15.png" />
-    <Content Include="readme.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\angular-animate.js" />
@@ -646,8 +760,6 @@
     <Content Include="Content\fonts\wYekan.ttf" />
     <Content Include="Content\fonts\wYekan.woff" />
     <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -660,6 +772,35 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="manifest.json" />
+    <Content Include="Mvc.sitemap" />
+    <Content Include="Areas\Adminstrator\Views\Role\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Adminstrator\Views\Role\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Adminstrator\Views\Role\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Adminstrator\Views\User\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Adminstrator\Views\User\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Adminstrator\Views\User\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <None Include="MvcSiteMapSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1586,25 +1727,63 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ExternalLoginsListPartial.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\UserMailer\_Layout.cshtml" />
-    <Content Include="Views\UserMailer\ConfirmAccount.cshtml" />
-    <Content Include="Views\UserMailer\ResetPassword.cshtml" />
+    <Content Include="Views\UserMailer\_Layout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Layout.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\UserMailer\ConfirmAccount.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ConfirmAccount.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\UserMailer\ResetPassword.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ResetPassword.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SiteMapTitleHelperModel.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SiteMapPathHelperModel.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SiteMapNodeModelList.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SiteMapNodeModel.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SiteMapHelperModel.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MetaRobotsHelperModel.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>MenuHelperModel.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CanonicalHelperModel.generated.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Adminstrator\Views\Group\" />
-    <Folder Include="Areas\Adminstrator\Views\Role\" />
     <Folder Include="Areas\Adminstrator\Views\Shared\" />
-    <Folder Include="Areas\Adminstrator\Views\User\" />
     <Folder Include="Content\Images\avatar\" />
-    <Folder Include="Content\img\" />
     <Folder Include="Export\" />
+    <Folder Include="Scripts\app\views\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Export\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVC5.Common\MVC5.Common.csproj">

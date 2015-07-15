@@ -10,6 +10,8 @@ namespace MVC5.DomainClasses.Entities
         [MaxLength(1024)]
         public string Descriptions { get; set; }
         public virtual bool IsSystemRole { get; set; }
+        public virtual bool IsDefaultForRegister { get; set; }
+        public virtual bool IsActive { get; set; }
         public virtual ICollection<ApplicationPermission> Permissionses { get; set; }
     }
 }

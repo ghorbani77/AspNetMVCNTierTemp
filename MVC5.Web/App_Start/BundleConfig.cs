@@ -18,9 +18,16 @@ namespace MVC5.Web
                        ));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/site.min.js",
-                      "~/Scripts/respond.min.js"));
+                      "~/Scripts/angular.min.js",
+                      "~/Scripts/angular-route.min.js",
+                      "~/Scripts/angular-animate.min.js",
+                      "~/Scripts/angular-cookies.min.js",
+                      "~/Scripts/angular-loader.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                     "~/Scripts/bootstrap.min.js",
+                     "~/Scripts/site.min.js",
+                     "~/Scripts/respond.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",

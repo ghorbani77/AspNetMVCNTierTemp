@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\ActivityLogAttribute.cs" />
     <Compile Include="Filters\CheckReferrerAttribute.cs" />
     <Compile Include="Filters\ElmahRequestValidationErrorFilter.cs" />
     <Compile Include="Filters\NoBrowserCacheAttribute.cs" />
@@ -120,7 +121,7 @@
     <Compile Include="Helpers\Extentions\HttpExtentions.cs" />
     <Compile Include="Helpers\Extentions\ImageManage.cs" />
     <Compile Include="Helpers\Extentions\JsonHelper.cs" />
-    <Compile Include="Helpers\FileUpload.cs" />
+    <Compile Include="Helpers\MimeTypeDetector.cs" />
     <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\JsonNetValueProviderFactory.cs" />
     <Compile Include="Helpers\SeoExtentions.cs" />

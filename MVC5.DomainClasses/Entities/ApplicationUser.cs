@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EntityFramework.Filters;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -20,13 +21,18 @@ namespace MVC5.DomainClasses.Entities
         [MaxLength(1024)]
         public virtual string AdminComment { get; set; }
         [MaxLength(50)]
+        [Required]
         public virtual string AvatarPath { get; set; }
         public virtual DateTime? BirthDay { get; set; }
         public virtual DateTime RegisterDate { get; set; }
+        [MaxLength(50)]
+        public virtual string GooglePlusId { get; set; }
+        [MaxLength(50)]
+        public virtual string FaceBookId { get; set; }
         public virtual DateTime? BannedDate { get; set; }
         public virtual DateTime? LastLoginDate { get; set; }
-        [Timestamp]
-        public virtual byte[] RowVersion { get; set; }
+        public virtual DateTime? LastActivity { get; set; }
+        public virtual ICollection<ActivityLog> ActivityLogs { get; set; }
 
     }
 }

@@ -11,6 +11,12 @@ namespace MVC5.Web.Filters
 
         #region Fields
         private readonly IAuthenticationManager _authenticationManager;
+        
+        #endregion
+
+        #region Properties
+        public string Description { get; set; }
+        public bool CanBeMenu { get; set; }
         #endregion
 
         #region Constructor
