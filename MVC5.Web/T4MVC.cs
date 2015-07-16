@@ -257,44 +257,6 @@ namespace Links
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class Images {
-            private const string URLPATH = "~/Content/Images";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class avatar {
-                private const string URLPATH = "~/Content/Images/avatar";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-            public static readonly string glyphicons_halflings_white_png = Url("glyphicons-halflings-white.png");
-            public static readonly string glyphicons_halflings_png = Url("glyphicons-halflings.png");
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Overlays {
-                private const string URLPATH = "~/Content/Images/Overlays";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _01_png = Url("01.png");
-                public static readonly string _02_png = Url("02.png");
-                public static readonly string _03_png = Url("03.png");
-                public static readonly string _04_png = Url("04.png");
-                public static readonly string _05_png = Url("05.png");
-                public static readonly string _06_png = Url("06.png");
-                public static readonly string _07_png = Url("07.png");
-                public static readonly string _08_png = Url("08.png");
-                public static readonly string _09_png = Url("09.png");
-                public static readonly string _10_png = Url("10.png");
-                public static readonly string _11_png = Url("11.png");
-                public static readonly string _12_png = Url("12.png");
-                public static readonly string _13_png = Url("13.png");
-                public static readonly string _14_png = Url("14.png");
-                public static readonly string _15_png = Url("15.png");
-            }
-        
-        }
-    
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class plugins {
             private const string URLPATH = "~/Content/plugins";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -414,24 +376,6 @@ namespace Links
             }
             public static partial class fonts 
             {
-                public static class Assets
-                {
-                }
-            }
-            public static partial class Images 
-            {
-                public static partial class avatar 
-                {
-                    public static class Assets
-                    {
-                    }
-                }
-                public static partial class Overlays 
-                {
-                    public static class Assets
-                    {
-                    }
-                }
                 public static class Assets
                 {
                 }

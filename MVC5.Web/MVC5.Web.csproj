@@ -801,12 +801,14 @@
       <LastGenOutput>_Layout.generated.cs</LastGenOutput>
     </Content>
     <Content Include="App_Code\BootstrapBuilder.cshtml">
-      <Generator>RazorGenerator</Generator>
       <LastGenOutput>BootstrapBuilder.generated.cs</LastGenOutput>
+      <BrowseToURL>~/BootstrapBuilder.cshtml</BrowseToURL>
+      <Generator>RazorGenerator</Generator>
     </Content>
     <Content Include="App_Code\ToastrBuilder.cshtml">
-      <Generator>RazorGenerator</Generator>
       <LastGenOutput>ToastrBuilder.generated.cs</LastGenOutput>
+      <BrowseToURL>~/ToastrBuilder.cshtml</BrowseToURL>
+      <Generator>RazorGenerator</Generator>
     </Content>
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>

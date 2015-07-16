@@ -5,11 +5,12 @@ using System.IO;
 using System.Net.Mime;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using MVC5.Common.Controller;
 using MVC5.Common.Helpers.Extentions;
 
 namespace MVC5.Web.Controllers
 {
-    public partial class HomeController : Controller
+    public partial class HomeController : BaseController
     {
 
         #region Fields
@@ -18,6 +19,7 @@ namespace MVC5.Web.Controllers
         #endregion
         public virtual ActionResult Index()
         {
+           ToastrSuccess("سلام","تست");
             return View();
         }
 
@@ -45,9 +47,8 @@ namespace MVC5.Web.Controllers
 
         public virtual ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
+            ToastrWarning("سلام", "تست");
+           return  RedirectToAction(MVC.Home.ActionNames.Index);
         }
 
         public virtual ActionResult Contact()

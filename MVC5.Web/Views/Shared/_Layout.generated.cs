@@ -232,10 +232,24 @@ WriteLiteral(" class=\"container\"");
 
 WriteLiteral(">\r\n        <hr />\r\n");
 
+            
+            #line 57 "..\..\Views\Shared\_Layout.cshtml"
+        
+            
+            #line default
+            #line hidden
+            
+            #line 57 "..\..\Views\Shared\_Layout.cshtml"
+          Html.RenderPartial(MVC.Shared.Views._Toastr);
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
 WriteLiteral("        ");
 
             
-            #line 57 "..\..\Views\Shared\_Layout.cshtml"
+            #line 58 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -246,7 +260,7 @@ WriteLiteral("\r\n    </div>\r\n\r\n    <footer>\r\n\r\n    </footer>\r\n\r\n");
 WriteLiteral("    ");
 
             
-            #line 64 "..\..\Views\Shared\_Layout.cshtml"
+            #line 65 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -257,7 +271,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 65 "..\..\Views\Shared\_Layout.cshtml"
+            #line 66 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -268,7 +282,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 66 "..\..\Views\Shared\_Layout.cshtml"
+            #line 67 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
@@ -279,7 +293,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 67 "..\..\Views\Shared\_Layout.cshtml"
+            #line 68 "..\..\Views\Shared\_Layout.cshtml"
 Write(MiniProfiler.RenderIncludes());
 
             
