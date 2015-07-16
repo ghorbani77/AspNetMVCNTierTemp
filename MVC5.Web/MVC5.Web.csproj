@@ -370,6 +370,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>List.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Adminstrator\Views\Shared\_Layout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Adminstrator\Views\User\Create.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -589,6 +594,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Lockout.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\_Bootstrap.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Bootstrap.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shared\_CaptchaPartial.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -603,6 +613,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>_LoginPartial.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\_Toastr.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Toastr.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserMailer\ConfirmAccount.generated.cs">
       <AutoGen>True</AutoGen>
@@ -781,7 +796,10 @@
     <Content Include="Content\fonts\RobotoDraftMedium.woff2" />
     <Content Include="Content\fonts\RobotoDraftRegular.woff" />
     <Content Include="Content\fonts\RobotoDraftRegular.woff2" />
-    <Content Include="Areas\Adminstrator\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Adminstrator\Views\Shared\_Layout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Layout.generated.cs</LastGenOutput>
+    </Content>
     <Content Include="App_Code\BootstrapBuilder.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>BootstrapBuilder.generated.cs</LastGenOutput>
@@ -1029,8 +1047,14 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>CanonicalHelperModel.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\_Toastr.cshtml" />
-    <Content Include="Views\Shared\_Bootstrap.cshtml" />
+    <Content Include="Views\Shared\_Toastr.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Toastr.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Shared\_Bootstrap.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Bootstrap.generated.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\avatar\" />
