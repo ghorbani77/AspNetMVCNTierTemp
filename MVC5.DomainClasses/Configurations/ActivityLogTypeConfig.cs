@@ -15,7 +15,7 @@ namespace MVC5.DomainClasses.Configurations
         public ActivityLogTypeConfig()
         {
             Property(a => a.Name).HasMaxLength(50).IsRequired().HasColumnAnnotation("Index",
-                new IndexAnnotation(new IndexAttribute("IX_ActivityLogName", 1) {IsUnique = true}));
+                new IndexAnnotation(new IndexAttribute("IX_ActivityLogName") {IsUnique = true}));
             HasMany(a => a.ActivityLogs)
                 .WithRequired(a => a.LogType)
                 .HasForeignKey(a => a.LogTypeId)

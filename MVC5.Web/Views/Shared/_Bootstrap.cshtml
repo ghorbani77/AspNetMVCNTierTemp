@@ -1,0 +1,6 @@
+﻿@using MVC5.Common.Controller.Alerts
+@if (TempData.ContainsKey(BootstrapMessage.TempDataKey))
+{
+    var bootstrap = TempData[BootstrapMessage.TempDataKey] as Bootstrap;
+    @BootstrapBuilder.ShowBootstrapAlerts(bootstrap);
+}

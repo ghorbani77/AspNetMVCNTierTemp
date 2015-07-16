@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using MVC5.Common.Filters;
 using MVC5.Common.Helpers;
+using MVC5.Common.Helpers.Json;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ViewModel.AdminArea.User;
@@ -8,8 +9,7 @@ using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Adminstrator.Controllers
 {
-    [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers,CanCreateUser,CanEditUser,CanViewUsers",
-           CanBeMenu = true)]
+   // [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers",  CanBeMenu = true)]
     public partial class UserController : Controller
     {
         #region Fields
@@ -29,13 +29,13 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         }
         #endregion
 
-        #region Index
+        #region List
 
         [HttpGet]
-        [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers,CanCreateUser,CanEditUser,CanViewUsers",
-            CanBeMenu = true)]
+        //[MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers,CanDeleteUser,CanCreateUser,CanEditUser,CanViewUsers",
+        //    CanBeMenu = true)]
         [ActivityLog(Name = "ViewUsers", Description = "مشاهده کاربران")]
-        public virtual ActionResult Index()
+        public virtual ActionResult List()
         {
             return View();
         }
@@ -69,7 +69,7 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         [MvcAuthorize(Description = "درج کاربر جدید", Roles = "CanManageUsers,CanCreateUser",
             CanBeMenu = true)]
         [ActivityLog(Name = "AddUser", Description = "درج کاربر جدید")]
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             return View();
         }
@@ -78,7 +78,7 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         [ValidateAntiForgeryToken]
         [MvcAuthorize(Description = "درج کاربر جدید", Roles = "CanManageUsers,CanCreateUser",
          CanBeMenu = false)]
-        public ActionResult Create(AddUserViewModel viewModel)
+        public virtual ActionResult Create(AddUserViewModel viewModel)
         {
             return View();
         }
@@ -92,7 +92,7 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         [MvcAuthorize(Description = "حذف کاربر", Roles = "CanManageUsers,CanDeleteUser",
          CanBeMenu = false)]
         [ActivityLog(Name = "DeleteUser", Description = "حذف کاربر")]
-        public ActionResult Delete(int id)
+        public virtual ActionResult Delete(int id)
         {
             return View();
         }

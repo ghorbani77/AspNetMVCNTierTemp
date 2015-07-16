@@ -17,40 +17,37 @@ namespace MVC5.Web
                         "~/Scripts/modernizr-*"
                        ));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/angular.min.js",
-                      "~/Scripts/angular-route.min.js",
-                      "~/Scripts/angular-animate.min.js",
-                      "~/Scripts/angular-cookies.min.js",
-                      "~/Scripts/angular-loader.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                     "~/Scripts/bootstrap.min.js",
-                     "~/Scripts/site.min.js",
-                     "~/Scripts/respond.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/respond.min.js",
+                "~/Scripts/plugins/fileinput.min.js",
+                "~/Scripts/site.min.js",
+                "~/Scripts/toastr.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
-                      "~/Content/Plugins/font-awesome.min.css",
-                      "~/Content/site.min.css"));
+                "~/Content/bootstrap-flat.min.css",
+                "~/Content/bootstrap-rtl.min.css",
+                "~/Content/toastr.min.css",
+                "~/Content/plugins/font-awesome.min.css",
+                "~/Content/plugins/fileinput.min.css",
+                "~/Content/site.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/admin").Include(
-                "~/Content/Plugins/xeditable.min.css",
-                "~/Content/bootstrap.min.css",
+                "~/Content/bootstrap-flat.min.css",
+                "~/Content/bootstrap-rtl.min.css",
                 "~/Content/toastr.min.css",
-                "~/Content/Plugins/font-awesome.min.css",
-                "~/Content/Plugins/animate.min.css",
-                "~/Content/Plugins/fileinput.min.css",
-                "~/Content/Plugins/font-awesome.min.css"));
+                "~/Content/plugins/font-awesome.min.css",
+                "~/Content/plugins/fileinput.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.min.js",
-                      "~/Scripts/admin.js",
+                      "~/Scripts/admin.min.js",
                       "~/Scripts/toastr.min.js",
-                      "~/Scripts/Plugins/fileinput.min.js",
-                      "~/Scripts/Plugins/xeditable.min.js"
+                      "~/Scripts/plugins/fileinput.min.js"
                       ));
+
 
             BundleTable.EnableOptimizations = true;
 

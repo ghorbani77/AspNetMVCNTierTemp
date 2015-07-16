@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MVC5.DomainClasses
 {
-   
+
     #region Users
     /// <summary>
     /// Represents the customer name fortatting enumeration
@@ -53,4 +53,11 @@ namespace MVC5.DomainClasses
     }
 
     #endregion //Users
+
+    public enum CommentPermissionType
+    {
+        WithApprove,
+        WithOutApporove,
+        Forbidden
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using MVC5.Common.Helpers;
 
 namespace MVC5.Common.Filters
 {
@@ -35,7 +36,6 @@ namespace MVC5.Common.Filters
             return !ExtToFilter.Contains(ext) &&
                    !NameToFilter.Contains(name) &&
                    !NameToFilter.Contains(ext) &&
-                //for "file.asp;.jpg" files
                    ExtToFilter.All(item => !name.Contains(item));
         }
 
@@ -46,7 +46,7 @@ namespace MVC5.Common.Filters
             {
                 throw new InvalidOperationException(string.Format("You are not allowed to upload {0} file.", Path.GetFileName(postedFile.FileName)));
             }
-
+           
             base.OnActionExecuting(filterContext);
         }
     }

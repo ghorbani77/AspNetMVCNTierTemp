@@ -5,9 +5,6 @@
 
     @RenderSection("meta",false)
 
-   
-    
-
     <!--[if lt IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
     <![endif]-->
@@ -18,15 +15,14 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("css", false)
 
     <noscript>
-        <meta http-equiv="refresh" content="0;url=/Content/NoScript.html">
+        <meta http-equiv="refresh" content="0;url=/NoScript.html">
     </noscript>
 </head>
 <body>
     <header>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -56,13 +52,13 @@
         </div>
     </header>
 
-    <div class="container body-content">
+    <div class="container">
+        <hr />
         @RenderBody()
     </div>
 
-    <footer class="text-center">
+    <footer>
 
-        <div class="row"><p>&copy; @DateTime.Now.Year غلامرضا ربال</p></div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")

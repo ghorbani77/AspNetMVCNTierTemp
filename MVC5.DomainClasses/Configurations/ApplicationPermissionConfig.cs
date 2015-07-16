@@ -16,11 +16,12 @@ namespace MVC5.DomainClasses.Configurations
             Property(p => p.AreaName).HasMaxLength(50).IsOptional();
           
             this.Filter("IsMenu", a => a.Condition(p => p.IsMenu));
+
             Property(p => p.Name)
                 .HasMaxLength(100)
                 .IsRequired()
                 .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_PermissionName", 1) {IsUnique = true}));
+                    new IndexAnnotation(new IndexAttribute("IX_PermissionName") {IsUnique = true}));
             HasMany(p => p.ApplicationRoles)
                 .WithMany(a => a.Permissionses)
                 .Map(a => a.ToTable("Role_Permission").MapLeftKey("PermissionId").MapRightKey("RoleId"));

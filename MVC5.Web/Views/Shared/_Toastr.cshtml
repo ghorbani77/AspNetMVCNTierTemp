@@ -1,0 +1,7 @@
+﻿@using MVC5.Common.Controller.Alerts
+@if (TempData.ContainsKey(ToastMessage.TempDataKey))
+{
+    var toastr = TempData[ToastMessage.TempDataKey] as Toastr;
+    @ToastrBuilder.ShowToastMessages(toastr);
+}
+

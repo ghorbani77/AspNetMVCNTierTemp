@@ -1,7 +1,9 @@
 ﻿
 using System.Web.Mvc;
+using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.Common.Helpers;
+using MVC5.Common.Helpers.Json;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ViewModel.AdminArea.Role;
@@ -10,7 +12,7 @@ using MVC5.Web.Filters;
 namespace MVC5.Web.Areas.Adminstrator.Controllers
 {
     [MvcAuthorize(Description = "مدیریت گروه های کاربری ", Roles = "CanManageRoles", CanBeMenu = true)]
-    public partial class RoleController : Controller
+    public partial class RoleController : BaseController
     {
         #region Fields
 
@@ -29,12 +31,12 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         }
         #endregion
 
-        #region Index
+        #region List
         [HttpGet]
         [MvcAuthorize(Description = "درج گروه کاربری جدید",
             Roles = "CanManageRoles,CanViewRoles,CanCreateRole,CanEditRole,CanDeleteRole", CanBeMenu = true)]
         [ActivityLog(Name = "ViewRoles",Description = "مشاده گروه های کاربری")]
-        public virtual ActionResult Index()
+        public virtual ActionResult List()
         {
             return View();
         }

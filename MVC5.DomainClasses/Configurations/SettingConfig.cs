@@ -15,7 +15,7 @@ namespace MVC5.DomainClasses.Configurations
        public SettingConfig()
        {
            Property(s => s.Name).HasMaxLength(50).IsRequired().HasColumnAnnotation("Index",
-               new IndexAnnotation(new IndexAttribute("IX_SettingName", 1) {IsUnique = true}));
+               new IndexAnnotation(new IndexAttribute("IX_SettingName") {IsUnique = true}));
            Property(s => s.Value).HasMaxLength(50).IsRequired();
        }
     }

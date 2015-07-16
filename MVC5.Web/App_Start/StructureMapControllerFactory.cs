@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using MVC5.Common.Controller;
 using MVC5.IocConfig;
 
 namespace MVC5.Web
@@ -21,7 +22,32 @@ namespace MVC5.Web
                 //return SampleObjectFactory.Container.GetInstance(typeof(SearchController)) as Controller;
                 throw new InvalidOperationException(string.Format("Page not found: {0}", requestContext.HttpContext.Request.RawUrl));
             }
-            return ProjectObjectFactory.Container.GetInstance(controllerType) as Controller;
+            var controller = ProjectObjectFactory.Container.GetInstance(controllerType) as Controller;
+            if (controller != null)
+            {
+                controller.TempDataProvider = new CookieTempDataProvider();
+            }
+            return controller;
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

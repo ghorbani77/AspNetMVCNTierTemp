@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Infrastructure.Interception;
+using System.Data.Entity.Validation;
 using System.Linq;
 using EFSecondLevelCache;
 using EntityFramework.BulkInsert.Extensions;
@@ -16,9 +18,8 @@ using RefactorThis.GraphDiff;
 
 namespace MVC5.DataLayer.Context
 {
-    public class ApplicationDbContext :
-        IdentityDbContext
-            <ApplicationUser, ApplicationRole, int, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>,
+    public class ApplicationDbContext : IdentityDbContext
+        <ApplicationUser, ApplicationRole, int, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>,
         IUnitOfWork
     {
 
@@ -39,10 +40,13 @@ namespace MVC5.DataLayer.Context
         #endregion
 
         #region IUnitOfWork
-        public T Update<T>(T entity, System.Linq.Expressions.Expression<Func<IUpdateConfiguration<T>, object>> mapping) where T : class,new()
+
+        public T Update<T>(T entity, System.Linq.Expressions.Expression<Func<IUpdateConfiguration<T>, object>> mapping)
+            where T : class, new()
         {
             return this.UpdateGraph(entity, mapping);
         }
+
         private string[] GetChangedEntityNames()
         {
             return ChangeTracker.Entries()
@@ -115,7 +119,7 @@ namespace MVC5.DataLayer.Context
 
         public IEnumerable<TEntity> AddThisRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            return ((DbSet<TEntity>)Set<TEntity>()).AddRange(entities);
+            return ((DbSet<TEntity>) Set<TEntity>()).AddRange(entities);
         }
 
 
@@ -159,8 +163,6 @@ namespace MVC5.DataLayer.Context
             modelBuilder.Configurations.Add(new ActivityLogConfig());
             modelBuilder.Configurations.Add(new ActivityLogTypeConfig());
             modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
-            modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
-            modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
         }
 
         #endregion
@@ -173,7 +175,12 @@ namespace MVC5.DataLayer.Context
                 .ToTable("Users")
                 .Filter("IsDeleted_User", a => a.Condition(u => u.IsDeleted))
                 .Filter("IsBanned_User", a => a.Condition(u => u.IsBanned))
-                .Filter("IsSystemAccount", a => a.Condition(u => u.IsSystemAccount));
+                .Filter("IsSystemAccount", a => a.Condition(u => u.IsSystemAccount))
+                .Filter("ChangeProfilePicture", a => a.Condition(u => u.CanChangeProfilePicture))
+                .Filter("ModifyFirstAndLastName", a => a.Condition(u => u.CanModifyFirsAndLastName))
+                .Filter("CanUploadFile", a => a.Condition(u => u.CanUploadFile));
+
+
 
             modelBuilder.Entity<ApplicationRole>()
                 .ToTable("Roles")
@@ -187,12 +194,13 @@ namespace MVC5.DataLayer.Context
         #endregion
 
         #region IDbSets
+
         public DbSet<Setting> Settings { get; set; }
         public DbSet<ApplicationPermission> ApplicationPermissions { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
+
         #endregion
 
-      
     }
 }

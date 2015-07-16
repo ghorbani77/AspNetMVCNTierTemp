@@ -56,6 +56,18 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Delete()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult RoleNameExist()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.RoleNameExist);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public RoleController Actions { get { return MVC.Adminstrator.Role; } }
@@ -72,16 +84,57 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Create = "";
+            public readonly string List = "List";
+            public readonly string Create = "Create";
+            public readonly string Edit = "Edit";
+            public readonly string Delete = "Delete";
+            public readonly string RoleNameExist = "RoleNameExist";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Create = "";
+            public const string List = "List";
+            public const string Create = "Create";
+            public const string Edit = "Edit";
+            public const string Delete = "Delete";
+            public const string RoleNameExist = "RoleNameExist";
         }
 
 
+        static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Create
+        {
+            public readonly string viewModel = "viewModel";
+        }
+        static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Edit EditParams { get { return s_params_Edit; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Edit
+        {
+            public readonly string viewModel = "viewModel";
+        }
+        static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Delete
+        {
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_RoleNameExist s_params_RoleNameExist = new ActionParamsClass_RoleNameExist();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_RoleNameExist RoleNameExistParams { get { return s_params_RoleNameExist; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RoleNameExist
+        {
+            public readonly string name = "name";
+            public readonly string id = "id";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -92,7 +145,13 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Create = "Create";
+                public readonly string Edit = "Edit";
+                public readonly string List = "List";
             }
+            public readonly string Create = "~/Areas/Adminstrator/Views/Role/Create.cshtml";
+            public readonly string Edit = "~/Areas/Adminstrator/Views/Role/Edit.cshtml";
+            public readonly string List = "~/Areas/Adminstrator/Views/Role/List.cshtml";
         }
     }
 
@@ -102,6 +161,17 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         public T4MVC_RoleController() : base(Dummy.Instance) { }
 
         [NonAction]
+        partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult List()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
+            ListOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
@@ -109,6 +179,66 @@ namespace MVC5.Web.Areas.Adminstrator.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             CreateOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.Role.AddRoleViewModel viewModel);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Create(MVC5.ViewModel.AdminArea.Role.AddRoleViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            CreateOverride(callInfo, viewModel);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Edit()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            EditOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.Role.EditRoleViewModel viewModel);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Edit(MVC5.ViewModel.AdminArea.Role.EditRoleViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            EditOverride(callInfo, viewModel);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Delete(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            DeleteOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RoleNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string name, int? id);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult RoleNameExist(string name, int? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.RoleNameExist);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "name", name);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            RoleNameExistOverride(callInfo, name, id);
             return callInfo;
         }
 

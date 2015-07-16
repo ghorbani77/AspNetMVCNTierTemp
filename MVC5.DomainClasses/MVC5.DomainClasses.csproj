@@ -71,6 +71,7 @@
     <Compile Include="Entities\ApplicationUserClaim.cs" />
     <Compile Include="Entities\ApplicationUserLogin.cs" />
     <Compile Include="Entities\ApplicationUserRole.cs" />
+    <Compile Include="Entities\EmailAccount.cs" />
     <Compile Include="Entities\Setting.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SocialSetting.cs" />

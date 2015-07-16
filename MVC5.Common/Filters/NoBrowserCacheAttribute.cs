@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using MVC5.Common.Caching;
 using MVC5.Common.Helpers.Extentions;
 
 namespace MVC5.Common.Filters
