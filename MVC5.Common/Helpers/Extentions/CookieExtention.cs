@@ -66,7 +66,6 @@ namespace MVC5.Common.Helpers.Extentions
             var cookie = httpContext.Request.Cookies[cookieName];
             return cookie == null ? string.Empty : httpContext.Server.UrlDecode(cookie.Value);
 
-            // For Cookies and Unicode characters
         }
         #endregion
 

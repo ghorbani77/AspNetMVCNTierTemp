@@ -69,11 +69,11 @@ WriteLiteral(".</h2>\r\n    <h3>");
             #line hidden
 WriteLiteral("</h3>\r\n</hgroup>\r\n<div");
 
-WriteLiteral(" class=\"row-fluid\"");
+WriteLiteral(" class=\"row\"");
 
 WriteLiteral(">\r\n    <div");
 
-WriteLiteral(" class=\"span12\"");
+WriteLiteral(" class=\"col-md-12\"");
 
 WriteLiteral(">\r\n        <p>Use this area to provide additional information.</p>\r\n    </div>\r\n<" +
 "/div>");

@@ -35,6 +35,12 @@ namespace ASP
     #line hidden
     using MVC5.ViewModel;
     using MVC5.Web;
+    
+    #line 2 "..\..\Views\Shared\_Bootstrap.cshtml"
+    using MVC5.Web.RazorHelpers;
+    
+    #line default
+    #line hidden
     using MvcSiteMapProvider.Web.Html;
     using MvcSiteMapProvider.Web.Html.Models;
     
@@ -47,8 +53,10 @@ namespace ASP
         }
         public override void Execute()
         {
+WriteLiteral("\r\n");
+
             
-            #line 2 "..\..\Views\Shared\_Bootstrap.cshtml"
+            #line 4 "..\..\Views\Shared\_Bootstrap.cshtml"
  if (TempData.ContainsKey(BootstrapMessage.TempDataKey))
 {
     var bootstrap = TempData[BootstrapMessage.TempDataKey] as Bootstrap;
@@ -57,14 +65,14 @@ namespace ASP
             #line default
             #line hidden
             
-            #line 5 "..\..\Views\Shared\_Bootstrap.cshtml"
+            #line 7 "..\..\Views\Shared\_Bootstrap.cshtml"
 Write(BootstrapBuilder.ShowBootstrapAlerts(bootstrap));
 
             
             #line default
             #line hidden
             
-            #line 5 "..\..\Views\Shared\_Bootstrap.cshtml"
+            #line 7 "..\..\Views\Shared\_Bootstrap.cshtml"
                                                     ;
 }
 

@@ -1,5 +1,8 @@
-﻿namespace MVC5.Common.Controller.Alerts
+﻿using System;
+
+namespace MVC5.Common.Controller.Alerts
 {
+    [Serializable]
     public class BootstrapMessage
     {
         public const string TempDataKey = "TempDataBootstrapAlerts";

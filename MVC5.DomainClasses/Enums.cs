@@ -13,23 +13,23 @@ namespace MVC5.DomainClasses
         /// <summary>
         /// Show emails
         /// </summary>
+        [Display(Name = "نمایش ایمیل")]
         ShowEmails = 1,
         /// <summary>
         /// Show usernames
         /// </summary>
+        [Display(Name = "نایش نام کاربری")]
         ShowUsernames = 2,
         /// <summary>
         /// Show full names
         /// </summary>
+        [Display(Name = "نمایش نام - نام خانوادگی")]
         ShowFullNames = 3,
         /// <summary>
         /// Show first name
         /// </summary>
-        ShowFirstName = 4,
-        /// <summary>
-        /// Show shorted name and city
-        /// </summary>
-        ShowNameAndCity = 5
+        [Display(Name = "نمایش نام")]
+        ShowFirstName = 4
     }
 
     public enum UserRegistrationType : int
@@ -37,18 +37,22 @@ namespace MVC5.DomainClasses
         /// <summary>
         /// Standard account creation
         /// </summary>
+        [Display(Name = "استاندارد")]
         Standard = 1,
         /// <summary>
         /// Email validation is required after registration
         /// </summary>
+        [Display(Name = "فعال سازی با ایمیل")]
         EmailValidation = 2,
         /// <summary>
         /// A customer should be approved by administrator
         /// </summary>
+        [Display(Name = "با تآیید مدیر")]
         AdminApproval = 3,
         /// <summary>
         /// Registration is disabled
         /// </summary>
+        [Display(Name = "غیر فعال")]
         Disabled = 4,
     }
 

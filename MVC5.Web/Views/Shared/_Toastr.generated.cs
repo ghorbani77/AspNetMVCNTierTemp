@@ -35,6 +35,12 @@ namespace ASP
     #line hidden
     using MVC5.ViewModel;
     using MVC5.Web;
+    
+    #line 2 "..\..\Views\Shared\_Toastr.cshtml"
+    using MVC5.Web.RazorHelpers;
+    
+    #line default
+    #line hidden
     using MvcSiteMapProvider.Web.Html;
     using MvcSiteMapProvider.Web.Html.Models;
     
@@ -48,7 +54,7 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 2 "..\..\Views\Shared\_Toastr.cshtml"
+            #line 3 "..\..\Views\Shared\_Toastr.cshtml"
  if (TempData.ContainsKey(ToastMessage.TempDataKey))
 {
     var toastr = TempData[ToastMessage.TempDataKey] as Toastr;
@@ -57,14 +63,14 @@ namespace ASP
             #line default
             #line hidden
             
-            #line 5 "..\..\Views\Shared\_Toastr.cshtml"
+            #line 6 "..\..\Views\Shared\_Toastr.cshtml"
 Write(ToastrBuilder.ShowToastMessages(toastr));
 
             
             #line default
             #line hidden
             
-            #line 5 "..\..\Views\Shared\_Toastr.cshtml"
+            #line 6 "..\..\Views\Shared\_Toastr.cshtml"
                                             ;
 }
 

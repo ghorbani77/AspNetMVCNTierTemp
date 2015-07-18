@@ -2,7 +2,7 @@
 using AutoMapper;
 using AutoMapper.Internal;
 using AutoMapper.Mappers;
-using MVC5.AutoMapperProfiles;
+using MVC5.AutoMapperProfiles.User;
 using StructureMap.Configuration.DSL;
 using StructureMap.Web;
 
@@ -27,7 +27,7 @@ namespace MVC5.IocConfig
             For<IMappingEngine>().Singleton().Use<MappingEngine>()
                                  .SelectConstructor(() => new MappingEngine(null));
 
-            this.Scan(scanner =>
+            Scan(scanner =>
             {
 
                 scanner.AssemblyContainingType<UserProfile>();

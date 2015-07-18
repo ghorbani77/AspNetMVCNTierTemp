@@ -15,16 +15,10 @@ namespace MVC5.Common.Controller.Alerts
         {
             BootstrapMessages=new List<BootstrapMessage>();
         }
-        public BootstrapMessage AddBootstrapMessage(string title, string message,bool dismissable, string  alertType=AlertType.Information)
+        public BootstrapMessage AddBootstrapMessage(BootstrapMessage message)
         {
-            var bootstrap = new BootstrapMessage()
-            {
-                Message = message,
-                AlertType = alertType,
-                Dismissable = dismissable
-            };
-            BootstrapMessages.Add(bootstrap);
-            return bootstrap;
+            BootstrapMessages.Add(message);
+            return message;
         }
 
        

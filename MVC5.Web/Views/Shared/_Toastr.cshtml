@@ -1,4 +1,5 @@
 ﻿@using MVC5.Common.Controller.Alerts
+@using MVC5.Web.RazorHelpers
 @if (TempData.ContainsKey(ToastMessage.TempDataKey))
 {
     var toastr = TempData[ToastMessage.TempDataKey] as Toastr;

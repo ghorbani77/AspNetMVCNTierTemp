@@ -9,50 +9,104 @@ namespace MVC5.Common.Controller
 {
     public class BaseController : System.Web.Mvc.Controller
     {
+
         #region boostrapalerts
         public void BoostrapSuccess(string message, bool dismissable = false)
         {
-            this.AddBootstrapAlert(AlertType.Success, message, dismissable);
+            var bootstrapMessage = new BootstrapMessage
+            {
+                AlertType = AlertType.Success,
+                Dismissable = dismissable,
+                Message = message
+            };
+            this.AddBootstrapAlert(bootstrapMessage);
         }
 
         public void BoostrapInformation(string message, bool dismissable = false)
         {
-            this.AddBootstrapAlert(AlertType.Information, message, dismissable);
+            var bootstrapMessage = new BootstrapMessage
+            {
+                AlertType = AlertType.Information,
+                Dismissable = dismissable,
+                Message = message
+            };
+            this.AddBootstrapAlert(bootstrapMessage);
         }
 
         public void BoostrapWarning(string message, bool dismissable = false)
         {
-            this.AddBootstrapAlert(AlertType.Warning, message, dismissable);
+            var bootstrapMessage = new BootstrapMessage
+            {
+                AlertType = AlertType.Warning,
+                Dismissable = dismissable,
+                Message = message
+            };
+            this.AddBootstrapAlert(bootstrapMessage);
         }
 
         public void BoostrapDanger(string message, bool dismissable = false)
         {
-            this.AddBootstrapAlert(AlertType.Danger, message, dismissable);
+            var bootstrapMessage = new BootstrapMessage
+            {
+                AlertType = AlertType.Danger,
+                Dismissable = dismissable,
+                Message = message
+            };
+            this.AddBootstrapAlert(bootstrapMessage);
         }
 
         #endregion
 
         #region toastralerts
 
-        public void ToastrDanger(string message, string title,
+        public void ToastrDanger(string message, string title="",
             bool isSticky = false)
         {
-            this.AddToastrAlert(AlertType.Danger, title, message, isSticky);
+            var toastMessage = new ToastMessage
+            {
+                AlertType = AlertType.Danger,
+                IsSticky = isSticky,
+                Message = message,
+                Title = title
+            };
+
+            this.AddToastrAlert(toastMessage);
         }
-        public void ToastrWarning(string message, string title,
+        public void ToastrWarning(string message, string title="",
           bool isSticky = false)
         {
-            this.AddToastrAlert(AlertType.Warning, title, message, isSticky);
+            var toastMessage = new ToastMessage
+            {
+                AlertType = AlertType.Warning,
+                IsSticky = isSticky,
+                Message = message,
+                Title = title
+            };
+            this.AddToastrAlert(toastMessage);
         }
-        public void ToastrInformation(string message, string title,
+        public void ToastrInformation(string message, string title="",
           bool isSticky = false)
         {
-            this.AddToastrAlert(AlertType.Information, title, message, isSticky);
+            var toastMessage = new ToastMessage
+            {
+                AlertType = AlertType.Information,
+                IsSticky = isSticky,
+                Message = message,
+                Title = title
+            };
+            this.AddToastrAlert(toastMessage);
         }
-        public void ToastrSuccess(string message, string title,
+        public void ToastrSuccess(string message, string title="",
           bool isSticky = false)
         {
-            this.AddToastrAlert(AlertType.Success, title, message, isSticky);
+            var toastMessage = new ToastMessage
+            {
+                AlertType = AlertType.Success,
+                IsSticky = isSticky,
+                Message = message,
+                Title = title
+            };
+            this.AddToastrAlert(toastMessage);
         }
         #endregion
 

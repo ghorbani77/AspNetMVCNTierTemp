@@ -73,12 +73,8 @@
     <Compile Include="Entities\ApplicationUserRole.cs" />
     <Compile Include="Entities\EmailAccount.cs" />
     <Compile Include="Entities\Setting.cs" />
-    <Compile Include="Settings\ISettings.cs" />
-    <Compile Include="Settings\SocialSetting.cs" />
-    <Compile Include="Settings\SystemSetting.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\UserSetting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -22,8 +22,9 @@ namespace MVC5.Web
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/respond.min.js",
                 "~/Scripts/plugins/fileinput.min.js",
-                "~/Scripts/site.min.js",
-                "~/Scripts/toastr.min.js"));
+                "~/Scripts/toastr.min.js"
+                //"~/Scripts/site.min.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap-flat.min.css",

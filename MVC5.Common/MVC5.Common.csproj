@@ -110,11 +110,15 @@
     <Compile Include="Controller\Alerts\Toastr.cs" />
     <Compile Include="Controller\BaseController.cs" />
     <Compile Include="Controller\CookieTempDataProvider.cs" />
+    <Compile Include="Controller\CustomTempDataProvider.cs" />
     <Compile Include="Filters\ActivityLogAttribute.cs" />
     <Compile Include="Filters\CheckReferrerAttribute.cs" />
     <Compile Include="Filters\ElmahRequestValidationErrorFilter.cs" />
+    <Compile Include="Filters\JsonPersistAttribute.cs" />
     <Compile Include="Filters\NoBrowserCacheAttribute.cs" />
     <Compile Include="Filters\SetIfModifiedSinceAttribute.cs" />
+    <Compile Include="Helpers\Extentions\ConvertExtentions.cs" />
+    <Compile Include="Helpers\Extentions\TypeExtentions.cs" />
     <Compile Include="Helpers\RegexHelpers.cs" />
     <Compile Include="HttpCompress\CompressingFilter.cs" />
     <Compile Include="Controller\ISessionProvider.cs" />

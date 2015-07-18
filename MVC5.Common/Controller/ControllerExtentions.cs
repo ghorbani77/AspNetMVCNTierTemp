@@ -171,38 +171,26 @@ namespace MVC5.Common.Controller
         #endregion
 
         #region Alerts
-        public static void AddToastrAlert(this System.Web.Mvc.Controller controller, string alertStyle, string title,string message, bool isSticky)
+        public static void AddToastrAlert(this System.Web.Mvc.Controller controller, ToastMessage message)
         {
-            var alerts = controller.TempData.ContainsKey(ToastMessage.TempDataKey)
-                ? (List<ToastMessage>)controller.TempData[ToastMessage.TempDataKey]
-                : new List<ToastMessage>();
+            var toastr = controller.TempData.ContainsKey(ToastMessage.TempDataKey)
+                ? (Toastr)controller.TempData[ToastMessage.TempDataKey]
+                : new Toastr();
 
-            alerts.Add(new ToastMessage
-            {
-                AlertType = alertStyle,
-                Message = message,
-                IsSticky = isSticky,
-                Title = title
-            });
-
-            controller.TempData[BootstrapMessage.TempDataKey] = alerts;
+            toastr.AddToastMessage(message);
+           
+            controller.TempData[ToastMessage.TempDataKey] = toastr;
         }
-        public static void AddBootstrapAlert(this System.Web.Mvc.Controller controller, string alertStyle, string message, bool dismissable)
+        public static void AddBootstrapAlert(this System.Web.Mvc.Controller controller, BootstrapMessage message)
         {
-            var alerts = controller.TempData.ContainsKey(BootstrapMessage.TempDataKey)
-                ? (List<BootstrapMessage>)controller.TempData[BootstrapMessage.TempDataKey]
-                : new List<BootstrapMessage>();
+            var bootstrap = controller.TempData.ContainsKey(BootstrapMessage.TempDataKey)
+                ? (Bootstrap)controller.TempData[BootstrapMessage.TempDataKey]
+                : new Bootstrap();
 
-            alerts.Add(new BootstrapMessage
-            {
-                AlertType = alertStyle,
-                Message = message,
-                Dismissable = dismissable
-            });
-
-            controller.TempData[BootstrapMessage.TempDataKey] = alerts;
+            bootstrap.AddBootstrapMessage(message);
+          
+            controller.TempData[BootstrapMessage.TempDataKey] = bootstrap;
         }
-
 
         #endregion
     }

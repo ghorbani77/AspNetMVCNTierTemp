@@ -66,7 +66,7 @@ namespace MVC5.Common.MVC
                 bytes[1] = color.G;
                 bytes[2] = color.B;
                 var chars = new char[bytes.Length * 2];
-                for (int i = 0; i < bytes.Length; i++)
+                for (var i = 0; i < bytes.Length; i++)
                 {
                     int b = bytes[i];
                     chars[i * 2] = HexDigits[b >> 4];

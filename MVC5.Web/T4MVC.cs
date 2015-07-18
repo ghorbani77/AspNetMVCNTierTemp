@@ -27,8 +27,8 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
-    static readonly AdminstratorClass s_Adminstrator = new AdminstratorClass();
-    public static AdminstratorClass Adminstrator { get { return s_Adminstrator; } }
+    static readonly AdministratorClass s_Administrator = new AdministratorClass();
+    public static AdministratorClass Administrator { get { return s_Administrator; } }
     public static MVC5.Web.Controllers.AccountController Account = new MVC5.Web.Controllers.T4MVC_AccountController();
     public static MVC5.Web.Controllers.ExportController Export = new MVC5.Web.Controllers.T4MVC_ExportController();
     public static MVC5.Web.Controllers.HomeController Home = new MVC5.Web.Controllers.T4MVC_HomeController();
@@ -40,13 +40,14 @@ public static partial class MVC
 namespace T4MVC
 {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class AdminstratorClass
+    public class AdministratorClass
     {
-        public readonly string Name = "Adminstrator";
-        public MVC5.Web.Areas.Adminstrator.Controllers.HomeController Home = new MVC5.Web.Areas.Adminstrator.Controllers.T4MVC_HomeController();
-        public MVC5.Web.Areas.Adminstrator.Controllers.RoleController Role = new MVC5.Web.Areas.Adminstrator.Controllers.T4MVC_RoleController();
-        public MVC5.Web.Areas.Adminstrator.Controllers.UserController User = new MVC5.Web.Areas.Adminstrator.Controllers.T4MVC_UserController();
-        public T4MVC.Adminstrator.SharedController Shared = new T4MVC.Adminstrator.SharedController();
+        public readonly string Name = "Administrator";
+        public MVC5.Web.Areas.Administrator.Controllers.HomeController Home = new MVC5.Web.Areas.Administrator.Controllers.T4MVC_HomeController();
+        public MVC5.Web.Areas.Administrator.Controllers.RoleController Role = new MVC5.Web.Areas.Administrator.Controllers.T4MVC_RoleController();
+        public MVC5.Web.Areas.Administrator.Controllers.SettingController Setting = new MVC5.Web.Areas.Administrator.Controllers.T4MVC_SettingController();
+        public MVC5.Web.Areas.Administrator.Controllers.UserController User = new MVC5.Web.Areas.Administrator.Controllers.T4MVC_UserController();
+        public T4MVC.Administrator.SharedController Shared = new T4MVC.Administrator.SharedController();
     }
 }
 

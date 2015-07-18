@@ -13,6 +13,9 @@ using Newtonsoft.Json;
 
 namespace MVC5.Common.Controller
 {
+    /// <summary>
+    /// protected tempdata with machinkey of form authentication 
+    /// </summary>
     public class CookieTempDataProvider : ITempDataProvider
     {
         public static event EventHandler<Exception> ValidationException;
@@ -60,7 +63,7 @@ namespace MVC5.Common.Controller
             // if we don't have a value and there's no prior cookie then exit
             if (value == null && !controllerContext.HttpContext.Request.Cookies.AllKeys.Contains(CookieName)) return;
 
-            var c = new HttpCookie(CookieName, value)
+            var cookie = new HttpCookie(CookieName, value)
             {
                 // don't allow javascript access to the cookie
                 HttpOnly = true,
@@ -73,10 +76,10 @@ namespace MVC5.Common.Controller
             if (value == null)
             {
                 // if we have no data then issue an expired cookie to clear the cookie
-                c.Expires = DateTime.Now.AddMonths(-1);
+                cookie.Expires = DateTime.Now.AddMonths(-1);
             }
 
-            controllerContext.HttpContext.Response.Cookies.Add(c);
+            controllerContext.HttpContext.Response.Cookies.Add(cookie);
         }
 
         static string GetAnonMachineKeyPurpose()

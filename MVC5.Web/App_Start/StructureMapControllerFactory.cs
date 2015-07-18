@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using MVC5.Common.Controller;
 using MVC5.IocConfig;
 
 namespace MVC5.Web
@@ -25,7 +24,8 @@ namespace MVC5.Web
             var controller = ProjectObjectFactory.Container.GetInstance(controllerType) as Controller;
             if (controller != null)
             {
-                controller.TempDataProvider = new CookieTempDataProvider();
+                controller.TempDataProvider = ProjectObjectFactory.Container.GetInstance<ITempDataProvider>();
+
             }
             return controller;
         }

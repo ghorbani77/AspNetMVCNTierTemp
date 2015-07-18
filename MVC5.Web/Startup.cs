@@ -53,7 +53,6 @@ namespace MVC5.Web
             appBuilder.UseExternalSignInCookie();
           
           
-
             appBuilder.UseFacebookAuthentication(
                appId: "fdsfdsfs",
                appSecret: "fdfsfs");

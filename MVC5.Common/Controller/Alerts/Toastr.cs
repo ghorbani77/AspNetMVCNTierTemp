@@ -9,8 +9,10 @@ namespace MVC5.Common.Controller.Alerts
     [Serializable]
     public class Toastr
     {
+
         public bool ShowNewestOnTop { get; set; }
         public bool ShowCloseButton { get; set; }
+        public bool ProgressBar { get; set; }
         public IList<ToastMessage> ToastMessages { get; set; }
 
         public Toastr()
@@ -18,16 +20,10 @@ namespace MVC5.Common.Controller.Alerts
             ToastMessages = new List<ToastMessage>();
             ShowNewestOnTop = false;
             ShowCloseButton = false;
+            ProgressBar = true;
         }
-        public ToastMessage AddToastMessage(string title, string message, bool isSticky,string alertType=AlertType.Information)
+        public ToastMessage AddToastMessage(ToastMessage toast)
         {
-            var toast = new ToastMessage()
-            {
-                Title = title,
-                Message = message,
-                AlertType = alertType,
-                IsSticky = isSticky
-            };
             ToastMessages.Add(toast);
             return toast;
         }

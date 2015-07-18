@@ -19,10 +19,9 @@ namespace MVC5.Web.Controllers
         #endregion
         public virtual ActionResult Index()
         {
-           ToastrSuccess("سلام","تست");
+           ToastrSuccess("سلام");
             return View();
         }
-
 
         //for waterMark site images 
         //[OutputCache(VaryByParam = "fileName", Duration = ADay)]
@@ -47,8 +46,8 @@ namespace MVC5.Web.Controllers
 
         public virtual ActionResult About()
         {
-            ToastrWarning("سلام", "تست");
-           return  RedirectToAction(MVC.Home.ActionNames.Index);
+            ToastrWarning("سلام");
+            return RedirectToAction("Index");
         }
 
         public virtual ActionResult Contact()

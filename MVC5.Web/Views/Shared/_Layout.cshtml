@@ -1,9 +1,10 @@
-﻿@using StackExchange.Profiling
+﻿@using MVC5.Common.Controller.Alerts
+@using StackExchange.Profiling
 <!DOCTYPE html>
 <html lang="fa">
 <head>
 
-    @RenderSection("meta",false)
+    @RenderSection("meta", false)
 
     <!--[if lt IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
@@ -12,10 +13,8 @@
         <script src="/Scripts/warning.js"></script>
         <script>window.onload = function () { e("js/ie6/") ;}</script><![endif]-->
     <!--noscript-->
-
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
     <noscript>
         <meta http-equiv="refresh" content="0;url=/NoScript.html">
     </noscript>
@@ -52,19 +51,18 @@
         </div>
     </header>
 
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <hr />
-        @{Html.RenderPartial(MVC.Shared.Views._Toastr);}
+
         @RenderBody()
     </div>
 
-    <footer>
-
-    </footer>
-
+    <footer></footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @{Html.RenderPartial(MVC.Shared.Views.ViewNames._Toastr);}
     @MiniProfiler.RenderIncludes()
+
 </body>
 </html>

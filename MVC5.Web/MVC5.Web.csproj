@@ -219,6 +219,9 @@
       <HintPath>..\packages\RazorGenerator.Mvc.2.3.5\lib\net40\RazorGenerator.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RazorGenerator.Templating">
+      <HintPath>..\packages\RazorGenerator.Templating.2.3.3\lib\portable-net40+sl50+win+wpa81+wp80\RazorGenerator.Templating.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.3.1.6.186\lib\net40\StructureMap.dll</HintPath>
       <Private>True</Private>
@@ -315,24 +318,32 @@
     <Compile Include="AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Adminstrator.HomeController.generated.cs">
+    <Compile Include="Administrator.HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Adminstrator.RoleController.generated.cs">
+    <Compile Include="Administrator.RoleController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Adminstrator.SharedController.generated.cs">
+    <Compile Include="Administrator.SettingController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Adminstrator.UserController.generated.cs">
+    <Compile Include="Administrator.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\BootstrapBuilder.generated.cs">
+    <Compile Include="Administrator.UserController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
+    <Compile Include="Areas\Administrator\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\RoleController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\SettingController.cs" />
+    <Compile Include="Areas\Administrator\Controllers\UserController.cs" />
+    <Compile Include="RazorHelpers\BootstrapBuilder.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BootstrapBuilder.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="App_Code\ToastrBuilder.generated.cs">
+    <Compile Include="RazorHelpers\ToastrBuilder.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ToastrBuilder.cshtml</DependentUpon>
@@ -346,55 +357,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructureMapControllerFactory.cs" />
     <Compile Include="App_Start\StructureMapFilterProvider.cs" />
-    <Compile Include="Areas\Adminstrator\AdminstratorAreaRegistration.cs" />
-    <Compile Include="Areas\Adminstrator\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Adminstrator\Controllers\RoleController.cs" />
-    <Compile Include="Areas\Adminstrator\Controllers\UserController.cs" />
-    <Compile Include="Areas\Adminstrator\Views\Home\Index1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\Role\Create.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Create.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\Role\Edit.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\Role\List.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>List.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\Shared\_Layout.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_Layout.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\User\Create.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Create.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\User\Edit.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Edit.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\User\List.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>List.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\Adminstrator\Views\_ViewStart1.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>_ViewStart.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -414,6 +376,11 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleTemplate.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SampleTemplate.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Searching\LuceneProducts.cs" />
     <Compile Include="Searching\YeKe.cs" />
     <Compile Include="SharedController.generated.cs">
@@ -720,17 +687,6 @@
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Adminstrator\Views\Home\Index.cshtml">
-      <LastGenOutput>Index1.generated.cs</LastGenOutput>
-      <Generator>RazorGenerator</Generator>
-    </Content>
-    <Content Include="Areas\Adminstrator\Views\web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Areas\Adminstrator\Views\_ViewStart.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_ViewStart1.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\fonts\BYekan.eot" />
     <Content Include="Content\fonts\BYekan.ttf" />
     <Content Include="Content\fonts\BYekan.woff" />
@@ -761,30 +717,6 @@
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="manifest.json" />
     <Content Include="Mvc.sitemap" />
-    <Content Include="Areas\Adminstrator\Views\Role\List.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>List.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Areas\Adminstrator\Views\Role\Create.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Create.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Areas\Adminstrator\Views\Role\Edit.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Edit.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Areas\Adminstrator\Views\User\List.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>List.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Areas\Adminstrator\Views\User\Edit.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Edit.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Areas\Adminstrator\Views\User\Create.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Create.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\fonts\Material-Design-Icons.eot" />
     <Content Include="Content\fonts\Material-Design-Icons.ttf" />
     <Content Include="Content\fonts\Material-Design-Icons.woff" />
@@ -796,25 +728,26 @@
     <Content Include="Content\fonts\RobotoDraftMedium.woff2" />
     <Content Include="Content\fonts\RobotoDraftRegular.woff" />
     <Content Include="Content\fonts\RobotoDraftRegular.woff2" />
-    <Content Include="Areas\Adminstrator\Views\Shared\_Layout.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>_Layout.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_Code\BootstrapBuilder.cshtml">
+    <Content Include="RazorHelpers\BootstrapBuilder.cshtml">
       <LastGenOutput>BootstrapBuilder.generated.cs</LastGenOutput>
       <BrowseToURL>~/BootstrapBuilder.cshtml</BrowseToURL>
       <Generator>RazorGenerator</Generator>
     </Content>
-    <Content Include="App_Code\ToastrBuilder.cshtml">
+    <Content Include="RazorHelpers\ToastrBuilder.cshtml">
       <LastGenOutput>ToastrBuilder.generated.cs</LastGenOutput>
       <BrowseToURL>~/ToastrBuilder.cshtml</BrowseToURL>
       <Generator>RazorGenerator</Generator>
     </Content>
+    <Content Include="Areas\Administrator\Views\web.config" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Scripts\admin.min.js.map">
       <DependentUpon>admin.min.js</DependentUpon>
+    </Content>
+    <Content Include="SampleTemplate.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SampleTemplate.generated.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1060,6 +993,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\avatar\" />
+    <Folder Include="Areas\Administrator\Models\" />
+    <Folder Include="Areas\Administrator\Views\Home\" />
+    <Folder Include="Areas\Administrator\Views\Shared\" />
     <Folder Include="Export\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Export\" />
