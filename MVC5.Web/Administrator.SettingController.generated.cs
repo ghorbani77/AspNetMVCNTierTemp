@@ -100,7 +100,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _ExternalAuthSetting = "_ExternalAuthSetting";
+                public readonly string _UserSetting = "_UserSetting";
+                public readonly string UserSetting = "UserSetting";
             }
+            public readonly string _ExternalAuthSetting = "~/Areas/Administrator/Views/Setting/_ExternalAuthSetting.cshtml";
+            public readonly string _UserSetting = "~/Areas/Administrator/Views/Setting/_UserSetting.cshtml";
+            public readonly string UserSetting = "~/Areas/Administrator/Views/Setting/UserSetting.cshtml";
         }
     }
 

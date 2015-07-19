@@ -12,26 +12,8 @@
 namespace ASP
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Text;
-    using System.Web;
-    using System.Web.Helpers;
-    using System.Web.Mvc;
-    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-    using System.Web.Optimization;
-    using System.Web.Routing;
-    using System.Web.Security;
-    using System.Web.UI;
-    using System.Web.WebPages;
-    using MVC5.ViewModel;
-    using MVC5.Web;
-    using MvcSiteMapProvider.Web.Html;
-    using MvcSiteMapProvider.Web.Html.Models;
-    
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Manage/ManageLogins.cshtml")]
     public partial class _Views_Manage_ManageLogins_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.ManageLoginsViewModel>

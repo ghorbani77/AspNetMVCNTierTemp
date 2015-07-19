@@ -5,18 +5,21 @@ using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
-using MVC5.ServiceLayer.Settings;
 using MVC5.ViewModel.AdminArea.Setting;
+using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    // [MvcAuthorize(Description = "مدیریت تنظیمات سایت", Roles = "CanManageSettings", CanBeMenu = true)]
+    [MvcAuthorize(Description = "مدیریت تنظیمات سایت", DefaultActioName = "List", Roles = "CanManageSettings",
+        CanBeMenu = true, AreaName = "Administrator")]
     public partial class SettingController : BaseController
     {
         #region Fields
+
         private readonly IMappingEngine _mappingEngine;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISettingService _settingService;
+
         #endregion
 
         #region ctor
@@ -27,11 +30,14 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             _settingService = settingService;
             _mappingEngine = mappingEngine;
         }
+
         #endregion
 
         #region User
+
         [HttpGet]
-        // [MvcAuthorize(Description = "ویرایش تنظیمات کاربری", Roles = "CanManageSettings,CanEditUserSetting", CanBeMenu = true)]
+        [MvcAuthorize(Description = "ویرایش تنظیمات کاربری", Roles = "CanManageSettings,CanEditUserSetting",
+            CanBeMenu = true)]
         [ActivityLog(Description = "ویرایش تنظیمات کاربری", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting()
         {
@@ -43,7 +49,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CheckReferrer]
-        //  [MvcAuthorize(Description = "ویرایش تنظیمات کاربری", Roles = "CanManageSettings,CanEditUserSetting", CanBeMenu = true)]
+        [MvcAuthorize(Description = "ویرایش تنظیمات کاربری", Roles = "CanManageSettings,CanEditUserSetting", CanBeMenu = true)]
         [ActivityLog(Description = "ویرایش تنظیمات کاربری", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting(UserSettingsViewModel viewModel)
         {
@@ -53,6 +59,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             return RedirectToAction(MVC.Administrator.Home.ActionNames.Index, MVC.Administrator.Home.Name);
 
         }
+
         #endregion
 
     }

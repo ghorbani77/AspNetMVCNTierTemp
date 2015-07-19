@@ -1,6 +1,5 @@
 ﻿
 $(function () {
-
     $('a.nofollow').attr('rel', 'nofollo');
     AjaxForm.EnableBootstrapStyleValidation();
     AjaxForm.EnablePostbackValidation();

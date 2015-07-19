@@ -7,6 +7,7 @@ using System.Web.UI;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Mvc.Mailer;
+using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Mailers;
@@ -19,9 +20,9 @@ using MVC5.ViewModel.Account;
 
 namespace MVC5.Web.Controllers
 {
-    [MvcAuthorize]
+   // [MvcAuthorize]
     [DisplayName("")]
-    public partial class AccountController : Controller
+    public partial class AccountController : BaseController
     {
         #region Fields
         private readonly IMappingEngine _mapperEngine;
@@ -388,15 +389,7 @@ namespace MVC5.Web.Controllers
 
         #region Validation
 
-        [ChildActionOnly]
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name, new { area = "" });
-        }
+       
         [HttpPost]
         [AllowAnonymous]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -411,6 +404,14 @@ namespace MVC5.Web.Controllers
         public virtual JsonResult IsPhoneNumberExist(string phoneNumber)
         {
             return _userManager.IsPhoneNumberInDatabase(phoneNumber) ? Json(false) : Json(true);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsUserNameExist(string userName)
+        {
+            return _userManager.IsUserNameInDatabase(userName) ? Json(false) : Json(true);
         }
         #endregion
 

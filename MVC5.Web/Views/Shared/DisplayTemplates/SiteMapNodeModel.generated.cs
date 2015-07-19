@@ -21,12 +21,7 @@ namespace ASP
     using System.Web.Helpers;
     using System.Web.Mvc;
     using System.Web.Mvc.Ajax;
-    
-    #line 2 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
     using System.Web.Mvc.Html;
-    
-    #line default
-    #line hidden
     using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
@@ -35,12 +30,7 @@ namespace ASP
     using MVC5.ViewModel;
     using MVC5.Web;
     using MvcSiteMapProvider.Web.Html;
-    
-    #line 3 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
     using MvcSiteMapProvider.Web.Html.Models;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/DisplayTemplates/SiteMapNodeModel.cshtml")]
@@ -51,10 +41,8 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("\n");
-
             
-            #line 5 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 3 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
  if (Model.IsCurrentNode && Model.SourceMetadata["HtmlHelper"].ToString() != "MvcSiteMapProvider.Web.Html.MenuHelper")  { 
 
             
@@ -63,7 +51,7 @@ WriteLiteral("\n");
 WriteLiteral("    ");
 
             
-            #line 6 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 4 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
      Write(Model.Title);
 
             
@@ -72,7 +60,7 @@ WriteLiteral("    ");
 WriteLiteral("\n");
 
             
-            #line 7 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 5 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
 } else if (Model.IsClickable) { 
     if (string.IsNullOrEmpty(Model.Description))
     {
@@ -82,20 +70,20 @@ WriteLiteral("\n");
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 380), Tuple.Create("\"", 397)
+WriteAttribute("href", Tuple.Create(" href=\"", 311), Tuple.Create("\"", 328)
             
-            #line 10 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
-, Tuple.Create(Tuple.Create("", 387), Tuple.Create<System.Object, System.Int32>(Model.Url
+            #line 8 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+, Tuple.Create(Tuple.Create("", 318), Tuple.Create<System.Object, System.Int32>(Model.Url
             
             #line default
             #line hidden
-, 387), false)
+, 318), false)
 );
 
 WriteLiteral(">");
 
             
-            #line 10 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 8 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
                         Write(Model.Title);
 
             
@@ -104,7 +92,7 @@ WriteLiteral(">");
 WriteLiteral("</a>\n");
 
             
-            #line 11 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 9 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
     }
     else
     {
@@ -114,30 +102,30 @@ WriteLiteral("</a>\n");
             #line hidden
 WriteLiteral("        <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 447), Tuple.Create("\"", 464)
+WriteAttribute("href", Tuple.Create(" href=\"", 378), Tuple.Create("\"", 395)
             
-            #line 14 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
-, Tuple.Create(Tuple.Create("", 454), Tuple.Create<System.Object, System.Int32>(Model.Url
+            #line 12 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+, Tuple.Create(Tuple.Create("", 385), Tuple.Create<System.Object, System.Int32>(Model.Url
             
             #line default
             #line hidden
-, 454), false)
+, 385), false)
 );
 
-WriteAttribute("title", Tuple.Create(" title=\"", 465), Tuple.Create("\"", 491)
+WriteAttribute("title", Tuple.Create(" title=\"", 396), Tuple.Create("\"", 422)
             
-            #line 14 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
-, Tuple.Create(Tuple.Create("", 473), Tuple.Create<System.Object, System.Int32>(Model.Description
+            #line 12 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+, Tuple.Create(Tuple.Create("", 404), Tuple.Create<System.Object, System.Int32>(Model.Description
             
             #line default
             #line hidden
-, 473), false)
+, 404), false)
 );
 
 WriteLiteral(">");
 
             
-            #line 14 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 12 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
                                                    Write(Model.Title);
 
             
@@ -146,7 +134,7 @@ WriteLiteral(">");
 WriteLiteral("</a>\n");
 
             
-            #line 15 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 13 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
     }
 } else { 
 
@@ -156,7 +144,7 @@ WriteLiteral("</a>\n");
 WriteLiteral("    ");
 
             
-            #line 17 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 15 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
      Write(Model.Title);
 
             
@@ -165,7 +153,7 @@ WriteLiteral("    ");
 WriteLiteral("\n");
 
             
-            #line 18 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
+            #line 16 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml"
 }
 
             

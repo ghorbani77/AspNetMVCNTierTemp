@@ -1,12 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Net.Mime;
-using System.Web.Helpers;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MVC5.Common.Controller;
-using MVC5.Common.Helpers.Extentions;
 
 namespace MVC5.Web.Controllers
 {
@@ -16,6 +9,10 @@ namespace MVC5.Web.Controllers
         #region Fields
         private const int ADay = 86400;
 
+        #endregion
+
+        #region Ctor
+      
         #endregion
         public virtual ActionResult Index()
         {

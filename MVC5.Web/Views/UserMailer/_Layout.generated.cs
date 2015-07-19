@@ -32,12 +32,6 @@ namespace ASP
     using MvcSiteMapProvider.Web.Html;
     using MvcSiteMapProvider.Web.Html.Models;
     
-    #line 1 "..\..\Views\UserMailer\_Layout.cshtml"
-    using StackExchange.Profiling;
-    
-    #line default
-    #line hidden
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/UserMailer/_Layout.cshtml")]
     public partial class _Views_UserMailer__Layout_cshtml : System.Web.Mvc.WebViewPage<dynamic>
@@ -80,7 +74,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 21 "..\..\Views\UserMailer\_Layout.cshtml"
+            #line 20 "..\..\Views\UserMailer\_Layout.cshtml"
    Write(RenderBody());
 
             

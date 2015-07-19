@@ -12,10 +12,8 @@ namespace MVC5.DomainClasses.Entities
     {
         public virtual bool IsBanned { get; set; }
         [MaxLength(50)]
-        [Required]
         public virtual string FirstName { get; set; }
         [MaxLength(50)]
-        [Required]
         public virtual string LastName { get; set; }
         public virtual bool IsDeleted { get; set; }
         public virtual bool IsSystemAccount { get; set; }
@@ -23,7 +21,7 @@ namespace MVC5.DomainClasses.Entities
         public virtual string AdminComment { get; set; }
         [MaxLength(50)]
         [Required]
-        public virtual string AvatarPath { get; set; }
+        public virtual string AvatarFileName { get; set; }
         public virtual DateTime? BirthDay { get; set; }
         public virtual DateTime RegisterDate { get; set; }
         [MaxLength(50)]
@@ -31,6 +29,7 @@ namespace MVC5.DomainClasses.Entities
         [MaxLength(50)]
         public virtual string FaceBookId { get; set; }
         public virtual DateTime? BannedDate { get; set; }
+        public virtual string LastIp { get; set; }
         public virtual DateTime? LastLoginDate { get; set; }
         public virtual DateTime? LastActivity { get; set; }
         public virtual CommentPermissionType CommentPermission { get; set; }

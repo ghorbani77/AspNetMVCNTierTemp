@@ -11,11 +11,6 @@
 
 namespace ASP
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     public partial class _SampleTemplate_cshtml : RazorGenerator.Templating.RazorTemplateBase
     {

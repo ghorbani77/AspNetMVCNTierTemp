@@ -27,19 +27,13 @@ namespace MVC5.Web.RazorHelpers
     using System.Web.UI;
     using System.Web.WebPages;
     
-    #line 3 "..\..\RazorHelpers\ToastrBuilder.cshtml"
-    using AttributeRouting.Helpers;
-    
-    #line default
-    #line hidden
-    
-    #line 4 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+    #line 2 "..\..\RazorHelpers\ToastrBuilder.cshtml"
     using MVC5.Common.Controller.Alerts;
     
     #line default
     #line hidden
     
-    #line 5 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+    #line 3 "..\..\RazorHelpers\ToastrBuilder.cshtml"
     using MVC5.Common.Helpers.Extentions;
     
     #line default
@@ -55,7 +49,7 @@ return new System.Web.WebPages.HelperResult(__razor_helper_writer => {
 
 
 
-#line 12 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 10 "..\..\RazorHelpers\ToastrBuilder.cshtml"
  
     if (toastr == null)
     {
@@ -69,7 +63,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    <script>\r\n    $(functi
 
 
 
-#line 19 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 17 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, toastr.ShowCloseButton);
 
 #line default
@@ -79,7 +73,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\';\r\n        toastr.option
 
 
 
-#line 20 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 18 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, toastr.ShowNewestOnTop);
 
 #line default
@@ -89,7 +83,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\';\r\n        toastr.option
 
 
 
-#line 21 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 19 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, toastr.ProgressBar);
 
 #line default
@@ -99,7 +93,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\';\r\n");
 
 
 
-#line 22 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 20 "..\..\RazorHelpers\ToastrBuilder.cshtml"
          foreach (var message in toastr.ToastMessages)
         {
             var toastTypeValue = message.AlertType.ToLower();
@@ -113,16 +107,18 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "var optionsOverride = { /* A
 
 
 
-#line 26 "..\..\RazorHelpers\ToastrBuilder.cshtml"
-                    if (message.IsSticky)
+#line 24 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+            if (message.IsSticky)
             {
+               
 
 #line default
 #line hidden
 
 WebViewPage.WriteLiteralTo(@__razor_helper_writer, "                ");
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "optionsOverride.timeOut = 0;\r\n        optionsOverride.extendedTimeout = 0;");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "toastr.options.timeOut = 0;\r\n        toastr.options.progressBar = false;\r\n       " +
+" toastr.options.extendedTimeout = 0;");
 
 WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n");
 
@@ -130,8 +126,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n");
 
 #line 30 "..\..\RazorHelpers\ToastrBuilder.cshtml"
             }
-
-            if (message.Title.HasValueOrEmpty())
+            if (message.Title.IsNotEmpty())
             {
 
 #line default
@@ -143,7 +138,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "toastr[\'");
 
 
 
-#line 34 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 33 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, toastTypeValue);
 
 #line default
@@ -153,7 +148,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\'](\'");
 
 
 
-#line 34 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 33 "..\..\RazorHelpers\ToastrBuilder.cshtml"
   WebViewPage.WriteTo(@__razor_helper_writer, message.Message);
 
 #line default
@@ -163,18 +158,18 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\', \'");
 
 
 
-#line 34 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 33 "..\..\RazorHelpers\ToastrBuilder.cshtml"
                       WebViewPage.WriteTo(@__razor_helper_writer, message.Title);
 
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\', optionsOverride);\r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\');\r\n");
 
 
 
-#line 35 "..\..\RazorHelpers\ToastrBuilder.cshtml"
-            }
+#line 34 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+              }
             else
             {
 
@@ -187,7 +182,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "toastr[\'");
 
 
 
-#line 38 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 37 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, toastTypeValue);
 
 #line default
@@ -197,18 +192,18 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\'](\'");
 
 
 
-#line 38 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 37 "..\..\RazorHelpers\ToastrBuilder.cshtml"
   WebViewPage.WriteTo(@__razor_helper_writer, message.Message);
 
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\', optionsOverride);\r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\');\r\n");
 
 
 
-#line 39 "..\..\RazorHelpers\ToastrBuilder.cshtml"
-            }
+#line 38 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+              }
         }
 
 #line default
@@ -218,7 +213,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    });\r\n    </script>\r\n
 
 
 
-#line 43 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 42 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 
 #line default
 #line hidden

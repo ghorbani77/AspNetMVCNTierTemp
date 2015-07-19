@@ -4,13 +4,19 @@ using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
+using EntityFramework.Extensions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
+using MVC5.DomainClasses;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ServiceLayer.IdentityExtentions;
+using MVC5.ServiceLayer.Security;
+using MVC5.ViewModel.Account;
+using MVC5.ViewModel.AdminArea.User;
 
 namespace MVC5.ServiceLayer.EFServiecs
 {
@@ -20,28 +26,26 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region Fields
         private readonly IDataProtectionProvider _dataProtectionProvider;
         private readonly IIdentityMessageService _emailService;
-        private readonly IApplicationRoleManager _roleManager;
         private readonly IIdentityMessageService _smsService;
+        private readonly IMappingEngine _mappingEngine;
         private readonly IUserStore<ApplicationUser, int> _userStore;
         #endregion
 
         #region Constructor
-
-        public ApplicationUserManager(IDataProtectionProvider dataProtectionProvider, IIdentityMessageService identityMessageService, IApplicationRoleManager roleManager, IUserStore<ApplicationUser, int> userStore)
+        public ApplicationUserManager(IMappingEngine mappingEngine, IDataProtectionProvider dataProtectionProvider, IIdentityMessageService identityMessageService, IUserStore<ApplicationUser, int> userStore)
             : base(userStore)
         {
             _dataProtectionProvider = dataProtectionProvider;
             _emailService = identityMessageService;
             _smsService = identityMessageService;
             _userStore = userStore;
-            _roleManager = roleManager;
+            _mappingEngine = mappingEngine;
 
-            this.CreateApplicationUserManager();
+            CreateApplicationUserManager();
         }
         #endregion
 
-        #region IApplicationUserManager
-
+        #region GenerateUserIdentityAsync
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUser applicationUser)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -49,6 +53,9 @@ namespace MVC5.ServiceLayer.EFServiecs
             // Add custom user claims here
             return userIdentity;
         }
+        #endregion
+
+        #region HasPassword
 
         public async Task<bool> HasPassword(int userId)
         {
@@ -56,12 +63,17 @@ namespace MVC5.ServiceLayer.EFServiecs
             return user != null && user.PasswordHash != null;
         }
 
+        #endregion
+
+        #region HasPhoneNumber
         public async Task<bool> HasPhoneNumber(int userId)
         {
             var user = await FindByIdAsync(userId);
             return user != null && user.PhoneNumber != null;
         }
+        #endregion
 
+        #region OnValidateIdentity
         public Func<CookieValidateIdentityContext, Task> OnValidateIdentity()
         {
             return SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, int>(
@@ -70,40 +82,31 @@ namespace MVC5.ServiceLayer.EFServiecs
                          getUserIdCallback: id => id.GetUserId<int>());
         }
 
-        public void SeedDatabase()
+        #endregion
+
+        #region SeedDatabase
+        public async Task SeedDatabase(InstallViewModel viewModel)
         {
-            const string name = "admin@example.com";
-            const string password = "Admin@123456";
-            const string roleName = "Admin";
+            var user = _mappingEngine.Map<ApplicationUser>(viewModel);
 
-            var role = _roleManager.FindRoleByName(roleName);
-            if (role == null)
-            {
-                role = new ApplicationRole
-                {
-                    Name = roleName
-                };
-                var roleresult = _roleManager.CreateRole(role);
-            }
+            user.EmailConfirmed = true;
+            user.TwoFactorEnabled = false;
+            user.PhoneNumberConfirmed = true;
+            user.CanChangeProfilePicture = true;
+            user.LockoutEnabled = false;
+            user.IsSystemAccount = true;
+            user.CommentPermission = CommentPermissionType.WithOutApporove;
+            user.CanChangeProfilePicture = true;
+            user.CanModifyFirsAndLastName = true;
+            user.CanUploadFile = true;
 
-            var user = this.FindByName(name);
-            if (user == null)
-            {
-                user = new ApplicationUser { UserName = name, Email = name, EmailConfirmed = true };
-                this.Create(user, password);
-
-                this.SetLockoutEnabled(user.Id, false);
-                this.SetTwoFactorEnabled(user.Id, false);
-            }
-
-
-            var rolesForUser = this.GetRoles(user.Id);
-            if (!rolesForUser.Contains(role.Name))
-            {
-                this.AddToRole(user.Id, role.Name);
-            }
+            await CreateAsync(user,viewModel.Password);
+            await AddToRoleAsync(user.Id, SystemRoleNames.SuperAdministrators.Name);
         }
 
+        #endregion
+
+        #region GenerateUserIdentityAsync
         private static async Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUserManager manager, ApplicationUser applicationUser)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -111,21 +114,36 @@ namespace MVC5.ServiceLayer.EFServiecs
             // Add custom user claims here
             return userIdentity;
         }
+        #endregion
 
+        #region GetAllUsersAsync
         public Task<List<ApplicationUser>> GetAllUsersAsync()
         {
             return Users.ToListAsync();
         }
+        #endregion
+
+        #region IsEmailInDatabase
         public bool IsEmailInDatabase(string email)
         {
             var user = this.FindByEmail(email);
             return user != null;
         }
+        #endregion
+
+        #region IsPhoneNumberInDatabase
         public bool IsPhoneNumberInDatabase(string phoneNumber)
         {
-            
-            return this.Users.Any(u => u.PhoneNumber.Equals(phoneNumber));
 
+            return Users.Any(u => u.PhoneNumber.Equals(phoneNumber, StringComparison.InvariantCultureIgnoreCase));
+
+        }
+        #endregion
+
+        #region IsUserNameInDatabase
+        public bool IsUserNameInDatabase(string userName)
+        {
+            return Users.Any(a => a.UserName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
         }
         #endregion
 
@@ -133,13 +151,13 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         private void CreateApplicationUserManager()
         {
-            this.UserValidator = new CustomUserValidator<ApplicationUser, int>(this)
+            UserValidator = new CustomUserValidator<ApplicationUser, int>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = false
             };
 
-            this.PasswordValidator = new CustomPasswordValidator()
+            PasswordValidator = new CustomPasswordValidator()
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false,
@@ -148,30 +166,45 @@ namespace MVC5.ServiceLayer.EFServiecs
                 RequireUppercase = false
             };
 
-            this.UserLockoutEnabledByDefault = true;
-            this.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            this.MaxFailedAccessAttemptsBeforeLockout = 5;
+            UserLockoutEnabledByDefault = true;
+            DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            MaxFailedAccessAttemptsBeforeLockout = 5;
 
-            this.RegisterTwoFactorProvider("PhoneCode", new PhoneNumberTokenProvider<ApplicationUser, int>
-            {
-                MessageFormat = "کد فعال سازی شما {0} است"
-            });
-            this.RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<ApplicationUser, int>
-            {
-                Subject = "کد فعال سازی",
-                BodyFormat = "کد فعال سازی شما {0} است"
-            });
+            //RegisterTwoFactorProvider("PhoneCode", new PhoneNumberTokenProvider<ApplicationUser, int>
+            //{
+            //    MessageFormat = "کد فعال سازی شما {0} است"
+            //});
+            //RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<ApplicationUser, int>
+            //{
+            //    Subject = "کد فعال سازی",
+            //    BodyFormat = "کد فعال سازی شما {0} است"
+            //});
 
-            this.EmailService = _emailService;
-            this.SmsService = _smsService;
+            EmailService = _emailService;
+            SmsService = _smsService;
 
             if (_dataProtectionProvider == null) return;
 
             var dataProtector = _dataProtectionProvider.Create("Asp.net Identity");
-            this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtector);
+            UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtector);
 
         }
         #endregion
 
+        #region DeleteAll
+        public void DeleteAll()
+        {
+            Users.Delete();
+        }
+        #endregion
+
+        #region GetUsersWithRoleIds
+        public IList<ApplicationUser> GetUsersWithRoleIds(params int[] ids)
+        {
+            return Users.Where(applicationUser => ids.Contains(applicationUser.Id))
+                .ToList();
+        }
+        #endregion
+       
     }
 }

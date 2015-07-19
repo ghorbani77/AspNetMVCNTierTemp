@@ -68,8 +68,8 @@ namespace MVC5.ServiceLayer.Contracts
         Task<IList<string>> GetPermissionsOfUser(int userId);
         Task<IList<string>> GetPermissionsOfRole(int roleId);
         Task<IList<ApplicationRole>> GetAllApplicationRolesAsync();
-        Task<IList<DomainClasses.Entities.ApplicationPermission>> GetAllPermissions();
-        Task AddPermissionsToRole(int roleId, params int[] permissions);
         Task EditPermissionsToRole(int roleId, params int[] permissions);
+        Task SeedDatabase(IEnumerable<ApplicationPermission> permissions);
+        void DeleteAll();
     }
 }

@@ -11,39 +11,20 @@
 
 namespace ASP
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Text;
-    using System.Web;
-    using System.Web.Helpers;
     using System.Web.Mvc;
-    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Optimization;
-    using System.Web.Routing;
-    using System.Web.Security;
-    using System.Web.UI;
-    using System.Web.WebPages;
-    
-    #line 1 "..\..\Views\Account\Register.cshtml"
+#line 1 "..\..\Views\Account\Register.cshtml"
     using CaptchaMvc.HtmlHelpers;
     
     #line default
     #line hidden
-    using MVC5.ViewModel;
-    
-    #line 2 "..\..\Views\Account\Register.cshtml"
+#line 2 "..\..\Views\Account\Register.cshtml"
     using MVC5.ViewModel.Account;
     
     #line default
     #line hidden
-    using MVC5.Web;
-    using MvcSiteMapProvider.Web.Html;
-    using MvcSiteMapProvider.Web.Html.Models;
-    
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/Register.cshtml")]
     public partial class _Views_Account_Register_cshtml : System.Web.Mvc.WebViewPage<RegisterViewModel>

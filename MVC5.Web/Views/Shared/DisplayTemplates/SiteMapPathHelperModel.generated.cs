@@ -40,12 +40,7 @@ namespace ASP
     using MVC5.ViewModel;
     using MVC5.Web;
     using MvcSiteMapProvider.Web.Html;
-    
-    #line 4 "..\..\Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml"
     using MvcSiteMapProvider.Web.Html.Models;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     public class _Views_Shared_DisplayTemplates_SiteMapPathHelperModel_cshtml : System.Web.WebPages.HelperPage

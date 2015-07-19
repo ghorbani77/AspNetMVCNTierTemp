@@ -121,6 +121,12 @@ namespace MVC5.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsPhoneNumberExist);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult IsUserNameExist()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsUserNameExist);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AccountController Actions { get { return MVC.Account; } }
@@ -153,6 +159,7 @@ namespace MVC5.Web.Controllers
             public readonly string VerifyCode = "VerifyCode";
             public readonly string IsEmailExist = "IsEmailExist";
             public readonly string IsPhoneNumberExist = "IsPhoneNumberExist";
+            public readonly string IsUserNameExist = "IsUserNameExist";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -174,6 +181,7 @@ namespace MVC5.Web.Controllers
             public const string VerifyCode = "VerifyCode";
             public const string IsEmailExist = "IsEmailExist";
             public const string IsPhoneNumberExist = "IsPhoneNumberExist";
+            public const string IsUserNameExist = "IsUserNameExist";
         }
 
 
@@ -280,6 +288,14 @@ namespace MVC5.Web.Controllers
         public class ActionParamsClass_IsPhoneNumberExist
         {
             public readonly string phoneNumber = "phoneNumber";
+        }
+        static readonly ActionParamsClass_IsUserNameExist s_params_IsUserNameExist = new ActionParamsClass_IsUserNameExist();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IsUserNameExist IsUserNameExistParams { get { return s_params_IsUserNameExist; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IsUserNameExist
+        {
+            public readonly string userName = "userName";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -586,6 +602,18 @@ namespace MVC5.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsPhoneNumberExist);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "phoneNumber", phoneNumber);
             IsPhoneNumberExistOverride(callInfo, phoneNumber);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IsUserNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string userName);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult IsUserNameExist(string userName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsUserNameExist);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userName", userName);
+            IsUserNameExistOverride(callInfo, userName);
             return callInfo;
         }
 

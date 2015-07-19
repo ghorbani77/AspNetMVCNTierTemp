@@ -60,8 +60,12 @@ namespace MVC5.Common.Helpers
 
             var meta = "";
             meta += string.Format("<meta charset=\"utf-8\"/>\n");
-            meta += string.Format("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
             meta += string.Format("<title>{0}</title>\n", title);
+
+            meta +=
+                string.Format(
+                    "<meta content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\" name=\"viewport\">");
+
             if (!string.IsNullOrEmpty(googlePlusUrl))
                 meta += string.Format("<link rel=\"author\" href=\"{0}\"/>\n", googlePlusUrl);
             meta += string.Format("<link rel=\"canonical\" href=\"{0}\"/>\n", canonicalUrl);

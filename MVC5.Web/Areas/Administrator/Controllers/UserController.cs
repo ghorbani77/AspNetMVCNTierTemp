@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
+using MVC5.Common.Controller;
 using MVC5.Common.Filters;
-using MVC5.Common.Helpers;
 using MVC5.Common.Helpers.Json;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
@@ -9,31 +9,35 @@ using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-   // [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers",  CanBeMenu = true)]
-    public partial class UserController : Controller
+    [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers", DefaultActioName = "List", CanBeMenu = true,
+        AreaName = "Administrator")]
+    public partial class UserController : BaseController
     {
         #region Fields
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IApplicationUserManager _userManager;
         private readonly IApplicationRoleManager _roleManager;
+
         #endregion
 
         #region Constructor
 
-        public UserController(IUnitOfWork unitOfWork, IApplicationRoleManager roleManager, IApplicationUserManager userManager)
+        public UserController(IUnitOfWork unitOfWork, IApplicationRoleManager roleManager,
+            IApplicationUserManager userManager)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _roleManager = roleManager;
         }
+
         #endregion
 
         #region List
 
         [HttpGet]
-        //[MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers,CanDeleteUser,CanCreateUser,CanEditUser,CanViewUsers",
-        //    CanBeMenu = true)]
+        [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers,CanViewUsers",
+            CanBeMenu = true)]
         [ActivityLog(Name = "ViewUsers", Description = "مشاهده کاربران")]
         public virtual ActionResult List()
         {
@@ -43,6 +47,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region Edit
+
         [HttpGet]
         [MvcAuthorize(Description = "ویرایش کاربر", Roles = "CanManageUsers,CanEditUser",
             CanBeMenu = false)]
@@ -65,6 +70,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region Create
+
         [HttpGet]
         [MvcAuthorize(Description = "درج کاربر جدید", Roles = "CanManageUsers,CanCreateUser",
             CanBeMenu = true)]
@@ -73,37 +79,42 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [CheckReferrer]
         [ValidateAntiForgeryToken]
         [MvcAuthorize(Description = "درج کاربر جدید", Roles = "CanManageUsers,CanCreateUser",
-         CanBeMenu = false)]
+            CanBeMenu = false)]
         public virtual ActionResult Create(AddUserViewModel viewModel)
         {
             return View();
         }
+
         #endregion
 
         #region Delete
-          
+
         [HttpPost]
         [CheckReferrer]
         [ValidateAntiForgeryToken]
         [MvcAuthorize(Description = "حذف کاربر", Roles = "CanManageUsers,CanDeleteUser",
-         CanBeMenu = false)]
+            CanBeMenu = false)]
         [ActivityLog(Name = "DeleteUser", Description = "حذف کاربر")]
         public virtual ActionResult Delete(int id)
         {
             return View();
         }
+
         #endregion
 
         #region RemoteValidations
+
         [HttpPost]
         [AjaxOnly]
         [MvcAuthorize(Description = "چک کردن نام کاربری",
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult UserNameExist(string userName, int? id)
         {
             return new JsonNetResult();
@@ -114,6 +125,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [MvcAuthorize(Description = "چک کردن نام کاربر",
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FirstNameExist(string firstName, int? id)
         {
             return new JsonNetResult();
@@ -124,6 +136,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [MvcAuthorize(Description = "چک کردن نام خانوادگی کاربر",
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult LastNameExist(string lastName, int? id)
         {
             return new JsonNetResult();
@@ -134,6 +147,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [MvcAuthorize(Description = "چک کردن ایمیل",
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult EmailExist(string email, int? id)
         {
             return new JsonNetResult();
@@ -144,6 +158,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [MvcAuthorize(Description = "چک کردن شماره همراه",
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult PhoneNumberExist(string phoneNumber, int? id)
         {
             return new JsonNetResult();
@@ -155,6 +170,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [MvcAuthorize(Description = "چک کردن آی دی گوگل پلاس",
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult GooglePlusIdExist(string phoneNumber, int? id)
         {
             return new JsonNetResult();
@@ -166,10 +182,12 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [MvcAuthorize(Description = "چک کردن آی دی فیسبوک",
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FaceBookIdExist(string phoneNumber, int? id)
         {
             return new JsonNetResult();
         }
+
         #endregion
 
     }

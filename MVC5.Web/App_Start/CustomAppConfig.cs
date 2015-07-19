@@ -2,8 +2,6 @@
 using System.Data.Entity.Infrastructure.Interception;
 using CaptchaMvc.Infrastructure;
 using ElmahEFLogger.CustomElmahLogger;
-using MVC5.Common.Helpers;
-using MVC5.Common.Helpers.Extentions;
 using MVC5.Common.Helpers.Json;
 using MVC5.DataLayer.Context;
 using MVC5.DataLayer.Migrations;

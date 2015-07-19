@@ -1,6 +1,4 @@
 ﻿@* Generator: MvcHelper GeneratePrettyNames: true *@
-
-@using AttributeRouting.Helpers
 @using MVC5.Common.Controller.Alerts
 @using MVC5.Common.Helpers.Extentions
 
@@ -23,20 +21,21 @@
         {
             var toastTypeValue = message.AlertType.ToLower();
             @:var optionsOverride = { /* Add message specific options here */ };
-                    if (message.IsSticky)
+            if (message.IsSticky)
             {
-                <text>optionsOverride.timeOut = 0;
-        optionsOverride.extendedTimeout = 0;</text>
+               
+                <text>toastr.options.timeOut = 0;
+        toastr.options.progressBar = false;
+        toastr.options.extendedTimeout = 0;</text>
             }
-
-            if (message.Title.HasValueOrEmpty())
+            if (message.Title.IsNotEmpty())
             {
-                @:toastr['@toastTypeValue']('@message.Message', '@message.Title', optionsOverride);
-            }
+                @:toastr['@toastTypeValue']('@message.Message', '@message.Title');
+              }
             else
             {
-                @:toastr['@toastTypeValue']('@message.Message', optionsOverride);
-            }
+                @:toastr['@toastTypeValue']('@message.Message');
+              }
         }
     });
     </script>

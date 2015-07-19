@@ -3,12 +3,13 @@ using AutoMapper;
 using AutoMapper.Internal;
 using AutoMapper.Mappers;
 using MVC5.AutoMapperProfiles.User;
+using StructureMap;
 using StructureMap.Configuration.DSL;
 using StructureMap.Web;
 
 namespace MVC5.IocConfig
 {
-    class AutoMapperRegistery:Registry
+    public class AutoMapperRegistery : Registry
     {
         public AutoMapperRegistery()
         {
@@ -29,9 +30,8 @@ namespace MVC5.IocConfig
 
             Scan(scanner =>
             {
-
                 scanner.AssemblyContainingType<UserProfile>();
-                scanner.AddAllTypesOf<Profile>().NameBy(item => item.FullName);
+                scanner.AddAllTypesOf<Profile>().NameBy(item => item.Name);
 
                 scanner.ConnectImplementationsToTypesClosing(typeof(ITypeConverter<,>))
                        .OnAddedPluginTypes(t => t.HybridHttpOrThreadLocalScoped());
@@ -39,6 +39,10 @@ namespace MVC5.IocConfig
                 scanner.ConnectImplementationsToTypesClosing(typeof(ValueResolver<,>))
                     .OnAddedPluginTypes(t => t.HybridHttpOrThreadLocalScoped());
             });
+
+
         }
+
+     
     }
 }

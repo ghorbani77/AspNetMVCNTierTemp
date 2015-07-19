@@ -27,18 +27,12 @@ namespace ASP
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    
-    #line 1 "..\..\Views\Shared\_Layout.cshtml"
-    using MVC5.Common.Controller.Alerts;
-    
-    #line default
-    #line hidden
     using MVC5.ViewModel;
     using MVC5.Web;
     using MvcSiteMapProvider.Web.Html;
     using MvcSiteMapProvider.Web.Html.Models;
     
-    #line 2 "..\..\Views\Shared\_Layout.cshtml"
+    #line 1 "..\..\Views\Shared\_Layout.cshtml"
     using StackExchange.Profiling;
     
     #line default
@@ -62,7 +56,7 @@ WriteLiteral(">\r\n<head>\r\n\r\n");
 WriteLiteral("    ");
 
             
-            #line 7 "..\..\Views\Shared\_Layout.cshtml"
+            #line 6 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("meta", false));
 
             
@@ -71,8 +65,10 @@ Write(RenderSection("meta", false));
 WriteLiteral(@"
 
     <!--[if lt IE 9]>
-        <script src=""https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js""></script>
-    <![endif]-->
+         <script src=""https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js""></script>
+         <script src=""https://oss.maxcdn.com/respond/1.4.2/respond.min.js""></script>
+     <![endif]-->
+
     <!--[if lte IE 6]>
         <script src=""/Scripts/warning.js""></script>
         <script>window.onload = function () { e(""js/ie6/"") ;}</script><![endif]-->
@@ -82,7 +78,7 @@ WriteLiteral(@"
 WriteLiteral("    ");
 
             
-            #line 16 "..\..\Views\Shared\_Layout.cshtml"
+            #line 17 "..\..\Views\Shared\_Layout.cshtml"
 Write(Styles.Render("~/Content/css"));
 
             
@@ -93,7 +89,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 17 "..\..\Views\Shared\_Layout.cshtml"
+            #line 18 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/modernizr"));
 
             
@@ -144,7 +140,7 @@ WriteLiteral("></span>\r\n                    </button>\r\n");
 WriteLiteral("                    ");
 
             
-            #line 32 "..\..\Views\Shared\_Layout.cshtml"
+            #line 33 "..\..\Views\Shared\_Layout.cshtml"
                Write(Html.ActionLink("MVC5", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }));
 
             
@@ -161,7 +157,7 @@ WriteLiteral(" class=\"nav navbar-nav\"");
 WriteLiteral(">\r\n                        <li>");
 
             
-            #line 37 "..\..\Views\Shared\_Layout.cshtml"
+            #line 38 "..\..\Views\Shared\_Layout.cshtml"
                        Write(Html.ActionLink("خانه", "Index", "Home", new { area = "" }, null));
 
             
@@ -170,7 +166,7 @@ WriteLiteral(">\r\n                        <li>");
 WriteLiteral("</li>\r\n                        <li>");
 
             
-            #line 38 "..\..\Views\Shared\_Layout.cshtml"
+            #line 39 "..\..\Views\Shared\_Layout.cshtml"
                        Write(Html.ActionLink("درباره ما", "About", "Home", new { area = "" }, null));
 
             
@@ -179,7 +175,7 @@ WriteLiteral("</li>\r\n                        <li>");
 WriteLiteral("</li>\r\n                        <li>");
 
             
-            #line 39 "..\..\Views\Shared\_Layout.cshtml"
+            #line 40 "..\..\Views\Shared\_Layout.cshtml"
                        Write(Html.ActionLink("تماس با ما", "Contact", "Home", new { area = "" }, null));
 
             
@@ -188,13 +184,13 @@ WriteLiteral("</li>\r\n                        <li>");
 WriteLiteral("</li>\r\n\r\n\r\n");
 
             
-            #line 42 "..\..\Views\Shared\_Layout.cshtml"
+            #line 43 "..\..\Views\Shared\_Layout.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 42 "..\..\Views\Shared\_Layout.cshtml"
+            #line 43 "..\..\Views\Shared\_Layout.cshtml"
                          if (Request.IsAuthenticated && User.IsInRole("Admin"))
                         {
 
@@ -204,7 +200,7 @@ WriteLiteral("</li>\r\n\r\n\r\n");
 WriteLiteral("                            <li>");
 
             
-            #line 44 "..\..\Views\Shared\_Layout.cshtml"
+            #line 45 "..\..\Views\Shared\_Layout.cshtml"
                            Write(Html.ActionLink("RolesAdmin", "Index", "RolesAdmin"));
 
             
@@ -215,7 +211,7 @@ WriteLiteral("</li>\r\n");
 WriteLiteral("                            <li>");
 
             
-            #line 45 "..\..\Views\Shared\_Layout.cshtml"
+            #line 46 "..\..\Views\Shared\_Layout.cshtml"
                            Write(Html.ActionLink("UsersAdmin", "Index", "UsersAdmin"));
 
             
@@ -224,7 +220,7 @@ WriteLiteral("                            <li>");
 WriteLiteral("</li>\r\n");
 
             
-            #line 46 "..\..\Views\Shared\_Layout.cshtml"
+            #line 47 "..\..\Views\Shared\_Layout.cshtml"
                         }
 
             
@@ -237,23 +233,39 @@ WriteLiteral(" class=\"container\"");
 
 WriteLiteral(" style=\"margin-top: 100px;\"");
 
-WriteLiteral(">\r\n        <hr />\r\n\r\n");
+WriteLiteral(">\r\n");
 
 WriteLiteral("        ");
 
             
-            #line 57 "..\..\Views\Shared\_Layout.cshtml"
+            #line 56 "..\..\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n    </div>\r\n\r\n    <footer></footer>\r\n");
+WriteLiteral("\r\n    </div>\r\n\r\n    <footer>\r\n        <div");
+
+WriteLiteral(" class=\"container\"");
+
+WriteLiteral(">\r\n            <p");
+
+WriteLiteral(" class=\"text-muted credit\"");
+
+WriteLiteral(">Example courtesy <a");
+
+WriteLiteral(" href=\"http://martinbean.co.uk\"");
+
+WriteLiteral(">Martin Bean</a> and <a");
+
+WriteLiteral(" href=\"http://ryanfait.com/sticky-footer/\"");
+
+WriteLiteral(">Ryan Fait</a>.</p>\r\n        </div>\r\n    </footer>\r\n");
 
 WriteLiteral("    ");
 
             
-            #line 61 "..\..\Views\Shared\_Layout.cshtml"
+            #line 64 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -264,7 +276,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 62 "..\..\Views\Shared\_Layout.cshtml"
+            #line 65 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -275,7 +287,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 63 "..\..\Views\Shared\_Layout.cshtml"
+            #line 66 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
@@ -284,13 +296,13 @@ Write(RenderSection("scripts", required: false));
 WriteLiteral("\r\n");
 
             
-            #line 64 "..\..\Views\Shared\_Layout.cshtml"
+            #line 67 "..\..\Views\Shared\_Layout.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 64 "..\..\Views\Shared\_Layout.cshtml"
+            #line 67 "..\..\Views\Shared\_Layout.cshtml"
       Html.RenderPartial(MVC.Shared.Views.ViewNames._Toastr);
             
             #line default
@@ -300,7 +312,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 65 "..\..\Views\Shared\_Layout.cshtml"
+            #line 68 "..\..\Views\Shared\_Layout.cshtml"
 Write(MiniProfiler.RenderIncludes());
 
             

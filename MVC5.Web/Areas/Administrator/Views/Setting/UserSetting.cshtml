@@ -1,0 +1,36 @@
+﻿@model MVC5.ViewModel.AdminArea.Setting.UserSettingsViewModel
+@{
+    ViewBag.Title = "تنضیمات کاربران";
+}
+
+@using (Html.BeginForm())
+{
+  
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div >
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-userSetting" data-toggle="tab">تنظیمات کاربران</a>
+                        </li>
+                        <li>
+                            <a href="#panel-externalAuthSetting" data-toggle="tab">تنظیمات احراز هویت</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-userSetting">
+                           @{Html.RenderPartial(MVC.Administrator.Setting.Views._UserSetting);}
+                        </div>
+                        <div class="tab-pane" id="panel-externalAuthSetting">
+                            @{Html.RenderPartial(MVC.Administrator.Setting.Views._ExternalAuthSetting);}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+}

@@ -247,7 +247,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Create = "Create";
+                public readonly string Edit = "Edit";
+                public readonly string List = "List";
             }
+            public readonly string Create = "~/Areas/Administrator/Views/User/Create.cshtml";
+            public readonly string Edit = "~/Areas/Administrator/Views/User/Edit.cshtml";
+            public readonly string List = "~/Areas/Administrator/Views/User/List.cshtml";
         }
     }
 

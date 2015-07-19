@@ -26,7 +26,7 @@ namespace MVC5.Common.Helpers.Extentions
       {
           return !string.IsNullOrWhiteSpace(value);
       }
-      public static bool HasValueOrEmpty(this string value)
+      public static bool IsNotEmpty(this string value)
       {
           return !string.IsNullOrEmpty(value);
       }

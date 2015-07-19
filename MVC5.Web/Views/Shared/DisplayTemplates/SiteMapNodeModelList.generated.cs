@@ -35,12 +35,7 @@ namespace ASP
     using MVC5.ViewModel;
     using MVC5.Web;
     using MvcSiteMapProvider.Web.Html;
-    
-    #line 3 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
     using MvcSiteMapProvider.Web.Html.Models;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/DisplayTemplates/SiteMapNodeModelList.cshtml")]
@@ -54,13 +49,13 @@ namespace ASP
 WriteLiteral("\n<ul>\n");
 
             
-            #line 6 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 5 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 6 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 5 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
      foreach (var node in Model) { 
 
             
@@ -69,7 +64,7 @@ WriteLiteral("\n<ul>\n");
 WriteLiteral("        <li>");
 
             
-            #line 7 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 6 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
        Write(Html.DisplayFor(m => node));
 
             
@@ -78,27 +73,27 @@ WriteLiteral("        <li>");
 WriteLiteral(" \n");
 
             
-            #line 8 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 7 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
             
             
             #line default
             #line hidden
             
-            #line 8 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 7 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
              if (node.Children.Any()) {
                 
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 8 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
            Write(Html.DisplayFor(m => node.Children));
 
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 8 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
                                                     
             }
 
@@ -108,7 +103,7 @@ WriteLiteral(" \n");
 WriteLiteral("        </li>\n");
 
             
-            #line 12 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
+            #line 11 "..\..\Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml"
     }
 
             

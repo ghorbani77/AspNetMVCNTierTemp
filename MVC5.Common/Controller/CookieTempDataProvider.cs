@@ -1,70 +1,98 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Security.Cryptography;
+using System.Runtime.Remoting.Messaging;
+using System.Runtime.Serialization;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
-using Newtonsoft.Json;
+using System.Web.UI;
+using MVC5.Common.Helpers.Extentions;
 
 namespace MVC5.Common.Controller
 {
-    /// <summary>
-    /// protected tempdata with machinkey of form authentication 
-    /// </summary>
     public class CookieTempDataProvider : ITempDataProvider
     {
-        public static event EventHandler<Exception> ValidationException;
+        #region Fields
+        private const string TempDataCookieKey = "__ControllerTempData";
+        private readonly IRemotingFormatter _formatter;
+        #endregion
 
-        const string AnonymousCookieValuePrefix = "_";
-        const string AuthenticatedCookieValuePrefix = ".";
-        const string CookieName = "TempData";
-        const string MachineKeyPurpose = "CookieTempDataProvider:{0}";
-        const string Anonymous = "<anonymous>";
-
-        public void SaveTempData(
-            ControllerContext controllerContext,
-            IDictionary<string, object> values)
+        #region Ctor
+        public CookieTempDataProvider(IRemotingFormatter formatter)
         {
-            var bytes = SerializeWithBinaryFormatter(values);
-            bytes = Compress(bytes);
-            var value = Protect(bytes, controllerContext.HttpContext);
-            IssueCookie(controllerContext, value);
+            _formatter = formatter;
         }
 
-        public IDictionary<string, object> LoadTempData(
-            ControllerContext controllerContext)
+        #endregion
+
+        #region LoadTempData
+        protected virtual IDictionary<string, object> LoadTempData(ControllerContext controllerContext)
         {
-            var value = GetCookieValue(controllerContext);
-            var bytes = Unprotect(value, controllerContext.HttpContext);
-            if (bytes == null && value != null)
+            var cookie = GetCookie(controllerContext);
+            if (cookie == null || !cookie.Value.IsNotEmpty())
             {
-                // failure, so remove cookie
-                IssueCookie(controllerContext, null);
-                return null;
+                IssueCookie(controllerContext,null);
+                return new Dictionary<string, object>();
             }
-            bytes = Decompress(bytes);
-            return DeserializeWithBinaryFormatter(bytes);
-        }
 
-        static string GetCookieValue(ControllerContext controllerContext)
+            var deserializedDictionary = Base64StringToDictionary(cookie.Value);
+
+            return deserializedDictionary;
+        }
+        IDictionary<string, object> ITempDataProvider.LoadTempData(ControllerContext controllerContext)
         {
-            if (!controllerContext.HttpContext.Request.Cookies.AllKeys.Contains(CookieName)) return null;
-            var c = controllerContext.HttpContext.Request.Cookies[CookieName];
-            return c != null ? c.Value : null;
+            return LoadTempData(controllerContext);
         }
+        #endregion
 
-        static void IssueCookie(ControllerContext controllerContext, string value)
+        #region SaveTempData
+        protected virtual void SaveTempData(ControllerContext controllerContext, IDictionary<string, object> values)
+        {
+            var cookieValue = DictionaryToBase64String(values);
+
+            IssueCookie(controllerContext,cookieValue);
+        }
+        void ITempDataProvider.SaveTempData(ControllerContext controllerContext, IDictionary<string, object> values)
+        {
+            SaveTempData(controllerContext, values);
+        }
+        #endregion
+
+        #region Base64StringToDictionary
+        private IDictionary<string, object> Base64StringToDictionary(string base64EncodedSerializedTempData)
+        {
+            var bytes = Convert.FromBase64String(base64EncodedSerializedTempData);
+            using (var memStream = new MemoryStream(bytes))
+            {
+                return _formatter.Deserialize(memStream, null) as IDictionary<string, object>;
+            }
+        }
+        #endregion
+
+        #region DictionaryToBase64String
+        private string DictionaryToBase64String(IDictionary<string, object> values)
+        {
+            using (var memStream = new MemoryStream())
+            {
+                memStream.Seek(0, SeekOrigin.Begin);
+                _formatter.Serialize(memStream, values);
+                memStream.Seek(0, SeekOrigin.Begin);
+                var bytes = memStream.ToArray();
+                return Convert.ToBase64String(bytes);
+            }
+        }
+        #endregion
+
+        #region IssuCookie
+        static void IssueCookie(ControllerContext controllerContext ,string value)
         {
             // if we don't have a value and there's no prior cookie then exit
-            if (value == null && !controllerContext.HttpContext.Request.Cookies.AllKeys.Contains(CookieName)) return;
+            if (value == null && !controllerContext.HttpContext.Request.Cookies.AllKeys.Contains(TempDataCookieKey)) return;
 
-            var cookie = new HttpCookie(CookieName, value)
+            var cookie = new HttpCookie(TempDataCookieKey, value)
             {
+                Expires = DateTime.MinValue,
                 // don't allow javascript access to the cookie
                 HttpOnly = true,
                 // set the path so other apps on the same server don't see the cookie
@@ -82,146 +110,11 @@ namespace MVC5.Common.Controller
             controllerContext.HttpContext.Response.Cookies.Add(cookie);
         }
 
-        static string GetAnonMachineKeyPurpose()
+        private static HttpCookie GetCookie(ControllerContext controllerContext)
         {
-            return String.Format(MachineKeyPurpose, Anonymous);
+            return controllerContext.HttpContext.Request.Cookies[TempDataCookieKey];
         }
+        #endregion
 
-        static string GetMachineKeyPurpose(HttpContextBase ctx)
-        {
-            if (ctx.User == null || ctx.User.Identity == null || !ctx.User.Identity.IsAuthenticated) return GetAnonMachineKeyPurpose();
-            return String.Format(MachineKeyPurpose, ctx.User.Identity == null ? "" : ctx.User.Identity.Name);
-        }
-
-        static string GetMachineKeyPurposeFromPrefix(string prefix, HttpContextBase ctx)
-        {
-            if (prefix == AnonymousCookieValuePrefix)
-            {
-                return GetAnonMachineKeyPurpose();
-            }
-            if (prefix == AuthenticatedCookieValuePrefix && ctx.User.Identity.IsAuthenticated)
-            {
-                return String.Format(MachineKeyPurpose, ctx.User.Identity.Name);
-            }
-            return null;
-        }
-
-        static string GetMachineKeyPrefix(HttpContextBase ctx)
-        {
-            if (ctx.User == null || ctx.User.Identity == null) return AnonymousCookieValuePrefix;
-
-            return (ctx.User.Identity.IsAuthenticated) ?
-                AuthenticatedCookieValuePrefix :
-                AnonymousCookieValuePrefix;
-        }
-
-        static string Protect(byte[] data, HttpContextBase ctx)
-        {
-            if (data == null || data.Length == 0) return null;
-
-            var purpose = GetMachineKeyPurpose(ctx);
-            var value = MachineKey.Protect(data, purpose);
-
-            var prefix = GetMachineKeyPrefix(ctx);
-            return prefix + Convert.ToBase64String(value);
-        }
-
-        byte[] Unprotect(string value, HttpContextBase ctx)
-        {
-            if (String.IsNullOrWhiteSpace(value)) return null;
-
-            var prefix = value[0].ToString(CultureInfo.InvariantCulture);
-            var purpose = GetMachineKeyPurposeFromPrefix(prefix, ctx);
-            if (purpose == null) return null;
-
-            value = value.Substring(1);
-            var bytes = Convert.FromBase64String(value);
-            try
-            {
-                return MachineKey.Unprotect(bytes, purpose);
-            }
-            catch (CryptographicException ex)
-            {
-                if (ValidationException != null)
-                {
-                    ValidationException(this, ex);
-                }
-                return null;
-            }
-        }
-
-        static byte[] Compress(byte[] data)
-        {
-            if (data == null || data.Length == 0) return null;
-
-            using (var input = new MemoryStream(data))
-            {
-                using (var output = new MemoryStream())
-                {
-                    using (Stream cs = new DeflateStream(output, CompressionMode.Compress))
-                    {
-                        input.CopyTo(cs);
-                    }
-
-                    return output.ToArray();
-                }
-            }
-        }
-
-        static byte[] Decompress(byte[] data)
-        {
-            if (data == null || data.Length == 0) return null;
-
-            using (var input = new MemoryStream(data))
-            {
-                using (var output = new MemoryStream())
-                {
-                    using (Stream cs = new DeflateStream(input, CompressionMode.Decompress))
-                    {
-                        cs.CopyTo(output);
-                    }
-
-                    var result = output.ToArray();
-                    return result;
-                }
-            }
-        }
-
-        static byte[] SerializeWithBinaryFormatter(IDictionary<string, object> data)
-        {
-            if (data == null || data.Keys.Count == 0) return null;
-
-            var f = new BinaryFormatter();
-            using (var ms = new MemoryStream())
-            {
-                f.Serialize(ms, data);
-                ms.Seek(0, SeekOrigin.Begin);
-                return ms.ToArray();
-            }
-        }
-
-        static IDictionary<string, object> DeserializeWithBinaryFormatter(byte[] data)
-        {
-            if (data == null || data.Length == 0) return null;
-
-            var f = new BinaryFormatter();
-            using (var ms = new MemoryStream(data))
-            {
-                var obj = f.Deserialize(ms);
-                return obj as IDictionary<string, object>;
-            }
-        }
-
-        string SerializeWithJsonFormatter(IDictionary<string, object> data)
-        {
-            if (data == null || data.Keys.Count == 0) return null;
-
-            return JsonConvert.SerializeObject(data, Formatting.Indented);
-        }
-
-        IDictionary<string, object> DeserializeWithJsonFormatter(string data)
-        {
-            return string.IsNullOrEmpty(data) ? null : JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
-        }
     }
 }

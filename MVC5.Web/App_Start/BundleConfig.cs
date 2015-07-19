@@ -22,8 +22,8 @@ namespace MVC5.Web
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/respond.min.js",
                 "~/Scripts/plugins/fileinput.min.js",
-                "~/Scripts/toastr.min.js"
-                //"~/Scripts/site.min.js"
+                "~/Scripts/toastr.min.js",
+                "~/Scripts/site.min.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -39,14 +39,18 @@ namespace MVC5.Web
                 "~/Content/bootstrap-rtl.min.css",
                 "~/Content/toastr.min.css",
                 "~/Content/plugins/font-awesome.min.css",
+                "~/Content/ionicons.min.css",
+                "~/Content/admin/AdminLTE.min.css",
+                "~/Content/admin/skins/skin-blue-light.min.css",
                 "~/Content/plugins/fileinput.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.min.js",
-                      "~/Scripts/admin.min.js",
+                      "~/Scripts/admin/admin.min.js",
                       "~/Scripts/toastr.min.js",
-                      "~/Scripts/plugins/fileinput.min.js"
+                      "~/Scripts/plugins/fileinput.min.js",
+                     "~/Scripts/admin/app.min.js"
                       ));
 
 

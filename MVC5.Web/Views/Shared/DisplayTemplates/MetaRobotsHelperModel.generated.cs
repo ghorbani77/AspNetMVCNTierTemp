@@ -21,12 +21,7 @@ namespace ASP
     using System.Web.Helpers;
     using System.Web.Mvc;
     using System.Web.Mvc.Ajax;
-    
-    #line 2 "..\..\Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml"
     using System.Web.Mvc.Html;
-    
-    #line default
-    #line hidden
     using System.Web.Optimization;
     using System.Web.Routing;
     using System.Web.Security;
@@ -35,12 +30,7 @@ namespace ASP
     using MVC5.ViewModel;
     using MVC5.Web;
     using MvcSiteMapProvider.Web.Html;
-    
-    #line 3 "..\..\Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml"
     using MvcSiteMapProvider.Web.Html.Models;
-    
-    #line default
-    #line hidden
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     public class _Views_Shared_DisplayTemplates_MetaRobotsHelperModel_cshtml : System.Web.WebPages.HelperPage

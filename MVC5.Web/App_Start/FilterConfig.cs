@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using MVC5.Common.Filters;
-using MVC5.Web.Filters;
 
 namespace MVC5.Web
 {

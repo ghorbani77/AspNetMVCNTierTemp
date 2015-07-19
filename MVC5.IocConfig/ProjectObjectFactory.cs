@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using MVC5.Common.Controller;
 using MVC5.DataLayer.Context;
 using StructureMap;
@@ -41,8 +43,8 @@ namespace MVC5.IocConfig
                  ioc.For<HttpServerUtilityBase>().Use(() => new HttpServerUtilityWrapper(HttpContext.Current.Server));
                  ioc.For<HttpRequestBase>().Use(ctx => ctx.GetInstance<HttpContextBase>().Request);
                  ioc.For<ISessionProvider>().Use<SessionProvider>();
-                 ioc.For<IFormatter>().Use(a=>new BinaryFormatter());
-                 ioc.For<ITempDataProvider>().Use<CustomTempDataProvider>();
+                 ioc.For<IRemotingFormatter>().Use(a=>new BinaryFormatter());
+                 ioc.For<ITempDataProvider>().Use<CookieTempDataProvider>();
 
                  ioc.AddRegistry<AspNetIdentityRegistery>();
                  ioc.AddRegistry<AutoMapperRegistery>();
@@ -50,11 +52,21 @@ namespace MVC5.IocConfig
 
                  ioc.Scan(scanner => scanner.WithDefaultConventions());
              });
-
+            ConfigureAutoMapper(container);
             return container;
         }
         #endregion
-
+        private static void ConfigureAutoMapper(IContainer container)
+        {
+            var configuration = container.TryGetInstance<IConfiguration>();
+            if (configuration == null) return;
+            //saying AutoMapper how to resolve services
+            configuration.ConstructServicesUsing(container.GetInstance);
+            foreach (var profile in container.GetAllInstances<Profile>())
+            {
+                configuration.AddProfile(profile);
+            }
+        }
 
     }
 }

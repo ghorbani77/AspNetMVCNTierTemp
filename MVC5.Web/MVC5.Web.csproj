@@ -14,7 +14,7 @@
     <RootNamespace>MVC5.Web</RootNamespace>
     <AssemblyName>MVC5.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MvcBuildViews>true</MvcBuildViews>
+    <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -338,6 +338,80 @@
     <Compile Include="Areas\Administrator\Controllers\RoleController.cs" />
     <Compile Include="Areas\Administrator\Controllers\SettingController.cs" />
     <Compile Include="Areas\Administrator\Controllers\UserController.cs" />
+    <Compile Include="Areas\Administrator\Views\Home\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Role\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Role\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Role\List.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Setting\UserSetting.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserSetting.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Setting\_ExternalAuthSetting.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ExternalAuthSetting.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Setting\_UserSetting.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_UserSetting.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Shared\DisplayTemplates\Enum.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Enum.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Shared\EditorTemplates\Enum.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Enum.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\Shared\_Layout.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_Layout.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\User\Create1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\User\Edit1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\User\List1.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>List.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\_ViewStart.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ViewStart.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\InstallController.cs" />
+    <Compile Include="InstallController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="RazorHelpers\BootstrapBuilder.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -476,6 +550,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Install\Start.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Start.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Manage\AddPhoneNumber.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -613,11 +692,11 @@
     <Content Include="500.html" />
     <Content Include="Content\bootstrap-flat.min.css" />
     <Content Include="Content\bootstrap-rtl.min.css" />
+    <Content Include="Content\fonts\ionicons.svg" />
     <Content Include="Content\fonts\Material-Design-Icons.svg" />
+    <Content Include="Content\ionicons.css" />
+    <Content Include="Content\ionicons.min.css" />
     <Content Include="NoScript.html" />
-    <Content Include="Scripts\admin.min.js">
-      <DependentUpon>admin.js</DependentUpon>
-    </Content>
     <Content Include="browserconfig.xml" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -684,7 +763,6 @@
     <Content Include="App_Data\Images\Overlays\14.png" />
     <Content Include="App_Data\Images\Overlays\15.png" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\BYekan.eot" />
@@ -739,12 +817,68 @@
       <Generator>RazorGenerator</Generator>
     </Content>
     <Content Include="Areas\Administrator\Views\web.config" />
+    <Content Include="Areas\Administrator\Views\Home\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Role\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Role\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Role\List.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>List.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Setting\UserSetting.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>UserSetting.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Setting\_ExternalAuthSetting.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ExternalAuthSetting.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Setting\_UserSetting.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_UserSetting.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Shared\DisplayTemplates\Enum.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Enum.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Shared\EditorTemplates\Enum.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Enum.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\Shared\_Layout.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_Layout.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\User\Create.cshtml">
+      <LastGenOutput>Create1.generated.cs</LastGenOutput>
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Areas\Administrator\Views\User\Edit.cshtml">
+      <LastGenOutput>Edit1.generated.cs</LastGenOutput>
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Areas\Administrator\Views\User\List.cshtml">
+      <LastGenOutput>List1.generated.cs</LastGenOutput>
+      <Generator>RazorGenerator</Generator>
+    </Content>
+    <Content Include="Areas\Administrator\Views\_ViewStart.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ViewStart.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Content\fonts\ionicons.eot" />
+    <Content Include="Content\fonts\ionicons.ttf" />
+    <Content Include="Content\fonts\ionicons.woff" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Scripts\admin.min.js.map">
-      <DependentUpon>admin.min.js</DependentUpon>
-    </Content>
     <Content Include="SampleTemplate.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SampleTemplate.generated.cs</LastGenOutput>
@@ -763,10 +897,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\material\material.js" />
-    <Content Include="Scripts\material\material.min.js" />
-    <Content Include="Scripts\material\ripples.js" />
-    <Content Include="Scripts\material\ripples.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\npm.js" />
@@ -801,8 +931,6 @@
     <Content Include="Scripts\site.min.js.map">
       <DependentUpon>site.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\material\material.min.js.map" />
-    <Content Include="Scripts\material\ripples.min.js.map" />
     <Content Include="Scripts\plugins\jquery.cookie.min.js.map" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config">
@@ -990,13 +1118,16 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Bootstrap.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Install\Start.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Start.generated.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\avatar\" />
-    <Folder Include="Areas\Administrator\Models\" />
-    <Folder Include="Areas\Administrator\Views\Home\" />
-    <Folder Include="Areas\Administrator\Views\Shared\" />
+    <Folder Include="Content\admin\" />
     <Folder Include="Export\" />
+    <Folder Include="Scripts\admin\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Export\" />
   </ItemGroup>

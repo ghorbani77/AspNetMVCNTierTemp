@@ -11,23 +11,8 @@
 
 namespace MVC5.Web.RazorHelpers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Text;
-    using System.Web;
-    using System.Web.Helpers;
     using System.Web.Mvc;
-    using System.Web.Mvc.Ajax;
-    using System.Web.Mvc.Html;
-    using System.Web.Routing;
-    using System.Web.Security;
-    using System.Web.UI;
-    using System.Web.WebPages;
-    
-    #line 4 "..\..\RazorHelpers\BootstrapBuilder.cshtml"
+#line 4 "..\..\RazorHelpers\BootstrapBuilder.cshtml"
     using MVC5.Common.Controller.Alerts;
     
     #line default

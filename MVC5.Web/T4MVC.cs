@@ -32,6 +32,7 @@ public static partial class MVC
     public static MVC5.Web.Controllers.AccountController Account = new MVC5.Web.Controllers.T4MVC_AccountController();
     public static MVC5.Web.Controllers.ExportController Export = new MVC5.Web.Controllers.T4MVC_ExportController();
     public static MVC5.Web.Controllers.HomeController Home = new MVC5.Web.Controllers.T4MVC_HomeController();
+    public static MVC5.Web.Controllers.InstallController Install = new MVC5.Web.Controllers.T4MVC_InstallController();
     public static MVC5.Web.Controllers.ManageController Manage = new MVC5.Web.Controllers.T4MVC_ManageController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
     public static T4MVC.UserMailerController UserMailer = new T4MVC.UserMailerController();
@@ -100,9 +101,13 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
-        public static readonly string admin_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/admin.min.js") ? Url("admin.min.js") : Url("admin.js");
-        public static readonly string admin_min_js = Url("admin.min.js");
-        public static readonly string admin_min_js_map = Url("admin.min.js.map");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class admin {
+            private const string URLPATH = "~/Scripts/admin";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        }
+    
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string bootstrap_min_js_map = Url("bootstrap.min.js.map");
@@ -121,19 +126,6 @@ namespace Links
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class material {
-            private const string URLPATH = "~/Scripts/material";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string material_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/material.min.js") ? Url("material.min.js") : Url("material.js");
-            public static readonly string material_min_js = Url("material.min.js");
-            public static readonly string material_min_js_map = Url("material.min.js.map");
-            public static readonly string ripples_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ripples.min.js") ? Url("ripples.min.js") : Url("ripples.js");
-            public static readonly string ripples_min_js = Url("ripples.min.js");
-            public static readonly string ripples_min_js_map = Url("ripples.min.js.map");
-        }
-    
         public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
         public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
         public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js") : Url("npm.js");
@@ -178,6 +170,13 @@ namespace Links
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class admin {
+            private const string URLPATH = "~/Content/admin";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        }
+    
         public static readonly string bootstrap_flat_min_css = Url("bootstrap-flat.min.css");
         public static readonly string bootstrap_rtl_min_css = Url("bootstrap-rtl.min.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -230,6 +229,10 @@ namespace Links
             public static readonly string glyphicons_halflings_regular_ttf = Url("glyphicons-halflings-regular.ttf");
             public static readonly string glyphicons_halflings_regular_woff = Url("glyphicons-halflings-regular.woff");
             public static readonly string glyphicons_halflings_regular_woff2 = Url("glyphicons-halflings-regular.woff2");
+            public static readonly string ionicons_eot = Url("ionicons.eot");
+            public static readonly string ionicons_svg = Url("ionicons.svg");
+            public static readonly string ionicons_ttf = Url("ionicons.ttf");
+            public static readonly string ionicons_woff = Url("ionicons.woff");
             public static readonly string IranianSerif_eot = Url("IranianSerif.eot");
             public static readonly string IranianSerif_woff = Url("IranianSerif.woff");
             public static readonly string irseri_ttf = Url("irseri.ttf");
@@ -257,6 +260,9 @@ namespace Links
             public static readonly string wYekan_woff = Url("wYekan.woff");
         }
     
+        public static readonly string ionicons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ionicons.min.css") ? Url("ionicons.min.css") : Url("ionicons.css");
+             
+        public static readonly string ionicons_min_css = Url("ionicons.min.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class plugins {
             private const string URLPATH = "~/Content/plugins";
@@ -304,14 +310,10 @@ namespace Links
     {
         public static partial class Scripts 
         {
-            public static partial class material 
+            public static partial class admin 
             {
                 public static class Assets
                 {
-                    public const string material_js = "~/Scripts/material/material.js"; 
-                    public const string material_min_js = "~/Scripts/material/material.min.js"; 
-                    public const string ripples_js = "~/Scripts/material/ripples.js"; 
-                    public const string ripples_min_js = "~/Scripts/material/ripples.min.js"; 
                 }
             }
             public static partial class plugins 
@@ -339,7 +341,6 @@ namespace Links
             public static class Assets
             {
                 public const string _references_js = "~/Scripts/_references.js"; 
-                public const string admin_js = "~/Scripts/admin.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
                 public const string jquery_1_10_2_intellisense_js = "~/Scripts/jquery-1.10.2.intellisense.js"; 
@@ -369,6 +370,12 @@ namespace Links
         }
         public static partial class Content 
         {
+            public static partial class admin 
+            {
+                public static class Assets
+                {
+                }
+            }
             public static partial class favicon 
             {
                 public static class Assets
@@ -406,6 +413,8 @@ namespace Links
             {
                 public const string bootstrap_flat_min_css = "~/Content/bootstrap-flat.min.css";
                 public const string bootstrap_rtl_min_css = "~/Content/bootstrap-rtl.min.css";
+                public const string ionicons_css = "~/Content/ionicons.css";
+                public const string ionicons_min_css = "~/Content/ionicons.min.css";
                 public const string site_css = "~/Content/site.css";
                 public const string toastr_css = "~/Content/toastr.css";
                 public const string toastr_min_css = "~/Content/toastr.min.css";
