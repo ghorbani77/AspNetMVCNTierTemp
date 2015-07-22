@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MVC5.Common.Controller.Alerts
+﻿namespace MVC5.Common.Controller.Alerts
 {
     public class AlertType
     {
@@ -12,5 +6,6 @@ namespace MVC5.Common.Controller.Alerts
         public const string Information = "info";
         public const string Warning = "warning";
         public const string Danger = "danger";
+        public const string Error = "error";
     }
 }

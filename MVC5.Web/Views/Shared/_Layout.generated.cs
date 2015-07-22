@@ -277,6 +277,17 @@ WriteLiteral("    ");
 
             
             #line 65 "..\..\Views\Shared\_Layout.cshtml"
+Write(Scripts.Render("~/bundles/jqueryval"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n    \r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 67 "..\..\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/bootstrap"));
 
             
@@ -287,7 +298,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 66 "..\..\Views\Shared\_Layout.cshtml"
+            #line 68 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
@@ -296,13 +307,13 @@ Write(RenderSection("scripts", required: false));
 WriteLiteral("\r\n");
 
             
-            #line 67 "..\..\Views\Shared\_Layout.cshtml"
+            #line 69 "..\..\Views\Shared\_Layout.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 67 "..\..\Views\Shared\_Layout.cshtml"
+            #line 69 "..\..\Views\Shared\_Layout.cshtml"
       Html.RenderPartial(MVC.Shared.Views.ViewNames._Toastr);
             
             #line default
@@ -312,7 +323,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 68 "..\..\Views\Shared\_Layout.cshtml"
+            #line 70 "..\..\Views\Shared\_Layout.cshtml"
 Write(MiniProfiler.RenderIncludes());
 
             

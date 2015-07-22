@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.Cookies;
 using MVC5.DomainClasses.Entities;
-using MVC5.ViewModel.Account;
-using MVC5.ViewModel.AdminArea.User;
 
 namespace MVC5.ServiceLayer.Contracts
 {
@@ -551,14 +549,17 @@ namespace MVC5.ServiceLayer.Contracts
         Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUser applicationUser);
         Task<bool> HasPassword(int userId);
         Task<bool> HasPhoneNumber(int userId);
-        Task SeedDatabase(InstallViewModel viewModel);
-        void DeleteAll();
+        Task RemoveAll();
         bool IsEmailInDatabase(string email);
         Task<List<ApplicationUser>> GetAllUsersAsync();
         bool IsPhoneNumberInDatabase(string phoneNumber);
         bool IsUserNameInDatabase(string userName);
-
+        bool Any();
         IList<ApplicationUser> GetUsersWithRoleIds(params int[]ids);
+        void AddRange(IEnumerable<ApplicationUser> users);
+        bool AutoCommitEnabled { get; set; }
+        void SeedDatabase();
+         bool IsExistByUserName(string userName);
     }
 
 }

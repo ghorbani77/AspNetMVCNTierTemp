@@ -17,7 +17,7 @@ namespace MVC5.IocConfig
         public AspNetIdentityRegistery()
         {
             For<ApplicationDbContext>().HybridHttpOrThreadLocalScoped()
-                    .Use(context => (ApplicationDbContext)context.GetInstance<IUnitOfWork>());
+                               .Use(context => (ApplicationDbContext)context.GetInstance<IUnitOfWork>());
             For<DbContext>().HybridHttpOrThreadLocalScoped()
                  .Use(context => (ApplicationDbContext)context.GetInstance<IUnitOfWork>());
 
@@ -40,20 +40,26 @@ namespace MVC5.IocConfig
                  .HybridHttpOrThreadLocalScoped()
                  .Use<ApplicationRoleManager>();
 
-            // map same interface to different concrete classes
             For<IIdentityMessageService>().Use<SmsService>();
-            For<IIdentityMessageService>().Use<ServiceLayer.EFServiecs.EmailService>();
+            For<IIdentityMessageService>().Use<MVC5.ServiceLayer.EFServiecs.EmailService>();
 
-            
             For<IApplicationUserManager>().HybridHttpOrThreadLocalScoped()
-                 .Use<ApplicationUserManager>()
-                 .Ctor<IIdentityMessageService>("smsService").Is<SmsService>()
-                 .Ctor<IIdentityMessageService>("emailService").Is<ServiceLayer.EFServiecs.EmailService>()
-                 .Setter<IIdentityMessageService>(userManager => userManager.SmsService).Is<SmsService>()
-                 .Setter<IIdentityMessageService>(userManager => userManager.EmailService).Is<ServiceLayer.EFServiecs.EmailService>();
+               .Use<ApplicationUserManager>()
+               .Ctor<IIdentityMessageService>("smsService").Is<SmsService>()
+               .Ctor<IIdentityMessageService>("emailService").Is<MVC5.ServiceLayer.EFServiecs.EmailService>()
+               .Setter<IIdentityMessageService>(userManager => userManager.SmsService).Is<SmsService>()
+               .Setter<IIdentityMessageService>(userManager => userManager.EmailService).Is<MVC5.ServiceLayer.EFServiecs.EmailService>();
 
             For<ApplicationUserManager>().HybridHttpOrThreadLocalScoped()
                  .Use(context => (ApplicationUserManager)context.GetInstance<IApplicationUserManager>());
+
+            For<ICustomRoleStore>()
+                      .HybridHttpOrThreadLocalScoped()
+                      .Use<CustomRoleStore>();
+
+            For<ICustomUserStore>()
+                  .HybridHttpOrThreadLocalScoped()
+                  .Use<CustomUserStore>();
 
         }
     }

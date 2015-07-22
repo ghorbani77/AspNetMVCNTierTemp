@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -10,13 +12,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
-using MVC5.DomainClasses;
+using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ServiceLayer.IdentityExtentions;
 using MVC5.ServiceLayer.Security;
-using MVC5.ViewModel.Account;
-using MVC5.ViewModel.AdminArea.User;
 
 namespace MVC5.ServiceLayer.EFServiecs
 {
@@ -24,25 +24,34 @@ namespace MVC5.ServiceLayer.EFServiecs
     {
 
         #region Fields
+
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IDbSet<ApplicationUser> _users;
         private readonly IDataProtectionProvider _dataProtectionProvider;
-        private readonly IIdentityMessageService _emailService;
-        private readonly IIdentityMessageService _smsService;
         private readonly IMappingEngine _mappingEngine;
         private readonly IUserStore<ApplicationUser, int> _userStore;
         #endregion
 
         #region Constructor
-        public ApplicationUserManager(IMappingEngine mappingEngine, IDataProtectionProvider dataProtectionProvider, IIdentityMessageService identityMessageService, IUserStore<ApplicationUser, int> userStore)
+
+        public ApplicationUserManager(IUserStore<ApplicationUser, int> userStore, IUnitOfWork unitOfWork,
+            IMappingEngine mappingEngine, IDataProtectionProvider dataProtectionProvider,
+             IIdentityMessageService smsService,
+            IIdentityMessageService emailService)
             : base(userStore)
         {
+            AutoCommitEnabled = true;
             _dataProtectionProvider = dataProtectionProvider;
-            _emailService = identityMessageService;
-            _smsService = identityMessageService;
             _userStore = userStore;
             _mappingEngine = mappingEngine;
-
+            this.EmailService = emailService;
+            this.SmsService = smsService;
+            _unitOfWork = unitOfWork;
+            _users = _unitOfWork.Set<ApplicationUser>();
             CreateApplicationUserManager();
+
         }
+
         #endregion
 
         #region GenerateUserIdentityAsync
@@ -85,23 +94,13 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region SeedDatabase
-        public async Task SeedDatabase(InstallViewModel viewModel)
+        public void SeedDatabase()
         {
-            var user = _mappingEngine.Map<ApplicationUser>(viewModel);
-
-            user.EmailConfirmed = true;
-            user.TwoFactorEnabled = false;
-            user.PhoneNumberConfirmed = true;
-            user.CanChangeProfilePicture = true;
-            user.LockoutEnabled = false;
-            user.IsSystemAccount = true;
-            user.CommentPermission = CommentPermissionType.WithOutApporove;
-            user.CanChangeProfilePicture = true;
-            user.CanModifyFirsAndLastName = true;
-            user.CanUploadFile = true;
-
-            await CreateAsync(user,viewModel.Password);
-            await AddToRoleAsync(user.Id, SystemRoleNames.SuperAdministrators.Name);
+            if (IsExistByUserName(SystemUsersProvider.GetStandardSystemUser.UserName)) return;
+            var newUser = _mappingEngine.Map<ApplicationUser>(SystemUsersProvider.GetStandardSystemUser);
+            _users.Add(newUser);
+            _unitOfWork.SaveChanges();
+            this.AddToRole(newUser.Id, SystemRoleNames.SuperAdministrators.Name);
         }
 
         #endregion
@@ -154,14 +153,14 @@ namespace MVC5.ServiceLayer.EFServiecs
             UserValidator = new CustomUserValidator<ApplicationUser, int>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = false
+                RequireUniqueEmail = true
             };
 
             PasswordValidator = new CustomPasswordValidator()
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false,
-                RequireDigit = false,
+                RequireDigit = true,
                 RequireLowercase = false,
                 RequireUppercase = false
             };
@@ -180,8 +179,6 @@ namespace MVC5.ServiceLayer.EFServiecs
             //    BodyFormat = "کد فعال سازی شما {0} است"
             //});
 
-            EmailService = _emailService;
-            SmsService = _smsService;
 
             if (_dataProtectionProvider == null) return;
 
@@ -192,9 +189,9 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region DeleteAll
-        public void DeleteAll()
+        public async Task RemoveAll()
         {
-            Users.Delete();
+            await Users.DeleteAsync();
         }
         #endregion
 
@@ -205,6 +202,33 @@ namespace MVC5.ServiceLayer.EFServiecs
                 .ToList();
         }
         #endregion
-       
+
+        #region AutoCommitEnabled
+        public bool AutoCommitEnabled { get; set; }
+
+        #endregion
+
+        #region Any
+        public bool Any()
+        {
+            return _users.Any();
+        }
+        #endregion
+
+        #region AddRange
+        public void AddRange(IEnumerable<ApplicationUser> users)
+        {
+            _unitOfWork.AddThisRange(users);
+        }
+        #endregion
+
+        #region IsExistByUserName
+
+        public bool IsExistByUserName(string userName)
+        {
+            return Users.Any(a => a.UserName == SystemUsersProvider.GetStandardSystemUser.UserName);
+        }
+        #endregion
+
     }
 }

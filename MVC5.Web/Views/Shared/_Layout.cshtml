@@ -62,6 +62,8 @@
         </div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @{Html.RenderPartial(MVC.Shared.Views.ViewNames._Toastr);}

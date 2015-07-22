@@ -62,8 +62,8 @@
   <ItemGroup>
     <Compile Include="Extentions\AutoIgnore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role\RoleProfile.cs" />
-    <Compile Include="User\UserProfile.cs" />
+    <Compile Include="RoleProfile.cs" />
+    <Compile Include="UserProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

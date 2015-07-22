@@ -2,6 +2,8 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
+using MVC5.DataLayer.Context;
+using MVC5.ServiceLayer.EFServiecs;
 using Owin;
 using StructureMap.Web;
 using MVC5.IocConfig;
@@ -21,11 +23,11 @@ namespace MVC5.Web
             ProjectObjectFactory.Container.Configure(config => config.For<IDataProtectionProvider>()
                 .HybridHttpOrThreadLocalScoped()
                 .Use(() => appBuilder.GetDataProtectionProvider()));
-            
-            appBuilder.CreatePerOwinContext(() => ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>());
-            appBuilder.CreatePerOwinContext(() => ProjectObjectFactory.Container.GetInstance<IApplicationRoleManager>());
-            appBuilder.CreatePerOwinContext(() => ProjectObjectFactory.Container.GetInstance<IApplicationSignInManager>());
 
+            ProjectObjectFactory.Container.GetInstance<IApplicationRoleManager>()
+                .SeedDatabase();
+            ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>()
+               .SeedDatabase();
 
             appBuilder.UseCookieAuthentication(new CookieAuthenticationOptions
             {

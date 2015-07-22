@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using MVC5.DomainClasses.Entities;
+using MVC5.ViewModel.AdminArea.Role;
+using MVC5.ViewModel.AdminArea.Security;
 
 namespace MVC5.ServiceLayer.Contracts
 {
@@ -57,7 +59,7 @@ namespace MVC5.ServiceLayer.Contracts
 
 
         // Our new custom methods
-        
+
         ApplicationRole FindRoleByName(string roleName);
         IdentityResult CreateRole(ApplicationRole role);
         IList<ApplicationUserRole> GetUsersOfRole(string roleName);
@@ -66,10 +68,18 @@ namespace MVC5.ServiceLayer.Contracts
         string[] GetRolesForUser(int userId);
         bool IsUserInRole(int userId, string roleName);
         Task<IList<string>> GetPermissionsOfUser(int userId);
-        Task<IList<string>> GetPermissionsOfRole(int roleId);
+        IList<string> GetPermissionsOfRole(string roleName);
         Task<IList<ApplicationRole>> GetAllApplicationRolesAsync();
-        Task EditPermissionsToRole(int roleId, params int[] permissions);
-        Task SeedDatabase(IEnumerable<ApplicationPermission> permissions);
-        void DeleteAll();
+        void SetPermissionsToRole(int? roleId, string name, IEnumerable<ApplicationPermission> permissions);
+        void SeedDatabase();
+        Task RemoteAll();
+        Task<IEnumerable<RoleViewModel>> GetList();
+        void AddRoleWithPermissions(AddRoleViewModel viewModel, params int[] ids);
+        void EditRoleWithPermissions(EditRoleViewModel viewModel, params int[] ids);
+        Task<EditRoleViewModel> GetRoleByPermissions(int id);
+        void AddRange(IEnumerable<ApplicationRole> roles);
+        Task<bool> AnyAsync();
+        bool AutoCommitEnabled { get; set; }
+        bool Any();
     }
 }

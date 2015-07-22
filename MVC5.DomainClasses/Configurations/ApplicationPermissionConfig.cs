@@ -15,13 +15,7 @@ namespace MVC5.DomainClasses.Configurations
             Property(p => p.ControllerName).HasMaxLength(50).IsRequired();
             Property(p => p.AreaName).HasMaxLength(50).IsOptional();
 
-            HasMany(p => p.ChildrenPermissions)
-                .WithOptional(a => a.Parent)
-                .HasForeignKey(a => a.ParentId)
-                .WillCascadeOnDelete(false);
-
-            Property(a => a.ParentId).HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_PermissionParentId")));
+            ToTable("Permissions");
 
             this.Filter("IsMenu", a => a.Condition(p => p.IsMenu));
 
@@ -32,7 +26,7 @@ namespace MVC5.DomainClasses.Configurations
                     new IndexAnnotation(new IndexAttribute("IX_PermissionName") { IsUnique = true }));
 
             HasMany(p => p.ApplicationRoles)
-                .WithMany(a => a.Permissionses)
+                .WithMany(a => a.Permissions)
                 .Map(a => a.ToTable("RolePermission").MapLeftKey("PermissionId").MapRightKey("RoleId"));
         }
 

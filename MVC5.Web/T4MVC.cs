@@ -32,7 +32,6 @@ public static partial class MVC
     public static MVC5.Web.Controllers.AccountController Account = new MVC5.Web.Controllers.T4MVC_AccountController();
     public static MVC5.Web.Controllers.ExportController Export = new MVC5.Web.Controllers.T4MVC_ExportController();
     public static MVC5.Web.Controllers.HomeController Home = new MVC5.Web.Controllers.T4MVC_HomeController();
-    public static MVC5.Web.Controllers.InstallController Install = new MVC5.Web.Controllers.T4MVC_InstallController();
     public static MVC5.Web.Controllers.ManageController Manage = new MVC5.Web.Controllers.T4MVC_ManageController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
     public static T4MVC.UserMailerController UserMailer = new T4MVC.UserMailerController();

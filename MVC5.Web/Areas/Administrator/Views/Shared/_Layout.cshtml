@@ -15,7 +15,7 @@
         <script src="/Scripts/warning.js"></script>
         <script>window.onload = function () { e("js/ie6/") ;}</script><![endif]-->
     <!--noscript-->
-    @Styles.Render("~/Content/admin")
+    @Styles.Render("~/Content/adminCss")
     @Scripts.Render("~/bundles/modernizr")
     <noscript>
         <meta http-equiv="refresh" content="0;url=/NoScript.html">
@@ -55,14 +55,14 @@
         </div>
     </header>
 
-    <div class="container">
+    <div class="container margin-top">
         @RenderBody()
     </div>
     <footer>
         
     </footer>
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/admin")
+    @Scripts.Render("~/bundles/adminJs")
     @RenderSection("scripts", required: false)
     @{Html.RenderPartial(MVC.Shared.Views._Toastr);}
     @MiniProfiler.RenderIncludes()

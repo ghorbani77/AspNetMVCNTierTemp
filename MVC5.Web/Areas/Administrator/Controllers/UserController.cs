@@ -9,8 +9,8 @@ using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers", DefaultActioName = "List", CanBeMenu = true,
-        AreaName = "Administrator")]
+    [RouteArea("Panel")]
+    [RoutePrefix("Users")]
     public partial class UserController : BaseController
     {
         #region Fields
@@ -34,7 +34,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region List
-
+        [Route("List")]
         [HttpGet]
         [MvcAuthorize(Description = "مشاهده کاربران", Roles = "CanManageUsers,CanViewUsers",
             CanBeMenu = true)]
@@ -47,20 +47,21 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region Edit
-
+        [Route("Edit/{id}")]
         [HttpGet]
         [MvcAuthorize(Description = "ویرایش کاربر", Roles = "CanManageUsers,CanEditUser",
             CanBeMenu = false)]
         [ActivityLog(Name = "EditUser", Description = "ویرایش کاربر")]
-        public virtual ActionResult Edit()
+        public virtual ActionResult Edit(int? id)
         {
             return View();
         }
 
         [HttpPost]
+        [Route("Edit/{id}")]
         [CheckReferrer]
         [ValidateAntiForgeryToken]
-        [MvcAuthorize(Description = "ویرایش کاربر", Roles = "CanManageUsers,CanEditUser",
+        [MvcAuthorize( Roles = "CanManageUsers,CanEditUser",
             CanBeMenu = false)]
         public virtual ActionResult Edit(EditUserViewModel viewModel)
         {
@@ -72,6 +73,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #region Create
 
         [HttpGet]
+        [Route("Create")]
         [MvcAuthorize(Description = "درج کاربر جدید", Roles = "CanManageUsers,CanCreateUser",
             CanBeMenu = true)]
         [ActivityLog(Name = "AddUser", Description = "درج کاربر جدید")]
@@ -82,9 +84,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [CheckReferrer]
+        [Route("Create")]
         [ValidateAntiForgeryToken]
-        [MvcAuthorize(Description = "درج کاربر جدید", Roles = "CanManageUsers,CanCreateUser",
-            CanBeMenu = false)]
+        [MvcAuthorize( Roles = "CanManageUsers,CanCreateUser",
+            CanBeMenu = true)]
         public virtual ActionResult Create(AddUserViewModel viewModel)
         {
             return View();
@@ -95,6 +98,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #region Delete
 
         [HttpPost]
+        [Route("Delete")]
         [CheckReferrer]
         [ValidateAntiForgeryToken]
         [MvcAuthorize(Description = "حذف کاربر", Roles = "CanManageUsers,CanDeleteUser",
@@ -111,7 +115,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [MvcAuthorize(Description = "چک کردن نام کاربری",
+        [MvcAuthorize(
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -122,7 +126,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [MvcAuthorize(Description = "چک کردن نام کاربر",
+        [MvcAuthorize(
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -133,7 +137,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [MvcAuthorize(Description = "چک کردن نام خانوادگی کاربر",
+        [MvcAuthorize(
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -144,7 +148,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [MvcAuthorize(Description = "چک کردن ایمیل",
+        [MvcAuthorize(
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -155,7 +159,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [MvcAuthorize(Description = "چک کردن شماره همراه",
+        [MvcAuthorize(
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -167,7 +171,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [MvcAuthorize(Description = "چک کردن آی دی گوگل پلاس",
+        [MvcAuthorize(
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -179,7 +183,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [MvcAuthorize(Description = "چک کردن آی دی فیسبوک",
+        [MvcAuthorize(
             Roles = "CanManageUsers,CanEditUser,CanCreateUser",
             CanBeMenu = false)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]

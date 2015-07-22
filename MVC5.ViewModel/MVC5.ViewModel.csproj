@@ -125,8 +125,11 @@
     <Compile Include="Account\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="AdminArea\Role\AddRoleViewModel.cs" />
     <Compile Include="AdminArea\Role\EditRoleViewModel.cs" />
+    <Compile Include="AdminArea\Security\DefaultRoleRecord.cs" />
     <Compile Include="AdminArea\Setting\UserSettingViewModel.cs" />
     <Compile Include="AdminArea\User\InstallViewModel.cs" />
+    <Compile Include="AdminArea\Security\DefaultPermissionsRecord.cs" />
+    <Compile Include="AdminArea\Security\DefaultUserRecord.cs" />
     <Compile Include="ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdminArea\Role\RoleViewModel.cs" />

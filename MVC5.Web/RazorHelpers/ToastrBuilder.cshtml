@@ -23,19 +23,20 @@
             @:var optionsOverride = { /* Add message specific options here */ };
             if (message.IsSticky)
             {
-               
                 <text>toastr.options.timeOut = 0;
         toastr.options.progressBar = false;
         toastr.options.extendedTimeout = 0;</text>
             }
+            
             if (message.Title.IsNotEmpty())
             {
                 @:toastr['@toastTypeValue']('@message.Message', '@message.Title');
-              }
+            }
             else
             {
-                @:toastr['@toastTypeValue']('@message.Message');
-              }
+               
+                @:toastr['@toastTypeValue']('@message.Message'); 
+            }
         }
     });
     </script>

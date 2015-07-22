@@ -20,7 +20,7 @@ using MVC5.ViewModel.Account;
 
 namespace MVC5.Web.Controllers
 {
-   // [MvcAuthorize]
+    [MvcAuthorize(Roles = "CanManageAccount")]
     [DisplayName("")]
     public partial class AccountController : BaseController
     {
@@ -220,6 +220,7 @@ namespace MVC5.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [MvcAuthorize(Roles = "CanLogOff")]
         public virtual ActionResult LogOff()
         {
             _authenticationManager.SignOut();

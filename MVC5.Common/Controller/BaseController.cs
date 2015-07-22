@@ -60,12 +60,12 @@ namespace MVC5.Common.Controller
 
         #region toastralerts
 
-        public void ToastrDanger(string message, string title="",
+        public void ToastrError(string message, string title="",
             bool isSticky = false)
         {
             var toastMessage = new ToastMessage
             {
-                AlertType = AlertType.Danger,
+                AlertType = AlertType.Error,
                 IsSticky = isSticky,
                 Message = message,
                 Title = title

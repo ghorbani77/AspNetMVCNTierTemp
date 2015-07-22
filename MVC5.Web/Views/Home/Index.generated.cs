@@ -11,6 +11,27 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
+    using System.Web.Mvc.Html;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    using MvcSiteMapProvider.Web.Html;
+    using MvcSiteMapProvider.Web.Html.Models;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Home/Index.cshtml")]
     public partial class _Views_Home_Index_cshtml : System.Web.Mvc.WebViewPage<dynamic>
@@ -28,32 +49,35 @@ namespace ASP
             
             #line default
             #line hidden
-WriteLiteral("\r\n<div");
+WriteLiteral("\r\n<main>\r\n\r\n    <section");
 
 WriteLiteral(" class=\"jumbotron\"");
 
-WriteLiteral(">\r\n    <h3>\r\n        طراحی یک فریمورک برای کارکردن با\r\n        Asp.net MVC و Enti" +
-"ty Framework\r\n    </h3>\r\n    <p");
-
-WriteLiteral(" class=\"lead\"");
-
 WriteLiteral(@">
-        طراحی فریمورک برای کار با Asp.net MVC و EF به صورت NTier
+        <header>
+            <strong>
+                طراحی یک فریمورک برای کارکردن با
+                Asp.net MVC و Entity Framework
+            </strong>
+        </header>
 
-        هدف اصلی بنده ساخت یک قالب  آماده بر اساس مقالاتی که تا الان در سایت جاری مطالعه کردم ، بود.همانطور که در مقاله مربوط به  چک لیست تهیه یک برنامه Asp.net MVC ، در نکات تکمیلی پیشنهاد شد:
+        <p>
+            طراحی فریمورک برای کار با Asp.net MVC و EF به صورت NTier
 
-        امکان تهیه قالب‌های سفارشی VS.NET و لحاظ موارد فوق در آن جهت استفاده‌های بعدی نیز وجود دارد
-        بنده هم سعی کردم تمام این نکات را در پروژه اعمال کنم . قالب مورد نظر بنده کامل نیست فعلا و نهایت تا آخر این هبفته تکمیل میکنم . صرفا برای نظر سنجی از دوستان  پروژه را زودتر ارائه دادم.  پروژه از 10 Class Library تشکیل شده است و تمام نکات مربوط به SEO و Security و Performance را که در سایت جاری مطرح شده بود ، اعمال کرده ام . سیستم داینامیک برای مدیریت دسترسی‌ها و سیستم لاگ گیری از فعالیت‌های کاربران نیز در نظر گرفته شده است.
+            هدف اصلی بنده ساخت یک قالب  آماده بر اساس مقالاتی که تا الان در سایت جاری مطالعه کردم ، بود.همانطور که در مقاله مربوط به  چک لیست تهیه یک برنامه Asp.net MVC ، در نکات تکمیلی پیشنهاد شد:
 
-        دوستان نظرات خود را در بازخورد ایجاد شده توسط بنده مطرح کنید.
+            امکان تهیه قالب‌های سفارشی VS.NET و لحاظ موارد فوق در آن جهت استفاده‌های بعدی نیز وجود دارد
+            بنده هم سعی کردم تمام این نکات را در پروژه اعمال کنم . قالب مورد نظر بنده کامل نیست فعلا و نهایت تا آخر این هبفته تکمیل میکنم . صرفا برای نظر سنجی از دوستان  پروژه را زودتر ارائه دادم.  پروژه از 10 Class Library تشکیل شده است و تمام نکات مربوط به SEO و Security و Performance را که در سایت جاری مطرح شده بود ، اعمال کرده ام . سیستم داینامیک برای مدیریت دسترسی‌ها و سیستم لاگ گیری از فعالیت‌های کاربران نیز در نظر گرفته شده است.
 
-        در ادامه (تا یک هفته) با استفاده از این قالب یک وبلاگ کامل را ارائه خواهم داد.
+            دوستان نظرات خود را در بازخورد ایجاد شده توسط بنده مطرح کنید.
+
+            در ادامه (تا یک هفته) با استفاده از این قالب یک وبلاگ کامل را ارائه خواهم داد.
 
 
-        
-    </p>
-</div>
+        </p>
+    </section>
 
+</main>
 ");
 
         }

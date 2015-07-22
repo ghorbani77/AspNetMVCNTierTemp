@@ -1,5 +1,88 @@
-﻿
+﻿@* GeneratePrettyNames : true *@
+@model IEnumerable<MVC5.ViewModel.AdminArea.Role.RoleViewModel>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "لیست نقش های کاربری";
 }
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">
+            @Html.ActionLink("درج نقش جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = "Administrator" }, new { @class = "btn btn-sm btn-info" })
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="userTable">
+                    <thead>
+                        <tr>
+                            <th>توضیحات</th>
+                            <th class="text-center">نام سیستمی</th>
+                            <th class="text-center">فعال /غیر فعال</th>
+                            <th class="text-center">نقش سیستمی</th>
+                            <th class="text-center">نقش پیشفرض برای عضویرت</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var role in Model)
+                        {
+                            <tr>
+                                <td>@role.Description</td>
+                                <td class="text-center">@role.Name</td>
+                                <td class="text-center">
+                                    @if (role.IsActive)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (role.IsSystemRole)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (role.IsDefaultForRegister)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-left">
+
+                                    @Html.ActionLink("ویرایش", MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { id = role.Id, area = "Administrator" }, new { @class = "btn btn-sm btn-primary" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

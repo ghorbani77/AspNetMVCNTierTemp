@@ -69,6 +69,12 @@
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DNTProfiler.Common">
+      <HintPath>..\packages\DNTProfiler.EntityFramework.Core.1.5.849.0\lib\net45\DNTProfiler.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DNTProfiler.EntityFramework.Core">
+      <HintPath>..\packages\DNTProfiler.EntityFramework.Core.1.5.849.0\lib\net45\DNTProfiler.EntityFramework.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -276,6 +282,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -333,6 +342,7 @@
     <Compile Include="Administrator.UserController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\SystemConfiguration.cs" />
     <Compile Include="Areas\Administrator\AdministratorAreaRegistration.cs" />
     <Compile Include="Areas\Administrator\Controllers\HomeController.cs" />
     <Compile Include="Areas\Administrator\Controllers\RoleController.cs" />
@@ -343,7 +353,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Views\Role\Create.generated.cs">
+    <Compile Include="Areas\Administrator\Views\Role\Create1.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Create.cshtml</DependentUpon>
@@ -407,10 +417,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>_ViewStart.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\InstallController.cs" />
-    <Compile Include="InstallController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="RazorHelpers\BootstrapBuilder.generated.cs">
       <AutoGen>True</AutoGen>
@@ -549,11 +555,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Install\Start.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Start.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Manage\AddPhoneNumber.generated.cs">
       <AutoGen>True</AutoGen>
@@ -762,6 +763,7 @@
     <Content Include="App_Data\Images\Overlays\13.png" />
     <Content Include="App_Data\Images\Overlays\14.png" />
     <Content Include="App_Data\Images\Overlays\15.png" />
+    <Content Include="readme.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -822,8 +824,8 @@
       <LastGenOutput>Index.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\Role\Create.cshtml">
+      <LastGenOutput>Create1.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Create.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\Role\Edit.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1117,10 +1119,6 @@
     <Content Include="Views\Shared\_Bootstrap.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Bootstrap.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Install\Start.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Start.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

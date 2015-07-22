@@ -2,7 +2,10 @@
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using EFSecondLevelCache;
 using EntityFramework.BulkInsert.Extensions;
 using EntityFramework.Filters;
@@ -44,7 +47,9 @@ namespace MVC5.DataLayer.Context
         public T Update<T>(T entity, System.Linq.Expressions.Expression<Func<IUpdateConfiguration<T>, object>> mapping)
             where T : class, new()
         {
+            
             return this.UpdateGraph(entity, mapping);
+           
         }
 
         private string[] GetChangedEntityNames()
@@ -67,7 +72,10 @@ namespace MVC5.DataLayer.Context
         {
             Entry(entity).State = EntityState.Modified;
         }
-
+        public void MarkAsDetached<TEntity>(TEntity entity) where TEntity : class
+        {
+            Entry(entity).State = EntityState.Detached;
+        }
         public void MarkAsAdded<TEntity>(TEntity entity) where TEntity : class
         {
             Entry(entity).State = EntityState.Added;
@@ -99,27 +107,26 @@ namespace MVC5.DataLayer.Context
 
         public override Task<int> SaveChangesAsync()
         {
+           
             return SaveAllChangesAsync();
         }
 
         public Task<int> SaveAllChangesAsync(bool invalidateCacheDependencies = true)
         {
+
             var result = base.SaveChangesAsync();
             if (!invalidateCacheDependencies) return result;
 
             var changedEntityNames = GetChangedEntityNames();
             new EFCacheServiceProvider().InvalidateCacheDependencies(changedEntityNames);
-            return result;
+            return null;
         }
 
-        public void AutoDetectChangesEnabled(bool flag = true)
-        {
-            Configuration.AutoDetectChangesEnabled = flag;
-        }
+      
 
         public IEnumerable<TEntity> AddThisRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
-            return ((DbSet<TEntity>) Set<TEntity>()).AddRange(entities);
+            return ((DbSet<TEntity>)Set<TEntity>()).AddRange(entities);
         }
 
 
@@ -148,6 +155,25 @@ namespace MVC5.DataLayer.Context
             this.BulkInsert(data);
         }
 
+        public bool ValidateOnSaveEnabled
+        {
+            get { return Configuration.ValidateOnSaveEnabled; }
+            set {Configuration.ValidateOnSaveEnabled = value; }
+        }
+
+        public bool ProxyCreationEnabled
+        {
+            get { return Configuration.ProxyCreationEnabled; }
+            set { Configuration.ProxyCreationEnabled = value; }
+        }
+
+        bool IUnitOfWork.AutoDetectChangesEnabled
+        {
+            get { return Configuration.AutoDetectChangesEnabled; }
+            set { Configuration.AutoDetectChangesEnabled = value; }
+        }
+
+        public bool ForceNoTracking { get; set; }
         #endregion
 
         #region Override OnModelCreating
@@ -158,13 +184,25 @@ namespace MVC5.DataLayer.Context
             Config(modelBuilder);
             DbInterception.Add(new FilterInterceptor());
             DbInterception.Add(new YeKeInterceptor());
-
-            modelBuilder.Configurations.Add(new SettingConfig());
-            modelBuilder.Configurations.Add(new ActivityLogConfig());
-            modelBuilder.Configurations.Add(new ActivityLogTypeConfig());
-            modelBuilder.Configurations.Add(new ApplicationPermissionConfig());
+            modelBuilder.Configurations.AddFromAssembly(typeof(SettingConfig).GetTypeInfo().Assembly);
+            LoadEntities(typeof(ApplicationUser).GetTypeInfo().Assembly, modelBuilder, "MVC5.DomainClasses.Entities");
         }
 
+        #endregion
+
+        #region AutoRegisterEntityType
+
+        public void LoadEntities(Assembly asm, DbModelBuilder modelBuilder, string nameSpace)
+        {
+            var entityTypes = asm.GetTypes()
+                .Where(type => type.BaseType != null &&
+                               type.Namespace == nameSpace &&
+                               type.BaseType == null)
+                .ToList();
+
+            var entityMethod = typeof(DbModelBuilder).GetMethod("Entity");
+            entityTypes.ForEach(type => entityMethod.MakeGenericMethod(type).Invoke(modelBuilder, new object[] { }));
+        }
         #endregion
 
         #region AspNetIdentityConfig
@@ -201,6 +239,8 @@ namespace MVC5.DataLayer.Context
         public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
 
         #endregion
+
+
 
     }
 }

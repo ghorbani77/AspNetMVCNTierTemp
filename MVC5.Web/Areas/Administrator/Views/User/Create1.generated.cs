@@ -49,7 +49,7 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<h2>Create</h2>\r\n\r\n");
+WriteLiteral("\r\n\r\n\r\n");
 
         }
     }

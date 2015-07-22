@@ -11,7 +11,7 @@ namespace MVC5.Web
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"
@@ -34,24 +34,22 @@ namespace MVC5.Web
                 "~/Content/plugins/fileinput.min.css",
                 "~/Content/site.min.css"));
 
-            bundles.Add(new StyleBundle("~/Content/admin").Include(
+            bundles.Add(new StyleBundle("~/Content/adminCss").Include(
                 "~/Content/bootstrap-flat.min.css",
                 "~/Content/bootstrap-rtl.min.css",
                 "~/Content/toastr.min.css",
                 "~/Content/plugins/font-awesome.min.css",
                 "~/Content/ionicons.min.css",
-                "~/Content/admin/AdminLTE.min.css",
-                "~/Content/admin/skins/skin-blue-light.min.css",
+                 "~/Content/site.min.css",
                 "~/Content/plugins/fileinput.min.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/admin").Include(
-                      "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/respond.min.js",
-                      "~/Scripts/admin/admin.min.js",
-                      "~/Scripts/toastr.min.js",
-                      "~/Scripts/plugins/fileinput.min.js",
-                     "~/Scripts/admin/app.min.js"
-                      ));
+            bundles.Add(new ScriptBundle("~/bundles/adminJs").Include(
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/respond.min.js",
+                "~/Scripts/toastr.min.js",
+                "~/Scripts/plugins/fileinput.min.js",
+                "~/Scripts/site.min.js"
+                ));
 
 
             BundleTable.EnableOptimizations = true;

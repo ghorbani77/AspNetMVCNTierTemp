@@ -110,7 +110,6 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "var optionsOverride = { /* A
 #line 24 "..\..\RazorHelpers\ToastrBuilder.cshtml"
             if (message.IsSticky)
             {
-               
 
 #line default
 #line hidden
@@ -124,8 +123,9 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\r\n");
 
 
 
-#line 30 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 29 "..\..\RazorHelpers\ToastrBuilder.cshtml"
             }
+            
             if (message.Title.IsNotEmpty())
             {
 
@@ -169,9 +169,10 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\');\r\n");
 
 
 #line 34 "..\..\RazorHelpers\ToastrBuilder.cshtml"
-              }
+            }
             else
             {
+               
 
 #line default
 #line hidden
@@ -182,7 +183,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "toastr[\'");
 
 
 
-#line 37 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 38 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 WebViewPage.WriteTo(@__razor_helper_writer, toastTypeValue);
 
 #line default
@@ -192,18 +193,18 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\'](\'");
 
 
 
-#line 37 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 38 "..\..\RazorHelpers\ToastrBuilder.cshtml"
   WebViewPage.WriteTo(@__razor_helper_writer, message.Message);
 
 #line default
 #line hidden
 
-WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\');\r\n");
+WebViewPage.WriteLiteralTo(@__razor_helper_writer, "\'); \r\n");
 
 
 
-#line 38 "..\..\RazorHelpers\ToastrBuilder.cshtml"
-              }
+#line 39 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+            }
         }
 
 #line default
@@ -213,7 +214,7 @@ WebViewPage.WriteLiteralTo(@__razor_helper_writer, "    });\r\n    </script>\r\n
 
 
 
-#line 42 "..\..\RazorHelpers\ToastrBuilder.cshtml"
+#line 43 "..\..\RazorHelpers\ToastrBuilder.cshtml"
 
 #line default
 #line hidden

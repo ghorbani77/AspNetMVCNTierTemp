@@ -58,6 +58,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Delete()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
@@ -109,6 +116,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public class ActionParamsClass_Create
         {
             public readonly string viewModel = "viewModel";
+            public readonly string permissionIds = "permissionIds";
         }
         static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -116,7 +124,9 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Edit
         {
+            public readonly string id = "id";
             public readonly string viewModel = "viewModel";
+            public readonly string permissionIds = "permissionIds";
         }
         static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -164,64 +174,67 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult List()
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> List()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
             ListOverride(callInfo);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
         partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Create()
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Create()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             CreateOverride(callInfo);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.Role.AddRoleViewModel viewModel);
+        partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.Role.AddRoleViewModel viewModel, int[] permissionIds);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Create(MVC5.ViewModel.AdminArea.Role.AddRoleViewModel viewModel)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Create(MVC5.ViewModel.AdminArea.Role.AddRoleViewModel viewModel, int[] permissionIds)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
-            CreateOverride(callInfo, viewModel);
-            return callInfo;
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "permissionIds", permissionIds);
+            CreateOverride(callInfo, viewModel, permissionIds);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit()
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit(int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
-            EditOverride(callInfo);
-            return callInfo;
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            EditOverride(callInfo, id);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.Role.EditRoleViewModel viewModel);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.Role.EditRoleViewModel viewModel, int[] permissionIds);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(MVC5.ViewModel.AdminArea.Role.EditRoleViewModel viewModel)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit(MVC5.ViewModel.AdminArea.Role.EditRoleViewModel viewModel, int[] permissionIds)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
-            EditOverride(callInfo, viewModel);
-            return callInfo;
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "permissionIds", permissionIds);
+            EditOverride(callInfo, viewModel, permissionIds);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Delete(int id)
+        public override System.Web.Mvc.ActionResult Delete(int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);

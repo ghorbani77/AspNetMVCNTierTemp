@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using MVC5.DomainClasses.Entities;
 
 namespace MVC5.ViewModel.AdminArea.Role
 {
@@ -21,10 +22,12 @@ namespace MVC5.ViewModel.AdminArea.Role
         [MaxLength(500, ErrorMessage = "تعداد کاراکتر های توضیحات گروه غیر مجاز است")]
         [DisplayName("توضیحات")]
         public string Description { get; set; }
-        [DisplayName("گروه پیشفرض ثبت نام")]
+        [DisplayName("گروه پیشفرض ثبت نام است؟")]
         public bool IsDefaultForRegister { get; set; }
-        [DisplayName("فعال")]
+        [DisplayName("فعال باشد؟")]
         public bool IsActive { get; set; }
-        public IEnumerable<SelectListItem> Permissions { get; set; }
+        [DisplayName("گروه سیستمی است؟")]
+        public bool IsSystemRole { get; set; }
+        public ICollection<ApplicationPermission> Permissions { get; set; }
     }
 }

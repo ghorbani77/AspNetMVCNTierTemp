@@ -17,7 +17,6 @@ namespace MVC5.Web.Filters
         #region Properties
         public string Description { get; set; }
         public bool CanBeMenu { get; set; }
-        public string AreaName { get; set; }
         public string DefaultActioName { get; set; }
         #endregion
 

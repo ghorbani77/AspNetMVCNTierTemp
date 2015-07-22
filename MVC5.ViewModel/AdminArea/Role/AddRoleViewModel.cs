@@ -14,16 +14,15 @@ namespace MVC5.ViewModel.AdminArea.Role
         [Required(ErrorMessage = "لطفا نام گروه را وارد کنید")]
         [DisplayName("نام گروه")]
         [MaxLength(50, ErrorMessage = "تعداد کاراکتر های نام گروه غیر مجاز است")]
-        [Remote("RoleNameExist", "Role", "Admin", ErrorMessage = "این گروه قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("RoleNameExist", "Role", "Administrator", ErrorMessage = "این گروه قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string Name { get; set; }
         [Required(ErrorMessage = "لطفا توضیحاتی برای گروه وارد کنید")]
         [MaxLength(500, ErrorMessage = "تعداد کاراکتر های توضیحات گروه غیر مجاز است")]
         [DisplayName("توضیحات")]
         public string Description { get; set; }
-        [DisplayName("گروه پیشفرض ثبت نام")]
+        [DisplayName("گروه پیشفرض ثبت نام است؟")]
         public  bool IsDefaultForRegister { get; set; }
-        [DisplayName("فعال")]
+        [DisplayName("فعال است؟")]
         public bool IsActive { get; set; }
-        public IEnumerable<SelectListItem> Permissions { get; set; }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System.Net.Mail;
-using System.Text;
+﻿using System.Text;
 using Mvc.Mailer;
-using MVC5.ServiceLayer.Mailers;
 using MVC5.ViewModel.Account;
 
 namespace MVC5.ServiceLayer.Mailers

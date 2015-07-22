@@ -78,7 +78,7 @@ WriteLiteral("    ");
 
             
             #line 18 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-Write(Styles.Render("~/Content/admin"));
+Write(Styles.Render("~/Content/adminCss"));
 
             
             #line default
@@ -228,7 +228,7 @@ WriteLiteral("</li>\r\n");
 WriteLiteral("\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        " +
 "</div>\r\n    </header>\r\n\r\n    <div");
 
-WriteLiteral(" class=\"container\"");
+WriteLiteral(" class=\"container margin-top\"");
 
 WriteLiteral(">\r\n");
 
@@ -258,7 +258,7 @@ WriteLiteral("    ");
 
             
             #line 65 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-Write(Scripts.Render("~/bundles/admin"));
+Write(Scripts.Render("~/bundles/adminJs"));
 
             
             #line default

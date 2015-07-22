@@ -10,8 +10,8 @@ using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize(Description = "مدیریت تنظیمات سایت", DefaultActioName = "List", Roles = "CanManageSettings",
-        CanBeMenu = true, AreaName = "Administrator")]
+    [RouteArea("Panel")]
+    [RoutePrefix("Settings")]
     public partial class SettingController : BaseController
     {
         #region Fields
@@ -34,11 +34,11 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region User
-
+        [Route("UserSetting")]
         [HttpGet]
-        [MvcAuthorize(Description = "ویرایش تنظیمات کاربری", Roles = "CanManageSettings,CanEditUserSetting",
+        [MvcAuthorize(Description = "ویرایش تنظیمات مرتبط به کاربران", Roles = "CanManageSettings,CanEditUserSetting",
             CanBeMenu = true)]
-        [ActivityLog(Description = "ویرایش تنظیمات کاربری", Name = "EditUserSetting")]
+        [ActivityLog(Description = "ویرایش تنظیمات مرتبط به کاربران", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting()
         {
             await _unitOfWork.SaveChangesAsync();
@@ -48,8 +48,9 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("UserSetting")]
         [CheckReferrer]
-        [MvcAuthorize(Description = "ویرایش تنظیمات کاربری", Roles = "CanManageSettings,CanEditUserSetting", CanBeMenu = true)]
+        [MvcAuthorize( Roles = "CanManageSettings,CanEditUserSetting", CanBeMenu = true)]
         [ActivityLog(Description = "ویرایش تنظیمات کاربری", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting(UserSettingsViewModel viewModel)
         {
@@ -57,7 +58,6 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
             ToastrSuccess(" عملیات با موفقیت انچام شد", "تنظیمات کاربران");
             return RedirectToAction(MVC.Administrator.Home.ActionNames.Index, MVC.Administrator.Home.Name);
-
         }
 
         #endregion
