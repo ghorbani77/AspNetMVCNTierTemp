@@ -19,7 +19,6 @@ namespace MVC5.ServiceLayer.EFServiecs
     public class ApplicationRoleManager : RoleManager<ApplicationRole, int>, IApplicationRoleManager
     {
         #region Fields
-        private readonly IApplicationUserManager _userManager;
         private readonly IMappingEngine _mappingEngine;
         private readonly IRoleStore<ApplicationRole, int> _roleStore;
         private readonly IUnitOfWork _unitOfWork;
@@ -28,7 +27,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region Constructor
-        public ApplicationRoleManager(IApplicationUserManager userManager, IMappingEngine mappingEngine, IPermissionService permissionService, IUnitOfWork unitOfWork, IRoleStore<ApplicationRole, int> roleStore)
+        public ApplicationRoleManager( IMappingEngine mappingEngine, IPermissionService permissionService, IUnitOfWork unitOfWork, IRoleStore<ApplicationRole, int> roleStore)
             : base(roleStore)
         {
             _roleStore = roleStore;
@@ -37,7 +36,6 @@ namespace MVC5.ServiceLayer.EFServiecs
             _permissionService = permissionService;
             _mappingEngine = mappingEngine;
             AutoCommitEnabled = true;
-            _userManager = userManager;
         }
         #endregion
 
@@ -100,6 +98,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             return roles.Select(x => x.Name).ToArray();
         }
 
+       
         #endregion
 
         #region IsUserInRole
@@ -113,6 +112,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             var userRole = userRolesQuery.FirstOrDefault();
             return userRole != null;
         }
+     
         #endregion
 
         #region GetAllApplicationRolesAsync
@@ -182,7 +182,8 @@ namespace MVC5.ServiceLayer.EFServiecs
         /// </summary>
         public void SeedDatabase()
         {
-            _unitOfWork.AutoDetectChangesEnabled = false;
+            if (_roles.Any(a => a.Name == SystemRoleNames.SuperAdministrators.Name)) return;
+
             _unitOfWork.ValidateOnSaveEnabled = false;
             _unitOfWork.ProxyCreationEnabled = false;
 
@@ -214,20 +215,19 @@ namespace MVC5.ServiceLayer.EFServiecs
                     }
                 }
 
-                _unitOfWork.Update(systemRole, a => a.OwnedCollection(b => b.Permissions));
-                _unitOfWork.SaveAllChanges();
+                try
+                {
+                    _unitOfWork.Update(systemRole, a => a.OwnedCollection(b => b.Permissions));
+                    _unitOfWork.SaveChanges();
+                }
+                finally
+                {
+                    _unitOfWork.ValidateOnSaveEnabled = true;
+                    _unitOfWork.ProxyCreationEnabled = true;
+                }
             }
 
-            try
-            {
-                _unitOfWork.SaveChanges();
-            }
-            finally
-            {
-                _unitOfWork.AutoDetectChangesEnabled = true;
-                _unitOfWork.ValidateOnSaveEnabled = true;
-                _unitOfWork.ProxyCreationEnabled = true;
-            }
+
         }
 
         #endregion

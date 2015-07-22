@@ -25,6 +25,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         #region Fields
 
+        private readonly IApplicationRoleManager _roleManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDbSet<ApplicationUser> _users;
         private readonly IDataProtectionProvider _dataProtectionProvider;
@@ -34,7 +35,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         #region Constructor
 
-        public ApplicationUserManager(IUserStore<ApplicationUser, int> userStore, IUnitOfWork unitOfWork,
+        public ApplicationUserManager(IUserStore<ApplicationUser, int> userStore, IApplicationRoleManager roleManager, IUnitOfWork unitOfWork,
             IMappingEngine mappingEngine, IDataProtectionProvider dataProtectionProvider,
              IIdentityMessageService smsService,
             IIdentityMessageService emailService)
@@ -48,6 +49,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             this.SmsService = smsService;
             _unitOfWork = unitOfWork;
             _users = _unitOfWork.Set<ApplicationUser>();
+            _roleManager = roleManager;
             CreateApplicationUserManager();
 
         }
@@ -96,11 +98,18 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region SeedDatabase
         public void SeedDatabase()
         {
-            if (IsExistByUserName(SystemUsersProvider.GetStandardSystemUser.UserName)) return;
-            var newUser = _mappingEngine.Map<ApplicationUser>(SystemUsersProvider.GetStandardSystemUser);
-            _users.Add(newUser);
-            _unitOfWork.SaveChanges();
+            var newUser = this.FindByName(SystemUsersProvider.GetStandardSystemUser.UserName);
+            
+            if (newUser==null)
+            {
+                 newUser = _mappingEngine.Map<ApplicationUser>(SystemUsersProvider.GetStandardSystemUser);
+                _users.Add(newUser);
+                _unitOfWork.SaveChanges();
+            }
+            var roleOfUser = this.GetRoles(newUser.Id);
+            if (roleOfUser.Any(a => a == SystemRoleNames.SuperAdministrators.Name)) return;
             this.AddToRole(newUser.Id, SystemRoleNames.SuperAdministrators.Name);
+            
         }
 
         #endregion
@@ -226,7 +235,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         public bool IsExistByUserName(string userName)
         {
-            return Users.Any(a => a.UserName == SystemUsersProvider.GetStandardSystemUser.UserName);
+            return Users.Any(a => a.UserName == userName);
         }
         #endregion
 

@@ -135,7 +135,6 @@ namespace MVC5.ServiceLayer.EFServiecs
         public IEnumerable<ApplicationPermission> GetActualPermissions(List<ApplicationPermission> permissions)
         {
             var permissionNames = permissions.Select(a => a.Name).ToArray();
-
             var inDbPermissions = _permissions.Where(a => permissionNames.Any(p => p == a.Name)).ToList();
             var result = new List<ApplicationPermission>(inDbPermissions);
             var noInDbPermissions = permissions.Where(a => inDbPermissions.All(p => p.Name != a.Name)).ToList();
