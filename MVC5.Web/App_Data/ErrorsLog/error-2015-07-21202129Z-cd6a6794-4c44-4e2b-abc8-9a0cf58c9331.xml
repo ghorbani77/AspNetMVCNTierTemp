@@ -1,0 +1,133 @@
+﻿<error errorId="cd6a6794-4c44-4e2b-abc8-9a0cf58c9331" application="/" host="ASUS" type="ElmahEFLogger.CustomElmahLogger.ElmahEfInterceptorException" message="Cannot insert duplicate key row in object 'dbo.Permissions' with unique index 'IX_PermissionName'. The duplicate key value is (CanEditUser).&#xD;&#xA;The statement has been terminated." detail="System.Exception: &#xD;&#xA;Command: &#xD;&#xA;INSERT [dbo].[Permissions]([ParentId], [Name], [ActionName], [ControllerName], [AreaName], [IsMenu], [Description])&#xD;&#xA;VALUES (@0, @1, @2, @3, @4, @5, @6)&#xD;&#xA;SELECT [Id]&#xD;&#xA;FROM [dbo].[Permissions]&#xD;&#xA;WHERE @@ROWCOUNT &gt; 0 AND [Id] = scope_identity()&#xD;&#xA;&#xD;&#xA;Parameters: &#xD;&#xA;-- @0: '36' (Type = Int32)&#xD;&#xA;-- @1: 'CanEditUser' (Type = String, Size = 100)&#xD;&#xA;-- @2: 'Delete' (Type = String, Size = 50)&#xD;&#xA;-- @3: 'User' (Type = String, Size = 50)&#xD;&#xA;-- @4: 'Administrator' (Type = String, Size = 50)&#xD;&#xA;-- @5: 'False' (Type = Boolean)&#xD;&#xA;-- @6: 'حذف کاربر' (Type = String, Size = 1024)&#xD;&#xA;&#xD;&#xA;OriginalException:&#xD;&#xA;System.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.Permissions' with unique index 'IX_PermissionName'. The duplicate key value is (CanEditUser).&#xD;&#xA;The statement has been terminated.&#xD;&#xA;   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)&#xD;&#xA;   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)&#xD;&#xA;   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)&#xD;&#xA;   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean&amp; dataReady)&#xD;&#xA;   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()&#xD;&#xA;   at System.Data.SqlClient.SqlDataReader.get_MetaData()&#xD;&#xA;   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)&#xD;&#xA;   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task&amp; task, Boolean asyncWrite, SqlDataReader ds)&#xD;&#xA;   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task&amp; task, Boolean asyncWrite)&#xD;&#xA;   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)&#xD;&#xA;   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)&#xD;&#xA;   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)&#xD;&#xA;   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)&#xD;&#xA;   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.&lt;Reader&gt;b__c(DbCommand t, DbCommandInterceptionContext`1 c)&#xD;&#xA;   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)&#xD;&#xA;ClientConnectionId:b8960bc1-ae55-43b6-8b11-6a77bca76229 &#xD;&#xA; ---&gt; ElmahEFLogger.CustomElmahLogger.ElmahEfInterceptorException: Cannot insert duplicate key row in object 'dbo.Permissions' with unique index 'IX_PermissionName'. The duplicate key value is (CanEditUser).&#xD;&#xA;The statement has been terminated.&#xD;&#xA;   --- End of inner exception stack trace ---" time="2015-07-21T20:21:29.3132338Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="F:\Work Repository\GitHub Repository\AspNetMVCNTierTemp\MVC5.Web\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="" />
+    </item>
+    <item name="HTTPS">
+      <value string="" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="127.0.0.1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="F:\Work Repository\GitHub Repository\AspNetMVCNTierTemp\MVC5.Web\" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="127.0.0.1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="127.0.0.1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="127.0.0.1" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="80" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.0" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="" />
+    </item>
+    <item name="URL">
+      <value string="/" />
+    </item>
+  </serverVariables>
+</error>
