@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.WebPages;
@@ -178,7 +179,7 @@ namespace MVC5.Common.Controller
                 : new Toastr();
 
             toastr.AddToastMessage(message);
-           
+
             controller.TempData[ToastMessage.TempDataKey] = toastr;
         }
         public static void AddBootstrapAlert(this System.Web.Mvc.Controller controller, BootstrapMessage message)
@@ -188,8 +189,29 @@ namespace MVC5.Common.Controller
                 : new Bootstrap();
 
             bootstrap.AddBootstrapMessage(message);
-          
+
             controller.TempData[BootstrapMessage.TempDataKey] = bootstrap;
+        }
+
+        #endregion
+
+        #region GetListOfErrors
+        public static string GetListOfErrors(this ModelStateDictionary modelState)
+        {
+            var list = modelState.ToList();
+            return
+                list.Select(keyValuePair => keyValuePair.Value.Errors.Select(a => a.ErrorMessage))
+                    .Aggregate(string.Empty,
+                        (current1, errors) =>
+                            errors.Aggregate(current1, (current, error) => current + string.Format("{0}\n", error)));
+        }
+        #endregion
+
+        #region GetUserManagerErros
+
+        public static string GetUserManagerErros(this IEnumerable<string> errors)
+        {
+            return errors.Aggregate(string.Empty, (current, error) => current + string.Format("{0} \n", error));
         }
 
         #endregion

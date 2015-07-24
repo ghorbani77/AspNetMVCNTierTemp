@@ -6,10 +6,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using EFSecondLevelCache;
 using EntityFramework.BulkInsert.Extensions;
 using EntityFramework.Filters;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MVC5.DomainClasses;
 using MVC5.DomainClasses.Configurations;
 using MVC5.DomainClasses.Entities;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using MVC5.Utility;
 using System.Data.Objects;
+using MVC5.Utility.EF.Filters;
 using RefactorThis.GraphDiff;
 
 namespace MVC5.DataLayer.Context
@@ -47,9 +50,9 @@ namespace MVC5.DataLayer.Context
         public T Update<T>(T entity, System.Linq.Expressions.Expression<Func<IUpdateConfiguration<T>, object>> mapping)
             where T : class, new()
         {
-            
+
             return this.UpdateGraph(entity, mapping);
-           
+
         }
 
         private string[] GetChangedEntityNames()
@@ -107,7 +110,7 @@ namespace MVC5.DataLayer.Context
 
         public override Task<int> SaveChangesAsync()
         {
-           
+
             return SaveAllChangesAsync();
         }
 
@@ -119,10 +122,10 @@ namespace MVC5.DataLayer.Context
 
             var changedEntityNames = GetChangedEntityNames();
             new EFCacheServiceProvider().InvalidateCacheDependencies(changedEntityNames);
-            return null;
+            return result;
         }
 
-      
+
 
         public IEnumerable<TEntity> AddThisRange<TEntity>(IEnumerable<TEntity> entities) where TEntity : class
         {
@@ -158,7 +161,7 @@ namespace MVC5.DataLayer.Context
         public bool ValidateOnSaveEnabled
         {
             get { return Configuration.ValidateOnSaveEnabled; }
-            set {Configuration.ValidateOnSaveEnabled = value; }
+            set { Configuration.ValidateOnSaveEnabled = value; }
         }
 
         public bool ProxyCreationEnabled
@@ -211,18 +214,26 @@ namespace MVC5.DataLayer.Context
         {
             modelBuilder.Entity<ApplicationUser>()
                 .ToTable("Users")
-                .Filter("IsDeleted_User", a => a.Condition(u => u.IsDeleted))
-                .Filter("IsBanned_User", a => a.Condition(u => u.IsBanned))
-                .Filter("IsSystemAccount", a => a.Condition(u => u.IsSystemAccount))
-                .Filter("ChangeProfilePicture", a => a.Condition(u => u.CanChangeProfilePicture))
-                .Filter("ModifyFirstAndLastName", a => a.Condition(u => u.CanModifyFirsAndLastName))
-                .Filter("CanUploadFile", a => a.Condition(u => u.CanUploadFile));
-
-
+                .Filter(UserFilters.DeletedList, a => a.Condition(u => u.IsDeleted))
+                .Filter(UserFilters.BannedList, a => a.Condition(u => u.IsBanned))
+                .Filter(UserFilters.SystemAccountList, a => a.Condition(u => u.IsSystemAccount))
+                .Filter(UserFilters.CanChangeProfilePicList, a => a.Condition(u => u.CanChangeProfilePicture))
+                .Filter(UserFilters.CanModifyFirsAndLastNameList, a => a.Condition(u => u.CanModifyFirsAndLastName))
+                .Filter(UserFilters.DontEmailConfirmedList, a => a.Condition(u => !u.EmailConfirmed))
+                .Filter(UserFilters.AllowForCommentWithApproveList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithApprove))
+                .Filter(UserFilters.AllowForCommentWithOutApproveList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithOutApporove))
+                .Filter(UserFilters.ForbiddenForCommentList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.Forbidden))
+                .Filter(UserFilters.CanUploadfileList, a => a.Condition(u => u.CanUploadFile))
+                .Filter(UserFilters.NotSystemAccountList, a => a.Condition(u => !u.IsSystemAccount));
 
             modelBuilder.Entity<ApplicationRole>()
                 .ToTable("Roles")
-                .Filter("IsSystemRole", a => a.Condition(r => r.IsSystemRole));
+                .Filter(RoleFilters.ActiveList, a => a.Condition(u => u.IsActive));
+            modelBuilder.Entity<ApplicationRole>()
+                .HasMany(a => a.Children)
+                .WithOptional(a => a.Parent)
+                .HasForeignKey(a => a.ParentId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
@@ -241,6 +252,37 @@ namespace MVC5.DataLayer.Context
         #endregion
 
 
+        [DbFunction("MVC5.DataLayer.Context", "GetUserPermissions")]
 
+        public IList<string> GetUserPermissions(int[] roleIds)
+        {
+           
+//            var query = new StringBuilder();
+//            query.Append(
+//                @"
+//    select i.Name as ItemName, f.Name as FirmName, c.Name as CategoryName 
+//    from Item i
+//      inner join Firm f on i.FirmId = f.FirmId
+//      inner join Category c on i.CategoryId = c.CategoryId
+//    where c.CategoryId in (");
+
+//            if (roleIds != null && roleIds.Length > 0)
+//            {
+//                for (var i = 0; i < roleIds.Length; i++)
+//                {
+//                    if (i != 0)
+//                        query.Append(",");
+//                    query.Append(roleIds[i]);
+//                }
+//            }
+//            else
+//            {
+//                query.Append("-1"); // It is for empty result when no one category selected
+//            }
+//            query.Append(")");
+
+//            var sqlQuery = query.ToString();
+            return null;
+        }
     }
 }

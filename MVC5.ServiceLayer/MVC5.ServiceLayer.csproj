@@ -32,13 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+    <Reference Include="AutoMapper, Version=4.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.4.0.0-alpha1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    <Reference Include="AutoMapper.EF6">
+      <HintPath>..\packages\AutoMapper.EF6.0.1.1\lib\net45\AutoMapper.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler">
+      <HintPath>..\packages\DelegateDecompiler.0.16.0\lib\net40-Client\DelegateDecompiler.dll</HintPath>
+    </Reference>
+    <Reference Include="DelegateDecompiler.EntityFramework">
+      <HintPath>..\packages\DelegateDecompiler.EntityFramework.0.16.0\lib\net45\DelegateDecompiler.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EFSecondLevelCache">
       <HintPath>..\packages\EFSecondLevelCache.1.1.3.0\lib\net45\EFSecondLevelCache.dll</HintPath>
@@ -57,9 +62,6 @@
     </Reference>
     <Reference Include="Fasterflect">
       <HintPath>..\packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
-    </Reference>
-    <Reference Include="Kendo.DynamicLinq">
-      <HintPath>..\packages\Kendo.DynamicLinq.1.1.2.0\lib\net40\Kendo.DynamicLinq.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -86,6 +88,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Reflection">
+      <HintPath>..\packages\Mono.Reflection.1.0.0.0\lib\Mono.Reflection.dll</HintPath>
+    </Reference>
     <Reference Include="Mvc.Mailer">
       <HintPath>..\packages\MvcMailer-vs2013.4.5.1-pre\lib\45\Mvc.Mailer.dll</HintPath>
     </Reference>
@@ -101,10 +106,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Linq.Dynamic, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Linq.Dynamic">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.4\lib\net40\System.Linq.Dynamic.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -157,7 +162,7 @@
     <Compile Include="Mailers\IUserMailer.cs" />
     <Compile Include="Mailers\UserMailer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\SystemPermissionsProvider.cs" />
+    <Compile Include="QueryExtentions\UserQueryExtentions.cs" />
     <Compile Include="Security\SystemRoleNames.cs" />
     <Compile Include="Security\SystemUsersProvider.cs" />
     <Compile Include="Settings\ExternalAuthSettings.cs" />
@@ -186,6 +191,10 @@
       <Project>{f650d1f9-4b5b-45c0-8323-67ff6535fbe0}</Project>
       <Name>MVC5.DomainClasses</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MVC5.Utility\MVC5.Utility.csproj">
+      <Project>{b1054636-83af-4441-a284-19d26e61f9b4}</Project>
+      <Name>MVC5.Utility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MVC5.ViewModel\MVC5.ViewModel.csproj">
       <Project>{383a86b0-2943-4c15-a04c-47fd42faf3ce}</Project>
       <Name>MVC5.ViewModel</Name>
@@ -203,7 +212,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

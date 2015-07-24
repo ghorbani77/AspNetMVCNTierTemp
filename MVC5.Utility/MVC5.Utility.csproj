@@ -48,7 +48,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EF.Filters\RoleFilters.cs" />
+    <Compile Include="EF.Filters\UserFilters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemainingDateTime.cs" />
     <Compile Include="SafePassword.cs" />
     <Compile Include="YeKe.cs" />
     <Compile Include="YeKeInterceptor.cs" />

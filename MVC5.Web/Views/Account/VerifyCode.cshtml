@@ -1,9 +1,7 @@
 ﻿@model MVC5.ViewModel.Account.VerifyCodeViewModel
 @{
-    ViewBag.Title = "Enter Verification Code";
+   
 }
-
-<h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm(MVC.Account.ActionNames.VerifyCode, MVC.Account.Name, new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
     @Html.AntiForgeryToken()
@@ -33,5 +31,6 @@
 }
 
 @section Scripts {
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
 }

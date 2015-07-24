@@ -11,10 +11,25 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Optimization;
-
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/VerifyCode.cshtml")]
     public partial class _Views_Account_VerifyCode_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.VerifyCodeViewModel>
@@ -27,66 +42,57 @@ namespace ASP
             
             #line 2 "..\..\Views\Account\VerifyCode.cshtml"
   
-    ViewBag.Title = "Enter Verification Code";
+   
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<h2>");
+WriteLiteral("\r\n\r\n");
 
             
             #line 6 "..\..\Views\Account\VerifyCode.cshtml"
-Write(ViewBag.Title);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(".</h2>\r\n\r\n");
-
-            
-            #line 8 "..\..\Views\Account\VerifyCode.cshtml"
  using (Html.BeginForm(MVC.Account.ActionNames.VerifyCode, MVC.Account.Name, new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
     
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 7 "..\..\Views\Account\VerifyCode.cshtml"
 Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 7 "..\..\Views\Account\VerifyCode.cshtml"
                             
     
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 8 "..\..\Views\Account\VerifyCode.cshtml"
 Write(Html.ValidationSummary("", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 8 "..\..\Views\Account\VerifyCode.cshtml"
                                                                
     
             
             #line default
             #line hidden
             
-            #line 11 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 9 "..\..\Views\Account\VerifyCode.cshtml"
 Write(Html.Hidden("provider", @Model.Provider));
 
             
             #line default
             #line hidden
             
-            #line 11 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 9 "..\..\Views\Account\VerifyCode.cshtml"
                                              
 
             
@@ -95,7 +101,7 @@ Write(Html.Hidden("provider", @Model.Provider));
 WriteLiteral("    <h4>");
 
             
-            #line 12 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 10 "..\..\Views\Account\VerifyCode.cshtml"
    Write(ViewBag.Status);
 
             
@@ -114,7 +120,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 15 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 13 "..\..\Views\Account\VerifyCode.cshtml"
    Write(Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" }));
 
             
@@ -129,7 +135,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 17 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 15 "..\..\Views\Account\VerifyCode.cshtml"
        Write(Html.TextBoxFor(m => m.Code, new { @class = "form-control" }));
 
             
@@ -154,7 +160,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                ");
 
             
-            #line 23 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 21 "..\..\Views\Account\VerifyCode.cshtml"
            Write(Html.CheckBoxFor(m => m.RememberBrowser));
 
             
@@ -165,7 +171,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                ");
 
             
-            #line 24 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 22 "..\..\Views\Account\VerifyCode.cshtml"
            Write(Html.LabelFor(m => m.RememberBrowser));
 
             
@@ -192,7 +198,7 @@ WriteLiteral(" value=\"Submit\"");
 WriteLiteral(" />\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 33 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 31 "..\..\Views\Account\VerifyCode.cshtml"
 }
 
             
@@ -207,7 +213,18 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 36 "..\..\Views\Account\VerifyCode.cshtml"
+            #line 34 "..\..\Views\Account\VerifyCode.cshtml"
+Write(Scripts.Render("~/bundles/bootstrap"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 35 "..\..\Views\Account\VerifyCode.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             

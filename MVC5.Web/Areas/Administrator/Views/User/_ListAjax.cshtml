@@ -1,0 +1,121 @@
+﻿@* GeneratePrettyNames: true*@
+@using MVC5.ViewModel.AdminArea.User
+@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<UserViewModel>
+
+
+<div class="panel-heading">
+    <strong>لیست کاربران</strong>
+    <a href="javascript:void(0)" id="refreshBtn" class="btn btn-primary"><i class="fa fa-refresh"></i></a>
+</div>
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>#</th>
+                            <th class="text-center">
+                                ایمیل
+                            </th>
+                            <th class="text-center">نام کاربری</th>
+                            <th class="text-center">نام-نام خانوادگی</th>
+                            <th class="text-center">گرو های کاربری</th>
+                            <th class="text-center">فعال</th>
+                            <th class="text-center">حذف شده</th>
+                            <th class="text-center">تأییدیه ایمیل</th>
+                            <th class="text-center">کاربر سیستمی</th>
+                            <th class="text-center">دسترسی نظرات</th>
+                            <th class="text-center">تاریخ عضویت</th>
+
+                            <th class="text-center">تاریخ آخرین فعالیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td>@user.Id</td>
+                                <td class="text-center text-info">
+                                    @Html.ActionLink(@user.Email, MVC.Administrator.User.ActionNames.Edit,
+                                    MVC.Administrator.User.Name, new { id = user.Id, area = "Administrator" },
+                                    new { @class = "btn btn-sm btn-primary" })
+
+                                </td>
+                                <td class="text-center">@user.UserName</td>
+                                <td class="text-center">@user.Name</td>
+                                <td class="text-center text-info">@user.Roles</td>
+
+                                <td class="text-center">
+                                    @if (!user.IsBanned)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (user.IsDeleted)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (user.IsSystemAccount)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-center text-info">
+                                    @Html.DisplayFor(a => user.CommentPermissionType)
+                                </td>
+                                <td class="text-center">@user.RegisterDate</td>
+                                <td class="text-center">@user.LastActivityDate</td>
+                                <td class="text-left">
+                                    @Html.ActionLink("ویرایش", MVC.Administrator.User.ActionNames.Edit, MVC.Administrator.User.Name, new { id = user.Id, area = "Administrator" }, new { @class = "btn btn-sm btn-primary" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel-footer">
+    @Html.PagedListPager(new StaticPagedList<UserViewModel>(Model, ViewBag.PageNumber, 10, ViewBag.TotalUsers), pageNumber => Url.Action(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name, new
+                {
+                    term = ViewBag.Term,
+                    page = pageNumber
+                }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList" }))
+
+</div>
+

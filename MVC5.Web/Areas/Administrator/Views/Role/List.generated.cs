@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MVC5.Web.Areas.Administrator.Views.Role
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -32,17 +32,15 @@ namespace MVC5.Web.Areas.Administrator.Views.Role
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Administrator/Views/Role/List.cshtml")]
-    public partial class List : System.Web.Mvc.WebViewPage<IEnumerable<MVC5.ViewModel.AdminArea.Role.RoleViewModel>>
+    public partial class _Areas_Administrator_Views_Role_List_cshtml : System.Web.Mvc.WebViewPage<dynamic>
     {
-        public List()
+        public _Areas_Administrator_Views_Role_List_cshtml()
         {
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 3 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+            #line 1 "..\..\Areas\Administrator\Views\Role\List.cshtml"
   
     ViewBag.Title = "لیست نقش های کاربری";
 
@@ -51,295 +49,91 @@ WriteLiteral("\r\n");
             #line hidden
 WriteLiteral("\r\n<div");
 
-WriteLiteral(" class=\"jumbotron\"");
+WriteLiteral(" class=\"panel panel-default\"");
 
 WriteLiteral(">\r\n    <div");
 
-WriteLiteral(" class=\"row\"");
+WriteLiteral(" class=\"panel-heading\"");
 
 WriteLiteral(">\r\n        <div");
+
+WriteLiteral(" class=\"row\"");
+
+WriteLiteral(">\r\n            <div");
 
 WriteLiteral(" class=\"col-md-2\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("            ");
+WriteLiteral("                ");
 
             
-            #line 9 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-       Write(Html.ActionLink("درج نقش جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = "Administrator" }, new { @class = "btn btn-sm btn-info" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n        </div>\r\n    </div>\r\n\r\n    <div");
-
-WriteLiteral(" class=\"row\"");
-
-WriteLiteral(">\r\n        <div");
-
-WriteLiteral(" class=\"col-lg-12\"");
-
-WriteLiteral(">\r\n\r\n            <div");
-
-WriteLiteral(" class=\"table-responsive\"");
-
-WriteLiteral(">\r\n                <table");
-
-WriteLiteral(" class=\"table table-striped table-bordered\"");
-
-WriteLiteral(" id=\"userTable\"");
-
-WriteLiteral(">\r\n                    <thead>\r\n                        <tr>\r\n                   " +
-"         <th>توضیحات</th>\r\n                            <th");
-
-WriteLiteral(" class=\"text-center\"");
-
-WriteLiteral(">نام سیستمی</th>\r\n                            <th");
-
-WriteLiteral(" class=\"text-center\"");
-
-WriteLiteral(">فعال /غیر فعال</th>\r\n                            <th");
-
-WriteLiteral(" class=\"text-center\"");
-
-WriteLiteral(">نقش سیستمی</th>\r\n                            <th");
-
-WriteLiteral(" class=\"text-center\"");
-
-WriteLiteral(">نقش پیشفرض برای عضویرت</th>\r\n\r\n                        </tr>\r\n                  " +
-"  </thead>\r\n                    <tbody>\r\n");
-
-            
-            #line 29 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                        
-            
-            #line default
-            #line hidden
-            
-            #line 29 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                         foreach (var role in Model)
-                        {
+            #line 8 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+           Write(Html.ActionLink("درج نقش جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = "Administrator" }, new { @class = "btn btn-sm btn-info" }));
 
             
             #line default
             #line hidden
-WriteLiteral("                            <tr>\r\n                                <td>");
+WriteLiteral("\r\n            </div>\r\n            <div");
 
-            
-            #line 32 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                               Write(role.Description);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</td>\r\n                                <td");
-
-WriteLiteral(" class=\"text-center\"");
-
-WriteLiteral(">");
-
-            
-            #line 33 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                                   Write(role.Name);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</td>\r\n                                <td");
-
-WriteLiteral(" class=\"text-center\"");
+WriteLiteral(" class=\"col-md-6\"");
 
 WriteLiteral(">\r\n");
 
             
-            #line 35 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    
+            #line 11 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+                
             
             #line default
             #line hidden
             
-            #line 35 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                     if (role.IsActive)
-                                    {
+            #line 11 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+                 using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = "Administrator" }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList" }, new { @class = "form-horizontal" }))
+                {
 
             
             #line default
             #line hidden
-WriteLiteral("                                        ");
+WriteLiteral("                    <input");
 
-WriteLiteral("\r\n                                            <i");
+WriteLiteral(" name=\"term\"");
 
-WriteLiteral(" class=\"fa fa-check text-success\"");
+WriteLiteral(" value=\"\"");
 
-WriteLiteral("></i>\r\n                                        ");
+WriteLiteral(" placeholder=\"جستجو با نام\"");
 
-WriteLiteral("\r\n");
+WriteLiteral(" type=\"text\"");
 
-            
-            #line 40 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    }
-                                    else
-                                    {
+WriteLiteral(" class=\"form-control\"");
+
+WriteLiteral(" />\r\n");
 
             
-            #line default
-            #line hidden
-WriteLiteral("                                        ");
-
-WriteLiteral("\r\n                                            <i");
-
-WriteLiteral(" class=\"fa fa-minus text-info\"");
-
-WriteLiteral("></i>\r\n                                        ");
-
-WriteLiteral("\r\n");
-
-            
-            #line 46 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    }
+            #line 14 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+                }
 
             
             #line default
             #line hidden
-WriteLiteral("                                </td>\r\n                                <td");
+WriteLiteral("            </div>\r\n        </div>\r\n    </div>\r\n    <div");
 
-WriteLiteral(" class=\"text-center\"");
+WriteLiteral(" id=\"roleList\"");
 
 WriteLiteral(">\r\n");
 
             
-            #line 49 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    
+            #line 19 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+        
             
             #line default
             #line hidden
             
-            #line 49 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                     if (role.IsSystemRole)
-                                    {
-
+            #line 19 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+          Html.RenderAction(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name);
             
             #line default
             #line hidden
-WriteLiteral("                                        ");
-
-WriteLiteral("\r\n                                            <i");
-
-WriteLiteral(" class=\"fa fa-check text-success\"");
-
-WriteLiteral("></i>\r\n                                        ");
-
-WriteLiteral("\r\n");
-
-            
-            #line 54 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    }
-                                    else
-                                    {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                        ");
-
-WriteLiteral("\r\n                                            <i");
-
-WriteLiteral(" class=\"fa fa-minus text-info\"");
-
-WriteLiteral("></i>\r\n                                        ");
-
-WriteLiteral("\r\n");
-
-            
-            #line 60 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                </td>\r\n                                <td");
-
-WriteLiteral(" class=\"text-center\"");
-
-WriteLiteral(">\r\n");
-
-            
-            #line 63 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    
-            
-            #line default
-            #line hidden
-            
-            #line 63 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                     if (role.IsDefaultForRegister)
-                                    {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                        ");
-
-WriteLiteral("\r\n                                            <i");
-
-WriteLiteral(" class=\"fa fa-check text-success\"");
-
-WriteLiteral("></i>\r\n                                        ");
-
-WriteLiteral("\r\n");
-
-            
-            #line 68 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    }
-                                    else
-                                    {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                        ");
-
-WriteLiteral("\r\n                                            <i");
-
-WriteLiteral(" class=\"fa fa-minus text-info\"");
-
-WriteLiteral("></i>\r\n                                        ");
-
-WriteLiteral("\r\n");
-
-            
-            #line 74 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                                    }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                                </td>\r\n                                <td");
-
-WriteLiteral(" class=\"text-left\"");
-
-WriteLiteral(">\r\n\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 78 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                               Write(Html.ActionLink("ویرایش", MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { id = role.Id, area = "Administrator" }, new { @class = "btn btn-sm btn-primary" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                </td>\r\n                            </tr>\r\n");
-
-            
-            #line 81 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                        }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                    </tbody>\r\n\r\n                </table>\r\n            </div>\r\n   " +
-"     </div>\r\n    </div>\r\n</div>\r\n");
+WriteLiteral("\r\n    </div>\r\n\r\n</div>\r\n");
 
         }
     }

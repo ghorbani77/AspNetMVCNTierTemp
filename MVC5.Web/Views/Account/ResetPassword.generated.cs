@@ -11,10 +11,25 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Optimization;
-
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/ResetPassword.cshtml")]
     public partial class _Views_Account_ResetPassword_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.ResetPasswordViewModel>
@@ -27,24 +42,15 @@ namespace ASP
             
             #line 2 "..\..\Views\Account\ResetPassword.cshtml"
   
-    ViewBag.Title = "Reset password";
+   
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<h2>");
+WriteLiteral("\r\n\r\n");
 
             
             #line 6 "..\..\Views\Account\ResetPassword.cshtml"
-Write(ViewBag.Title);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(".</h2>\r\n\r\n");
-
-            
-            #line 8 "..\..\Views\Account\ResetPassword.cshtml"
  using (Html.BeginForm(MVC.Account.ActionNames.ResetPassword, MVC.Account.Name, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     
@@ -52,52 +58,42 @@ WriteLiteral(".</h2>\r\n\r\n");
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 8 "..\..\Views\Account\ResetPassword.cshtml"
 Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 8 "..\..\Views\Account\ResetPassword.cshtml"
                             
-
-            
-            #line default
-            #line hidden
-WriteLiteral("    <h4>Reset your password.</h4>\r\n");
-
-WriteLiteral("    <hr />\r\n");
-
-            
-            #line 13 "..\..\Views\Account\ResetPassword.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 13 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 9 "..\..\Views\Account\ResetPassword.cshtml"
 Write(Html.ValidationSummary("", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
             
-            #line 13 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 9 "..\..\Views\Account\ResetPassword.cshtml"
                                                                
     
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 10 "..\..\Views\Account\ResetPassword.cshtml"
 Write(Html.HiddenFor(model => model.Code));
 
             
             #line default
             #line hidden
             
-            #line 14 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 10 "..\..\Views\Account\ResetPassword.cshtml"
                                         
 
             
@@ -112,7 +108,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 16 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 12 "..\..\Views\Account\ResetPassword.cshtml"
    Write(Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }));
 
             
@@ -127,7 +123,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 18 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 14 "..\..\Views\Account\ResetPassword.cshtml"
        Write(Html.TextBoxFor(m => m.Email, new { @class = "form-control" }));
 
             
@@ -144,7 +140,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 22 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 18 "..\..\Views\Account\ResetPassword.cshtml"
    Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
 
             
@@ -159,7 +155,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 24 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 20 "..\..\Views\Account\ResetPassword.cshtml"
        Write(Html.PasswordFor(m => m.Password, new { @class = "form-control" }));
 
             
@@ -176,7 +172,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 28 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 24 "..\..\Views\Account\ResetPassword.cshtml"
    Write(Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" }));
 
             
@@ -191,7 +187,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 30 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 26 "..\..\Views\Account\ResetPassword.cshtml"
        Write(Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" }));
 
             
@@ -218,7 +214,7 @@ WriteLiteral(" value=\"Reset\"");
 WriteLiteral(" />\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 38 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 34 "..\..\Views\Account\ResetPassword.cshtml"
 }
 
             
@@ -233,7 +229,18 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 41 "..\..\Views\Account\ResetPassword.cshtml"
+            #line 37 "..\..\Views\Account\ResetPassword.cshtml"
+Write(Scripts.Render("~/bundles/bootstrap"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 38 "..\..\Views\Account\ResetPassword.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             

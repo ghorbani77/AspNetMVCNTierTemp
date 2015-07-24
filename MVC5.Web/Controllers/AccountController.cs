@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Mvc.Mailer;
@@ -14,19 +14,15 @@ using MVC5.ServiceLayer.Mailers;
 using MVC5.Utility;
 using MVC5.Web.Extention;
 using MVC5.Web.Filters;
-using AutoMapper;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ViewModel.Account;
 
 namespace MVC5.Web.Controllers
 {
-    [MvcAuthorize(Roles = "CanManageAccount")]
-    [DisplayName("")]
+    [MvcAuthorize]
     public partial class AccountController : BaseController
     {
         #region Fields
-        private readonly IMappingEngine _mapperEngine;
-        private readonly HttpRequestBase _httpRequestBase;
         private readonly IAuthenticationManager _authenticationManager;
         private readonly IApplicationSignInManager _signInManager;
         private readonly IApplicationUserManager _userManager;
@@ -37,15 +33,12 @@ namespace MVC5.Web.Controllers
 
         public AccountController(IApplicationUserManager userManager,
             IApplicationSignInManager signInManager,
-            IAuthenticationManager authenticationManager,
-            HttpRequestBase httpRequestBase, IMappingEngine mapperEngine, IUserMailer userMailer
+            IAuthenticationManager authenticationManager, IUserMailer userMailer
            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _authenticationManager = authenticationManager;
-            _httpRequestBase = httpRequestBase;
-            _mapperEngine = mapperEngine;
             _userMailer = userMailer;
         }
 
@@ -168,6 +161,7 @@ namespace MVC5.Web.Controllers
                 }
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
+                if (Request.Url == null) return View("ForgotPasswordConfirmation");
                 var callbackUrl = Url.Action("ResetPassword", "Account",
                     new { userId = user.Id, code }, protocol: Request.Url.Scheme);
                 await _userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
@@ -203,7 +197,7 @@ namespace MVC5.Web.Controllers
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -220,7 +214,6 @@ namespace MVC5.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [MvcAuthorize(Roles = "CanLogOff")]
         public virtual ActionResult LogOff()
         {
             _authenticationManager.SignOut();
@@ -238,37 +231,49 @@ namespace MVC5.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+       // [CheckReferrer]
         [ValidateAntiForgeryToken]
         [CaptchaMvc.Attributes.CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (_userManager.IsEmailInDatabase(model.Email))
                 this.AddErrors("Email", "این ایمیل قبلا در سیستم ثبت شده است");
-            if (_userManager.IsPhoneNumberInDatabase(model.PhoneNumber))
-                this.AddErrors("PhoneNumber", "این شماره همراه قبلا در سیستم ثبت شده است");
+
+            if (_userManager.IsUserNameInDatabase(model.UserName))
+                this.AddErrors("UserName", "این شماره همراه قبلا در سیستم ثبت شده است");
+
             if (!model.Password.IsSafePasword())
                 this.AddErrors("Password", "از کلمه عبور امن تری استفاده کنید");
 
-            if (!ModelState.IsValid) return View(model);
-            var user = _mapperEngine.Map<RegisterViewModel, ApplicationUser>(model);
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded) return View(model);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            if (await _userManager.PasswordValidator.ValidateAsync(model.Password) != IdentityResult.Success)
+                this.AddErrors("Password", await _userManager.CustomValidatePasswordAsync(model.Password));
+
+            if (!ModelState.IsValid)
+            {
+                ToastrError(ModelState.GetListOfErrors());
+                return View(model);
+            }
+
+            var userId = await _userManager.CreateAsync(model);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
+            if (Request.Url == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var callbackUrl = Url.Abs(Url.Action(MVC.Account.ActionNames.ConfirmEmail, MVC.Account.Name,
-                new { userId = user.Id, code, area = "" }, protocol: Request.Url.Scheme));
+                new {userId, code, area = "" }, protocol: Request.Url.Scheme));
 
             var email = new ConfirmAccountEmail
             {
-                From = "me",
+                Subject = "فعال سازی حساب کاربری",
                 To = model.Email,
                 Message = "با سلام. لطفا برای تایید حساب خود بر روی لینک زیر کلیک کنید ",
                 Url = callbackUrl,
-                UrlText = "برای فعال سازی اینجا کلیک کنید"
+                UrlText = "برای فعال سازی اینجا کلیک کنید",
+                ViewName = MVC.UserMailer.Views.ViewNames.ConfirmAccount
             };
 
             await _userMailer.ConfirmAccount(email).SendAsync();
-
+            ToastrSuccess("حساب کاربری شما با موفقیت ایجاد شد");
+            ViewBag.Link = callbackUrl;
             return View(MVC.Account.Views.DisplayEmail);
         }
         #endregion

@@ -1,10 +1,13 @@
 ﻿using System.IO;
 using System.Web.Mvc;
+using MVC5.Common.Controller;
+using MVC5.Web.Filters;
 using VikingErik.Mvc.ResumingActionResults;
 
 namespace MVC5.Web.Controllers
 {
-    public partial class ExportController : Controller
+    [MvcAuthorize]
+    public partial class ExportController : BaseController
     {
         [Route("Export/{*id}")]
         public virtual ActionResult Index(string id)

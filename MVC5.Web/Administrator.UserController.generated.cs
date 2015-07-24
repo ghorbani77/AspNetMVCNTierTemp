@@ -58,15 +58,23 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Edit()
+        public virtual System.Web.Mvc.ActionResult ListAjax()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListAjax);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Delete()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SoftDelete()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SoftDelete);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -127,9 +135,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public class ActionNamesClass
         {
             public readonly string List = "List";
+            public readonly string ListAjax = "ListAjax";
             public readonly string Edit = "Edit";
             public readonly string Create = "Create";
-            public readonly string Delete = "Delete";
+            public readonly string SoftDelete = "SoftDelete";
             public readonly string UserNameExist = "UserNameExist";
             public readonly string FirstNameExist = "FirstNameExist";
             public readonly string LastNameExist = "LastNameExist";
@@ -143,9 +152,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public class ActionNameConstants
         {
             public const string List = "List";
+            public const string ListAjax = "ListAjax";
             public const string Edit = "Edit";
             public const string Create = "Create";
-            public const string Delete = "Delete";
+            public const string SoftDelete = "SoftDelete";
             public const string UserNameExist = "UserNameExist";
             public const string FirstNameExist = "FirstNameExist";
             public const string LastNameExist = "LastNameExist";
@@ -156,6 +166,14 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
 
+        static readonly ActionParamsClass_ListAjax s_params_ListAjax = new ActionParamsClass_ListAjax();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ListAjax ListAjaxParams { get { return s_params_ListAjax; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ListAjax
+        {
+            public readonly string search = "search";
+        }
         static readonly ActionParamsClass_Edit s_params_Edit = new ActionParamsClass_Edit();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Edit EditParams { get { return s_params_Edit; } }
@@ -164,6 +182,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             public readonly string id = "id";
             public readonly string viewModel = "viewModel";
+            public readonly string roleIds = "roleIds";
         }
         static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -173,11 +192,11 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             public readonly string viewModel = "viewModel";
         }
-        static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
+        static readonly ActionParamsClass_SoftDelete s_params_SoftDelete = new ActionParamsClass_SoftDelete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
+        public ActionParamsClass_SoftDelete SoftDeleteParams { get { return s_params_SoftDelete; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Delete
+        public class ActionParamsClass_SoftDelete
         {
             public readonly string id = "id";
         }
@@ -232,7 +251,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_GooglePlusIdExist
         {
-            public readonly string phoneNumber = "phoneNumber";
+            public readonly string googlePlusId = "googlePlusId";
             public readonly string id = "id";
         }
         static readonly ActionParamsClass_FaceBookIdExist s_params_FaceBookIdExist = new ActionParamsClass_FaceBookIdExist();
@@ -241,7 +260,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_FaceBookIdExist
         {
-            public readonly string phoneNumber = "phoneNumber";
+            public readonly string faceBookId = "faceBookId";
             public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -254,10 +273,12 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _ListAjax = "_ListAjax";
                 public readonly string Create = "Create";
                 public readonly string Edit = "Edit";
                 public readonly string List = "List";
             }
+            public readonly string _ListAjax = "~/Areas/Administrator/Views/User/_ListAjax.cshtml";
             public readonly string Create = "~/Areas/Administrator/Views/User/Create.cshtml";
             public readonly string Edit = "~/Areas/Administrator/Views/User/Edit.cshtml";
             public readonly string List = "~/Areas/Administrator/Views/User/List.cshtml";
@@ -273,10 +294,22 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult List()
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> List()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
             ListOverride(callInfo);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [NonAction]
+        partial void ListAjaxOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.User.UserSearchViewModel search);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ListAjax(MVC5.ViewModel.AdminArea.User.UserSearchViewModel search)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListAjax);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "search", search);
+            ListAjaxOverride(callInfo, search);
             return callInfo;
         }
 
@@ -284,59 +317,60 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(int? id)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit(int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditOverride(callInfo, id);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel, int[] roleIds);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Edit(MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit(MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel, int[] roleIds)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
-            EditOverride(callInfo, viewModel);
-            return callInfo;
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "roleIds", roleIds);
+            EditOverride(callInfo, viewModel, roleIds);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
         partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Create()
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Create()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             CreateOverride(callInfo);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
         partial void CreateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.User.AddUserViewModel viewModel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Create(MVC5.ViewModel.AdminArea.User.AddUserViewModel viewModel)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Create(MVC5.ViewModel.AdminArea.User.AddUserViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
             CreateOverride(callInfo, viewModel);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+        partial void SoftDeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Delete(int id)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SoftDelete(int? id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SoftDelete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            DeleteOverride(callInfo, id);
-            return callInfo;
+            SoftDeleteOverride(callInfo, id);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
@@ -405,28 +439,28 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         [NonAction]
-        partial void GooglePlusIdExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string phoneNumber, int? id);
+        partial void GooglePlusIdExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string googlePlusId, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.JsonResult GooglePlusIdExist(string phoneNumber, int? id)
+        public override System.Web.Mvc.JsonResult GooglePlusIdExist(string googlePlusId, int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GooglePlusIdExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "phoneNumber", phoneNumber);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "googlePlusId", googlePlusId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            GooglePlusIdExistOverride(callInfo, phoneNumber, id);
+            GooglePlusIdExistOverride(callInfo, googlePlusId, id);
             return callInfo;
         }
 
         [NonAction]
-        partial void FaceBookIdExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string phoneNumber, int? id);
+        partial void FaceBookIdExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string faceBookId, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.JsonResult FaceBookIdExist(string phoneNumber, int? id)
+        public override System.Web.Mvc.JsonResult FaceBookIdExist(string faceBookId, int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.FaceBookIdExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "phoneNumber", phoneNumber);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "faceBookId", faceBookId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            FaceBookIdExistOverride(callInfo, phoneNumber, id);
+            FaceBookIdExistOverride(callInfo, faceBookId, id);
             return callInfo;
         }
 

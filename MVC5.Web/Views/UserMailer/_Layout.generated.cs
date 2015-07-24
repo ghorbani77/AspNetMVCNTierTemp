@@ -29,8 +29,6 @@ namespace ASP
     using System.Web.WebPages;
     using MVC5.ViewModel;
     using MVC5.Web;
-    using MvcSiteMapProvider.Web.Html;
-    using MvcSiteMapProvider.Web.Html.Models;
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/UserMailer/_Layout.cshtml")]

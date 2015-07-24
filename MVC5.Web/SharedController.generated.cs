@@ -58,14 +58,11 @@ namespace T4MVC
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public partial class _DisplayTemplatesClass
             {
-                public readonly string CanonicalHelperModel = "CanonicalHelperModel";
-                public readonly string MenuHelperModel = "MenuHelperModel";
-                public readonly string MetaRobotsHelperModel = "MetaRobotsHelperModel";
-                public readonly string SiteMapHelperModel = "SiteMapHelperModel";
-                public readonly string SiteMapNodeModel = "SiteMapNodeModel";
-                public readonly string SiteMapNodeModelList = "SiteMapNodeModelList";
-                public readonly string SiteMapPathHelperModel = "SiteMapPathHelperModel";
-                public readonly string SiteMapTitleHelperModel = "SiteMapTitleHelperModel";
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                }
             }
         }
     }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MVC5.DataLayer.Context;
+using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
+using MVC5.ServiceLayer.Settings;
 
 namespace MVC5.ServiceLayer.EFServiecs
 {
@@ -17,7 +20,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             
         }
         #endregion
-        public Task<DomainClasses.Entities.Setting> GetSettingById(int settingId)
+        public Task<Setting> GetSettingById(int settingId)
         {
             throw new NotImplementedException();
         }
@@ -27,17 +30,17 @@ namespace MVC5.ServiceLayer.EFServiecs
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<DomainClasses.Entities.Setting>> GetAllSettings()
+        public Task<IEnumerable<Setting>> GetAllSettings()
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SettingExists<T, TPropType>(T settings, System.Linq.Expressions.Expression<Func<T, TPropType>> keySelector) where T : Settings.ISettings, new()
+        public Task<bool> SettingExists<T, TPropType>(T settings, Expression<Func<T, TPropType>> keySelector) where T : ISettings, new()
         {
             throw new NotImplementedException();
         }
 
-        public Task<T> LoadSetting<T>() where T : Settings.ISettings, new()
+        public Task<T> LoadSetting<T>() where T : ISettings, new()
         {
             throw new NotImplementedException();
         }
@@ -47,37 +50,37 @@ namespace MVC5.ServiceLayer.EFServiecs
             throw new NotImplementedException();
         }
 
-        public Task SaveSetting<T>(T settings) where T : Settings.ISettings, new()
+        public Task SaveSetting<T>(T settings) where T : ISettings, new()
         {
             throw new NotImplementedException();
         }
 
-        public Task SaveSetting<T, TPropType>(T settings, System.Linq.Expressions.Expression<Func<T, TPropType>> keySelector) where T : Settings.ISettings, new()
+        public Task SaveSetting<T, TPropType>(T settings, Expression<Func<T, TPropType>> keySelector) where T : ISettings, new()
         {
             throw new NotImplementedException();
         }
 
-        public void InsertSetting(DomainClasses.Entities.Setting setting)
+        public void InsertSetting(Setting setting)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateSetting(DomainClasses.Entities.Setting setting)
+        public Task UpdateSetting(Setting setting)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteSetting(DomainClasses.Entities.Setting setting)
+        public Task DeleteSetting(Setting setting)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteSetting<T>() where T : Settings.ISettings, new()
+        public Task DeleteSetting<T>() where T : ISettings, new()
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteSetting<T, TPropType>(T settings, System.Linq.Expressions.Expression<Func<T, TPropType>> keySelector) where T : Settings.ISettings, new()
+        public Task DeleteSetting<T, TPropType>(T settings, Expression<Func<T, TPropType>> keySelector) where T : ISettings, new()
         {
             throw new NotImplementedException();
         }

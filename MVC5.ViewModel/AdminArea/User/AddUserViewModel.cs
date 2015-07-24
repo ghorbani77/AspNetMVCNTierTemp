@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
+using MVC5.DomainClasses;
 
 namespace MVC5.ViewModel.AdminArea.User
 {
@@ -13,7 +14,7 @@ namespace MVC5.ViewModel.AdminArea.User
         [EmailAddress(ErrorMessage = "لطفا ایمیل را صحیح وارد کنید")]
         [Required(ErrorMessage = "لطفا ایمیل را وارد کنید")]
         [MaxLength(50, ErrorMessage = "تعداد حروف ایمیل غیر مجاز است")]
-        [Remote("EmailExist", "User", "Admin", ErrorMessage = "این ایمیل قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("EmailExist", "User", "Administrator", ErrorMessage = "این ایمیل قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string Email { get; set; }
         [DisplayName("کلمه عبور")]
         [Required(ErrorMessage = "لطفا کلمه عبور را وارد کنید")]
@@ -23,13 +24,13 @@ namespace MVC5.ViewModel.AdminArea.User
         [RegularExpression("09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}",
             ErrorMessage = "لطفا شماره همراه  را به شکل صحیح وارد کنید")]
         [DisplayName("شماره همراه")]
-        [Remote("PhoneNumberExist", "User", "Admin", ErrorMessage = "این شماره  قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("PhoneNumberExist", "User", "Administrator", ErrorMessage = "این شماره  قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string PhoneNumber { get; set; }
 
         [DisplayName("نام کاربری")]
         [Required(ErrorMessage = "لطفا نام کاربری را وارد کنید")]
         [MaxLength(50, ErrorMessage = "تعداد حروف نام کاربری غیر مجاز است")]
-        [Remote("UserNameExist", "User", "Admin", ErrorMessage = "این نام کاربری قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("UserNameExist", "User", "Administrator", ErrorMessage = "این نام کاربری قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         // [WhiteSpace("validate for prevent white space")]
         public string UserName { get; set; }
         [DisplayName("قفل شود")]
@@ -37,30 +38,39 @@ namespace MVC5.ViewModel.AdminArea.User
         [DisplayName("نام")]
         [MaxLength(50, ErrorMessage = "تعداد حروف نام  غیر مجاز است")]
         [Required(ErrorMessage = "لطفا نام را وارد کنید")]
-        [Remote("FirstNameExist", "User", "Admin", ErrorMessage = "این نام قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("FirstNameExist", "User", "Administrator", ErrorMessage = "این نام قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string FirstName { get; set; }
         [DisplayName("نام خانوادگی")]
         [MaxLength(50, ErrorMessage = "تعداد حروف نام خانوادگی  غیر مجاز است")]
         [Required(ErrorMessage = "لطفا نام خانوادگی را وارد کنید")]
-        [Remote("LastNameExist", "User", "Admin", ErrorMessage = "این نام خانوادگی قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("LastNameExist", "User", "Administrator", ErrorMessage = "این نام خانوادگی قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string LastName { get; set; }
-        [DisplayName("کاربر سیستمی")]
-        public bool IsSystemAccount { get; set; }
+       
         [DisplayName("نظر مدیر")]
         [MaxLength(1024, ErrorMessage = "تعداد حروف نظر مدیر غیر مجاز است")]
-        public string AdminComment { get; set; }
+        public string AdministratorComment { get; set; }
         public HttpPostedFileBase Avatar { get; set; }
         public string AvatarPath { get; set; }
         [DisplayName("تاریخ تولد")]
         public string BirthDay { get; set; }
-        [DisplayName("گوگل پلاس")]
+        [DisplayName(" آی دی گوگل پلاس")]
         [MaxLength(20, ErrorMessage = "تعداد کاراکتر های آی دی گوگل پلاس غیر مجاز است")]
-        [Remote("GooglePlusIdExist", "User", "Admin", ErrorMessage = "این آدرس قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("GooglePlusIdExist", "User", "Administrator", ErrorMessage = "این آدرس قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string GooglePlusId { get; set; }
-        [DisplayName("فیسبوک")]
+        [DisplayName("آی دی فیسبوک")]
         [MaxLength(20, ErrorMessage = "تعداد کاراکتر های آی دی فیسبوک غیر مجاز است")]
-        [Remote("FaceBookIdExist", "User", "Admin", ErrorMessage = "این آدرس قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("FaceBookIdExist", "User", "Administrator", ErrorMessage = "این آدرس قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string FaceBookId { get; set; }
-        public IEnumerable<SelectListItem> Roles { get; set; }
+        [DisplayName("تأییدیه ایمیل")]
+        public bool EmailConfirmed { get; set; }
+        [DisplayName("دسترسی برای نظرات")]
+        public CommentPermissionType CommentPermissionType { get; set; }
+        [DisplayName("دسترسی برای آپلود فایل")]
+        public bool CanUploadFile { get; set; }
+        [DisplayName("دسترسی برای تغییر آواتار")]
+        public bool CanChangeProfilePicture { get; set; }
+        [DisplayName("دسترسی برای تغییر نام-نام خانوادگی")]
+        public bool CanModifyFirsAndLastName { get; set; }
+        public int[] RoleIds { get; set; }
     }
 }

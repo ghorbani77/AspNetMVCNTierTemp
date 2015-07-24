@@ -58,10 +58,13 @@ namespace MVC5.DomainClasses
 
     #endregion //Users
 
-    public enum CommentPermissionType
+    public enum CommentPermissionType : int
     {
-        WithApprove,
-        WithOutApporove,
-        Forbidden
+        [Display(Name = "با تآیید مدیریت")]
+        WithApprove = 1,
+        [Display(Name = "بلامانع است")]
+        WithOutApporove = 2,
+        [Display(Name = "ممنوع است")]
+        Forbidden = 3
     }
 }

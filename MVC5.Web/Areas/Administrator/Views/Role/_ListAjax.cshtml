@@ -1,0 +1,93 @@
+﻿@* GeneratePrettyNames: true*@
+@using MVC5.ViewModel.AdminArea.Role
+@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<RoleViewModel>
+
+
+
+
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>توضیحات</th>
+                            <th class="text-center">نام سیستمی</th>
+                            <th class="text-center">فعال /غیر فعال</th>
+                            <th class="text-center">نقش سیستمی</th>
+                            <th class="text-center">نقش پیشفرض برای عضویت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var role in Model)
+                        {
+                            <tr>
+                                <td>@role.Description</td>
+                                <td class="text-center">@role.Name</td>
+                                <td class="text-center">
+                                    @if (role.IsActive)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (role.IsSystemRole)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @if (role.IsDefaultForRegister)
+                                    {
+                                        <text>
+                                            <i class="fa fa-check text-success"></i>
+                                        </text>
+                                    }
+                                    else
+                                    {
+                                        <text>
+                                            <i class="fa fa-minus text-info"></i>
+                                        </text>
+                                    }
+                                </td>
+                                <td class="text-left">
+
+                                    @Html.ActionLink("ویرایش", MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { id = role.Id, area = "Administrator" }, new { @class = "btn btn-sm btn-primary" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel-footer">
+    @Html.PagedListPager(new StaticPagedList<RoleViewModel>(Model, ViewBag.PageNumber, 10, ViewBag.TotalRoles), pageNumber => Url.Action(MVC.Administrator.Role.ActionNames.List, MVC.Administrator.Role.Name, new
+                {
+                    term = ViewBag.Term,
+                    page = pageNumber
+                }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList" }))
+
+</div>

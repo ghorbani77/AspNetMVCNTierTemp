@@ -178,6 +178,7 @@ namespace Links
     
         public static readonly string bootstrap_flat_min_css = Url("bootstrap-flat.min.css");
         public static readonly string bootstrap_rtl_min_css = Url("bootstrap-rtl.min.css");
+        public static readonly string customBootstrap_min_css = Url("customBootstrap.min.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class favicon {
             private const string URLPATH = "~/Content/favicon";
@@ -262,6 +263,8 @@ namespace Links
         public static readonly string ionicons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ionicons.min.css") ? Url("ionicons.min.css") : Url("ionicons.css");
              
         public static readonly string ionicons_min_css = Url("ionicons.min.css");
+        public static readonly string PagedList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PagedList.min.css") ? Url("PagedList.min.css") : Url("PagedList.css");
+             
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class plugins {
             private const string URLPATH = "~/Content/plugins";
@@ -412,8 +415,10 @@ namespace Links
             {
                 public const string bootstrap_flat_min_css = "~/Content/bootstrap-flat.min.css";
                 public const string bootstrap_rtl_min_css = "~/Content/bootstrap-rtl.min.css";
+                public const string customBootstrap_min_css = "~/Content/customBootstrap.min.css";
                 public const string ionicons_css = "~/Content/ionicons.css";
                 public const string ionicons_min_css = "~/Content/ionicons.min.css";
+                public const string PagedList_css = "~/Content/PagedList.css";
                 public const string site_css = "~/Content/site.css";
                 public const string toastr_css = "~/Content/toastr.css";
                 public const string toastr_min_css = "~/Content/toastr.min.css";

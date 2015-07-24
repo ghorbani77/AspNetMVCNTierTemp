@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using MVC5.Common.Controller;
@@ -10,8 +11,8 @@ using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [RouteArea("Panel")]
-    [RoutePrefix("Settings")]
+    [MvcAuthorize]
+    [DisplayName("مدیریت تنظیمات سایت")]
     public partial class SettingController : BaseController
     {
         #region Fields
@@ -34,23 +35,18 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region User
-        [Route("UserSetting")]
         [HttpGet]
-        [MvcAuthorize(Description = "ویرایش تنظیمات مرتبط به کاربران", Roles = "CanManageSettings,CanEditUserSetting",
-            CanBeMenu = true)]
+        [DisplayName("ویرایش تنظیمات کاربران")]
         [ActivityLog(Description = "ویرایش تنظیمات مرتبط به کاربران", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting()
         {
             await _unitOfWork.SaveChangesAsync();
-
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("UserSetting")]
         [CheckReferrer]
-        [MvcAuthorize( Roles = "CanManageSettings,CanEditUserSetting", CanBeMenu = true)]
         [ActivityLog(Description = "ویرایش تنظیمات کاربری", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting(UserSettingsViewModel viewModel)
         {

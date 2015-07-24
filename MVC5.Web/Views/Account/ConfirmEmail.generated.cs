@@ -11,8 +11,25 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/ConfirmEmail.cshtml")]
     public partial class _Views_Account_ConfirmEmail_cshtml : System.Web.Mvc.WebViewPage<dynamic>
@@ -25,41 +42,45 @@ namespace ASP
             
             #line 1 "..\..\Views\Account\ConfirmEmail.cshtml"
   
-    ViewBag.Title = "فعال سازی حساب کاربری";
+   
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<h2>");
+WriteLiteral("\r\n\r\n<div");
 
-            
-            #line 5 "..\..\Views\Account\ConfirmEmail.cshtml"
-Write(ViewBag.Title);
+WriteLiteral(" class=\"panel panel-default\"");
 
-            
-            #line default
-            #line hidden
-WriteLiteral(".</h2>\r\n<div");
+WriteLiteral(">\r\n    <div");
 
-WriteLiteral(" class=\"alert alert-success\"");
+WriteLiteral(" class=\"panel-heading\"");
 
-WriteLiteral(">\r\n    <p");
+WriteLiteral(">\r\n        فعال سازی حساب کاربری\r\n    </div>\r\n    <div");
+
+WriteLiteral(" class=\"panel-body\"");
+
+WriteLiteral(">\r\n        <p");
 
 WriteLiteral(" class=\"lead\"");
 
-WriteLiteral(">\r\n     با تشکر از عضویت شما در سایت. حساب شما با موفقیت فعال شد. برای ورود به حس" +
-"اب خود کلیک کنید \r\n\r\n    </p>\r\n");
+WriteLiteral(">\r\n            با تشکر از عضویت شما در سایت. حساب شما با موفقیت فعال شد. برای ورو" +
+"د به حساب خود کلیک کنید\r\n        </p> \r\n    </div>\r\n    <div");
 
-WriteLiteral("    ");
+WriteLiteral(" class=\"panel-footer\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("        ");
 
             
-            #line 11 "..\..\Views\Account\ConfirmEmail.cshtml"
-Write(Html.ActionLink("ورود به حساب", MVC.Account.ActionNames.Login, MVC.Account.Name, routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink", @class = "btn btn-success" }));
+            #line 15 "..\..\Views\Account\ConfirmEmail.cshtml"
+   Write(Html.ActionLink("ورود به حساب", MVC.Account.ActionNames.Login, MVC.Account.Name,
+        routeValues: new { area = "" }, htmlAttributes: new { @class = "btn btn-block btn-md btn-success" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n</div>\r\n");
+WriteLiteral("\r\n    </div>\r\n</div>\r\n\r\n");
 
         }
     }

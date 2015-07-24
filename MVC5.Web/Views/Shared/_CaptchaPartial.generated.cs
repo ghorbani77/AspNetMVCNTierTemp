@@ -13,8 +13,23 @@ namespace ASP
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_CaptchaPartial.cshtml")]
     public partial class _Views_Shared__CaptchaPartial_cshtml : System.Web.Mvc.WebViewPage<CaptchaMvc.Models.MathBuildInfoModel>
@@ -24,43 +39,10 @@ namespace ASP
         }
         public override void Execute()
         {
-WriteLiteral("<img");
-
-WriteAttribute("id", Tuple.Create(" id=\"", 49), Tuple.Create("\"", 75)
-            
-            #line 2 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 54), Tuple.Create<System.Object, System.Int32>(Model.ImageElementId
-            
-            #line default
-            #line hidden
-, 54), false)
-);
-
-WriteAttribute("src", Tuple.Create(" src=\"", 76), Tuple.Create("\"", 97)
-            
-            #line 2 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 82), Tuple.Create<System.Object, System.Int32>(Model.ImageUrl
-            
-            #line default
-            #line hidden
-, 82), false)
-);
-
-WriteLiteral(" alt=\"\"");
-
-WriteLiteral("/>\r\n");
+WriteLiteral("\r\n");
 
             
-            #line 3 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-Write(Html.Hidden(Model.TokenElementId, Model.TokenValue));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n<br />\r\n");
-
-            
-            #line 5 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 4 "..\..\Views\Shared\_CaptchaPartial.cshtml"
   
     var id = Guid.NewGuid().ToString("N");
     var functionName = string.Format("______{0}________()", Guid.NewGuid().ToString("N"));
@@ -75,7 +57,7 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(">\r\n\r\n        $(function () {\r\n            $(\'#");
 
             
-            #line 11 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 10 "..\..\Views\Shared\_CaptchaPartial.cshtml"
            Write(id);
 
             
@@ -84,7 +66,7 @@ WriteLiteral(">\r\n\r\n        $(function () {\r\n            $(\'#");
 WriteLiteral("\').prop(\'disabled\', false);\r\n        });\r\n\r\n        function ");
 
             
-            #line 14 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 13 "..\..\Views\Shared\_CaptchaPartial.cshtml"
             Write(functionName);
 
             
@@ -93,7 +75,7 @@ WriteLiteral("\').prop(\'disabled\', false);\r\n        });\r\n\r\n        funct
 WriteLiteral("{\r\n            $(\'#");
 
             
-            #line 15 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 14 "..\..\Views\Shared\_CaptchaPartial.cshtml"
            Write(id);
 
             
@@ -102,7 +84,7 @@ WriteLiteral("{\r\n            $(\'#");
 WriteLiteral("\').prop(\'disabled\', true);\r\n            $.post(\"");
 
             
-            #line 16 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 15 "..\..\Views\Shared\_CaptchaPartial.cshtml"
                Write(Model.RefreshUrl);
 
             
@@ -111,7 +93,7 @@ WriteLiteral("\').prop(\'disabled\', true);\r\n            $.post(\"");
 WriteLiteral("\", { ");
 
             
-            #line 16 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 15 "..\..\Views\Shared\_CaptchaPartial.cshtml"
                                      Write(Model.TokenParameterName);
 
             
@@ -120,7 +102,7 @@ WriteLiteral("\", { ");
 WriteLiteral(": $(\'#");
 
             
-            #line 16 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 15 "..\..\Views\Shared\_CaptchaPartial.cshtml"
                                                                     Write(Model.TokenElementId);
 
             
@@ -129,7 +111,7 @@ WriteLiteral(": $(\'#");
 WriteLiteral("\').val() }, function () {\r\n                $(\'#");
 
             
-            #line 17 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 16 "..\..\Views\Shared\_CaptchaPartial.cshtml"
                Write(id);
 
             
@@ -139,59 +121,92 @@ WriteLiteral("\').prop(\'disabled\', false);\r\n            });\r\n            r
 "}\r\n    </script>\r\n");
 
             
-            #line 22 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 21 "..\..\Views\Shared\_CaptchaPartial.cshtml"
 
-   
 
             
             #line default
             #line hidden
-WriteLiteral("    <div");
+WriteLiteral("\r\n<label");
 
-WriteLiteral(" class=\"col-md-10\"");
+WriteLiteral(" class=\"control-label col-md-2\"");
 
-WriteLiteral(">\r\n        <button");
+WriteLiteral(">تصویر امنیتی</label>\r\n<div");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 812), Tuple.Create("\"", 820)
+WriteLiteral(" class=\"col-md-3\"");
+
+WriteLiteral(">\r\n    <figure>\r\n        <img");
+
+WriteAttribute("id", Tuple.Create(" id=\"", 754), Tuple.Create("\"", 780)
             
-            #line 25 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 817), Tuple.Create<System.Object, System.Int32>(id
+            #line 26 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+, Tuple.Create(Tuple.Create("", 759), Tuple.Create<System.Object, System.Int32>(Model.ImageElementId
             
             #line default
             #line hidden
-, 817), false)
+, 759), false)
 );
 
-WriteAttribute("onclick", Tuple.Create(" onclick=\"", 821), Tuple.Create("\"", 844)
+WriteAttribute("src", Tuple.Create(" src=\"", 781), Tuple.Create("\"", 802)
             
-            #line 25 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 831), Tuple.Create<System.Object, System.Int32>(functionName
+            #line 26 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+, Tuple.Create(Tuple.Create("", 787), Tuple.Create<System.Object, System.Int32>(Model.ImageUrl
             
             #line default
             #line hidden
-, 831), false)
+, 787), false)
 );
 
-WriteLiteral(" class=\"btn btn-info\"");
+WriteLiteral("  alt=\"تصویر امنیتی\"");
 
-WriteLiteral(">\r\n            <span");
+WriteLiteral(" />\r\n");
 
-WriteLiteral(" class=\"fa fa-refresh\"");
-
-WriteLiteral("></span>\r\n            جدید\r\n        </button>\r\n    </div>\r\n");
+WriteLiteral("        ");
 
             
-            #line 30 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-  
-   
+            #line 27 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+   Write(Html.Hidden(Model.TokenElementId, Model.TokenValue));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n");
+WriteLiteral("\r\n        <figcaption>\r\n            <a");
+
+WriteLiteral(" href=\"javascript:void(0)\"");
+
+WriteAttribute("id", Tuple.Create(" id=\"", 952), Tuple.Create("\"", 960)
+            
+            #line 29 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+, Tuple.Create(Tuple.Create("", 957), Tuple.Create<System.Object, System.Int32>(id
+            
+            #line default
+            #line hidden
+, 957), false)
+);
+
+WriteAttribute("onclick", Tuple.Create(" onclick=\"", 961), Tuple.Create("\"", 984)
+            
+            #line 29 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+, Tuple.Create(Tuple.Create("", 971), Tuple.Create<System.Object, System.Int32>(functionName
+            
+            #line default
+            #line hidden
+, 971), false)
+);
+
+WriteLiteral(" class=\"btn btn-block btn-link btn-info\"");
+
+WriteLiteral(">\r\n                تغییر تصویر\r\n            </a>\r\n        </figcaption>\r\n    </fi" +
+"gure>\r\n</div>\r\n<div");
+
+WriteLiteral(" class=\"col-md-7\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("    ");
 
             
-            #line 34 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 36 "..\..\Views\Shared\_CaptchaPartial.cshtml"
 Write(Html.TextBox(Model.InputElementId, null, new Dictionary<string, object>() { { "data-val", "true" }, { "data-val-required", "لطفا پاسخ تصویر را وارد کنید" }, { "class", "form-control" } }));
 
             
@@ -199,14 +214,16 @@ Write(Html.TextBox(Model.InputElementId, null, new Dictionary<string, object>() 
             #line hidden
 WriteLiteral("\r\n");
 
+WriteLiteral("    ");
+
             
-            #line 35 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+            #line 37 "..\..\Views\Shared\_CaptchaPartial.cshtml"
 Write(Html.ValidationMessage(Model.InputElementId, new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
+WriteLiteral("\r\n</div>\r\n");
 
         }
     }

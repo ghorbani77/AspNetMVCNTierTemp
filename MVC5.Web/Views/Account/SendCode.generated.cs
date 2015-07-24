@@ -11,10 +11,25 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Optimization;
-
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/SendCode.cshtml")]
     public partial class _Views_Account_SendCode_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.SendCodeViewModel>
@@ -27,38 +42,29 @@ namespace ASP
             
             #line 2 "..\..\Views\Account\SendCode.cshtml"
   
-    ViewBag.Title = "Send Verification Code";
+    
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<h2>");
+WriteLiteral("\r\n\r\n\r\n");
 
             
-            #line 6 "..\..\Views\Account\SendCode.cshtml"
-Write(ViewBag.Title);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(".</h2>\r\n\r\n");
-
-            
-            #line 8 "..\..\Views\Account\SendCode.cshtml"
+            #line 7 "..\..\Views\Account\SendCode.cshtml"
  using (Html.BeginForm(MVC.Account.ActionNames.SendCode, MVC.Account.Name, new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
     
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Account\SendCode.cshtml"
+            #line 8 "..\..\Views\Account\SendCode.cshtml"
 Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Account\SendCode.cshtml"
+            #line 8 "..\..\Views\Account\SendCode.cshtml"
                             
 
             
@@ -77,7 +83,7 @@ WriteLiteral(">\r\n            Two Factor Authentication Provider:\r\n");
 WriteLiteral("            ");
 
             
-            #line 13 "..\..\Views\Account\SendCode.cshtml"
+            #line 12 "..\..\Views\Account\SendCode.cshtml"
        Write(Html.DropDownListFor(model => model.SelectedProvider, Model.Providers));
 
             
@@ -94,7 +100,7 @@ WriteLiteral(" class=\"btn btn-default\"");
 WriteLiteral(" />\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 17 "..\..\Views\Account\SendCode.cshtml"
+            #line 16 "..\..\Views\Account\SendCode.cshtml"
 }
 
             
@@ -104,6 +110,17 @@ WriteLiteral("\r\n");
 
 DefineSection("Scripts", () => {
 
+WriteLiteral("\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 19 "..\..\Views\Account\SendCode.cshtml"
+Write(Scripts.Render("~/bundles/bootstrap"));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n");
 
 WriteLiteral("    ");

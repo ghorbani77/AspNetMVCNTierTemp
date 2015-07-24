@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.Cookies;
 using MVC5.DomainClasses.Entities;
+using MVC5.ViewModel.Account;
+using MVC5.ViewModel.AdminArea.User;
+using EditUserViewModel = MVC5.ViewModel.AdminArea.User.EditUserViewModel;
 
 namespace MVC5.ServiceLayer.Contracts
 {
@@ -164,7 +167,7 @@ namespace MVC5.ServiceLayer.Contracts
         /// <param name="user"/><param name="password"/>
         /// <returns/>
         Task<IdentityResult> CreateAsync(ApplicationUser user, string password);
-        
+
 
         /// <summary>
         /// Return a user with the specified username and password or null if there is no match.
@@ -555,11 +558,28 @@ namespace MVC5.ServiceLayer.Contracts
         bool IsPhoneNumberInDatabase(string phoneNumber);
         bool IsUserNameInDatabase(string userName);
         bool Any();
-        IList<ApplicationUser> GetUsersWithRoleIds(params int[]ids);
+        IList<ApplicationUser> GetUsersWithRoleIds(params int[] ids);
         void AddRange(IEnumerable<ApplicationUser> users);
         bool AutoCommitEnabled { get; set; }
         void SeedDatabase();
-         bool IsExistByUserName(string userName);
+        bool IsExistByUserName(string userName);
+        Task<EditUserViewModel> GetUserByRoles(int id);
+        IList<UserViewModel> GetPageList(out int total, UserSearchViewModel search);
+        void EditUserWithRoles(EditUserViewModel viewModel, int[] roleIds);
+
+        void SetRolesToUser(ApplicationUser user, IEnumerable<ApplicationRole> roles);
+        void AddUserWithRoles(AddUserViewModel viewModel);
+        Task<bool> LogicalRemove(int id);
+        bool CheckUserNameExist(string userName, int? id);
+        bool CheckEmailExist(string email, int? id);
+        bool CheckFirstNameExist(string firstName, int? id);
+        bool CheckLastNameExist(string lastName, int? id);
+        bool CheckGooglePlusIdExist(string googlePlusId, int? id);
+        bool CheckFacebookIdExist(string faceBookId, int? id);
+        bool CheckPhoneNumberExist(string phoneNumber, int? id);
+        IList<string> CustomGetUserRoles(int id);
+        Task<int> CreateAsync(RegisterViewModel viewModel);
+        Task<string> CustomValidatePasswordAsync(string pass);
     }
 
 }

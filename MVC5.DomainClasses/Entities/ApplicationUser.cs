@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using EntityFramework.Filters;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -31,12 +32,13 @@ namespace MVC5.DomainClasses.Entities
         public virtual DateTime? BannedDate { get; set; }
         public virtual string LastIp { get; set; }
         public virtual DateTime? LastLoginDate { get; set; }
-        public virtual DateTime? LastActivity { get; set; }
+        public virtual DateTime? LastActivityDate { get; set; }
         public virtual CommentPermissionType CommentPermission { get; set; }
         public virtual bool CanUploadFile { get; set; }
         public virtual bool CanChangeProfilePicture { get; set; }
-        public virtual bool  CanModifyFirsAndLastName{ get; set; }
+        public virtual bool CanModifyFirsAndLastName { get; set; }
         public virtual ICollection<ActivityLog> ActivityLogs { get; set; }
+        public virtual ICollection<ApplicationPermission> OwnPermissions { get; set; }
 
     }
 }

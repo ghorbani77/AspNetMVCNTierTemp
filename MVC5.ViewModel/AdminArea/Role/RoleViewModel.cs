@@ -13,6 +13,5 @@ namespace MVC5.ViewModel.AdminArea.Role
         public virtual bool IsActive { get; set; }
         public bool IsSystemRole { get; set; }
         public  bool IsDefaultForRegister { get; set; }
-        public IEnumerable<SelectListItem> Permissions { get; set; }
     }
 }

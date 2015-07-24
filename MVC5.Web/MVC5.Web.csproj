@@ -57,13 +57,9 @@
       <HintPath>..\packages\AttributeRouting.3.5.6\lib\net40\AttributeRouting.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AutoMapper.Net4">
-      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="AutoMapper, Version=4.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.4.0.0-alpha1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="CaptchaMvc">
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
@@ -207,12 +203,6 @@
     <Reference Include="Mvc.Mailer">
       <HintPath>..\packages\MvcMailer-vs2013.4.5.1-pre\lib\45\Mvc.Mailer.dll</HintPath>
     </Reference>
-    <Reference Include="MvcSiteMapProvider">
-      <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.18\lib\net45\MvcSiteMapProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="MvcSiteMapProvider.WebActivator">
-      <HintPath>..\packages\MvcSiteMapProvider.MVC5.4.6.18\lib\net45\MvcSiteMapProvider.WebActivator.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -220,6 +210,12 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="RazorGenerator.Mvc">
       <HintPath>..\packages\RazorGenerator.Mvc.2.3.5\lib\net40\RazorGenerator.Mvc.dll</HintPath>
@@ -368,6 +364,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>List.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Areas\Administrator\Views\Role\_ListAjax.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ListAjax.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Areas\Administrator\Views\Setting\UserSetting.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -398,7 +399,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_Layout.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Views\User\Create1.generated.cs">
+    <Compile Include="Areas\Administrator\Views\User\Create.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Create.cshtml</DependentUpon>
@@ -412,6 +413,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>List.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Administrator\Views\User\_ListAjax.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ListAjax.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Areas\Administrator\Views\_ViewStart.generated.cs">
       <AutoGen>True</AutoGen>
@@ -456,11 +462,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleTemplate.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SampleTemplate.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Searching\LuceneProducts.cs" />
     <Compile Include="Searching\YeKe.cs" />
     <Compile Include="SharedController.generated.cs">
@@ -480,11 +481,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ConfirmEmail.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\DisplayEmail.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DisplayEmail.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\ExternalLoginConfirmation.generated.cs">
       <AutoGen>True</AutoGen>
@@ -520,11 +516,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ResetPassword.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\ResetPasswordConfirmation.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ResetPasswordConfirmation.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\SendCode.generated.cs">
       <AutoGen>True</AutoGen>
@@ -590,46 +581,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>VerifyPhoneNumber.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CanonicalHelperModel.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\MenuHelperModel.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MenuHelperModel.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MetaRobotsHelperModel.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SiteMapHelperModel.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SiteMapNodeModel.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SiteMapNodeModelList.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SiteMapPathHelperModel.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SiteMapTitleHelperModel.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Error.generated.cs">
       <AutoGen>True</AutoGen>
@@ -697,6 +648,8 @@
     <Content Include="Content\fonts\Material-Design-Icons.svg" />
     <Content Include="Content\ionicons.css" />
     <Content Include="Content\ionicons.min.css" />
+    <Content Include="Content\customBootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="NoScript.html" />
     <Content Include="browserconfig.xml" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -796,7 +749,6 @@
     <Content Include="Content\fonts\wYekan.woff" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="manifest.json" />
-    <Content Include="Mvc.sitemap" />
     <Content Include="Content\fonts\Material-Design-Icons.eot" />
     <Content Include="Content\fonts\Material-Design-Icons.ttf" />
     <Content Include="Content\fonts\Material-Design-Icons.woff" />
@@ -860,8 +812,8 @@
       <LastGenOutput>_Layout.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\User\Create.cshtml">
-      <LastGenOutput>Create1.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\User\Edit.cshtml">
       <LastGenOutput>Edit1.generated.cs</LastGenOutput>
@@ -878,12 +830,13 @@
     <Content Include="Content\fonts\ionicons.eot" />
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.woff" />
-    <None Include="MvcSiteMapSchema.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="SampleTemplate.cshtml">
+    <Content Include="Areas\Administrator\Views\Role\_ListAjax.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SampleTemplate.generated.cs</LastGenOutput>
+      <LastGenOutput>_ListAjax.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Administrator\Views\User\_ListAjax.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ListAjax.generated.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -1020,10 +973,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ConfirmEmail.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Account\DisplayEmail.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>DisplayEmail.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ExternalLoginConfirmation.generated.cs</LastGenOutput>
@@ -1052,10 +1001,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ResetPassword.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>ResetPasswordConfirmation.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Account\SendCode.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SendCode.generated.cs</LastGenOutput>
@@ -1080,38 +1025,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ResetPassword.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SiteMapTitleHelperModel.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SiteMapPathHelperModel.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SiteMapNodeModelList.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SiteMapNodeModel.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SiteMapHelperModel.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>MetaRobotsHelperModel.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>MenuHelperModel.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>CanonicalHelperModel.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Shared\_Toastr.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Toastr.generated.cs</LastGenOutput>
@@ -1122,12 +1035,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\ErrorsLog\" />
     <Folder Include="App_Data\Images\avatar\" />
     <Folder Include="Content\admin\" />
     <Folder Include="Export\" />
     <Folder Include="Scripts\admin\" />
     <Folder Include="Upload\" />
     <Folder Include="Views\Export\" />
+    <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1200,7 +1115,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

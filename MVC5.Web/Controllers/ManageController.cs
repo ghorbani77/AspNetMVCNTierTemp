@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.Web.Filters;
 using MVC5.ServiceLayer.Contracts;
@@ -11,8 +12,8 @@ using MVC5.DomainClasses.Entities;
 
 namespace MVC5.Web.Controllers
 {
-    //[MvcAuthorize]
-    public partial class ManageController : Controller
+    [MvcAuthorize]
+    public partial class ManageController :BaseController
     {
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

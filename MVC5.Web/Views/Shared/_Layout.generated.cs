@@ -29,8 +29,6 @@ namespace ASP
     using System.Web.WebPages;
     using MVC5.ViewModel;
     using MVC5.Web;
-    using MvcSiteMapProvider.Web.Html;
-    using MvcSiteMapProvider.Web.Html.Models;
     
     #line 1 "..\..\Views\Shared\_Layout.cshtml"
     using StackExchange.Profiling;
@@ -277,28 +275,6 @@ WriteLiteral("    ");
 
             
             #line 65 "..\..\Views\Shared\_Layout.cshtml"
-Write(Scripts.Render("~/bundles/jqueryval"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n    \r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 67 "..\..\Views\Shared\_Layout.cshtml"
-Write(Scripts.Render("~/bundles/bootstrap"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 68 "..\..\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
@@ -307,13 +283,13 @@ Write(RenderSection("scripts", required: false));
 WriteLiteral("\r\n");
 
             
-            #line 69 "..\..\Views\Shared\_Layout.cshtml"
+            #line 66 "..\..\Views\Shared\_Layout.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 69 "..\..\Views\Shared\_Layout.cshtml"
+            #line 66 "..\..\Views\Shared\_Layout.cshtml"
       Html.RenderPartial(MVC.Shared.Views.ViewNames._Toastr);
             
             #line default
@@ -323,7 +299,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 70 "..\..\Views\Shared\_Layout.cshtml"
+            #line 67 "..\..\Views\Shared\_Layout.cshtml"
 Write(MiniProfiler.RenderIncludes());
 
             

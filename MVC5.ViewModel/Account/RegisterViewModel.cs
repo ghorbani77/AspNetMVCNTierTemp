@@ -22,16 +22,9 @@ namespace MVC5.ViewModel.Account
         [DisplayName("تکرار کلمه عبور")]
         [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "کلمات عبور وارد شده مطابقت ندارند")]
         public string ConfirmPassword { get; set; }
-
-        [DisplayName("شماره همراه")]
-        [Required(ErrorMessage = "وارد کردن شماره همراه ضروریست")]
-        [Remote("IsPhoneNumberExist", "Account", "", ErrorMessage = "این شماره همراه قبلا ثبت شده است", HttpMethod = "POST")]
-        [RegularExpression("09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}", ErrorMessage = "لطفا شماره همراه خود را به شکل صحیح وارد کنید")]
-        public string PhoneNumber { get; set; }
-
         [Required(ErrorMessage = "وارد کردن نام کاربری ضروریست")]
         [DisplayName("نام کاربری")]
-        [Remote("IsUserNameExist", "Account", "", ErrorMessage = "این ایمیل قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
+        [Remote("IsUserNameExist", "Account", "", ErrorMessage = "این نام کاربری قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string UserName { get; set; }
     }
 }

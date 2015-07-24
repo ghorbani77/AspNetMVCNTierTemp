@@ -25,6 +25,8 @@ namespace MVC5.IocConfig
                  .HybridHttpOrThreadLocalScoped()
                  .Use<UserStore<ApplicationUser, ApplicationRole, int, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>>();
 
+          
+
             For<IRoleStore<ApplicationRole, int>>()
                  .HybridHttpOrThreadLocalScoped()
                  .Use<RoleStore<ApplicationRole, int, ApplicationUserRole>>();

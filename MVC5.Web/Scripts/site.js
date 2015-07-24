@@ -1,5 +1,6 @@
 ﻿
 $(function () {
+    $(".pagination").addClass("pagination-sm");
     $('a.nofollow').attr('rel', 'nofollow');
     AjaxForm.EnableBootstrapStyleValidation();
     AjaxForm.EnablePostbackValidation();
@@ -58,6 +59,7 @@ AjaxForm.EnablePostbackValidation = function () {
 
 AjaxForm.EnableBootstrapStyleValidation = function () {
     $.validator.setDefaults({
+        ignore: "",
         highlight: function (element, errorClass, validClass) {
             if (element.type === 'radio') {
                 this.findByName(element.name).addClass(errorClass).removeClass(validClass);

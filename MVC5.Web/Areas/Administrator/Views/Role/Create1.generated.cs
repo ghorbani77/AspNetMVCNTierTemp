@@ -53,7 +53,7 @@ WriteLiteral(" class=\"row\"");
 
 WriteLiteral(">\r\n    <div");
 
-WriteLiteral(" class=\"col-md-10 col-md-offset-1\"");
+WriteLiteral(" class=\"col-md-12\"");
 
 WriteLiteral(">\r\n");
 
@@ -87,250 +87,249 @@ WriteLiteral(">\r\n");
             #line hidden
 WriteLiteral("            <div");
 
-WriteLiteral(" class=\"jumbotron custom\"");
+WriteLiteral(" class=\"panel panel-default\"");
 
 WriteLiteral(">\r\n                <div");
 
+WriteLiteral(" class=\"panel-heading\"");
+
+WriteLiteral(">\r\n                    <strong>مشخصات گروه</strong>\r\n                </div>\r\n    " +
+"            <div");
+
+WriteLiteral(" class=\"panel-body\"");
+
+WriteLiteral(">\r\n                    <div");
+
 WriteLiteral(" class=\"form-group\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                    ");
-
-            
-            #line 13 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-               Write(Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                    <div");
-
-WriteLiteral(" class=\"col-md-10\"");
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                        ");
 
             
-            #line 15 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.TextBoxFor(m => m.Name, new { @class = "form-control" }));
+            #line 17 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                   Write(Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        <div");
+
+WriteLiteral(" class=\"col-md-10\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 19 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                       Write(Html.TextBoxFor(m => m.Name, new { @class = "form-control" }));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-WriteLiteral("                        ");
-
-            
-            #line 16 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                    </div>\r\n                </div>\r\n                <div");
-
-WriteLiteral(" class=\"form-group\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                    ");
+WriteLiteral("                            ");
 
             
             #line 20 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-               Write(Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" }));
+                       Write(Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                    <div");
+WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n                   " +
+" <div");
 
-WriteLiteral(" class=\"col-md-10\"");
+WriteLiteral(" class=\"form-group\"");
 
 WriteLiteral(">\r\n");
 
 WriteLiteral("                        ");
 
             
-            #line 22 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.TextBoxFor(m => m.Description, new { @class = "form-control" }));
+            #line 24 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                   Write(Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        <div");
+
+WriteLiteral(" class=\"col-md-10\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 26 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                       Write(Html.TextBoxFor(m => m.Description, new { @class = "form-control" }));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-WriteLiteral("                        ");
+WriteLiteral("                            ");
 
             
-            #line 23 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" }));
+            #line 27 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                       Write(Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                    </div>\r\n                </div>\r\n                <div");
+WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n                   " +
+" <div");
 
 WriteLiteral(" class=\"form-group\"");
 
-WriteLiteral(">\r\n                    <div");
+WriteLiteral(">\r\n                        <div");
 
 WriteLiteral(" class=\"col-md-2 col-md-offset-2\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("                        ");
-
-            
-            #line 28 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.CheckBoxFor(m => m.IsActive, new { @class = "checkbox-inline" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("                        ");
-
-            
-            #line 29 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.LabelFor(m => m.IsActive, new { @class = "control-label" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                    </div>\r\n                    <div");
-
-WriteLiteral(" class=\"col-md-3\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                        ");
+WriteLiteral("                            ");
 
             
             #line 32 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.CheckBoxFor(m => m.IsDefaultForRegister, new { @class = "checkbox-inline" }));
+                       Write(Html.CheckBoxFor(m => m.IsActive, new { @class = "checkbox-inline" }));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-WriteLiteral("                        ");
+WriteLiteral("                            ");
 
             
             #line 33 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                   Write(Html.LabelFor(m => m.IsDefaultForRegister, new { @class = "control-label" }));
+                       Write(Html.LabelFor(m => m.IsActive, new { @class = "control-label" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n");
+WriteLiteral("\r\n                        </div>\r\n                        <div");
 
-WriteLiteral("            <hr />\r\n");
+WriteLiteral(" class=\"col-md-4\"");
 
-WriteLiteral("            <strong>دسترسی ها</strong>\r\n");
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 36 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                       Write(Html.CheckBoxFor(m => m.IsDefaultForRegister, new { @class = "checkbox-inline" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 37 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                       Write(Html.LabelFor(m => m.IsDefaultForRegister, new { @class = "control-label" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n                </d" +
+"iv>\r\n            </div>\r\n");
 
 WriteLiteral("            <div");
 
-WriteLiteral(" class=\"jumbotron custom\"");
+WriteLiteral(" class=\"panel panel-default\"");
 
 WriteLiteral(">\r\n                <div");
 
-WriteLiteral(" class=\"row\"");
+WriteLiteral(" class=\"panel-heading\"");
+
+WriteLiteral(">\r\n                    <strong>دسترسی ها</strong>\r\n                </div>\r\n      " +
+"          <div");
+
+WriteLiteral(" class=\"panel-body\"");
 
 WriteLiteral(">\r\n                    <div");
 
-WriteLiteral(" class=\"col-md-12\"");
+WriteLiteral(" class=\"row\"");
 
 WriteLiteral(">\r\n");
 
             
-            #line 43 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                        
+            #line 48 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                            
             
             #line default
             #line hidden
             
-            #line 43 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                         foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                        {
+            #line 48 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                             foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
+                            {
 
             
             #line default
             #line hidden
-WriteLiteral("                            ");
+WriteLiteral("                                ");
 
-WriteLiteral("\r\n                                <div");
+WriteLiteral("\r\n                                    <div");
 
 WriteLiteral(" class=\"col-md-4\"");
 
-WriteLiteral(">\r\n                                    <input");
+WriteLiteral(">\r\n                                        <input");
 
 WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"PermissionIds\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 2457), Tuple.Create("\"", 2482)
+WriteAttribute("value", Tuple.Create(" value=\"", 2804), Tuple.Create("\"", 2829)
             
-            #line 47 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-       , Tuple.Create(Tuple.Create("", 2465), Tuple.Create<System.Object, System.Int32>(permission.Value
+            #line 52 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+           , Tuple.Create(Tuple.Create("", 2812), Tuple.Create<System.Object, System.Int32>(permission.Value
             
             #line default
             #line hidden
-, 2465), false)
+, 2812), false)
 );
 
 WriteLiteral(" class=\"checkbox-inline\"");
 
-WriteLiteral(" />\r\n                                    <label");
+WriteLiteral(" />\r\n                                        <label");
 
 WriteLiteral(" class=\"control-label\"");
 
 WriteLiteral(">");
 
             
-            #line 48 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                                                            Write(permission.Text);
+            #line 53 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                                                                Write(permission.Text);
 
             
             #line default
             #line hidden
-WriteLiteral("</label>\r\n                                </div>\r\n                            ");
+WriteLiteral("</label>\r\n                                    </div>\r\n                           " +
+"     ");
 
 WriteLiteral("\r\n");
 
             
-            #line 51 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                        }
+            #line 56 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+                            }
 
             
             #line default
             #line hidden
-WriteLiteral("                    </div>\r\n                </div>\r\n            </div>\r\n");
+WriteLiteral("                    </div>\r\n\r\n                </div>\r\n                <div");
 
-            
-            #line 55 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-
-
-            
-            #line default
-            #line hidden
-WriteLiteral("            <hr />\r\n");
-
-WriteLiteral("            <div");
-
-WriteLiteral(" class=\"row\"");
-
-WriteLiteral(">\r\n                <div");
-
-WriteLiteral(" class=\"col-md-12\"");
+WriteLiteral(" class=\"panel-footer\"");
 
 WriteLiteral(">\r\n                    <div");
 
-WriteLiteral(" class=\"form-group\"");
+WriteLiteral(" class=\"row\"");
 
 WriteLiteral(">\r\n                        <div");
 
@@ -344,32 +343,21 @@ WriteLiteral(" class=\"btn btn-success btn-sm btn-block\"");
 
 WriteLiteral(" value=\"ثبت اطلاعات\"");
 
-WriteLiteral(" />\r\n                        </div>\r\n                    </div>\r\n                " +
-"</div>\r\n            </div>\r\n");
+WriteLiteral(" />\r\n                        </div>\r\n\r\n                    </div>\r\n\r\n            " +
+"    </div>\r\n            </div>\r\n");
 
             
-            #line 66 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+            #line 70 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
 
         }
 
             
             #line default
             #line hidden
-WriteLiteral("    </div>\r\n\r\n\r\n</div>\r\n");
+WriteLiteral("    </div>\r\n</div>\r\n");
 
 DefineSection("Scripts", () => {
 
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 73 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-Write(Scripts.Render("~/bundles/jqueryval"));
-
-            
-            #line default
-            #line hidden
 WriteLiteral("\r\n");
 
 });

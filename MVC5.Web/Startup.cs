@@ -25,7 +25,8 @@ namespace MVC5.Web
                 .Use(() => appBuilder.GetDataProtectionProvider()));
 
             ProjectObjectFactory.Container.GetInstance<IApplicationRoleManager>()
-                .SeedDatabase();
+             .SeedDatabase(SystemConfiguration.ConfigPermissions());
+
             ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>()
                .SeedDatabase();
 
@@ -39,6 +40,7 @@ namespace MVC5.Web
                     OnValidateIdentity =
                             ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>().OnValidateIdentity()
                 }
+
             });
 
             

@@ -100,3 +100,7 @@ footer > .container {
 code {
     font-size: 80%;
 }
+
+.tab-content {
+    margin-top: 20px;
+}

@@ -4,10 +4,9 @@ namespace MVC5.ViewModel.Account
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "وارد کردن ایمیل ضروریست")]
-        [Display(Name = "ایمیل")]
-        [EmailAddress(ErrorMessage = "ایمیل را به شکل صحیح وارد کنید")]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "وارد کردن نام کاربری ضروریست")]
+        [Display(Name = "نام کاربری")]
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "وارد کردن کلمه عبور ضروریست")]
         [DataType(DataType.Password)]

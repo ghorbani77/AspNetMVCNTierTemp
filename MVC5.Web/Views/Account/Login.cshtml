@@ -1,26 +1,27 @@
-﻿
-@using MVC5.ViewModel.Account
-@model MVC5.ViewModel.Account.LoginViewModel
+﻿@using MVC5.ViewModel.Account
+@model LoginViewModel
 
 @{
-    ViewBag.Title = "Log in";
+    
 }
-<hr />
-<div class="jumbotron">
-    <div class="row">
-        <div class="col-md-9">
-            <section id="loginForm">
-                @using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>ورود به حساب کاربری</h4>
-                    <hr />
+
+<div class="row">
+
+    @using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel  panel-default">
+                <div class="panel-heading">
+                    <strong> ورود به حساب کاربری</strong>
+                </div>
+                <div class="panel-body">
                     @Html.ValidationSummary(true, null, new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
@@ -31,39 +32,45 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
+                        <div class="col-md-offset-1 col-md-10">
                             <div class="checkbox">
                                 @Html.CheckBoxFor(m => m.RememberMe)
                                 @Html.LabelFor(m => m.RememberMe)
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="ورود با حساب سایت" class="btn btn-info btn-block" />
+
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" value="ورود با حساب سایت" class="btn btn-success btn-block" />
                         </div>
-                    </div>
-                }
-                <div class="col-md-offset-2">
-                    <strong>
-                        @Html.ActionLink("ساخت حساب کاربری جدید", MVC.Account.ActionNames.Register, MVC.Account.Name, new { area = "" }, null)
-                        <br />
-                        @Html.ActionLink("کلمه عبور خود را فراموش کردم", MVC.Account.ActionNames.ForgotPassword, MVC.Account.Name, new { area = "" }, null)
 
-                    </strong>
                     </div>
-            </section>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
-            <section id="socialLoginForm">
-                <h4>ورود با سایر حساب ها</h4>
-                <hr />
+    }
 
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel {ReturnUrl = ViewBag.ReturnUrl})
-            </section>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>ورود با حساب کاربری شبکه اجتماعی </strong>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    @Html.Partial(MVC.Account.Views.ViewNames._ExternalLoginsListPartial, new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+
+
 @section Scripts {
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
 }

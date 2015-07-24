@@ -27,16 +27,14 @@ namespace MVC5.Web
                 ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap-flat.min.css",
-                "~/Content/bootstrap-rtl.min.css",
+              "~/Content/customBootstrap.min.css",
                 "~/Content/toastr.min.css",
                 "~/Content/plugins/font-awesome.min.css",
                 "~/Content/plugins/fileinput.min.css",
                 "~/Content/site.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/adminCss").Include(
-                "~/Content/bootstrap-flat.min.css",
-                "~/Content/bootstrap-rtl.min.css",
+                "~/Content/customBootstrap.min.css",
                 "~/Content/toastr.min.css",
                 "~/Content/plugins/font-awesome.min.css",
                 "~/Content/ionicons.min.css",

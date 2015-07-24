@@ -3,22 +3,25 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
+using MVC5.DomainClasses;
 
 namespace MVC5.ViewModel.AdminArea.User
 {
     public class UserViewModel
     {
         public int  Id { get; set; }
-        [DisplayName("ایمیل")]
         public string Email { get; set; }
-        [DisplayName("نام کاربری")]
         public string UserName { get; set; }
-        [DisplayName("قفل")]
         public bool IsBanned { get; set; }
-        [DisplayName("کاربر سیستمی")]
+        public  bool IsDeleted { get; set; }
+        public bool EmailConfirmed { get; set; }
         public bool IsSystemAccount { get; set; }
-        [DisplayName("نظر مدیر")]
-        public string AdminComment { get; set; }
+        public string Name { get; set; }
+        public string RegisterDate { get; set; }
+        public string LastActivityDate { get; set; }
+        public string Roles { get; set; }
+        public CommentPermissionType CommentPermissionType { get; set; }
+
 
     }
 }

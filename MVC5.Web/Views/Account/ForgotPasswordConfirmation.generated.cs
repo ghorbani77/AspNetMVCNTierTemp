@@ -12,7 +12,24 @@
 namespace ASP
 {
     using System;
-
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
+    using System.Web.Mvc.Html;
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/ForgotPasswordConfirmation.cshtml")]
     public partial class _Views_Account_ForgotPasswordConfirmation_cshtml : System.Web.Mvc.WebViewPage<dynamic>
@@ -25,7 +42,7 @@ namespace ASP
             
             #line 1 "..\..\Views\Account\ForgotPasswordConfirmation.cshtml"
   
-    ViewBag.Title = "Forgot Password Confirmation";
+   
 
             
             #line default
@@ -50,14 +67,14 @@ WriteLiteral(" class=\"text-danger\"");
 
 WriteLiteral(">\r\n        For DEMO only: You can click this link to reset password: <a");
 
-WriteAttribute("href", Tuple.Create(" href=\"", 307), Tuple.Create("\"", 327)
+WriteAttribute("href", Tuple.Create(" href=\"", 259), Tuple.Create("\"", 279)
             
             #line 13 "..\..\Views\Account\ForgotPasswordConfirmation.cshtml"
-, Tuple.Create(Tuple.Create("", 314), Tuple.Create<System.Object, System.Int32>(ViewBag.Link
+, Tuple.Create(Tuple.Create("", 266), Tuple.Create<System.Object, System.Int32>(ViewBag.Link
             
             #line default
             #line hidden
-, 314), false)
+, 266), false)
 );
 
 WriteLiteral(">link</a>\r\n        Please change this code to register an email service in Identi" +

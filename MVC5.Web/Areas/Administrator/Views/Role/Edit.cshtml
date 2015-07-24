@@ -4,75 +4,78 @@
 }
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-12">
         @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { area = "Administrator" }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
-            <div class="jumbotron custom">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
-                    </div>
+            @Html.HiddenFor(a => a.Id)
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>مشخصات گروه</strong>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-2 col-md-offset-2">
-                        @Html.CheckBoxFor(m => m.IsActive, new { @class = "checkbox-inline" })
-                        @Html.LabelFor(m => m.IsActive, new { @class = "control-label" })
-                    </div>
-                    <div class="col-md-3">
-                        @Html.CheckBoxFor(m => m.IsDefaultForRegister, new { @class = "checkbox-inline",@disabled="disabled" })
-                        @Html.LabelFor(m => m.IsDefaultForRegister, new { @class = "control-label" })
-                    </div>
-                    <div class="col-md-3">
-                        @Html.CheckBoxFor(m => m.IsSystemRole, new { @class = "checkbox-inline", @disabled = "disabled" })
-                        @Html.LabelFor(m => m.IsSystemRole, new { @class = "control-label" })
-                    </div>
-                </div>
-
-            </div>
-            <hr />
-            <strong>دسترسی ها</strong>
-            <div class="jumbotron custom">
-                <div class="row">
-                    <div class="col-md-12">
-                        @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                        {
-                            <text>
-                                <div class="col-md-3">
-                                    <input type="checkbox" name="PermissionIds" checked="@permission.Selected" value="@permission.Value" class="checkbox-inline" />
-                                    <label class="control-label">@permission.Text</label>
-                                </div>
-                            </text>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <hr />
-            <div class="row">
-                <div class="col-md-12">
+                <div class="panel-body">
                     <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-2 col-md-offset-2">
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "checkbox-inline" })
+                            @Html.LabelFor(m => m.IsActive, new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.CheckBoxFor(m => m.IsDefaultForRegister, new { @class = "checkbox-inline", @disabled = "disabled" })
+                            @Html.LabelFor(m => m.IsDefaultForRegister, new { @class = "control-label" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.CheckBoxFor(m => m.IsSystemRole, new { @class = "checkbox-inline", @disabled = "disabled" })
+                            @Html.LabelFor(m => m.IsSystemRole, new { @class = "control-label" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>دسترسی ها</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                            @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
+                            {
+                                <text>
+                                    <div class="col-md-3">
+                                        <input type="checkbox" name="PermissionIds" checked="@permission.Selected" value="@permission.Value" class="checkbox-inline" />
+                                        <label class="control-label">@permission.Text</label>
+                                    </div>
+                                </text>
+                            }
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         }
     </div>
-
-
 </div>
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

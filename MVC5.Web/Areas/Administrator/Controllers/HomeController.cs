@@ -1,19 +1,18 @@
-﻿using System.Web.Mvc;
+﻿using System.ComponentModel;
+using System.Web.Mvc;
 using MVC5.Web.Filters;
 using MVC5.Common.Controller;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-
-    [RouteArea("Panel")]
-    [RoutePrefix("Home")]
+    [MvcAuthorize]
+    [DisplayName("دسترسی به پنل مدیریت")]
     public partial class HomeController : BaseController
     {
-        [MvcAuthorize( Roles = "CanVisitAdminPanel",
-       CanBeMenu = true)]
-        [Route("Index")]
+        [DisplayName("مشاهده پنل مدیریت")]
         public virtual ActionResult Index()
         {
+
             return View();
         }
     }

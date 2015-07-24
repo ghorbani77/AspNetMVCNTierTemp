@@ -1,4 +1,9 @@
-﻿using StackExchange.Profiling;
+﻿using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
+using MVC5.Common.Caching;
+using MVC5.IocConfig;
+using MVC5.ServiceLayer.Contracts;
+using StackExchange.Profiling;
 using StructureMap.Web.Pipeline;
 using System;
 using System.Linq;

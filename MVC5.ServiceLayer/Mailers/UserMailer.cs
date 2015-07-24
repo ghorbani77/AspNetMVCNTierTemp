@@ -31,8 +31,8 @@ namespace MVC5.ServiceLayer.Mailers
             {
                 x.BodyTransferEncoding = System.Net.Mime.TransferEncoding.Base64;
                 x.BodyEncoding = Encoding.UTF8;
-                x.Subject = "تآیید حساب کاربری";
-                x.ViewName = "ConfirmAccount";
+                x.Subject = confirmAccountEmail.Subject;
+                x.ViewName = confirmAccountEmail.ViewName;
                 x.To.Add(confirmAccountEmail.To);
             });
         }

@@ -1,7 +1,181 @@
-﻿
+﻿@model MVC5.ViewModel.AdminArea.User.EditUserViewModel
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "ویرایش کاربر";
 }
 
-<h2>Edit</h2>
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = "Administrator" }, FormMethod.Post, new { User = "form", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(a => a.Id)
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>مشخصات کاربر</strong>
+                </div>
+                <div class="panel-body">
 
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#requiredInfo" data-toggle="tab">مشخصات ضروری</a>
+                        </li>
+                        <li>
+                            <a href="#optionalInfo" data-toggle="tab">مشخصات اختیاری</a>
+                        </li>
+                        <li>
+                            <a href="#permissions" data-toggle="tab">دسترسی های جزئی</a>
+                        </li>
+                        <li>
+                            <a href="#roles" data-toggle="tab">گروه های کاربری</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="requiredInfo">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="optionalInfo">
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AdministratorComment, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(m => m.AdministratorComment, new { cols = 2, @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.AdministratorComment, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.BirthDay, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.BirthDay, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.BirthDay, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.GooglePlusId, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.GooglePlusId, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.GooglePlusId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FaceBookId, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.FaceBookId, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.FaceBookId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="permissions">
+                         
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.IsSystemAccount, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    <strong>
+                                        @Html.DisplayFor(m => m.IsSystemAccount, new { @class = "text-info" })
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.IsBanned, new { @class = "checkbox-inline" })
+                                @Html.LabelFor(m => m.IsBanned, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.IsDeleted, new { @class = "checkbox-inline" })
+                                @Html.LabelFor(m => m.IsDeleted, new { @class = "control-label" })
+                            </div>
+
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.CanChangeProfilePicture, new { @class = "checkbox-inline" })
+                                @Html.LabelFor(m => m.CanChangeProfilePicture, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.CanUploadFile, new { @class = "checkbox-inline" })
+                                @Html.LabelFor(m => m.CanUploadFile, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.CanModifyFirsAndLastName, new { @class = "checkbox-inline" })
+                                @Html.LabelFor(m => m.CanModifyFirsAndLastName, new { @class = "control-label" })
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="roles">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
+                                    {
+                                        <text>
+                                            <div class="col-md-4">
+                                                <input type="checkbox" name="RoleIds" value="@role.Value" class="checkbox-inline" />
+                                                <label class="control-label">@role.Text</label>
+                                            </div>
+                                        </text>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-success btn-sm btn-block" value="ذخیره اطلاعات" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+}

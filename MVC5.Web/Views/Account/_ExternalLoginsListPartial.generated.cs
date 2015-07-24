@@ -12,15 +12,30 @@
 namespace ASP
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net;
+    using System.Text;
     using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-#line 2 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    
+    #line 2 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
     using Microsoft.Owin.Security;
     
     #line default
     #line hidden
-
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/_ExternalLoginsListPartial.cshtml")]
     public partial class _Views_Account__ExternalLoginsListPartial_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.ExternalLoginListViewModel>
@@ -63,107 +78,63 @@ WriteLiteral("\r\n\r\n");
             #line 13 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
                                 
 
-            
-            #line default
-            #line hidden
-WriteLiteral("        <div");
-
-WriteLiteral(" id=\"socialLoginList\"");
-
-WriteLiteral(">\r\n            <p>\r\n");
-
-            
-            #line 16 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                
-            
-            #line default
-            #line hidden
-            
-            #line 16 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                 foreach (var p in authenticationDescriptions)
-                {
+            foreach (var p in authenticationDescriptions)
+            {
 
             
             #line default
             #line hidden
-WriteLiteral("                    <button");
+WriteLiteral("                <div");
+
+WriteLiteral(" class=\"col-md-6\"");
+
+WriteLiteral(">\r\n                    <input");
 
 WriteLiteral(" type=\"submit\"");
 
-WriteLiteral(" class=\"btn btn-danger btn-block\"");
+WriteLiteral(" class=\"btn btn-danger btn-block text-capitalize\"");
 
-WriteAttribute("id", Tuple.Create("  id=\"", 730), Tuple.Create("\"", 757)
+WriteAttribute("id", Tuple.Create(" id=\"", 725), Tuple.Create("\"", 751)
             
             #line 18 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
- , Tuple.Create(Tuple.Create("", 736), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+               , Tuple.Create(Tuple.Create("", 730), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
             
             #line default
             #line hidden
-, 736), false)
+, 730), false)
 );
 
 WriteLiteral(" name=\"provider\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 774), Tuple.Create("\"", 803)
+WriteAttribute("value", Tuple.Create(" \r\n                           value=\"", 768), Tuple.Create("\"", 826)
             
-            #line 18 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                                               , Tuple.Create(Tuple.Create("", 782), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
+            #line 19 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
+, Tuple.Create(Tuple.Create("", 805), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType
             
             #line default
             #line hidden
-, 782), false)
+, 805), false)
 );
 
-WriteAttribute("title", Tuple.Create(" title=\"", 804), Tuple.Create("\"", 835)
+WriteAttribute("title", Tuple.Create(" title=\"", 827), Tuple.Create("\"", 858)
             
-            #line 18 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                                                                             , Tuple.Create(Tuple.Create("", 812), Tuple.Create<System.Object, System.Int32>(p.Caption
+            #line 19 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
+, Tuple.Create(Tuple.Create("", 835), Tuple.Create<System.Object, System.Int32>(p.Caption
             
             #line default
             #line hidden
-, 812), false)
-, Tuple.Create(Tuple.Create(" ", 822), Tuple.Create("ورود", 823), true)
-, Tuple.Create(Tuple.Create(" ", 827), Tuple.Create("با", 828), true)
-, Tuple.Create(Tuple.Create(" ", 830), Tuple.Create("حساب", 831), true)
+, 835), false)
+, Tuple.Create(Tuple.Create(" ", 845), Tuple.Create("ورود", 846), true)
+, Tuple.Create(Tuple.Create(" ", 850), Tuple.Create("با", 851), true)
+, Tuple.Create(Tuple.Create(" ", 853), Tuple.Create("حساب", 854), true)
 );
 
-WriteLiteral(">\r\n\r\n                        <span>");
+WriteLiteral(" />\r\n                </div>\r\n");
 
-            
-            #line 20 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                         Write(p.AuthenticationType);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</span> \r\n                        <span");
-
-WriteAttribute("class", Tuple.Create(" class=\"", 931), Tuple.Create("\"", 991)
-, Tuple.Create(Tuple.Create("", 939), Tuple.Create("fa", 939), true)
-, Tuple.Create(Tuple.Create(" ", 941), Tuple.Create("fa-align-right", 942), true)
-, Tuple.Create(Tuple.Create(" ", 956), Tuple.Create("fa-", 957), true)
             
             #line 21 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 960), Tuple.Create<System.Object, System.Int32>(p.AuthenticationType.ToLower()
-            
-            #line default
-            #line hidden
-, 960), false)
-);
+            }
 
-WriteLiteral("></span>\r\n                    </button>\r\n");
-
-            
-            #line 23 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
-                }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("            </p>\r\n        </div>\r\n");
-
-            
-            #line 26 "..\..\Views\Account\_ExternalLoginsListPartial.cshtml"
     }
 }
 

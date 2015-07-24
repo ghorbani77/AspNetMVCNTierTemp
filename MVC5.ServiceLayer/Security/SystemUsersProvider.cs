@@ -7,9 +7,6 @@ namespace MVC5.ServiceLayer.Security
 {
     public static class SystemUsersProvider
     {
-
-        public static PasswordHasher Hasher = new PasswordHasher();
-
         /// <summary>
         /// get invariat users for seed data
         /// </summary>
@@ -18,9 +15,9 @@ namespace MVC5.ServiceLayer.Security
 
             new DefaultUserRecord
             {
-                SystemRoleName = SystemRoleNames.SuperAdministrators.Name,
+                SystemRoleName = SystemRoleNames.SuperAdministrators,
                 UserName = "Admin",
-                PasswordHash = Hasher.HashPassword("Admin1234@gmai.com"),
+                PasswordHash ="Admin1234@gmai.com",
                 CanChangeProfilePicture = true,
                 CanModifyFirsAndLastName = true,
                 CanUploadFile = true,

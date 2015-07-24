@@ -65,9 +65,17 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Delete()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SetRoleForRegister()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetRoleForRegister);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -92,9 +100,11 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public class ActionNamesClass
         {
             public readonly string List = "List";
+            public readonly string ListAjax = "ListAjax";
             public readonly string Create = "Create";
             public readonly string Edit = "Edit";
             public readonly string Delete = "Delete";
+            public readonly string SetRoleForRegister = "SetRoleForRegister";
             public readonly string RoleNameExist = "RoleNameExist";
         }
 
@@ -102,13 +112,24 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public class ActionNameConstants
         {
             public const string List = "List";
+            public const string ListAjax = "ListAjax";
             public const string Create = "Create";
             public const string Edit = "Edit";
             public const string Delete = "Delete";
+            public const string SetRoleForRegister = "SetRoleForRegister";
             public const string RoleNameExist = "RoleNameExist";
         }
 
 
+        static readonly ActionParamsClass_ListAjax s_params_ListAjax = new ActionParamsClass_ListAjax();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ListAjax ListAjaxParams { get { return s_params_ListAjax; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ListAjax
+        {
+            public readonly string term = "term";
+            public readonly string page = "page";
+        }
         static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Create CreateParams { get { return s_params_Create; } }
@@ -136,6 +157,14 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_SetRoleForRegister s_params_SetRoleForRegister = new ActionParamsClass_SetRoleForRegister();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SetRoleForRegister SetRoleForRegisterParams { get { return s_params_SetRoleForRegister; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SetRoleForRegister
+        {
+            public readonly string id = "id";
+        }
         static readonly ActionParamsClass_RoleNameExist s_params_RoleNameExist = new ActionParamsClass_RoleNameExist();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_RoleNameExist RoleNameExistParams { get { return s_params_RoleNameExist; } }
@@ -155,10 +184,12 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _ListAjax = "_ListAjax";
                 public readonly string Create = "Create";
                 public readonly string Edit = "Edit";
                 public readonly string List = "List";
             }
+            public readonly string _ListAjax = "~/Areas/Administrator/Views/Role/_ListAjax.cshtml";
             public readonly string Create = "~/Areas/Administrator/Views/Role/Create.cshtml";
             public readonly string Edit = "~/Areas/Administrator/Views/Role/Edit.cshtml";
             public readonly string List = "~/Areas/Administrator/Views/Role/List.cshtml";
@@ -174,11 +205,24 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         partial void ListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> List()
+        public override System.Web.Mvc.ActionResult List()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.List);
             ListOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ListAjaxOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string term, int page);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ListAjax(string term, int page)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListAjax);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
+            ListAjaxOverride(callInfo, term, page);
+            return callInfo;
         }
 
         [NonAction]
@@ -234,12 +278,24 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Delete(int? id)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete(int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             DeleteOverride(callInfo, id);
-            return callInfo;
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [NonAction]
+        partial void SetRoleForRegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SetRoleForRegister(int? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetRoleForRegister);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            SetRoleForRegisterOverride(callInfo, id);
+            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]

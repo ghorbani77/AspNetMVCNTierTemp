@@ -11,10 +11,25 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Optimization;
-
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/ExternalLoginConfirmation.cshtml")]
     public partial class _Views_Account_ExternalLoginConfirmation_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.ExternalLoginConfirmationViewModel>
@@ -27,94 +42,36 @@ namespace ASP
             
             #line 2 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
   
-    ViewBag.Title = "Register";
+   
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n<h2>");
-
-            
-            #line 5 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-Write(ViewBag.Title);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(".</h2>\r\n<h3>Associate your ");
+WriteLiteral("\r\n\r\n");
 
             
             #line 6 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-              Write(ViewBag.LoginProvider);
-
-            
-            #line default
-            #line hidden
-WriteLiteral(" account.</h3>\r\n\r\n");
-
-            
-            #line 8 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
- using (Html.BeginForm(MVC.Account.ActionNames.ExternalLoginConfirmation, MVC.Account.Name, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+ using (Html.BeginForm(MVC.Account.ActionNames.ExternalLoginConfirmation, MVC.Account.Name, new { ReturnUrl = ViewBag.ReturnUrl,arec="" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+            #line 8 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
 Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+            #line 8 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
                             
 
 
             
             #line default
             #line hidden
-WriteLiteral("    <h4>Association Form</h4>\r\n");
-
-WriteLiteral("    <hr />\r\n");
-
-            
-            #line 14 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-    
-            
-            #line default
-            #line hidden
-            
-            #line 14 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-Write(Html.ValidationSummary(true, "", new { @class = "text-danger" }));
-
-            
-            #line default
-            #line hidden
-            
-            #line 14 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-                                                                     
-
-            
-            #line default
-            #line hidden
-WriteLiteral("    <p");
-
-WriteLiteral(" class=\"text-info\"");
-
-WriteLiteral(">\r\n        You\'ve successfully authenticated with <strong>");
-
-            
-            #line 16 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-                                                  Write(ViewBag.LoginProvider);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</strong>.\r\n        Please enter a user name for this site below and click the Re" +
-"gister button to finish\r\n        logging in.\r\n    </p>\r\n");
-
 WriteLiteral("    <div");
 
 WriteLiteral(" class=\"form-group\"");
@@ -124,7 +81,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 21 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+            #line 11 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
    Write(Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }));
 
             
@@ -139,7 +96,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("            ");
 
             
-            #line 23 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+            #line 13 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
        Write(Html.TextBoxFor(m => m.Email, new { @class = "form-control" }));
 
             
@@ -150,7 +107,7 @@ WriteLiteral("\r\n");
 WriteLiteral("            ");
 
             
-            #line 24 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+            #line 14 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
        Write(Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }));
 
             
@@ -177,7 +134,7 @@ WriteLiteral(" value=\"Register\"");
 WriteLiteral(" />\r\n        </div>\r\n    </div>\r\n");
 
             
-            #line 32 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+            #line 22 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
 }
 
             
@@ -192,7 +149,18 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 35 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+            #line 25 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
+Write(Scripts.Render("~/bundles/bootstrap"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 26 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             

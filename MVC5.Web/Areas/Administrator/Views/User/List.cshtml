@@ -1,6 +1,125 @@
-﻿
+﻿@model MVC5.ViewModel.AdminArea.User.UserSearchViewModel
 @{
     ViewBag.Title = "مدیریت کاربران";
 }
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-3">
+                @Html.ActionLink("درج کاربر جدید", MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = "Administrator" }, new { @class = "btn btn-sm btn-info" })
+            </div>
+        </div>
+       
+    </div>
+    <div class="panel-body">
+
+        @using (Ajax.BeginForm(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = "Administrator" }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList" }, new { @class = "form-horizontal" }))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Roles)
+                    {
+                        <text>
+                            <div class="col-md-4">
+                                <input type="checkbox" name="RoleIds" value="@permission.Value" class="checkbox-inline" />
+                                <label class="control-label">@permission.Text</label>
+                            </div>
+                        </text>
+                    }
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchEmail, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.SearchEmail, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchUserName, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.SearchUserName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchFirstName, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.SearchFirstName, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchLastName, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.SearchLastName, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchIsEmailConfirmed, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.SearchIsEmailConfirmed, new { @class = "checkbox-inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchIsBanned, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.SearchIsBanned, new { @class = "checkbox-inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchIsDeleted, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.SearchIsDeleted, new { @class = "checkbox-inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchIsSystemAccount, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.SearchIsSystemAccount, new { @class = "checkbox-inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchIp, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.SearchIp, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchCanUploadFile, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.SearchCanUploadFile, new { @class = "checkbox-inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchCanChangeProfilePicture, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.SearchCanChangeProfilePicture, new { @class = "checkbox-inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchCanModifyFirsAndLastName, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.SearchCanModifyFirsAndLastName, new { @class = "checkbox-inline" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SearchCommentPermission, new { @class = "col-md-3 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.SearchCommentPermission, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<div class="panel panel-default" id="userList">
 
 
+    @{Html.RenderAction(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name);}
+
+</div>

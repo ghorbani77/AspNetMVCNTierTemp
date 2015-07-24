@@ -2,19 +2,19 @@
 @using MVC5.ViewModel.Account
 @model RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    
 }
-<hr />
-<div class="jumbotron">
-    <div class="row">
-        <div class="col-md-9">
-            <section id="loginForm">
-                @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post, new { area = "", @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>عضویت در سایت</h4>
-                    <hr />
-                    
+<div class="row">
+
+    @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post, new { area = "", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>ساخت حساب کاربری جدید</strong>
+                </div>
+                <div class="panel-body">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
@@ -37,35 +37,31 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            @Html.MathCaptcha(MVC.Shared.Views._CaptchaPartial)
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" class="btn btn-info btn-block" value="ثبت اطلاعات" />
-                        </div>
-                    </div>
-                }
-            </section>
-        </div>
-        <div class="col-md-3">
-            <section id="socialLoginForm">
-                <h4>عضویت با سایر حساب ها</h4>
-                <hr />
-                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel())
-            </section>
-        </div>
+                        @Html.MathCaptcha(MVC.Shared.Views._CaptchaPartial)
 
-    </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-success btn-block" value="تأیید اطلاعات برای تکمیل عضویت" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
 </div>
 @section Scripts {
+    @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
 }

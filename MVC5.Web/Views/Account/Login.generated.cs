@@ -11,105 +11,111 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
     using System.Web.Optimization;
-#line 2 "..\..\Views\Account\Login.cshtml"
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    using MVC5.ViewModel;
+    
+    #line 1 "..\..\Views\Account\Login.cshtml"
     using MVC5.ViewModel.Account;
     
     #line default
     #line hidden
-
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Account/Login.cshtml")]
-    public partial class _Views_Account_Login_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.LoginViewModel>
+    public partial class _Views_Account_Login_cshtml : System.Web.Mvc.WebViewPage<LoginViewModel>
     {
         public _Views_Account_Login_cshtml()
         {
         }
         public override void Execute()
         {
-WriteLiteral("\r\n");
-
             
-            #line 5 "..\..\Views\Account\Login.cshtml"
+            #line 4 "..\..\Views\Account\Login.cshtml"
   
-    ViewBag.Title = "Log in";
+    
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n<hr />\r\n<div");
-
-WriteLiteral(" class=\"jumbotron\"");
-
-WriteLiteral(">\r\n    <div");
+WriteLiteral("\r\n\r\n<div");
 
 WriteLiteral(" class=\"row\"");
 
-WriteLiteral(">\r\n        <div");
+WriteLiteral(">\r\n\r\n");
 
-WriteLiteral(" class=\"col-md-9\"");
+            
+            #line 10 "..\..\Views\Account\Login.cshtml"
+    
+            
+            #line default
+            #line hidden
+            
+            #line 10 "..\..\Views\Account\Login.cshtml"
+     using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        
+            
+            #line default
+            #line hidden
+            
+            #line 12 "..\..\Views\Account\Login.cshtml"
+   Write(Html.AntiForgeryToken());
 
-WriteLiteral(">\r\n            <section");
+            
+            #line default
+            #line hidden
+            
+            #line 12 "..\..\Views\Account\Login.cshtml"
+                                
 
-WriteLiteral(" id=\"loginForm\"");
+            
+            #line default
+            #line hidden
+WriteLiteral("        <div");
+
+WriteLiteral(" class=\"col-md-10 col-md-offset-1\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"panel  panel-default\"");
+
+WriteLiteral(">\r\n                <div");
+
+WriteLiteral(" class=\"panel-heading\"");
+
+WriteLiteral(">\r\n                    <strong> ورود به حساب کاربری</strong>\r\n                </d" +
+"iv>\r\n                <div");
+
+WriteLiteral(" class=\"panel-body\"");
 
 WriteLiteral(">\r\n");
 
-            
-            #line 13 "..\..\Views\Account\Login.cshtml"
-                
-            
-            #line default
-            #line hidden
-            
-            #line 13 "..\..\Views\Account\Login.cshtml"
-                 using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    
-            
-            #line default
-            #line hidden
-            
-            #line 15 "..\..\Views\Account\Login.cshtml"
-               Write(Html.AntiForgeryToken());
+WriteLiteral("                    ");
 
             
-            #line default
-            #line hidden
-            
-            #line 15 "..\..\Views\Account\Login.cshtml"
-                                            
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                    <h4>ورود به حساب کاربری</h4>\r\n");
-
-WriteLiteral("                    <hr />\r\n");
-
-            
-            #line 18 "..\..\Views\Account\Login.cshtml"
-                    
-            
-            #line default
-            #line hidden
-            
-            #line 18 "..\..\Views\Account\Login.cshtml"
+            #line 19 "..\..\Views\Account\Login.cshtml"
                Write(Html.ValidationSummary(true, null, new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
-            
-            #line 18 "..\..\Views\Account\Login.cshtml"
-                                                                                       
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                    <div");
+WriteLiteral("\r\n                    <div");
 
 WriteLiteral(" class=\"form-group\"");
 
@@ -118,8 +124,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 20 "..\..\Views\Account\Login.cshtml"
-                   Write(Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }));
+            #line 21 "..\..\Views\Account\Login.cshtml"
+                   Write(Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -133,8 +139,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 22 "..\..\Views\Account\Login.cshtml"
-                       Write(Html.TextBoxFor(m => m.Email, new { @class = "form-control" }));
+            #line 23 "..\..\Views\Account\Login.cshtml"
+                       Write(Html.TextBoxFor(m => m.UserName, new { @class = "form-control" }));
 
             
             #line default
@@ -144,15 +150,14 @@ WriteLiteral("\r\n");
 WriteLiteral("                            ");
 
             
-            #line 23 "..\..\Views\Account\Login.cshtml"
-                       Write(Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }));
+            #line 24 "..\..\Views\Account\Login.cshtml"
+                       Write(Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n");
-
-WriteLiteral("                    <div");
+WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n                   " +
+" <div");
 
 WriteLiteral(" class=\"form-group\"");
 
@@ -161,7 +166,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 27 "..\..\Views\Account\Login.cshtml"
+            #line 28 "..\..\Views\Account\Login.cshtml"
                    Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
 
             
@@ -176,7 +181,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 29 "..\..\Views\Account\Login.cshtml"
+            #line 30 "..\..\Views\Account\Login.cshtml"
                        Write(Html.PasswordFor(m => m.Password, new { @class = "form-control" }));
 
             
@@ -187,21 +192,20 @@ WriteLiteral("\r\n");
 WriteLiteral("                            ");
 
             
-            #line 30 "..\..\Views\Account\Login.cshtml"
+            #line 31 "..\..\Views\Account\Login.cshtml"
                        Write(Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n");
-
-WriteLiteral("                    <div");
+WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n                   " +
+" <div");
 
 WriteLiteral(" class=\"form-group\"");
 
 WriteLiteral(">\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-offset-2 col-md-10\"");
+WriteLiteral(" class=\"col-md-offset-1 col-md-10\"");
 
 WriteLiteral(">\r\n                            <div");
 
@@ -212,7 +216,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 36 "..\..\Views\Account\Login.cshtml"
+            #line 37 "..\..\Views\Account\Login.cshtml"
                            Write(Html.CheckBoxFor(m => m.RememberMe));
 
             
@@ -223,22 +227,24 @@ WriteLiteral("\r\n");
 WriteLiteral("                                ");
 
             
-            #line 37 "..\..\Views\Account\Login.cshtml"
+            #line 38 "..\..\Views\Account\Login.cshtml"
                            Write(Html.LabelFor(m => m.RememberMe));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n                            </div>\r\n                        </div>\r\n           " +
-"         </div>\r\n");
+"         </div>\r\n\r\n                </div>\r\n                <div");
 
-WriteLiteral("                    <div");
+WriteLiteral(" class=\"panel-footer\"");
 
-WriteLiteral(" class=\"form-group\"");
+WriteLiteral(">\r\n                    <div");
+
+WriteLiteral(" class=\"row\"");
 
 WriteLiteral(">\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-offset-2 col-md-10\"");
+WriteLiteral(" class=\"col-md-12\"");
 
 WriteLiteral(">\r\n                            <input");
 
@@ -246,64 +252,52 @@ WriteLiteral(" type=\"submit\"");
 
 WriteLiteral(" value=\"ورود با حساب سایت\"");
 
-WriteLiteral(" class=\"btn btn-info btn-block\"");
+WriteLiteral(" class=\"btn btn-success btn-block\"");
 
-WriteLiteral(" />\r\n                        </div>\r\n                    </div>\r\n");
-
-            
-            #line 46 "..\..\Views\Account\Login.cshtml"
-                }
+WriteLiteral(" />\r\n                        </div>\r\n\r\n                    </div>\r\n              " +
+"  </div>\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line default
-            #line hidden
-WriteLiteral("                <div");
-
-WriteLiteral(" class=\"col-md-offset-2\"");
-
-WriteLiteral(">\r\n                    <strong>\r\n");
-
-WriteLiteral("                        ");
-
-            
-            #line 49 "..\..\Views\Account\Login.cshtml"
-                   Write(Html.ActionLink("ساخت حساب کاربری جدید", MVC.Account.ActionNames.Register, MVC.Account.Name, new { area = "" }, null));
+            #line 54 "..\..\Views\Account\Login.cshtml"
+    }
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                        <br />\r\n");
+WriteLiteral("\r\n    <div");
 
-WriteLiteral("                        ");
+WriteLiteral(" class=\"col-md-10 col-md-offset-1\"");
+
+WriteLiteral(">\r\n        <div");
+
+WriteLiteral(" class=\"panel panel-default\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"panel-heading\"");
+
+WriteLiteral(">\r\n                <strong>ورود با حساب کاربری شبکه اجتماعی </strong>\r\n          " +
+"  </div>\r\n            <div");
+
+WriteLiteral(" class=\"panel-body\"");
+
+WriteLiteral(">\r\n                <div");
+
+WriteLiteral(" class=\"row\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                    ");
 
             
-            #line 51 "..\..\Views\Account\Login.cshtml"
-                   Write(Html.ActionLink("کلمه عبور خود را فراموش کردم", MVC.Account.ActionNames.ForgotPassword, MVC.Account.Name, new { area = "" }, null));
+            #line 63 "..\..\Views\Account\Login.cshtml"
+               Write(Html.Partial(MVC.Account.Views.ViewNames._ExternalLoginsListPartial, new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n                    </strong>\r\n                    </div>\r\n            </sect" +
-"ion>\r\n        </div>\r\n        <div");
-
-WriteLiteral(" class=\"col-md-3\"");
-
-WriteLiteral(">\r\n            <section");
-
-WriteLiteral(" id=\"socialLoginForm\"");
-
-WriteLiteral(">\r\n                <h4>ورود با سایر حساب ها</h4>\r\n                <hr />\r\n\r\n");
-
-WriteLiteral("                ");
-
-            
-            #line 62 "..\..\Views\Account\Login.cshtml"
-           Write(Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel {ReturnUrl = ViewBag.ReturnUrl}));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n            </section>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+WriteLiteral("\r\n                </div>\r\n            </div>\r\n\r\n        </div>\r\n    </div>\r\n</div" +
+">\r\n\r\n\r\n\r\n");
 
 DefineSection("Scripts", () => {
 
@@ -312,7 +306,18 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 68 "..\..\Views\Account\Login.cshtml"
+            #line 74 "..\..\Views\Account\Login.cshtml"
+Write(Scripts.Render("~/bundles/bootstrap"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 75 "..\..\Views\Account\Login.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             
