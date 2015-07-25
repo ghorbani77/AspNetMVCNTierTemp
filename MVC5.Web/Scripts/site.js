@@ -1,7 +1,6 @@
 ﻿
 $(function () {
-    $(".pagination").addClass("pagination-sm");
-    $('a.nofollow').attr('rel', 'nofollow');
+    Public.Routin();
     AjaxForm.EnableBootstrapStyleValidation();
     AjaxForm.EnablePostbackValidation();
 });
@@ -18,13 +17,10 @@ Public.Routin = function () {
         var fieldName = orig.replace('The field ', '');
         fieldName = fieldName.replace(' must be a number.', '');
 
-        el.attr('data-val-number', fieldName + ' باید عددی باشد')
+        el.attr('data-val-number', fieldName + ' باید عددی باشد');
     });
-    $(".pagination").addClass("pagination-sm").addClass("pull-left");
-    $("button:has(.cancel)").removeClass("btn-lg").addClass("btn-md");
-    $("input").attr("autocomplete", "off");
-    $(".selectpicker").attr("data-live-search", "true").attr("data-size", "5").selectpicker();
-
+    $(".pagination").addClass("pagination-sm");
+    $('a.nofollow').attr('rel', 'nofollow');
 };
 
 

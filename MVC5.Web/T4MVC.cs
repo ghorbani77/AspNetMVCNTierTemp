@@ -236,10 +236,6 @@ namespace Links
             public static readonly string IranianSerif_eot = Url("IranianSerif.eot");
             public static readonly string IranianSerif_woff = Url("IranianSerif.woff");
             public static readonly string irseri_ttf = Url("irseri.ttf");
-            public static readonly string Material_Design_Icons_eot = Url("Material-Design-Icons.eot");
-            public static readonly string Material_Design_Icons_svg = Url("Material-Design-Icons.svg");
-            public static readonly string Material_Design_Icons_ttf = Url("Material-Design-Icons.ttf");
-            public static readonly string Material_Design_Icons_woff = Url("Material-Design-Icons.woff");
             public static readonly string RobotoDraftBold_woff = Url("RobotoDraftBold.woff");
             public static readonly string RobotoDraftBold_woff2 = Url("RobotoDraftBold.woff2");
             public static readonly string RobotoDraftItalic_woff = Url("RobotoDraftItalic.woff");
@@ -258,6 +254,19 @@ namespace Links
             public static readonly string wYekan_svg = Url("wYekan.svg");
             public static readonly string wYekan_ttf = Url("wYekan.ttf");
             public static readonly string wYekan_woff = Url("wYekan.woff");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class images {
+            private const string URLPATH = "~/Content/images";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string loading_gif = Url("loading.gif");
+            public static readonly string mstile_144x144_png = Url("mstile-144x144.png");
+            public static readonly string mstile_150x150_png = Url("mstile-150x150.png");
+            public static readonly string mstile_310x150_png = Url("mstile-310x150.png");
+            public static readonly string mstile_310x310_png = Url("mstile-310x310.png");
+            public static readonly string mstile_70x70_png = Url("mstile-70x70.png");
         }
     
         public static readonly string ionicons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ionicons.min.css") ? Url("ionicons.min.css") : Url("ionicons.css");
@@ -289,18 +298,6 @@ namespace Links
         public static readonly string site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/site.min.css") ? Url("site.min.css") : Url("site.css");
              
         public static readonly string Site_min_css = Url("Site.min.css");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class siteImg {
-            private const string URLPATH = "~/Content/siteImg";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string mstile_144x144_png = Url("mstile-144x144.png");
-            public static readonly string mstile_150x150_png = Url("mstile-150x150.png");
-            public static readonly string mstile_310x150_png = Url("mstile-310x150.png");
-            public static readonly string mstile_310x310_png = Url("mstile-310x310.png");
-            public static readonly string mstile_70x70_png = Url("mstile-70x70.png");
-        }
-    
         public static readonly string toastr_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/toastr.min.css") ? Url("toastr.min.css") : Url("toastr.css");
              
         public static readonly string toastr_min_css = Url("toastr.min.css");
@@ -390,6 +387,12 @@ namespace Links
                 {
                 }
             }
+            public static partial class images 
+            {
+                public static class Assets
+                {
+                }
+            }
             public static partial class plugins 
             {
                 public static class Assets
@@ -403,12 +406,6 @@ namespace Links
                     public const string star_rating_css = "~/Content/plugins/star-rating.css";
                     public const string star_rating_min_css = "~/Content/plugins/star-rating.min.css";
                     public const string xeditable_css = "~/Content/plugins/xeditable.css";
-                }
-            }
-            public static partial class siteImg 
-            {
-                public static class Assets
-                {
                 }
             }
             public static class Assets

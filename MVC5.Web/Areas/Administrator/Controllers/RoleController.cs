@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -7,6 +9,7 @@ using System.Web.UI;
 using AutoMapper;
 using MVC5.Common.Controller;
 using MVC5.Common.Filters;
+using MVC5.Common.Helpers.Json;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ViewModel.AdminArea.Role;
@@ -15,7 +18,7 @@ using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-   // [MvcAuthorize]
+    // [MvcAuthorize]
     [DisplayName("مدیریت گروه های کاربری")]
     public partial class RoleController : BaseController
     {
@@ -49,12 +52,12 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [ActivityLog(Name = "ViewRoles", Description = "مشاده گروه های کاربری")]
         public virtual ActionResult List()
         {
-            var testPermissions = _permissionService.GetAsSelectList();
             return View();
         }
-      
+
+        //[CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        [ChildActionOnly]
         public virtual ActionResult ListAjax(string term = "", int page = 1)
         {
             int total;
@@ -72,7 +75,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [ActivityLog(Name = "CreateRole", Description = "درج گروه کاربری")]
         public virtual async Task<ActionResult> Create()
         {
-            var viewModel = new AddRoleViewModel { IsActive = true };
+            var viewModel = new AddRoleViewModel
+            {
+                IsActive = true
+            };
             await PopulatePermissions();
             return View(viewModel);
         }
@@ -93,9 +99,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
                 await PopulatePermissions();
                 return View(viewModel);
             }
-
             _roleManager.AddRoleWithPermissions(viewModel, permissionIds);
-
             ToastrSuccess("عملیات ثبت گروه کاربری جدید با موفقیت انجام شد");
             return RedirectToAction(MVC.Administrator.Role.ActionNames.List, MVC.Administrator.Role.Name);
         }
@@ -103,11 +107,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region Edit
-
         [HttpGet]
         [DisplayName("ویرایش گروه کاربری")]
         [ActivityLog(Name = "EditRole", Description = " ویرایش گروه کاربری")]
-        [Route("Edit/{id}")]
+        //[Route("Edit/{id}")]
         public virtual async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -118,7 +121,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             await PopulatePermissions(viewModel.Permissions.Select(a => a.Id).ToArray());
             return View(viewModel);
         }
-        [Route("Edit/{id}")]
+        //[Route("Edit/{id}")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
@@ -149,8 +152,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #region Delete
 
         [HttpPost]
-        [Route("Delete/{id}")]
-        [AjaxOnly]
+        //[Route("Delete/{id}")]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
         [DisplayName("حذف گروه کاربری")]
@@ -192,6 +194,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
        // [CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult RoleNameExist(string name, int? id)
         {
@@ -213,6 +216,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
             ViewBag.Permissions = permissions;
         }
+
         #endregion
     }
 }

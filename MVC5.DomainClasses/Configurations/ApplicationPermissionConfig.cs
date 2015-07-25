@@ -24,16 +24,6 @@ namespace MVC5.DomainClasses.Configurations
                 .HasColumnAnnotation("Index",
                     new IndexAnnotation(new IndexAttribute("IX_PermissionName") { IsUnique = true }));
 
-            Property(p => p.ParentId)
-              .IsOptional()
-              .HasColumnAnnotation("Index",
-                  new IndexAnnotation(new IndexAttribute("IX_PermissioParentId")));
-
-            HasMany(a => a.Children)
-                .WithOptional(a => a.Parent)
-                .HasForeignKey(a => a.ParentId)
-                .WillCascadeOnDelete(false);
-
             HasMany(p => p.ApplicationRoles)
                 .WithMany(a => a.Permissions)
                 .Map(a => a.ToTable("RolePermission").MapLeftKey("PermissionId").MapRightKey("RoleId"));

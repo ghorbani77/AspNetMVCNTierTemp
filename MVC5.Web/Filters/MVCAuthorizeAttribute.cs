@@ -18,20 +18,39 @@ namespace MVC5.Web.Filters
     public class MvcAuthorizeAttribute : FilterAttribute, IAuthorizationFilter
     {
         #region Fields
+
+        private string _dependencies;
+        private string[] _dependenciesSplit = new string[0];
+        private static readonly char[] SplitParameter = { ',' };
+        private readonly IPermissionService _permissionService;
         private readonly IAuthenticationManager _authenticationManager;
-        private readonly IApplicationUserManager _userManager;
         #endregion
 
         #region Properties
+
+        public string DependencyActionNames
+        {
+            get
+            {
+                return _dependencies ?? string.Empty;
+            }
+            set
+            {
+                _dependencies = value;
+                _dependenciesSplit = SplitString(_dependencies);
+            }
+        }
+
+
+
         public string AreaName { get; set; }
         public bool IsMenu { get; set; }
         #endregion
 
         #region Constructor
-        public MvcAuthorizeAttribute(IAuthenticationManager authenticationManager, IApplicationUserManager userManager)
+        public MvcAuthorizeAttribute(IAuthenticationManager authenticationManager, IPermissionService permissionService)
         {
             _authenticationManager = authenticationManager;
-            _userManager = userManager;
         }
 
         public MvcAuthorizeAttribute()
@@ -40,6 +59,18 @@ namespace MVC5.Web.Filters
         }
         #endregion
 
+        #region Private
+        private static string[] SplitString(string dependencies)
+        {
+            var split = from dependency in dependencies.Split(SplitParameter)
+                        let lowerDependency = dependency.ToLower()
+                        where !string.IsNullOrEmpty(lowerDependency)
+                        select lowerDependency;
+            return split.ToArray();
+        }
+        #endregion
+
+        #region OnAuthorization
         public virtual void OnAuthorization(AuthorizationContext filterContext)
         {
             if (filterContext == null)
@@ -78,6 +109,9 @@ namespace MVC5.Web.Filters
             }
         }
 
+        #endregion
+
+        #region AuthorizeCore
         protected virtual bool AuthorizeCore(AuthorizationContext filterContext)
         {
             var user = filterContext.HttpContext.User;
@@ -95,7 +129,9 @@ namespace MVC5.Web.Filters
             return permissionService.CanAccess(userId, controllerName, actionName, areaName);
         }
 
+        #endregion
 
+        #region OnCacheAuthorization
         // This method must be thread-safe since it is called by the caching module.
         private HttpValidationStatus OnCacheAuthorization(HttpContextBase httpContext, AuthorizationContext filterContext)
         {
@@ -107,24 +143,19 @@ namespace MVC5.Web.Filters
             var isAuthorized = AuthorizeCore(filterContext);
             return (isAuthorized) ? HttpValidationStatus.Valid : HttpValidationStatus.IgnoreThisRequest;
         }
+        #endregion
+     
+        #region CacheValidateHandler
+
+        #endregion
 
         #region CacheValidateHandler
-        
-        #endregion
+        // ReSharper disable once RedundantAssignment
         private void CacheValidateHandler(HttpContext context, object data, ref HttpValidationStatus validationStatus)
         {
             validationStatus = OnCacheAuthorization(new HttpContextWrapper(context), (AuthorizationContext)data);
         }
-
-        //private void LoadTreeNode(ICollection<Role> treeRoles, ICollection<Role> listRoles)
-        //{
-        //    foreach (var roleNode in treeRoles)
-        //    {
-        //        //Trace.WriteLine(String.Format(node.Tag));
-        //        listRoles.Add(roleNode);
-        //        LoadTreeNode(roleNode.ChildrenRoles, listRoles);
-        //    }
-        //}
+        #endregion
 
         #region HandleUnauthorizedRequest
         protected virtual void HandleUnauthorizedRequest(AuthorizationContext filterContext)

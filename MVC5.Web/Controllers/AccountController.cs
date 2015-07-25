@@ -274,7 +274,7 @@ namespace MVC5.Web.Controllers
             await _userMailer.ConfirmAccount(email).SendAsync();
             ToastrSuccess("حساب کاربری شما با موفقیت ایجاد شد");
             ViewBag.Link = callbackUrl;
-            return View(MVC.Account.Views.DisplayEmail);
+            return View(MVC.Account.Views.ViewNames.Register);
         }
         #endregion
 

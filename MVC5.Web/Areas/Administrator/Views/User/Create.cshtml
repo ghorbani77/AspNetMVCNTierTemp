@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = "Administrator" }, FormMethod.Post, new { User = "form", @class = "form-horizontal" }))
+        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { User = "form", @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
             <div class="panel panel-default">
@@ -22,7 +22,10 @@
                             <a href="#optionalInfo" data-toggle="tab">مشخصات اختیاری</a>
                         </li>
                         <li>
-                            <a href="#permissions" data-toggle="tab">دسترسی های جزئی</a>
+                            <a href="#permissions" data-toggle="tab">دسترسی های</a>
+                        </li>
+                        <li>
+                            <a href="#settings" data-toggle="tab">تنظیمات کاربری</a>
                         </li>
                         <li>
                             <a href="#roles" data-toggle="tab">گروه های کاربری</a>
@@ -112,14 +115,16 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="tab-pane" id="permissions">
+                            
+                        </div>
+                        <div class="tab-pane" id="settings">
                             <div class="row">
                                 <div class="col-md-4">
                                     @Html.CheckBoxFor(m => m.IsBanned, new { @class = "checkbox-inline" })
                                     @Html.LabelFor(m => m.IsBanned, new { @class = "control-label" })
                                 </div>
-                              
+
                                 <div class="col-md-4">
                                     @Html.CheckBoxFor(m => m.CanChangeProfilePicture, new { @class = "checkbox-inline" })
                                     @Html.LabelFor(m => m.CanChangeProfilePicture, new { @class = "control-label" })
@@ -137,21 +142,21 @@
 
                         <div class="tab-pane" id="roles">
                             <div class="row">
-                                    @foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
-                                    {
-                                        <text>
-                                            <div class="col-md-4">
-                                                <input type="checkbox" name="RoleIds" value="@role.Value" class="checkbox-inline" />
-                                                <label class="control-label">@role.Text</label>
-                                            </div>
-                                        </text>
-                                    }
+                                @foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
+                                {
+                                    <text>
+                                        <div class="col-md-4">
+                                            <input type="checkbox" name="RoleIds" value="@role.Value" class="checkbox-inline" />
+                                            <label class="control-label">@role.Text</label>
+                                        </div>
+                                    </text>
+                                }
                             </div>
                         </div>
                     </div>
 
                 </div>
-                
+
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">

@@ -2,15 +2,33 @@
 @{
     ViewBag.Title = "ویرایش نقش کاربری";
 }
-
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { area = "Administrator" }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Delete, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(a => a.Id)
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-danger btn-sm" value="حذف گروه کاربری" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(a => a.Id)
             <div class="panel panel-default">
                 <div class="panel-heading">
+
                     <strong>مشخصات گروه</strong>
                 </div>
                 <div class="panel-body">
@@ -51,25 +69,22 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                            @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                            {
-                                <text>
-                                    <div class="col-md-3">
-                                        <input type="checkbox" name="PermissionIds" checked="@permission.Selected" value="@permission.Value" class="checkbox-inline" />
-                                        <label class="control-label">@permission.Text</label>
-                                    </div>
-                                </text>
-                            }
+                        @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
+                        {
+                            <text>
+                                <div class="col-md-3">
+                                    <input type="checkbox" name="PermissionIds" checked="@permission.Selected" value="@permission.Value" class="checkbox-inline" />
+                                    <label class="control-label">@permission.Text</label>
+                                </div>
+                            </text>
+                        }
                     </div>
                 </div>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
-                                </div>
-                            </div>
+                            <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
+
                         </div>
                     </div>
                 </div>

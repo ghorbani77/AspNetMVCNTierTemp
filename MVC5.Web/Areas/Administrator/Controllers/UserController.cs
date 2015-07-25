@@ -14,7 +14,7 @@ using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize]
+    //[MvcAuthorize]
     [DisplayName("مدیریت کاربران")]
     public partial class UserController : BaseController
     {
@@ -48,7 +48,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             return View();
         }
 
-      
+
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         [ChildActionOnly]
         public virtual ActionResult ListAjax(UserSearchViewModel search)
@@ -194,12 +194,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         //}
         #endregion
-      
+
         #region RemoteValidations
 
         [HttpPost]
         [AjaxOnly]
-     
+        [CheckReferrer]
+      //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult UserNameExist(string userName, int? id)
         {
@@ -208,17 +209,19 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-      
+        [CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FirstNameExist(string firstName, int? id)
         {
-            return _userManager.CheckFirstNameExist(firstName,id)?Json(false):
+            return _userManager.CheckFirstNameExist(firstName, id) ? Json(false) :
             Json(true);
         }
 
         [HttpPost]
         [AjaxOnly]
-       
+        [CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult LastNameExist(string lastName, int? id)
         {
@@ -227,7 +230,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-       
+        [CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult EmailExist(string email, int? id)
         {
@@ -236,7 +240,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-     
+        [CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult PhoneNumberExist(string phoneNumber, int? id)
         {
@@ -246,7 +251,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-      
+        [CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult GooglePlusIdExist(string googlePlusId, int? id)
         {
@@ -256,7 +262,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-      
+        [CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FaceBookIdExist(string faceBookId, int? id)
         {

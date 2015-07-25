@@ -57,9 +57,13 @@
       <HintPath>..\packages\AttributeRouting.3.5.6\lib\net40\AttributeRouting.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AutoMapper, Version=4.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoMapper.4.0.0-alpha1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="CaptchaMvc">
       <HintPath>..\packages\CaptchaMvc.Mvc5.1.5.0\lib\net45-full\CaptchaMvc.dll</HintPath>
@@ -349,7 +353,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Views\Role\Create1.generated.cs">
+    <Compile Include="Areas\Administrator\Views\Role\Create.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Create.cshtml</DependentUpon>
@@ -645,11 +649,14 @@
     <Content Include="Content\bootstrap-flat.min.css" />
     <Content Include="Content\bootstrap-rtl.min.css" />
     <Content Include="Content\fonts\ionicons.svg" />
-    <Content Include="Content\fonts\Material-Design-Icons.svg" />
+    <Content Include="Content\images\loading.gif" />
     <Content Include="Content\ionicons.css" />
     <Content Include="Content\ionicons.min.css" />
     <Content Include="Content\customBootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\PagedList.min.css">
+      <DependentUpon>PagedList.css</DependentUpon>
+    </Content>
     <Content Include="NoScript.html" />
     <Content Include="browserconfig.xml" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -691,11 +698,11 @@
     <Content Include="Content\favicon\favicon-32x32.png" />
     <Content Include="Content\favicon\favicon-96x96.png" />
     <Content Include="Content\favicon\favicon.ico" />
-    <Content Include="Content\siteImg\mstile-144x144.png" />
-    <Content Include="Content\siteImg\mstile-150x150.png" />
-    <Content Include="Content\siteImg\mstile-310x150.png" />
-    <Content Include="Content\siteImg\mstile-310x310.png" />
-    <Content Include="Content\siteImg\mstile-70x70.png" />
+    <Content Include="Content\images\mstile-144x144.png" />
+    <Content Include="Content\images\mstile-150x150.png" />
+    <Content Include="Content\images\mstile-310x150.png" />
+    <Content Include="Content\images\mstile-310x310.png" />
+    <Content Include="Content\images\mstile-70x70.png" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="crossdomain.xml" />
@@ -749,9 +756,6 @@
     <Content Include="Content\fonts\wYekan.woff" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="manifest.json" />
-    <Content Include="Content\fonts\Material-Design-Icons.eot" />
-    <Content Include="Content\fonts\Material-Design-Icons.ttf" />
-    <Content Include="Content\fonts\Material-Design-Icons.woff" />
     <Content Include="Content\fonts\RobotoDraftBold.woff" />
     <Content Include="Content\fonts\RobotoDraftBold.woff2" />
     <Content Include="Content\fonts\RobotoDraftItalic.woff" />
@@ -776,8 +780,8 @@
       <LastGenOutput>Index.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\Role\Create.cshtml">
-      <LastGenOutput>Create1.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\Role\Edit.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1115,6 +1119,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -309,7 +309,6 @@ namespace MVC5.Web.Controllers
             {
                 public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
                 public readonly string ConfirmEmail = "ConfirmEmail";
-                public readonly string DisplayEmail = "DisplayEmail";
                 public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
                 public readonly string ExternalLoginFailure = "ExternalLoginFailure";
                 public readonly string ForgotPassword = "ForgotPassword";
@@ -317,13 +316,11 @@ namespace MVC5.Web.Controllers
                 public readonly string Login = "Login";
                 public readonly string Register = "Register";
                 public readonly string ResetPassword = "ResetPassword";
-                public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
                 public readonly string SendCode = "SendCode";
                 public readonly string VerifyCode = "VerifyCode";
             }
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
             public readonly string ConfirmEmail = "~/Views/Account/ConfirmEmail.cshtml";
-            public readonly string DisplayEmail = "~/Views/Account/DisplayEmail.cshtml";
             public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
             public readonly string ExternalLoginFailure = "~/Views/Account/ExternalLoginFailure.cshtml";
             public readonly string ForgotPassword = "~/Views/Account/ForgotPassword.cshtml";
@@ -331,7 +328,6 @@ namespace MVC5.Web.Controllers
             public readonly string Login = "~/Views/Account/Login.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
             public readonly string ResetPassword = "~/Views/Account/ResetPassword.cshtml";
-            public readonly string ResetPasswordConfirmation = "~/Views/Account/ResetPasswordConfirmation.cshtml";
             public readonly string SendCode = "~/Views/Account/SendCode.cshtml";
             public readonly string VerifyCode = "~/Views/Account/VerifyCode.cshtml";
         }

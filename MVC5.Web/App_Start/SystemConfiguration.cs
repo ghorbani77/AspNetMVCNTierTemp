@@ -47,7 +47,7 @@ namespace MVC5.Web
                 {
                     AreaName = areaName,
                     ControllerName = controllerName,
-                    IsMenu = authorizeAttribute.IsMenu,
+                    IsMenu = false,
                     Name = displayName
                 };
 
@@ -77,9 +77,7 @@ namespace MVC5.Web
                         ControllerName = controllerName,
                         ActionName = actionName,
                         IsMenu = authorizeAttribute.IsMenu,
-                        Name = displayName,
-                        Parent = parentPermission
-
+                        Name = displayName
                     };
                     permissionsListToAdd.Add(childPermission);
                 }

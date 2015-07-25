@@ -14,9 +14,5 @@ namespace MVC5.DomainClasses.Entities
         public virtual bool IsMenu { get; set; }
         public virtual ICollection<ApplicationRole> ApplicationRoles { get; set; }
         public virtual ICollection<ApplicationUser> AssignedUsers { get; set; }
-        public virtual ICollection<ApplicationPermission> Children { get; set; }
-        public virtual ApplicationPermission Parent { get; set; }
-        public virtual int? ParentId { get; set; }
-
     }
 }

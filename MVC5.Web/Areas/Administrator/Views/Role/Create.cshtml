@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = "Administrator" }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area =MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
             <div class="panel panel-default">
@@ -28,14 +28,17 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-2 col-md-offset-2">
-                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "checkbox-inline" })
-                            @Html.LabelFor(m => m.IsActive, new { @class = "control-label" })
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-2">
+                                @Html.CheckBoxFor(m => m.IsActive, new { @class = "checkbox-inline" })
+                                @Html.LabelFor(m => m.IsActive, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.CheckBoxFor(m => m.IsDefaultForRegister, new { @class = "checkbox-inline" })
+                                @Html.LabelFor(m => m.IsDefaultForRegister, new { @class = "control-label" })
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            @Html.CheckBoxFor(m => m.IsDefaultForRegister, new { @class = "checkbox-inline" })
-                            @Html.LabelFor(m => m.IsDefaultForRegister, new { @class = "control-label" })
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -43,33 +46,28 @@
                 <div class="panel-heading">
                     <strong>دسترسی ها</strong>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" >
                     <div class="row">
                             @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
                             {
                                 <text>
                                     <div class="col-md-4">
-                                        <input type="checkbox" name="PermissionIds" value="@permission.Value" class="checkbox-inline" />
-                                        <label class="control-label">@permission.Text</label>
+                                        <input type="checkbox" id="@permission.Value" name="PermissionIds" value="@permission.Value" class="checkbox-inline" />
+                                        <label for="@permission.Value" class="control-label">@permission.Text</label>
                                     </div>
                                 </text>
                             }
-                    </div>
-
+                        </div>
                 </div>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
                         </div>
-
                     </div>
 
                 </div>
             </div>
-
         }
     </div>
 </div>
-@section Scripts {
-}

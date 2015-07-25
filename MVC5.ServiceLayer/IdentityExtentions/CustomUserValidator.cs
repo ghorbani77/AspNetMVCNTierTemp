@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace MVC5.ServiceLayer.IdentityExtentions
+namespace MVC5.ServiceLayer.IdentityExtensions
 {
     public class CustomUserValidator<TUser, TKey> : IIdentityValidator<TUser>
         where TUser : class, IUser<TKey>

@@ -85,7 +85,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                                  where user.UserId == userId
                                  select role;
 
-            return userRolesQuery.OrderBy(x => x.Name).Select(a=>a.Name).ToList();
+            return userRolesQuery.OrderBy(x => x.Name).Select(a => a.Name).ToList();
         }
 
         public IList<int> FindUserRoleIds(int userId)
@@ -95,7 +95,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                                  where user.UserId == userId
                                  select role;
 
-            return userRolesQuery.Select(a=>a.Id).ToList();
+            return userRolesQuery.Select(a => a.Id).ToList();
         }
         #endregion
 
@@ -172,10 +172,13 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region SetPermissionsToRole
         public void SetPermissionsToRole(ApplicationRole role, IEnumerable<ApplicationPermission> permissions)
         {
+            role.Permissions=new Collection<ApplicationPermission>();
             foreach (var permission in permissions)
             {
                 role.Permissions.Add(permission);
             }
+            if (role.IsDefaultForRegister)
+                ChangeDefaultRegisterRole(role.Id);
             _unitOfWork.Update(role, a => a.AssociatedCollection(b => b.Permissions));
             _unitOfWork.SaveChanges();
         }
@@ -185,27 +188,34 @@ namespace MVC5.ServiceLayer.EFServiecs
         /// <summary>
         /// for instal permissions with roles
         /// </summary>
-        public void SeedDatabase(IEnumerable<ApplicationPermission> permissions )
+        public void SeedDatabase(IEnumerable<ApplicationPermission> permissions)
         {
+            _unitOfWork.AutoDetectChangesEnabled = false;
+            _unitOfWork.ValidateOnSaveEnabled = false;
+           
             var applicationPermissions = permissions as IList<ApplicationPermission> ?? permissions.ToList();
             _permissionService.SeedDatabase(applicationPermissions);
-            var systemRoleNames = SystemRoleNames.GetStandardRoles();
-            var systemRoles = systemRoleNames.Select(roleName => new ApplicationRole
-            {
-                Name = roleName, IsSystemRole = true, IsActive = true, IsDefaultForRegister = roleName == SystemRoleNames.Registered
-            }).ToList();
-            
-            _roles.AddOrUpdate(a => new {a.Name, a.IsActive}, systemRoles.ToArray());
-            _unitOfWork.SaveChanges();
 
-            var superAdministrators = systemRoles.First(a => a.Name == SystemRoleNames.SuperAdministrators);
-            superAdministrators.Permissions=new Collection<ApplicationPermission>();
+            var superAdministrators = new ApplicationRole
+            {
+                Name = SystemRoleNames.SuperAdministrators,
+                IsActive = true,
+                IsSystemRole = true,
+                Description = "مدیران سیستمی برنامه",
+                Permissions = new Collection<ApplicationPermission>()
+            };
+            _roles.AddOrUpdate(a => a.Name, superAdministrators);
+            _unitOfWork.SaveChanges();
+            _unitOfWork.MarkAsDetached(superAdministrators);
+
             foreach (var permission in applicationPermissions)
             {
                 superAdministrators.Permissions.Add(permission);
             }
-            _unitOfWork.Update(superAdministrators, a => a.AssociatedCollection(c=>c.Permissions));
+            _unitOfWork.Update(superAdministrators, a => a.AssociatedCollection(c => c.Permissions));
             _unitOfWork.SaveChanges();
+            _unitOfWork.AutoDetectChangesEnabled = true;
+            _unitOfWork.ValidateOnSaveEnabled = true;
         }
 
         #endregion
@@ -294,12 +304,11 @@ namespace MVC5.ServiceLayer.EFServiecs
             var roles = _roles.AsNoTracking().OrderBy(a => a.Id).AsQueryable();
             if (!string.IsNullOrEmpty(term))
                 roles = roles.Where(a => a.Name.Contains(term));
+            total = roles.FutureCount();
+            var result =
+                roles.Skip((page - 1) * count).Take(count).Project(_mappingEngine).To<RoleViewModel>().Future().ToList();
 
-            var totalCount = roles.FutureCount();
-            var result = roles.Skip((page - 1) * count).Take(count).Project(_mappingEngine).To<RoleViewModel>().Future();
-            total = totalCount.Value;
-            var roleList = result.ToList();
-            return roleList;
+            return result;
         }
         #endregion
 
@@ -333,19 +342,21 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region GetAllAsSelectList
         public async Task<IEnumerable<SelectListItem>> GetAllAsSelectList()
         {
-            _unitOfWork.DisableFiltering(RoleFilters.ActiveList);
-            var roles= await _roles.AsNoTracking().ToListAsync();
-            return roles.Select(a => new SelectListItem
-            {
-                Text = a.Description,
-                Value = a.Id.ToString(CultureInfo.InvariantCulture)
-            });
+            _unitOfWork.EnableFiltering(RoleFilters.ActiveList);
+            var roles = await _roles.AsNoTracking().Project(_mappingEngine).To<SelectListItem>().ToListAsync();
+            return roles;
         }
         #endregion
 
         public Task<string> GetDefaultRoleForRegister()
         {
             return _roles.Where(a => a.IsDefaultForRegister).Select(a => a.Name).FirstOrDefaultAsync();
+        }
+
+
+        public void ChangeDefaultRegisterRole(int id)
+        {
+            _roles.Where(a => a.Id != id).Update(a => new ApplicationRole {IsDefaultForRegister = false});
         }
     }
 }

@@ -9,7 +9,6 @@ using System.Web;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using EntityFramework.Extensions;
-using Fasterflect;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Cookies;
@@ -20,8 +19,8 @@ using MVC5.Common.Helpers.Extentions;
 using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
-using MVC5.ServiceLayer.IdentityExtentions;
-using MVC5.ServiceLayer.QueryExtentions;
+using MVC5.ServiceLayer.IdentityExtensions;
+using MVC5.ServiceLayer.QueryExtensions;
 using MVC5.ServiceLayer.Security;
 using MVC5.Utility.EF.Filters;
 using MVC5.ViewModel.AdminArea.User;
@@ -291,15 +290,14 @@ namespace MVC5.ServiceLayer.EFServiecs
             if (search.SearchIsSystemAccount)
                 _unitOfWork.EnableFiltering(UserFilters.SystemAccountList);
 
-            var totalCount = users.FutureCount();
+             total = users.FutureCount();
             var query =
                 users.OrderByUserName()
                     .SkipAndTake(search.PageIndex - 1, search.PageSize)
                     .Project(_mappingEngine)
                     .To<UserViewModel>()
-                    .Future();
-            total = totalCount.Value;
-            return query.ToList();
+                    .Future().ToList();
+            return query;
         }
         #endregion
 

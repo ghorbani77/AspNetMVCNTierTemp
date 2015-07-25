@@ -59,9 +59,13 @@ namespace MVC5.Web.Areas.Administrator.Views.Role
         {
 WriteLiteral("\r\n");
 
-WriteLiteral("\r\n\r\n\r\n<div");
+WriteLiteral("\r\n\r\n<div");
 
-WriteLiteral(" class=\"panel-body\"");
+WriteLiteral(" class=\"panel-heading\"");
+
+WriteLiteral("><strong>لیست گروه های کاربری</strong></div>\r\n<div");
+
+WriteLiteral(" class=\"panel-body min-height-340\"");
 
 WriteLiteral(">\r\n    <div");
 
@@ -80,11 +84,12 @@ WriteLiteral(">\r\n                <table");
 WriteLiteral(" class=\"table table-striped table-bordered\"");
 
 WriteLiteral(">\r\n                    <thead>\r\n                        <tr>\r\n                   " +
-"         <th>توضیحات</th>\r\n                            <th");
+"         <th");
 
 WriteLiteral(" class=\"text-center\"");
 
-WriteLiteral(">نام سیستمی</th>\r\n                            <th");
+WriteLiteral(">نام سیستمی</th>\r\n                            <th>توضیحات</th>\r\n                 " +
+"           <th");
 
 WriteLiteral(" class=\"text-center\"");
 
@@ -113,24 +118,33 @@ WriteLiteral(">نقش پیشفرض برای عضویت</th>\r\n                 
             
             #line default
             #line hidden
-WriteLiteral("                            <tr>\r\n                                <td>");
+WriteLiteral("                            <tr>\r\n                                <td");
+
+WriteLiteral(" class=\"text-center\"");
+
+WriteLiteral(">\r\n                                    <strong");
+
+WriteLiteral(" class=\"text-info\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                        ");
 
             
-            #line 28 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
-                               Write(role.Description);
+            #line 30 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+                                   Write(Html.ActionLink(role.Name, MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name,
+                                        new { id = role.Id, area = MVC.Administrator.Name }, null));
 
             
             #line default
             #line hidden
-WriteLiteral("</td>\r\n                                <td");
-
-WriteLiteral(" class=\"text-center\"");
-
-WriteLiteral(">");
+WriteLiteral("\r\n                                      \r\n                                    </s" +
+"trong>\r\n                                </td>\r\n\r\n                               " +
+" <td>");
 
             
-            #line 29 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
-                                                   Write(role.Name);
+            #line 36 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+                               Write(role.Description);
 
             
             #line default
@@ -142,13 +156,13 @@ WriteLiteral(" class=\"text-center\"");
 WriteLiteral(">\r\n");
 
             
-            #line 31 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 38 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     
             
             #line default
             #line hidden
             
-            #line 31 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 38 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                      if (role.IsActive)
                                     {
 
@@ -166,7 +180,7 @@ WriteLiteral("></i>\r\n                                        ");
 WriteLiteral("\r\n");
 
             
-            #line 36 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 43 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     }
                                     else
                                     {
@@ -185,7 +199,7 @@ WriteLiteral("></i>\r\n                                        ");
 WriteLiteral("\r\n");
 
             
-            #line 42 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 49 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     }
 
             
@@ -198,13 +212,13 @@ WriteLiteral(" class=\"text-center\"");
 WriteLiteral(">\r\n");
 
             
-            #line 45 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 52 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     
             
             #line default
             #line hidden
             
-            #line 45 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 52 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                      if (role.IsSystemRole)
                                     {
 
@@ -222,7 +236,7 @@ WriteLiteral("></i>\r\n                                        ");
 WriteLiteral("\r\n");
 
             
-            #line 50 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 57 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     }
                                     else
                                     {
@@ -241,7 +255,7 @@ WriteLiteral("></i>\r\n                                        ");
 WriteLiteral("\r\n");
 
             
-            #line 56 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 63 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     }
 
             
@@ -254,13 +268,13 @@ WriteLiteral(" class=\"text-center\"");
 WriteLiteral(">\r\n");
 
             
-            #line 59 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 66 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     
             
             #line default
             #line hidden
             
-            #line 59 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 66 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                      if (role.IsDefaultForRegister)
                                     {
 
@@ -278,7 +292,7 @@ WriteLiteral("></i>\r\n                                        ");
 WriteLiteral("\r\n");
 
             
-            #line 64 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 71 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     }
                                     else
                                     {
@@ -297,7 +311,7 @@ WriteLiteral("></i>\r\n                                        ");
 WriteLiteral("\r\n");
 
             
-            #line 70 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 77 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                                     }
 
             
@@ -312,8 +326,8 @@ WriteLiteral(">\r\n\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 74 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
-                               Write(Html.ActionLink("ویرایش", MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { id = role.Id, area = "Administrator" }, new { @class = "btn btn-sm btn-primary" }));
+            #line 81 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+                               Write(Html.ActionLink("ویرایش", MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { id = role.Id, area = MVC.Administrator.Name }, new { @class = "btn btn-sm btn-primary" }));
 
             
             #line default
@@ -321,7 +335,7 @@ WriteLiteral("                                    ");
 WriteLiteral("\r\n                                </td>\r\n                            </tr>\r\n");
 
             
-            #line 77 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+            #line 84 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
                         }
 
             
@@ -337,8 +351,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("    ");
 
             
-            #line 87 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
-Write(Html.PagedListPager(new StaticPagedList<RoleViewModel>(Model, ViewBag.PageNumber, 10, ViewBag.TotalRoles), pageNumber => Url.Action(MVC.Administrator.Role.ActionNames.List, MVC.Administrator.Role.Name, new
+            #line 94 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
+Write(Html.PagedListPager(new StaticPagedList<RoleViewModel>(Model, ViewBag.PageNumber, 5, ViewBag.TotalRoles), pageNumber => Url.Action(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new
                 {
                     term = ViewBag.Term,
                     page = pageNumber
@@ -347,7 +361,7 @@ Write(Html.PagedListPager(new StaticPagedList<RoleViewModel>(Model, ViewBag.Page
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n</div>\r\n");
+WriteLiteral("\r\n\r\n</div>\r\n<script>\r\n    Public.Routin();\r\n</script>");
 
         }
     }

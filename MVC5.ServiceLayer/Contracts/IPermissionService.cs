@@ -13,7 +13,7 @@ namespace MVC5.ServiceLayer.Contracts
         Task RemoveAll();
         IEnumerable<ApplicationPermission> GetActualPermissions(params int[] ids);
         Task<IList<ApplicationPermission>> GetAllPermissions();
-        Task<IEnumerable<SelectPermissionViewModel>> GetAsSelectList();
+        Task<IEnumerable<SelectListItem>> GetAsSelectList();
         Task<int[]> GetPermissionsWithIds(params int[] ids);
         bool IsAnyPermissionInDb();
         bool AutoCommitEnabled { get; set; }
@@ -22,5 +22,6 @@ namespace MVC5.ServiceLayer.Contracts
         Task<IList<string>> GetPermissionByRoleIds(int[] roleIds);
         void SeedDatabase(IEnumerable<ApplicationPermission> permissions);
         bool CanAccess(int userId, string areaName, string controllerName, string actionName);
+        Task<IList<int>> GetPermissionIdsByRoleId(int roleId);
     }
 }

@@ -13,10 +13,10 @@ namespace MVC5.AutoMapperProfiles
     {
         protected override void Configure()
         {
-            CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter()); 
+            CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
 
-            CreateMap<ApplicationUser, UserViewModel>().IgnoreAllNonExisting();
-            CreateMap<UserViewModel, ApplicationUser>().IgnoreAllNonExisting();
+            CreateMap<ApplicationUser, UserViewModel>().IgnoreAllNonExisting().ForMember(d => d.Roles, s => s.Ignore());
+          //  CreateMap<UserViewModel, ApplicationUser>().IgnoreAllNonExisting();
 
             CreateMap<AddUserViewModel, ApplicationUser>().IgnoreAllNonExisting();
 

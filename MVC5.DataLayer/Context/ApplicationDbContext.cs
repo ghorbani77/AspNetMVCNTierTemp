@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -229,11 +231,7 @@ namespace MVC5.DataLayer.Context
             modelBuilder.Entity<ApplicationRole>()
                 .ToTable("Roles")
                 .Filter(RoleFilters.ActiveList, a => a.Condition(u => u.IsActive));
-            modelBuilder.Entity<ApplicationRole>()
-                .HasMany(a => a.Children)
-                .WithOptional(a => a.Parent)
-                .HasForeignKey(a => a.ParentId)
-                .WillCascadeOnDelete(false);
+              
 
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
@@ -251,6 +249,9 @@ namespace MVC5.DataLayer.Context
 
         #endregion
 
+        #region StoredProcedures
+        
+      
 
         [DbFunction("MVC5.DataLayer.Context", "GetUserPermissions")]
 
@@ -284,5 +285,6 @@ namespace MVC5.DataLayer.Context
 //            var sqlQuery = query.ToString();
             return null;
         }
+        #endregion
     }
 }

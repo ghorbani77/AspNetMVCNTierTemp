@@ -16,7 +16,7 @@ namespace MVC5.ViewModel.AdminArea.Role
         [Required(ErrorMessage = "لطفا نام گروه را وارد کنید")]
         [DisplayName("نام گروه")]
         [MaxLength(50, ErrorMessage = "تعداد کاراکتر های نام گروه غیر مجاز است")]
-        [Remote("RoleNameExist", "Role", "Admin", ErrorMessage = "این گروه قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
+        [Remote("RoleNameExist", "Role", "Administrator", ErrorMessage = "این گروه قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
         public string Name { get; set; }
         [Required(ErrorMessage = "لطفا توضیحاتی برای گروه وارد کنید")]
         [MaxLength(500, ErrorMessage = "تعداد کاراکتر های توضیحات گروه غیر مجاز است")]

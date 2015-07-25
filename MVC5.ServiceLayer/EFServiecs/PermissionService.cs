@@ -5,13 +5,12 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using EntityFramework.Extensions;
 using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
-using MVC5.ViewModel.AdminArea.Permission;
+using AutoMapper;
 
 namespace MVC5.ServiceLayer.EFServiecs
 {
@@ -26,7 +25,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         #region Ctor
 
-        public PermissionService(IUnitOfWork unitOfWork,IMappingEngine mappingEngine)
+        public PermissionService(IUnitOfWork unitOfWork, IMappingEngine mappingEngine)
         {
             AutoCommitEnabled = true;
             _unitOfWork = unitOfWork;
@@ -81,19 +80,18 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region GetAsSelectList
-        public async Task<IEnumerable<SelectPermissionViewModel>> GetAsSelectList()
+        public async Task<IEnumerable<SelectListItem>> GetAsSelectList()
         {
             var items =
                 await
-                    _permissions.Include(a => a.Children)
+                    _permissions.Project(_mappingEngine).To<SelectListItem>()
                         .AsNoTracking()
                         .ToListAsync();
-            var x = _mappingEngine.Map<IEnumerable<SelectPermissionViewModel>>(items);
-            return x;
+
+            return items;
         }
         #endregion
 
-      
         #region GetPermissionsWithIds
         /// <summary>
         /// get all permissionIds that it's id in ids or it's parentIs in ids
@@ -155,31 +153,40 @@ namespace MVC5.ServiceLayer.EFServiecs
         public void SeedDatabase(IEnumerable<ApplicationPermission> permissions)
         {
             var applicationPermissions = permissions as IList<ApplicationPermission> ?? permissions.ToList();
-            var parents = applicationPermissions.Where(a => a.Parent == null).ToList();
-            foreach (var parent in parents)
+
+            foreach (var permission in applicationPermissions)
             {
-                _permissions.AddOrUpdate(x => new { x.Name, x.ActionName, x.ControllerName, x.AreaName, x.IsMenu }, parent);
+                _permissions.AddOrUpdate(
+                    x => new { x.Name, x.ActionName, x.ControllerName, x.AreaName }, permission);
             }
             _unitOfWork.SaveChanges();
 
-            foreach (var permission in applicationPermissions.Where(a => a.Parent != null).ToList())
-            {
-                _permissions.AddOrUpdate(x => new { x.Name, x.ActionName, x.ControllerName, x.AreaName, x.IsMenu }, permission);
-            }
-            _unitOfWork.SaveChanges();
         }
         #endregion
 
         #region CanAccess
         public bool CanAccess(int userId, string areaName, string controllerName, string actionName)
         {
-#if DEBUG
             return true;
-#endif
-            return false;
-
         }
         #endregion
 
+        #region GetPermissionsByRoleId
+        public async Task<IList<string>> GetPermissionsByRoleId(int roleId)
+        {
+            return await (from p in _permissions
+                from r in p.ApplicationRoles
+                where r.Id == roleId
+                select p.Name).ToListAsync();
+        }
+        #endregion
+        public async Task<IList<int>> GetPermissionIdsByRoleId(int roleId)
+        {
+            return await (from p in _permissions
+                          from r in p.ApplicationRoles
+                          where r.Id == roleId
+                          select p.Id).ToListAsync();
+        }
+     
     }
 }

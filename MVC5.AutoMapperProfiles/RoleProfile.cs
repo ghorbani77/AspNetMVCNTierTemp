@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Web.Mvc;
+using AutoMapper;
 using MVC5.AutoMapperProfiles.Extentions;
 using MVC5.DomainClasses.Entities;
 using MVC5.ViewModel.AdminArea.Role;
@@ -14,6 +15,9 @@ namespace MVC5.AutoMapperProfiles
             CreateMap<RoleViewModel, ApplicationRole>().IgnoreAllNonExisting();
             CreateMap<EditRoleViewModel, ApplicationRole>().IgnoreAllNonExisting();
             CreateMap<ApplicationRole, EditRoleViewModel>().IgnoreAllNonExisting();
+            CreateMap<ApplicationRole, SelectListItem>()
+                .ForMember(d => d.Text, m => m.MapFrom(s => s.Name))
+                .ForMember(d => d.Value, m => m.MapFrom(s => s.Id));
         }
 
         public override string ProfileName

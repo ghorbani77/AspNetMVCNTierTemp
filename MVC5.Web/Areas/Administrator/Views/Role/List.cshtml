@@ -5,18 +5,28 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-2">
-                @Html.ActionLink("درج نقش جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = "Administrator" }, new { @class = "btn btn-sm btn-info" })
+                @Html.ActionLink("درج نقش جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new { @class = "btn btn-sm btn-info" })
             </div>
             <div class="col-md-6">
-                @using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = "Administrator" }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList" }, new { @class = "form-horizontal" }))
+                @using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList" }, new { @class = "form-horizontal" }))
                 {
-                    <input name="term" value="" placeholder="جستجو با نام" type="text" class="form-control" />
+                    <div class="input-group" dir="ltr">
+                        <span class="input-group-btn">
+                            <input class="btn btn-info btn-sm" type="submit" value="بگرد">
+                        </span>
+
+                        <input dir="rtl" type="text" name="term" class="form-control"
+                               placeholder="کلمه جستجو">
+                    </div>
                 }
             </div>
         </div>
     </div>
-    <div id="roleList">
-        @{Html.RenderAction(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name);}
-    </div>
-
 </div>
+<div class="panel panel-default" id="roleList">
+    @{Html.RenderAction(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name);}
+</div>
+
+@section Scripts
+{
+}

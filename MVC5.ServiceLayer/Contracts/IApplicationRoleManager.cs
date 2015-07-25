@@ -88,5 +88,6 @@ namespace MVC5.ServiceLayer.Contracts
         Task<IEnumerable<SelectListItem>> GetAllAsSelectList();
         IList<int> FindUserRoleIds(int userId);
         Task<string> GetDefaultRoleForRegister();
+        void ChangeDefaultRegisterRole(int id);
     }
 }

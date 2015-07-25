@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using MVC5.DomainClasses.Entities;
 
-namespace MVC5.ServiceLayer.QueryExtentions
+namespace MVC5.ServiceLayer.QueryExtensions
 {
-    public static class UserQueryExtentions
+    public static class UserQueryExtensions
     {
         public static IQueryable<ApplicationUser> SkipAndTake(this IQueryable<ApplicationUser> users, int pageIndex, int pageSize)
         {

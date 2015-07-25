@@ -8,7 +8,8 @@ namespace MVC5.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.validate*"));
@@ -31,7 +32,8 @@ namespace MVC5.Web
                 "~/Content/toastr.min.css",
                 "~/Content/plugins/font-awesome.min.css",
                 "~/Content/plugins/fileinput.min.css",
-                "~/Content/site.min.css"));
+                "~/Content/site.min.css",
+                "~/Content/PagedList.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/adminCss").Include(
                 "~/Content/customBootstrap.min.css",

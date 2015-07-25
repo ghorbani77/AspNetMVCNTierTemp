@@ -24,21 +24,25 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    margin: 2px !important;
-}
+
 
 input {
     height: 35px !important;
     padding: 6px 9px !important;
     font-size: 13px !important;
     line-height: 1.5 !important;
-    -ms-border-radius: 3px !important;
-    border-radius: 3px !important;
+    -ms-border-radius: 2px !important;
+    border-radius: 2px !important;
 }
-
+ .pagination li>a {
+     color: #ECECEC !important;
+ }
+ .pagination li>a:hover, .glyphicon-heart, .glyphicon-heart-empty {
+     color: #ECECEC !important;
+ }
+ .min-height-340 {
+     min-height: 340px !important;
+ }
 .container.margin-top {
     margin-top: 100px !important;
 }

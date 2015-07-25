@@ -9,6 +9,6 @@ namespace MVC5.ViewModel.AdminArea.Permission
 {
     public class SelectPermissionViewModel : SelectListItem
     {
-        public List<SelectPermissionViewModel> Children  { get; set; }
+        public int Id { get; set; }
     }
 }

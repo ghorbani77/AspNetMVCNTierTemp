@@ -46,7 +46,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [CheckReferrer]
+       // [CheckReferrer]
         [ActivityLog(Description = "ویرایش تنظیمات کاربری", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting(UserSettingsViewModel viewModel)
         {

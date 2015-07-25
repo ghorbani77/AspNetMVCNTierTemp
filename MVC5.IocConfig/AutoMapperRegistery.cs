@@ -3,7 +3,6 @@ using AutoMapper;
 using AutoMapper.Internal;
 using AutoMapper.Mappers;
 using MVC5.AutoMapperProfiles;
-using StructureMap;
 using StructureMap.Configuration.DSL;
 using StructureMap.Web;
 

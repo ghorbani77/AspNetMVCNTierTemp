@@ -65,7 +65,7 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 8 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-         using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = "Administrator" }, FormMethod.Post, new { User = "form", @class = "form-horizontal" }))
+         using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { User = "form", @class = "form-horizontal" }))
         {
             
             
@@ -126,8 +126,15 @@ WriteLiteral(" href=\"#permissions\"");
 
 WriteLiteral(" data-toggle=\"tab\"");
 
-WriteLiteral(">دسترسی های جزئی</a>\r\n                        </li>\r\n                        <li>" +
-"\r\n                            <a");
+WriteLiteral(">دسترسی های</a>\r\n                        </li>\r\n                        <li>\r\n   " +
+"                         <a");
+
+WriteLiteral(" href=\"#settings\"");
+
+WriteLiteral(" data-toggle=\"tab\"");
+
+WriteLiteral(">تنظیمات کاربری</a>\r\n                        </li>\r\n                        <li>\r" +
+"\n                            <a");
 
 WriteLiteral(" href=\"#roles\"");
 
@@ -153,7 +160,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 35 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 38 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }));
 
             
@@ -168,7 +175,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 37 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 40 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.Email, new { @class = "form-control" }));
 
             
@@ -179,7 +186,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 38 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 41 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }));
 
             
@@ -195,7 +202,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 42 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 45 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" }));
 
             
@@ -210,7 +217,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 44 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 47 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.UserName, new { @class = "form-control" }));
 
             
@@ -221,7 +228,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 45 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 48 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" }));
 
             
@@ -237,7 +244,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 50 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 53 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
 
             
@@ -252,7 +259,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 52 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 55 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.Password, new { @class = "form-control" }));
 
             
@@ -263,7 +270,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 53 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 56 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }));
 
             
@@ -279,7 +286,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 57 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 60 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" }));
 
             
@@ -294,7 +301,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 59 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 62 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" }));
 
             
@@ -305,7 +312,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 60 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 63 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" }));
 
             
@@ -321,7 +328,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 66 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 69 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" }));
 
             
@@ -336,7 +343,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 68 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 71 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.LastName, new { @class = "form-control" }));
 
             
@@ -347,7 +354,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 69 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 72 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" }));
 
             
@@ -369,7 +376,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 77 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 80 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" }));
 
             
@@ -384,7 +391,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 79 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 82 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" }));
 
             
@@ -395,7 +402,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 80 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 83 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" }));
 
             
@@ -411,7 +418,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 85 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 88 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.AdministratorComment, new { @class = "col-md-2 control-label" }));
 
             
@@ -426,7 +433,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 87 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 90 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextAreaFor(m => m.AdministratorComment, new { @rows = 3, @class = "form-control" }));
 
             
@@ -437,7 +444,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 88 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 91 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.AdministratorComment, "", new { @class = "text-danger" }));
 
             
@@ -453,7 +460,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 93 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 96 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.BirthDay, new { @class = "col-md-2 control-label" }));
 
             
@@ -468,7 +475,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 95 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 98 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.BirthDay, new { @class = "form-control" }));
 
             
@@ -479,7 +486,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 96 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 99 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.BirthDay, "", new { @class = "text-danger" }));
 
             
@@ -495,7 +502,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 101 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 104 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.GooglePlusId, new { @class = "col-md-2 control-label" }));
 
             
@@ -510,7 +517,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 103 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 106 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.GooglePlusId, new { @class = "form-control" }));
 
             
@@ -521,7 +528,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 104 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 107 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.GooglePlusId, "", new { @class = "text-danger" }));
 
             
@@ -537,7 +544,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 108 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 111 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                            Write(Html.LabelFor(m => m.FaceBookId, new { @class = "col-md-2 control-label" }));
 
             
@@ -552,7 +559,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 110 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 113 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.TextBoxFor(m => m.FaceBookId, new { @class = "form-control" }));
 
             
@@ -563,18 +570,25 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 111 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 114 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.ValidationMessageFor(m => m.FaceBookId, "", new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n                                </div>\r\n                            </div>\r\n   " +
-"                     </div>\r\n\r\n                        <div");
+"                     </div>\r\n                        <div");
 
 WriteLiteral(" class=\"tab-pane\"");
 
 WriteLiteral(" id=\"permissions\"");
+
+WriteLiteral(">\r\n                            \r\n                        </div>\r\n                " +
+"        <div");
+
+WriteLiteral(" class=\"tab-pane\"");
+
+WriteLiteral(" id=\"settings\"");
 
 WriteLiteral(">\r\n                            <div");
 
@@ -589,7 +603,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 119 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 124 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.IsBanned, new { @class = "checkbox-inline" }));
 
             
@@ -600,14 +614,13 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 120 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 125 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.IsBanned, new { @class = "control-label" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                                </div>\r\n                              \r\n       " +
-"                         <div");
+WriteLiteral("\r\n                                </div>\r\n\r\n                                <div");
 
 WriteLiteral(" class=\"col-md-4\"");
 
@@ -616,7 +629,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 124 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 129 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.CanChangeProfilePicture, new { @class = "checkbox-inline" }));
 
             
@@ -627,7 +640,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 125 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 130 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.CanChangeProfilePicture, new { @class = "control-label" }));
 
             
@@ -642,7 +655,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 128 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 133 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.CanUploadFile, new { @class = "checkbox-inline" }));
 
             
@@ -653,7 +666,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 129 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 134 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.CanUploadFile, new { @class = "control-label" }));
 
             
@@ -668,7 +681,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 132 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 137 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.CanModifyFirsAndLastName, new { @class = "checkbox-inline" }));
 
             
@@ -679,7 +692,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 133 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 138 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.CanModifyFirsAndLastName, new { @class = "control-label" }));
 
             
@@ -699,70 +712,70 @@ WriteLiteral(" class=\"row\"");
 WriteLiteral(">\r\n");
 
             
-            #line 140 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-                                    
+            #line 145 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+                                
             
             #line default
             #line hidden
             
-            #line 140 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-                                     foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
-                                    {
+            #line 145 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+                                 foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
+                                {
 
             
             #line default
             #line hidden
-WriteLiteral("                                        ");
+WriteLiteral("                                    ");
 
-WriteLiteral("\r\n                                            <div");
+WriteLiteral("\r\n                                        <div");
 
 WriteLiteral(" class=\"col-md-4\"");
 
-WriteLiteral(">\r\n                                                <input");
+WriteLiteral(">\r\n                                            <input");
 
 WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"RoleIds\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 8758), Tuple.Create("\"", 8777)
+WriteAttribute("value", Tuple.Create(" value=\"", 8979), Tuple.Create("\"", 8998)
             
-            #line 144 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-             , Tuple.Create(Tuple.Create("", 8766), Tuple.Create<System.Object, System.Int32>(role.Value
+            #line 149 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+         , Tuple.Create(Tuple.Create("", 8987), Tuple.Create<System.Object, System.Int32>(role.Value
             
             #line default
             #line hidden
-, 8766), false)
+, 8987), false)
 );
 
 WriteLiteral(" class=\"checkbox-inline\"");
 
-WriteLiteral(" />\r\n                                                <label");
+WriteLiteral(" />\r\n                                            <label");
 
 WriteLiteral(" class=\"control-label\"");
 
 WriteLiteral(">");
 
             
-            #line 145 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-                                                                        Write(role.Text);
+            #line 150 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+                                                                    Write(role.Text);
 
             
             #line default
             #line hidden
-WriteLiteral("</label>\r\n                                            </div>\r\n                   " +
-"                     ");
+WriteLiteral("</label>\r\n                                        </div>\r\n                       " +
+"             ");
 
 WriteLiteral("\r\n");
 
             
-            #line 148 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-                                    }
+            #line 153 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+                                }
 
             
             #line default
             #line hidden
 WriteLiteral("                            </div>\r\n                        </div>\r\n             " +
-"       </div>\r\n\r\n                </div>\r\n                \r\n                <div");
+"       </div>\r\n\r\n                </div>\r\n\r\n                <div");
 
 WriteLiteral(" class=\"panel-footer\"");
 
@@ -786,7 +799,7 @@ WriteLiteral(" />\r\n                        </div>\r\n                    </div
 "</div>\r\n            </div>\r\n");
 
             
-            #line 163 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 168 "..\..\Areas\Administrator\Views\User\Create.cshtml"
         }
 
             

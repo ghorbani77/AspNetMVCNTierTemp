@@ -19,6 +19,7 @@ namespace MVC5.Web
             routes.IgnoreRoute("{resource}.txt");
 
             routes.LowercaseUrls = true;
+           // routes.RouteExistingFiles = true;
             routes.MapMvcAttributeRoutes();
           
             routes.MapRoute(
