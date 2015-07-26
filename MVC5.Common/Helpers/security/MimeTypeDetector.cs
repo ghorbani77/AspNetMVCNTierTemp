@@ -9,12 +9,23 @@ namespace MVC5.Common.Helpers.security
     
     public class MimeTypeDetector
     {
-        private static readonly IList<string> WhiteListMimeType=new List<string>
+        private static readonly IList<string> WhiteListImageMimeType = new List<string>
         {
             "image/jpeg",
             "image/png",
             "image/pjpeg",
             "image/x-png",
+            "image/gif",
+            "image/tiff",
+            "image/bmp",
+            "image/x-xbitmap",
+            "image/x-jg",
+            "image/x-emf",
+            "image/x-wmf",
+        };
+        private static readonly IList<string> WhiteListMimeType=new List<string>
+        {
+           
             "text/plain",
             "text/html",
             "text/xml",
@@ -24,13 +35,6 @@ namespace MVC5.Common.Helpers.security
             "audio/basic",
             "audio/mid",
             "audio/wav",
-            "image/gif",
-            "image/tiff",
-            "image/bmp",
-            "image/x-xbitmap",
-            "image/x-jg",
-            "image/x-emf",
-            "image/x-wmf",
             "video/avi",
             "video/mpeg",
             "application/octet-stream",
@@ -60,17 +64,14 @@ namespace MVC5.Common.Helpers.security
             System.UInt32 dwReserverd
         );
 
-        public static bool IsAllowMimeType(HttpPostedFileBase file)
+        public static bool IsAllowMimeType(byte[] content,bool isImage)
         {
-            var result = "";
+            var result = "unknown/unknown";
             try
             {
-                var data = new byte[256];
-                file.InputStream.Read(data, 0, 256);
-
                 var buffer = new byte[256];
-                var length = (data.Length > 256) ? 256 : data.Length;
-                Array.Copy(data, data, length);
+                var length = (content.Length > 256) ? 256 : content.Length;
+                Array.Copy(content, buffer, length);
 
                 System.UInt32 mimetype;
                 FindMimeFromData(0, null, buffer, 256, null, 0, out mimetype, 0);
@@ -80,10 +81,12 @@ namespace MVC5.Common.Helpers.security
             }
             catch
             {
-                return false;
+                throw new InvalidOperationException(string.Format("you cand upload only with these mimeTypes{0}",
+                    WhiteListMimeType));
+
             }
 
-            return WhiteListMimeType.Any(a => a == result);
+            return isImage ? WhiteListImageMimeType.Any(a => a == result) : WhiteListMimeType.Any(a => a == result);
         }
 
 

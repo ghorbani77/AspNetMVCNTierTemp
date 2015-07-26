@@ -221,7 +221,7 @@ namespace MVC5.DataLayer.Context
                 .Filter(UserFilters.SystemAccountList, a => a.Condition(u => u.IsSystemAccount))
                 .Filter(UserFilters.CanChangeProfilePicList, a => a.Condition(u => u.CanChangeProfilePicture))
                 .Filter(UserFilters.CanModifyFirsAndLastNameList, a => a.Condition(u => u.CanModifyFirsAndLastName))
-                .Filter(UserFilters.DontEmailConfirmedList, a => a.Condition(u => !u.EmailConfirmed))
+                .Filter(UserFilters.EmailConfirmedList, a => a.Condition(u => u.EmailConfirmed))
                 .Filter(UserFilters.AllowForCommentWithApproveList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithApprove))
                 .Filter(UserFilters.AllowForCommentWithOutApproveList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithOutApporove))
                 .Filter(UserFilters.ForbiddenForCommentList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.Forbidden))

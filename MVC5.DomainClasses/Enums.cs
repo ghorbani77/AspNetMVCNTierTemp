@@ -60,7 +60,7 @@ namespace MVC5.DomainClasses
 
     public enum CommentPermissionType : int
     {
-        [Display(Name = "با تآیید مدیریت")]
+        [Display(Name = "با تأیید مدیریت")]
         WithApprove = 1,
         [Display(Name = "بلامانع است")]
         WithOutApporove = 2,

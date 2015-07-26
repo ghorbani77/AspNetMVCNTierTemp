@@ -45,7 +45,7 @@ namespace ASP
 {
     // Display Enum using same names (from [Display] attributes) as in editors
     string displayName = null;
-    foreach (var item in EnumHelper.GetSelectList(ViewData.ModelMetadata, (Enum)Model).Where(item => item.Selected))
+    foreach (var item in EnumHelper.GetSelectList(ViewData.ModelMetadata, Model).Where(item => item.Selected))
     {
         displayName = item.Text ?? item.Value;
     }
@@ -89,12 +89,9 @@ Write(Html.DisplayTextFor(model => model));
             #line 23 "..\..\Areas\Administrator\Views\Shared\DisplayTemplates\Enum.cshtml"
                                         
 }
-
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
-
         }
     }
 }

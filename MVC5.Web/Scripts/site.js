@@ -10,15 +10,15 @@ var Public = new Object();
 Public.Routin = function () {
 
     $('[data-toggle="tooltip"]').tooltip();
-    $('[data-val-number]').each(function () {
-        var el = $(this);
-        var orig = el.data('val-number');
+    //$('[data-val-number]').each(function () {
+    //    var el = $(this);
+    //    var orig = el.data('val-number');
 
-        var fieldName = orig.replace('The field ', '');
-        fieldName = fieldName.replace(' must be a number.', '');
+    //    var fieldName = orig.replace('The field ', '');
+    //    fieldName = fieldName.replace(' must be a number.', '');
 
-        el.attr('data-val-number', fieldName + ' باید عددی باشد');
-    });
+    //    el.attr('data-val-number', fieldName + ' باید عددی باشد');
+    //});
     $(".pagination").addClass("pagination-sm");
     $('a.nofollow').attr('rel', 'nofollow');
 };

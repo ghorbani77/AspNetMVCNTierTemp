@@ -165,7 +165,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region CanAccess
-        public bool CanAccess(int userId, string areaName, string controllerName, string actionName)
+        public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string[] dependencyActionNames)
         {
             return true;
         }

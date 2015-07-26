@@ -13,18 +13,23 @@ namespace MVC5.AutoMapperProfiles
     {
         protected override void Configure()
         {
-            CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
+            //CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
 
-            CreateMap<ApplicationUser, UserViewModel>().IgnoreAllNonExisting().ForMember(d => d.Roles, s => s.Ignore());
-          //  CreateMap<UserViewModel, ApplicationUser>().IgnoreAllNonExisting();
+            CreateMap<ApplicationUser, UserViewModel>()
+                .ForMember(d => d.LastActivityDate, m => m.Ignore())
+                .ForMember(d => d.RegisterDate, m => m.Ignore())
+                .ForMember(d => d.Name, m => m.MapFrom(s => s.LastName + " " + s.LastName))
+                .ForMember(d => d.Roles, s => s.Ignore()).IgnoreAllNonExisting();
 
-            CreateMap<AddUserViewModel, ApplicationUser>().IgnoreAllNonExisting();
+            CreateMap<AddUserViewModel, ApplicationUser>()
+                .ForMember(d => d.RegisterDate, m => m.MapFrom(s => DateTime.Now))
+                .IgnoreAllNonExisting();
 
-            CreateMap<EditUserViewModel, ApplicationUser>().ForMember(s=>s.Roles,d=>d.Ignore()).IgnoreAllNonExisting();
-            CreateMap<ApplicationUser, EditUserViewModel>();
+            CreateMap<EditUserViewModel, ApplicationUser>().ForMember(s => s.Roles, d => d.Ignore()).IgnoreAllNonExisting();
+            CreateMap<ApplicationUser, EditUserViewModel>().IgnoreAllNonExisting();
 
             CreateMap<MVC5.ViewModel.Account.RegisterViewModel, ApplicationUser>()
-                .ForMember(u => u.RegisterDate, a => a.MapFrom(b=>DateTime.Now))
+                .ForMember(u => u.RegisterDate, a => a.MapFrom(b => DateTime.Now))
                 .ForMember(u => u.CommentPermission, a => a.MapFrom(b => CommentPermissionType.WithApprove))
                 .ForMember(u => u.AvatarFileName, a => a.MapFrom(b => "avatar.jpg"))
                 .IgnoreAllNonExisting();

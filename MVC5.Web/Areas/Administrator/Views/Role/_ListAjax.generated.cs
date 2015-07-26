@@ -97,11 +97,11 @@ WriteLiteral(">فعال /غیر فعال</th>\r\n                            <th
 
 WriteLiteral(" class=\"text-center\"");
 
-WriteLiteral(">نقش سیستمی</th>\r\n                            <th");
+WriteLiteral(">گروه کاربری سیستمی</th>\r\n                            <th");
 
 WriteLiteral(" class=\"text-center\"");
 
-WriteLiteral(">نقش پیشفرض برای عضویت</th>\r\n                        </tr>\r\n                    <" +
+WriteLiteral(">گروه کاربری پیشفرض برای عضویت</th>\r\n                        </tr>\r\n                    <" +
 "/thead>\r\n                    <tbody>\r\n");
 
             

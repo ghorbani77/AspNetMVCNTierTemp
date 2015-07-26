@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVC5.Common.Helpers.security;
 
 namespace MVC5.Common.Filters
 {
@@ -14,15 +15,15 @@ namespace MVC5.Common.Filters
         #region Fields
         private readonly string _extensionsWhiteList;
         private readonly List<string> _toFilter = new List<string>();
-
+        private readonly bool _justImage;
         #endregion
 
         #region Constcutor
-        public AllowUploadSpecialFilesOnlyAttribute(string extensionsWhiteList)
+        public AllowUploadSpecialFilesOnlyAttribute(string extensionsWhiteList, bool justImage)
         {
             if (string.IsNullOrWhiteSpace(extensionsWhiteList))
                 throw new ArgumentNullException("extensionsWhiteList");
-
+            _justImage = justImage;
             _extensionsWhiteList = extensionsWhiteList;
             var extensions = extensionsWhiteList.Split(',');
             foreach (var ext in extensions.Where(ext => !string.IsNullOrWhiteSpace(ext)))
@@ -49,14 +50,17 @@ namespace MVC5.Common.Filters
             var files = filterContext.HttpContext.Request.Files;
             foreach (var postedFile in files.Cast<string>().Select(file => files[file]).Where(postedFile => postedFile != null && postedFile.ContentLength != 0))
             {
-                //if user upload just image this section is required
-               if (!IsImageFile(postedFile)) return;
+                if (_justImage)
+                    if (!IsImageFile(postedFile)) return;
 
                 if (!CanUpload(postedFile.FileName))
                     throw new InvalidOperationException(
                         string.Format("You are not allowed to upload {0} file. Please upload only these files: {1}.",
                             Path.GetFileName(postedFile.FileName),
                             _extensionsWhiteList));
+                var data = new byte[256];
+                postedFile.InputStream.Read(data, 0, 256);
+                MimeTypeDetector.IsAllowMimeType(data, _justImage);
             }
 
             base.OnActionExecuting(filterContext);

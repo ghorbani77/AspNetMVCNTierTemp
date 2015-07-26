@@ -42,7 +42,7 @@ namespace ASP
             
             #line 1 "..\..\Areas\Administrator\Views\Role\List.cshtml"
   
-    ViewBag.Title = "لیست نقش های کاربری";
+    ViewBag.Title = "لیست گروه کاربری های کاربری";
 
             
             #line default
@@ -69,7 +69,7 @@ WriteLiteral("                ");
 
             
             #line 8 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-           Write(Html.ActionLink("درج نقش جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new { @class = "btn btn-sm btn-info" }));
+           Write(Html.ActionLink("درج گروه کاربری جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new { @class = "btn btn-sm btn-info" }));
 
             
             #line default

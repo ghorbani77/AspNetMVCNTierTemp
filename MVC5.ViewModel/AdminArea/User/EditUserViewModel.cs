@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
@@ -47,14 +46,16 @@ namespace MVC5.ViewModel.AdminArea.User
         [Remote("LastNameExist", "User", "Administrator", ErrorMessage = "این نام خانوادگی قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
         public string LastName { get; set; }
         [DisplayName("کاربر سیستمی")]
-        public string IsSystemAccount { get; set; }
+        public bool IsSystemAccount { get; set; }
         [DisplayName("نظر مدیر")]
         [MaxLength(1024, ErrorMessage = "تعداد حروف نظر مدیر غیر مجاز است")]
         public string AdministratorComment { get; set; }
-        public HttpPostedFileBase Avatar { get; set; }
-        public string AvatarPath { get; set; }
+        public HttpPostedFileBase AvatarImage { get; set; }
+        public string AvatarFileName { get; set; }
         [DisplayName("تاریخ تولد")]
         public string BirthDay { get; set; }
+        [DisplayName(" آخرین فعالیت")]
+        public string LastActivityDate { get; set; }
         [DisplayName(" آی دی گوگل پلاس")]
         [MaxLength(20, ErrorMessage = "تعداد کاراکتر های آی دی گوگل پلاس غیر مجاز است")]
         [Remote("GooglePlusIdExist", "User", "Administrator", ErrorMessage = "این آدرس قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
@@ -68,7 +69,7 @@ namespace MVC5.ViewModel.AdminArea.User
         [DisplayName("تأییدیه ایمیل")]
         public bool EmailConfirmed { get; set; }
         [DisplayName("دسترسی برای نظرات")]
-        public CommentPermissionType CommentPermissionType { get; set; }
+        public CommentPermissionType CommentPermission { get; set; }
         [DisplayName("دسترسی برای آپلود فایل")]
         public bool CanUploadFile { get; set; }
         [DisplayName("دسترسی برای تغییر آواتار")]

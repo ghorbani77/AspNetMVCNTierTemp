@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Web;
-using System.Web.Mvc;
-using MVC5.DomainClasses;
+﻿using MVC5.DomainClasses;
 
 namespace MVC5.ViewModel.AdminArea.User
 {
@@ -20,7 +15,7 @@ namespace MVC5.ViewModel.AdminArea.User
         public string RegisterDate { get; set; }
         public string LastActivityDate { get; set; }
         public string Roles { get; set; }
-        public CommentPermissionType CommentPermissionType { get; set; }
+        public CommentPermissionType CommentPermission { get; set; }
 
 
     }

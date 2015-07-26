@@ -140,7 +140,7 @@ WriteLiteral("                    ");
 
             
             #line 36 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-               Write(Html.ActionLink("MVC5", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }));
+               Write(Html.ActionLink("پنل", MVC.Administrator.Home.ActionNames.Index, MVC.Administrator.Home.Name, new { area = MVC.Administrator.Name }, new { @class = "navbar-brand" }));
 
             
             #line default
@@ -157,7 +157,7 @@ WriteLiteral(">\r\n                        <li>");
 
             
             #line 41 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                       Write(Html.ActionLink("خانه", "Index", "Home", new { area = "" }, null));
+                       Write(Html.ActionLink("مدیریت کاربران", "Index", "Home", new { area = MVC.Administrator.Name }, null));
 
             
             #line default
@@ -166,67 +166,13 @@ WriteLiteral("</li>\r\n                        <li>");
 
             
             #line 42 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                       Write(Html.ActionLink("درباره ما", "About", "Home", new { area = "" }, null));
+                       Write(Html.ActionLink("مدیریت گروه های کاربری", "About", "Home", new { area = MVC.Administrator.Name }, null));
 
             
             #line default
             #line hidden
-WriteLiteral("</li>\r\n                        <li>");
-
-            
-            #line 43 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                       Write(Html.ActionLink("تماس با ما", "Contact", "Home", new { area = "" }, null));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</li>\r\n\r\n\r\n");
-
-            
-            #line 46 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                        
-            
-            #line default
-            #line hidden
-            
-            #line 46 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                         if (Request.IsAuthenticated && User.IsInRole("Admin"))
-                        {
-
-            
-            #line default
-            #line hidden
-WriteLiteral("                            <li>");
-
-            
-            #line 48 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                           Write(Html.ActionLink("RolesAdmin", "Index", "RolesAdmin"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</li>\r\n");
-
-WriteLiteral("                            <li>");
-
-            
-            #line 49 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                           Write(Html.ActionLink("UsersAdmin", "Index", "UsersAdmin"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</li>\r\n");
-
-            
-            #line 50 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                        }
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        " +
-"</div>\r\n    </header>\r\n\r\n    <div");
+WriteLiteral("</li>\r\n\r\n\r\n                    </ul>\r\n                </div>\r\n            </div>\r" +
+"\n        </div>\r\n    </header>\r\n\r\n    <div");
 
 WriteLiteral(" class=\"container margin-top\"");
 
@@ -235,7 +181,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("        ");
 
             
-            #line 59 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 52 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
 
             
@@ -246,7 +192,7 @@ WriteLiteral("\r\n    </div>\r\n    <footer>\r\n        \r\n    </footer>\r\n");
 WriteLiteral("    ");
 
             
-            #line 64 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 57 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jquery"));
 
             
@@ -257,7 +203,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 65 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 58 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/adminJs"));
 
             
@@ -268,7 +214,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 66 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 59 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             
@@ -279,7 +225,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 67 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 60 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
@@ -288,13 +234,13 @@ Write(RenderSection("scripts", required: false));
 WriteLiteral("\r\n");
 
             
-            #line 68 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 61 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 68 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 61 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
       Html.RenderPartial(MVC.Shared.Views._Toastr);
             
             #line default
@@ -304,7 +250,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 69 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 62 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
 Write(MiniProfiler.RenderIncludes());
 
             

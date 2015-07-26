@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
@@ -49,10 +47,8 @@ namespace MVC5.ViewModel.AdminArea.User
         [DisplayName("نظر مدیر")]
         [MaxLength(1024, ErrorMessage = "تعداد حروف نظر مدیر غیر مجاز است")]
         public string AdministratorComment { get; set; }
-        public HttpPostedFileBase Avatar { get; set; }
-        public string AvatarPath { get; set; }
-        [DisplayName("تاریخ تولد")]
-        public string BirthDay { get; set; }
+        [DisplayName("تصویر پروفایل")]
+        public string AvatarFileName { get; set; }
         [DisplayName(" آی دی گوگل پلاس")]
         [MaxLength(20, ErrorMessage = "تعداد کاراکتر های آی دی گوگل پلاس غیر مجاز است")]
         [Remote("GooglePlusIdExist", "User", "Administrator", ErrorMessage = "این آدرس قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
@@ -72,5 +68,7 @@ namespace MVC5.ViewModel.AdminArea.User
         [DisplayName("دسترسی برای تغییر نام-نام خانوادگی")]
         public bool CanModifyFirsAndLastName { get; set; }
         public int[] RoleIds { get; set; }
+        public int[] PermissionIds { get; set; }
+        public HttpPostedFileBase AvatarImage { get; set; }
     }
 }

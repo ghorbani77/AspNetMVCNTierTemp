@@ -190,9 +190,6 @@ namespace MVC5.ServiceLayer.EFServiecs
         /// </summary>
         public void SeedDatabase(IEnumerable<ApplicationPermission> permissions)
         {
-            _unitOfWork.AutoDetectChangesEnabled = false;
-            _unitOfWork.ValidateOnSaveEnabled = false;
-           
             var applicationPermissions = permissions as IList<ApplicationPermission> ?? permissions.ToList();
             _permissionService.SeedDatabase(applicationPermissions);
 
@@ -214,8 +211,6 @@ namespace MVC5.ServiceLayer.EFServiecs
             }
             _unitOfWork.Update(superAdministrators, a => a.AssociatedCollection(c => c.Permissions));
             _unitOfWork.SaveChanges();
-            _unitOfWork.AutoDetectChangesEnabled = true;
-            _unitOfWork.ValidateOnSaveEnabled = true;
         }
 
         #endregion

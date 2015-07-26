@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
@@ -24,6 +25,7 @@ using MVC5.ServiceLayer.QueryExtensions;
 using MVC5.ServiceLayer.Security;
 using MVC5.Utility.EF.Filters;
 using MVC5.ViewModel.AdminArea.User;
+using RefactorThis.GraphDiff;
 
 namespace MVC5.ServiceLayer.EFServiecs
 {
@@ -265,15 +267,15 @@ namespace MVC5.ServiceLayer.EFServiecs
                         .Where(a => a.Roles.Select(r => r.RoleId).Intersect(search.RoleIds).Any())
                         .AsQueryable();
             }
-            if (!search.SearchUserName.IsNotEmpty())
+            if (search.SearchUserName.IsNotEmpty())
                 users = users.SearchByUserName(search.SearchUserName);
-            if (!search.SearchEmail.IsNotEmpty())
+            if (search.SearchEmail.IsNotEmpty())
                 users = users.SearchByEmail(search.SearchEmail);
-            if (!search.SearchFirstName.IsNotEmpty())
+            if (search.SearchFirstName.IsNotEmpty())
                 users = users.SearchByFirstName(search.SearchFirstName);
-            if (!search.SearchLastName.IsNotEmpty())
+            if (search.SearchLastName.IsNotEmpty())
                 users = users.SearchByLastName(search.SearchLastName);
-            if (!search.SearchIp.IsNotEmpty())
+            if (search.SearchIp.IsNotEmpty())
                 users = users.SearchByIp(search.SearchIp);
             if (search.SearchCanChangeProfilePicture)
                 _unitOfWork.EnableFiltering(UserFilters.CanChangeProfilePicList);
@@ -286,14 +288,14 @@ namespace MVC5.ServiceLayer.EFServiecs
             if (search.SearchIsDeleted)
                 _unitOfWork.EnableFiltering(UserFilters.DeletedList);
             if (search.SearchIsEmailConfirmed)
-                _unitOfWork.EnableFiltering(UserFilters.DontEmailConfirmedList);
+                _unitOfWork.EnableFiltering(UserFilters.EmailConfirmedList);
             if (search.SearchIsSystemAccount)
                 _unitOfWork.EnableFiltering(UserFilters.SystemAccountList);
 
-             total = users.FutureCount();
+            total = users.FutureCount();
             var query =
                 users.OrderByUserName()
-                    .SkipAndTake(search.PageIndex - 1, search.PageSize)
+                    .SkipAndTake(search.PageIndex-1, search.PageSize)
                     .Project(_mappingEngine)
                     .To<UserViewModel>()
                     .Future().ToList();
@@ -336,15 +338,20 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
-        #region AddUserWithRoles
-        public void AddUserWithRoles(AddUserViewModel viewModel)
+        #region AddUser
+        public async Task AddUser(AddUserViewModel viewModel)
         {
             var user = _mappingEngine.Map<ApplicationUser>(viewModel);
-            foreach (var roleId in viewModel.RoleIds)
-            {
-                user.Roles.Add(new ApplicationUserRole { RoleId = roleId });
-            }
-            _unitOfWork.MarkAsAdded(user);
+            viewModel.RoleIds.ToList().ForEach(roleId => user.Roles.Add(new ApplicationUserRole { RoleId = roleId }));
+            _users.Add(user);
+            await _unitOfWork.SaveChangesAsync();
+            _unitOfWork.MarkAsDetached(user);
+            if (viewModel.PermissionIds == null || viewModel.PermissionIds.Length <= 0) return;
+            user.OwnPermissions = new Collection<ApplicationPermission>();
+            var permissions = _permissionService.GetActualPermissions(viewModel.PermissionIds).ToList();
+            permissions.ForEach(a => user.OwnPermissions.Add(a));
+            _unitOfWork.Update(user, a => a.AssociatedCollection(b => b.OwnPermissions));
+           await _unitOfWork.SaveChangesAsync();
         }
         #endregion
 
@@ -364,50 +371,50 @@ namespace MVC5.ServiceLayer.EFServiecs
         public bool CheckUserNameExist(string userName, int? id)
         {
             return id == null
-                ? _users.Any(a => a.UserName == userName)
-                : _users.Any(a => a.UserName == userName && a.Id != id.Value);
+                ? _users.Any(a => a.UserName.ToLower() == userName)
+                : _users.Any(a => a.UserName.ToLower() == userName && a.Id != id.Value);
         }
 
         public bool CheckEmailExist(string email, int? id)
         {
             return id == null
-               ? _users.Any(a => a.Email == email)
-               : _users.Any(a => a.Email == email && a.Id != id.Value);
+               ? _users.Any(a => a.Email.ToLower() == email)
+               : _users.Any(a => a.Email.ToLower() == email && a.Id != id.Value);
         }
 
         public bool CheckFirstNameExist(string firstName, int? id)
         {
             return id == null
-               ? _users.Any(a => a.FirstName == firstName)
-               : _users.Any(a => a.FirstName == firstName && a.Id != id.Value);
+               ? _users.Any(a => a.FirstName.ToLower() == firstName)
+               : _users.Any(a => a.FirstName.ToLower() == firstName && a.Id != id.Value);
         }
 
         public bool CheckLastNameExist(string lastName, int? id)
         {
             return id == null
-               ? _users.Any(a => a.LastName == lastName)
-               : _users.Any(a => a.LastName == lastName && a.Id != id.Value);
+               ? _users.Any(a => a.LastName.ToLower() == lastName)
+               : _users.Any(a => a.LastName.ToLower() == lastName && a.Id != id.Value);
         }
 
         public bool CheckGooglePlusIdExist(string googlePlusId, int? id)
         {
             return id == null
-                    ? _users.Any(a => a.GooglePlusId == googlePlusId)
-                    : _users.Any(a => a.GooglePlusId == googlePlusId && a.Id != id.Value);
+                    ? _users.Any(a => a.GooglePlusId.ToLower() == googlePlusId)
+                    : _users.Any(a => a.GooglePlusId.ToLower() == googlePlusId && a.Id != id.Value);
         }
 
         public bool CheckFacebookIdExist(string faceBookId, int? id)
         {
             return id == null
-              ? _users.Any(a => a.FaceBookId == faceBookId)
-              : _users.Any(a => a.FaceBookId == faceBookId && a.Id != id.Value);
+              ? _users.Any(a => a.FaceBookId.ToLower() == faceBookId)
+              : _users.Any(a => a.FaceBookId.ToLower() == faceBookId && a.Id != id.Value);
         }
 
         public bool CheckPhoneNumberExist(string phoneNumber, int? id)
         {
             return id == null
-               ? _users.Any(a => a.PhoneNumber == phoneNumber)
-               : _users.Any(a => a.PhoneNumber == phoneNumber && a.Id != id.Value);
+               ? _users.Any(a => a.PhoneNumber.ToLower() == phoneNumber)
+               : _users.Any(a => a.PhoneNumber.ToLower() == phoneNumber && a.Id != id.Value);
         }
         #endregion
 
@@ -452,6 +459,13 @@ namespace MVC5.ServiceLayer.EFServiecs
             return result.Errors.GetUserManagerErros();
         }
         #endregion
-       
+
+        #region ChechIsBanneduser
+        public bool ChecKIsUserBanned(int id)
+        {
+            return _users.Any(a => a.Id == id & a.IsBanned);
+        }
+        #endregion
+
     }
 }

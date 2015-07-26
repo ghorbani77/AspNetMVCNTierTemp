@@ -413,7 +413,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Edit.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Views\User\List1.generated.cs">
+    <Compile Include="Areas\Administrator\Views\User\List.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>List.cshtml</DependentUpon>
@@ -428,6 +428,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_ViewStart.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="RazorHelpers\BootstrapBuilder.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -708,21 +709,21 @@
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="Content\site.css" />
-    <Content Include="App_Data\Images\Overlays\01.png" />
-    <Content Include="App_Data\Images\Overlays\02.png" />
-    <Content Include="App_Data\Images\Overlays\03.png" />
-    <Content Include="App_Data\Images\Overlays\04.png" />
-    <Content Include="App_Data\Images\Overlays\05.png" />
-    <Content Include="App_Data\Images\Overlays\06.png" />
-    <Content Include="App_Data\Images\Overlays\07.png" />
-    <Content Include="App_Data\Images\Overlays\08.png" />
-    <Content Include="App_Data\Images\Overlays\09.png" />
-    <Content Include="App_Data\Images\Overlays\10.png" />
-    <Content Include="App_Data\Images\Overlays\11.png" />
-    <Content Include="App_Data\Images\Overlays\12.png" />
-    <Content Include="App_Data\Images\Overlays\13.png" />
-    <Content Include="App_Data\Images\Overlays\14.png" />
-    <Content Include="App_Data\Images\Overlays\15.png" />
+    <Content Include="Content\Overlays\01.png" />
+    <Content Include="Content\Overlays\02.png" />
+    <Content Include="Content\Overlays\03.png" />
+    <Content Include="Content\Overlays\04.png" />
+    <Content Include="Content\Overlays\05.png" />
+    <Content Include="Content\Overlays\06.png" />
+    <Content Include="Content\Overlays\07.png" />
+    <Content Include="Content\Overlays\08.png" />
+    <Content Include="Content\Overlays\09.png" />
+    <Content Include="Content\Overlays\10.png" />
+    <Content Include="Content\Overlays\11.png" />
+    <Content Include="Content\Overlays\12.png" />
+    <Content Include="Content\Overlays\13.png" />
+    <Content Include="Content\Overlays\14.png" />
+    <Content Include="Content\Overlays\15.png" />
     <Content Include="readme.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\bootstrap.js" />
@@ -824,8 +825,8 @@
       <Generator>RazorGenerator</Generator>
     </Content>
     <Content Include="Areas\Administrator\Views\User\List.cshtml">
-      <LastGenOutput>List1.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
+      <LastGenOutput>List.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\_ViewStart.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -1040,12 +1041,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\ErrorsLog\" />
-    <Folder Include="App_Data\Images\avatar\" />
-    <Folder Include="Content\admin\" />
     <Folder Include="Export\" />
+    <Folder Include="File\avatar\" />
+    <Folder Include="File\image\" />
+    <Folder Include="File\userFile\" />
     <Folder Include="Scripts\admin\" />
-    <Folder Include="Upload\" />
     <Folder Include="Views\Export\" />
+    <Folder Include="Views\File\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
   </ItemGroup>
   <ItemGroup>

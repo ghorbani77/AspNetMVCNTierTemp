@@ -19,6 +19,7 @@ namespace MVC5.Web.Filters
     {
         #region Fields
 
+        private readonly IApplicationUserManager _userManager;
         private string _dependencies;
         private string[] _dependenciesSplit = new string[0];
         private static readonly char[] SplitParameter = { ',' };
@@ -48,9 +49,11 @@ namespace MVC5.Web.Filters
         #endregion
 
         #region Constructor
-        public MvcAuthorizeAttribute(IAuthenticationManager authenticationManager, IPermissionService permissionService)
+        public MvcAuthorizeAttribute(IApplicationUserManager userManager,IAuthenticationManager authenticationManager, IPermissionService permissionService)
         {
             _authenticationManager = authenticationManager;
+            _userManager = userManager;
+            _permissionService = permissionService;
         }
 
         public MvcAuthorizeAttribute()
@@ -119,14 +122,19 @@ namespace MVC5.Web.Filters
             {
                 return false;
             }
-            var userId = user.Identity.GetUserId<int>();
 
+            var userId = user.Identity.GetUserId<int>();
+            if (_userManager.ChecKIsUserBanned(userId))
+            {
+                _authenticationManager.SignOut();
+                return false;
+            }
             var actionName = filterContext.ActionDescriptor.ActionName;
             var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             var areaName = AreaName;
 
             var permissionService = ProjectObjectFactory.Container.GetInstance<IPermissionService>();
-            return permissionService.CanAccess(userId, controllerName, actionName, areaName);
+            return permissionService.CanAccess(userId, controllerName, actionName, areaName,_dependenciesSplit);
         }
 
         #endregion

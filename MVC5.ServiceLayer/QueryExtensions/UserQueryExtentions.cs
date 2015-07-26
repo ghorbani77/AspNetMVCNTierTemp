@@ -15,11 +15,11 @@ namespace MVC5.ServiceLayer.QueryExtensions
         }
         public static IQueryable<ApplicationUser> OrderByUserName(this IQueryable<ApplicationUser> users,  bool isDesc = false)
         {
-            return isDesc ? users.OrderByDescending(a => a.UserName) : users.OrderBy(a => a.UserName);
+            return isDesc ? users.OrderByDescending(a => a.UserName).AsQueryable() : users.OrderBy(a => a.UserName).AsQueryable();
         }
         public static IQueryable<ApplicationUser> OrderByEmail(this IQueryable<ApplicationUser> users, bool isDesc = false)
         {
-            return isDesc ? users.OrderByDescending(a => a.Email) : users.OrderBy(a => a.Email);
+            return isDesc ? users.OrderByDescending(a => a.Email).AsQueryable() : users.OrderBy(a => a.Email).AsQueryable();
         }
 
         public static IQueryable<ApplicationUser> SearchByEmail(this IQueryable<ApplicationUser> users, string email)

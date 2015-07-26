@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "لیست نقش های کاربری";
+    ViewBag.Title = "لیست گروه کاربری های کاربری";
 }
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-2">
-                @Html.ActionLink("درج نقش جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new { @class = "btn btn-sm btn-info" })
+                @Html.ActionLink("درج گروه کاربری جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new { @class = "btn btn-sm btn-info" })
             </div>
             <div class="col-md-6">
                 @using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList" }, new { @class = "form-horizontal" }))

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,7 +7,6 @@ using System.Web.UI;
 using AutoMapper;
 using MVC5.Common.Controller;
 using MVC5.Common.Filters;
-using MVC5.Common.Helpers.Json;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ViewModel.AdminArea.Role;
@@ -18,7 +15,7 @@ using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    // [MvcAuthorize]
+    [MvcAuthorize]
     [DisplayName("مدیریت گروه های کاربری")]
     public partial class RoleController : BaseController
     {
@@ -56,7 +53,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         //[CheckReferrer]
-        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
+        //  [MvcAuthorize(DependencyActionNames = "List")]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public virtual ActionResult ListAjax(string term = "", int page = 1)
         {
@@ -185,7 +182,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             await _roleManager.SetRoleAsRegistrationDefaultRoleAsync(id.Value);
             await _unitOfWork.SaveChangesAsync();
-            ToastrSuccess("نقش مورد نظر با موفقیت به عنوان نقش پیشفرض ثبت نام انتخاب شد");
+            ToastrSuccess("گروه کاربری مورد نظر با موفقیت به عنوان گروه کاربری پیشفرض ثبت نام انتخاب شد");
             return RedirectToAction(MVC.Administrator.Role.ActionNames.List, MVC.Administrator.Role.Name);
         }
         #endregion

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -9,7 +11,6 @@ using MVC5.Common.Filters;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ViewModel.AdminArea.User;
-using MVC5.Web.Filters;
 using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
@@ -20,6 +21,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
     {
         #region Fields
 
+        private readonly IPermissionService _permissionService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IApplicationUserManager _userManager;
         private readonly IApplicationRoleManager _roleManager;
@@ -28,12 +30,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         #region Constructor
 
-        public UserController(IUnitOfWork unitOfWork, IApplicationRoleManager roleManager,
+        public UserController(IUnitOfWork unitOfWork, IPermissionService permissionService, IApplicationRoleManager roleManager,
             IApplicationUserManager userManager)
         {
             _unitOfWork = unitOfWork;
             _userManager = userManager;
             _roleManager = roleManager;
+            _permissionService = permissionService;
         }
 
         #endregion
@@ -48,13 +51,29 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             return View();
         }
 
-
+        //[CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "List")]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-        [ChildActionOnly]
+       
         public virtual ActionResult ListAjax(UserSearchViewModel search)
         {
             int total;
             var users = _userManager.GetPageList(out total, search);
+            ViewBag.PageNumber = search.PageIndex;
+            ViewBag.RoleIds = search.RoleIds;
+            ViewBag.SearchCanChangeProfilePicture = search.SearchCanChangeProfilePicture;
+            ViewBag.SearchCanModifyFirsAndLastName = search.SearchCanModifyFirsAndLastName;
+            ViewBag.SearchCanUploadFile = search.SearchCanUploadFile;
+            ViewBag.SearchCommentPermission = search.SearchCommentPermission;
+            ViewBag.SearchEmail = search.SearchEmail;
+            ViewBag.SearchFirstName = search.SearchFirstName;
+            ViewBag.SearchIp = search.SearchIp;
+            ViewBag.SearchIsBanned = search.SearchIsBanned;
+            ViewBag.SearchIsDeleted = search.SearchIsDeleted;
+            ViewBag.SearchIsEmailConfirmed = search.SearchIsEmailConfirmed;
+            ViewBag.SearchIsSystemAccount = search.SearchIsSystemAccount;
+            ViewBag.SearchLastName = search.SearchLastName;
+            ViewBag.SearchUserName = search.SearchUserName;
             ViewBag.TotalUsers = total;
             ViewBag.PageNumber = search.PageIndex;
             return PartialView(MVC.Administrator.User.Views.ViewNames._ListAjax, users);
@@ -62,7 +81,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region Edit
-        [Route("Edit/{id}")]
+        // [Route("Edit/{id}")]
         [HttpGet]
         [DisplayName("ویرایش کاربر")]
         [ActivityLog(Name = "EditUser", Description = "ویرایش کاربر")]
@@ -77,12 +96,11 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         [HttpPost]
-        [Route("Edit/{id}")]
+        //  [Route("Edit/{id}")]
         //[CheckReferrer]
         [ValidateAntiForgeryToken]
         public virtual async Task<ActionResult> Edit(EditUserViewModel viewModel, params int[] roleIds)
         {
-
             if (!ModelState.IsValid)
             {
                 ToastrError("لطفا فیلد های مورد نظر را با دقت وارد کنید");
@@ -114,6 +132,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public virtual async Task<ActionResult> Create()
         {
             await PopulateRoles();
+            await PopulatePermissions();
             var viewModel = new AddUserViewModel
             {
                 CanUploadFile = true,
@@ -125,24 +144,31 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowUploadSpecialFilesOnly(".jpg,.png,.gif", true)]
         //[CheckReferrer]
         public virtual async Task<ActionResult> Create(AddUserViewModel viewModel)
         {
+            var avatarName = "avatar.jpg";
             if (!ModelState.IsValid)
             {
                 ToastrError("لطفا فیلد های مورد نظر را با دقت وارد کنید");
                 await PopulateRoles(viewModel.RoleIds);
+                await PopulatePermissions(viewModel.PermissionIds);
                 return View(viewModel);
             }
             if (viewModel.RoleIds == null || viewModel.RoleIds.Length < 1)
             {
                 ToastrWarning("لطفا برای  کاربر مورد نظر ، گروه کاربری تعیین کنید");
                 await PopulateRoles();
+                await PopulatePermissions();
                 return View(viewModel);
             }
-
-            _userManager.AddUserWithRoles(viewModel);
-            await _unitOfWork.SaveChangesAsync();
+            if (viewModel.AvatarImage != null && viewModel.AvatarImage.ContentLength > 0)
+            {
+                avatarName = this.UploadFile(viewModel.AvatarImage);
+            }
+            viewModel.AvatarFileName = avatarName;
+            await _userManager.AddUser(viewModel);
             ToastrSuccess("عملیات ثبت  کاربر جدید با موفقیت انجام شد");
             return RedirectToAction(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name);
         }
@@ -199,75 +225,75 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [AjaxOnly]
-        [CheckReferrer]
-      //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
+        //[CheckReferrer]
+        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult UserNameExist(string userName, int? id)
         {
-            return _userManager.CheckUserNameExist(userName, id) ? Json(false) : Json(true);
+            return _userManager.CheckUserNameExist(userName.ToLower(), id) ? Json(false) : Json(true);
         }
 
         [HttpPost]
         [AjaxOnly]
-        [CheckReferrer]
+        //[CheckReferrer]
         //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FirstNameExist(string firstName, int? id)
         {
-            return _userManager.CheckFirstNameExist(firstName, id) ? Json(false) :
+            return _userManager.CheckFirstNameExist(firstName.ToLower(), id) ? Json(false) :
             Json(true);
         }
 
         [HttpPost]
         [AjaxOnly]
-        [CheckReferrer]
+        //[CheckReferrer]
         //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult LastNameExist(string lastName, int? id)
         {
-            return _userManager.CheckLastNameExist(lastName, id) ? Json(false) : Json(true);
+            return _userManager.CheckLastNameExist(lastName.ToLower(), id) ? Json(false) : Json(true);
         }
 
         [HttpPost]
         [AjaxOnly]
-        [CheckReferrer]
+        //[CheckReferrer]
         //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult EmailExist(string email, int? id)
         {
-            return _userManager.CheckEmailExist(email, id) ? Json(false) : Json(true);
+            return _userManager.CheckEmailExist(email.ToLower(), id) ? Json(false) : Json(true);
         }
 
         [HttpPost]
         [AjaxOnly]
-        [CheckReferrer]
+        // [CheckReferrer]
         //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult PhoneNumberExist(string phoneNumber, int? id)
         {
-            return _userManager.CheckPhoneNumberExist(phoneNumber, id) ? Json(false) : Json(true);
+            return _userManager.CheckPhoneNumberExist(phoneNumber.ToLower(), id) ? Json(false) : Json(true);
         }
 
 
         [HttpPost]
         [AjaxOnly]
-        [CheckReferrer]
+        //[CheckReferrer]
         //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult GooglePlusIdExist(string googlePlusId, int? id)
         {
-            return _userManager.CheckGooglePlusIdExist(googlePlusId, id) ? Json(false) : Json(true);
+            return _userManager.CheckGooglePlusIdExist(googlePlusId.ToLower(), id) ? Json(false) : Json(true);
         }
 
 
         [HttpPost]
         [AjaxOnly]
-        [CheckReferrer]
+        //[CheckReferrer]
         //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FaceBookIdExist(string faceBookId, int? id)
         {
-            return _userManager.CheckFacebookIdExist(faceBookId, id) ? Json(false) : Json(true);
+            return _userManager.CheckFacebookIdExist(faceBookId.ToLower(), id) ? Json(false) : Json(true);
         }
 
         #endregion
@@ -284,6 +310,19 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             }
 
             ViewBag.Roles = roles;
+        }
+
+        [NonAction]
+        private async Task PopulatePermissions(params int[] selectedIds)
+        {
+            var permissions = await _permissionService.GetAsSelectList();
+
+            if (selectedIds != null)
+            {
+                permissions.ForEach(a => a.Selected = selectedIds.Any(b => int.Parse(a.Value) == b));
+            }
+
+            ViewBag.Permissions = permissions;
         }
         #endregion
     }

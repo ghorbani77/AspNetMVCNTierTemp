@@ -568,7 +568,7 @@ namespace MVC5.ServiceLayer.Contracts
         void EditUserWithRoles(EditUserViewModel viewModel, int[] roleIds);
 
         void SetRolesToUser(ApplicationUser user, IEnumerable<ApplicationRole> roles);
-        void AddUserWithRoles(AddUserViewModel viewModel);
+    
         Task<bool> LogicalRemove(int id);
         bool CheckUserNameExist(string userName, int? id);
         bool CheckEmailExist(string email, int? id);
@@ -580,6 +580,8 @@ namespace MVC5.ServiceLayer.Contracts
         IList<string> CustomGetUserRoles(int id);
         Task<int> CreateAsync(RegisterViewModel viewModel);
         Task<string> CustomValidatePasswordAsync(string pass);
+        bool ChecKIsUserBanned(int id);
+        Task AddUser(AddUserViewModel viewModel);
     }
 
 }

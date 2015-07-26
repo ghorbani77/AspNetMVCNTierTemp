@@ -92,13 +92,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.BirthDay, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.BirthDay, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.BirthDay, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.GooglePlusId, new { @class = "col-md-2 control-label" })
@@ -114,9 +107,25 @@
                                     @Html.ValidationMessageFor(m => m.FaceBookId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AvatarFileName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10" dir="ltr">
+                                    <input id="AvatarImage" name="AvatarImage" type="file" accept="image/*">
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="permissions">
-                            
+                            <div class="row">
+                                @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
+                                {
+                                    <text>
+                                        <div class="col-md-4">
+                                            <input type="checkbox" id="@permission.Value" name="PermissionIds" value="@permission.Value" class="checkbox-inline" />
+                                            <label for="@permission.Value" class="control-label">@permission.Text</label>
+                                        </div>
+                                    </text>
+                                }
+                            </div>
                         </div>
                         <div class="tab-pane" id="settings">
                             <div class="row">
@@ -146,8 +155,8 @@
                                 {
                                     <text>
                                         <div class="col-md-4">
-                                            <input type="checkbox" name="RoleIds" value="@role.Value" class="checkbox-inline" />
-                                            <label class="control-label">@role.Text</label>
+                                            <input type="checkbox" id="@role.Value" name="RoleIds" value="@role.Value" class="checkbox-inline" />
+                                            <label for="@role.Value" class="control-label">@role.Text</label>
                                         </div>
                                     </text>
                                 }
@@ -169,4 +178,20 @@
     </div>
 </div>
 @section Scripts {
+    <script>
+        $("#AvatarImage").fileinput({
+            showUpload:false,
+            previewFileType: "image",
+            msgInvalidFileType: "از فایل معتبر استفاده کنید",
+            maxFileSize: "10240",
+            msgSizeTooLarge:"حجم فایل مورد نظر بیشتر از حجم مورد قبول است",
+            browseClass: "btn btn-success",
+            browseLabel: "انتخاب تصویر",
+            browseIcon: '<i class="glyphicon glyphicon-picture"></i>',
+            removeClass: "btn btn-danger",
+            removeLabel: "حذف",
+            removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+            allowedFileExtensions: ["jpg", "gif", "png"]
+        });
+    </script>
 }

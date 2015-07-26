@@ -19,9 +19,28 @@ namespace MVC5.Web
             routes.IgnoreRoute("{resource}.txt");
 
             routes.LowercaseUrls = true;
-           // routes.RouteExistingFiles = true;
+            // routes.RouteExistingFiles = true;
             routes.MapMvcAttributeRoutes();
-          
+
+            routes.MapRoute(
+                 name: "ImageRoute",
+                 url: "File/Image/{*id}",
+                 defaults: new { controller = "File", action = "Image", id = UrlParameter.Optional },
+                 namespaces: new[] { string.Format("{0}.Controllers", typeof(RouteConfig).Namespace) }
+             );
+            routes.MapRoute(
+                name: "UserFileRoute",
+                url: "File/UserFile/{*id}",
+                defaults: new {controller = "File", action = "UserFile", id = UrlParameter.Optional},
+                namespaces: new[] {string.Format("{0}.Controllers", typeof (RouteConfig).Namespace)}
+                );
+            routes.MapRoute(
+                name: "AvatarRoute",
+                url: "File/Avatar/{*id}",
+                defaults: new {controller = "File", action = "Avatar", id = UrlParameter.Optional},
+                namespaces: new[] {string.Format("{0}.Controllers", typeof (RouteConfig).Namespace)}
+                );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

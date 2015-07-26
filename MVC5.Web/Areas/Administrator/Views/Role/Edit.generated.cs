@@ -42,7 +42,7 @@ namespace ASP
             
             #line 2 "..\..\Areas\Administrator\Views\Role\Edit.cshtml"
   
-    ViewBag.Title = "ویرایش نقش کاربری";
+    ViewBag.Title = "ویرایش گروه کاربری کاربری";
 
             
             #line default
