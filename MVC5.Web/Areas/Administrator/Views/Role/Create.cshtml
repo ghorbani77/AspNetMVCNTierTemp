@@ -48,16 +48,16 @@
                 </div>
                 <div class="panel-body" >
                     <div class="row">
-                            @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                            {
-                                <text>
-                                    <div class="col-md-4">
-                                        <input type="checkbox" id="@permission.Value" name="PermissionIds" value="@permission.Value" class="checkbox-inline" />
-                                        <label for="@permission.Value" class="control-label">@permission.Text</label>
-                                    </div>
-                                </text>
-                            }
-                        </div>
+                        @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
+                        {
+                            <text>
+                                <div class="col-md-4">
+                                    <input type="checkbox" id="@permission.Value" name="PermissionIds" value="@permission.Value" class="checkbox-inline" />
+                                    <label for="@permission.Value" class="control-label">@permission.Text</label>
+                                </div>
+                            </text>
+                        }
+                    </div>
                 </div>
                 <div class="panel-footer">
                     <div class="row">
@@ -71,3 +71,10 @@
         }
     </div>
 </div>
+@section Scripts{
+    <script>
+        $(function () {
+            warningBeforeLoad();
+        })
+</script>
+}

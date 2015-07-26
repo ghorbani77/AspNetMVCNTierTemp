@@ -38,8 +38,8 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("مدیریت کاربران", "Index", "Home", new { area = MVC.Administrator.Name }, null)</li>
-                        <li>@Html.ActionLink("مدیریت گروه های کاربری", "About", "Home", new { area = MVC.Administrator.Name }, null)</li>
+                        <li>@Html.ActionLink("مدیریت کاربران", MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, null)</li>
+                        <li>@Html.ActionLink("مدیریت گروه های کاربری", MVC.Administrator.Role.ActionNames.List, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, null)</li>
 
 
                     </ul>

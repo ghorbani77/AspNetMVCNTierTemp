@@ -867,7 +867,8 @@ WriteLiteral("    </div>\r\n</div>\r\n");
 
 DefineSection("Scripts", () => {
 
-WriteLiteral("\r\n");
+WriteLiteral("\r\n    <script>\r\n        $(function() {\r\n            warningBeforeLoad();\r\n       " +
+" })\r\n    </script>\r\n");
 
 });
 

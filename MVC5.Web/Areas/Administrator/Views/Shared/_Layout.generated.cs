@@ -157,7 +157,7 @@ WriteLiteral(">\r\n                        <li>");
 
             
             #line 41 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                       Write(Html.ActionLink("مدیریت کاربران", "Index", "Home", new { area = MVC.Administrator.Name }, null));
+                       Write(Html.ActionLink("مدیریت کاربران", MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, null));
 
             
             #line default
@@ -166,7 +166,7 @@ WriteLiteral("</li>\r\n                        <li>");
 
             
             #line 42 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-                       Write(Html.ActionLink("مدیریت گروه های کاربری", "About", "Home", new { area = MVC.Administrator.Name }, null));
+                       Write(Html.ActionLink("مدیریت گروه های کاربری", MVC.Administrator.Role.ActionNames.List, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, null));
 
             
             #line default

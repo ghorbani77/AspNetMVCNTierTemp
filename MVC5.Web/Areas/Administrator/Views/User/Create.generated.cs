@@ -910,12 +910,18 @@ DefineSection("Scripts", () => {
 
 WriteLiteral(@"
     <script>
+        $(function () {
+            warningBeforeLoad();
+        })
+    </script>
+
+    <script>
         $(""#AvatarImage"").fileinput({
-            showUpload:false,
+            showUpload: false,
             previewFileType: ""image"",
             msgInvalidFileType: ""از فایل معتبر استفاده کنید"",
             maxFileSize: ""10240"",
-            msgSizeTooLarge:""حجم فایل مورد نظر بیشتر از حجم مورد قبول است"",
+            msgSizeTooLarge: ""حجم فایل مورد نظر بیشتر از حجم مورد قبول است"",
             browseClass: ""btn btn-success"",
             browseLabel: ""انتخاب تصویر"",
             browseIcon: '<i class=""glyphicon glyphicon-picture""></i>',

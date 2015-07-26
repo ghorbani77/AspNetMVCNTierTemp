@@ -266,62 +266,62 @@ WriteLiteral(">\r\n");
 
             
             #line 51 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                            
+                        
             
             #line default
             #line hidden
             
             #line 51 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                             foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                            {
+                         foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
+                        {
 
             
             #line default
             #line hidden
-WriteLiteral("                                ");
+WriteLiteral("                            ");
 
-WriteLiteral("\r\n                                    <div");
+WriteLiteral("\r\n                                <div");
 
 WriteLiteral(" class=\"col-md-4\"");
 
-WriteLiteral(">\r\n                                        <input");
+WriteLiteral(">\r\n                                    <input");
 
 WriteLiteral(" type=\"checkbox\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 2899), Tuple.Create("\"", 2921)
+WriteAttribute("id", Tuple.Create(" id=\"", 2887), Tuple.Create("\"", 2909)
             
             #line 55 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-, Tuple.Create(Tuple.Create("", 2904), Tuple.Create<System.Object, System.Int32>(permission.Value
+, Tuple.Create(Tuple.Create("", 2892), Tuple.Create<System.Object, System.Int32>(permission.Value
             
             #line default
             #line hidden
-, 2904), false)
+, 2892), false)
 );
 
 WriteLiteral(" name=\"PermissionIds\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 2943), Tuple.Create("\"", 2968)
+WriteAttribute("value", Tuple.Create(" value=\"", 2931), Tuple.Create("\"", 2956)
             
             #line 55 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                                  , Tuple.Create(Tuple.Create("", 2951), Tuple.Create<System.Object, System.Int32>(permission.Value
+                              , Tuple.Create(Tuple.Create("", 2939), Tuple.Create<System.Object, System.Int32>(permission.Value
             
             #line default
             #line hidden
-, 2951), false)
+, 2939), false)
 );
 
 WriteLiteral(" class=\"checkbox-inline\"");
 
-WriteLiteral(" />\r\n                                        <label");
+WriteLiteral(" />\r\n                                    <label");
 
-WriteAttribute("for", Tuple.Create(" for=\"", 3044), Tuple.Create("\"", 3067)
+WriteAttribute("for", Tuple.Create(" for=\"", 3028), Tuple.Create("\"", 3051)
             
             #line 56 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-, Tuple.Create(Tuple.Create("", 3050), Tuple.Create<System.Object, System.Int32>(permission.Value
+, Tuple.Create(Tuple.Create("", 3034), Tuple.Create<System.Object, System.Int32>(permission.Value
             
             #line default
             #line hidden
-, 3050), false)
+, 3034), false)
 );
 
 WriteLiteral(" class=\"control-label\"");
@@ -330,24 +330,23 @@ WriteLiteral(">");
 
             
             #line 56 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                                                                                        Write(permission.Text);
+                                                                                    Write(permission.Text);
 
             
             #line default
             #line hidden
-WriteLiteral("</label>\r\n                                    </div>\r\n                           " +
-"     ");
+WriteLiteral("</label>\r\n                                </div>\r\n                            ");
 
 WriteLiteral("\r\n");
 
             
             #line 59 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
-                            }
+                        }
 
             
             #line default
             #line hidden
-WriteLiteral("                        </div>\r\n                </div>\r\n                <div");
+WriteLiteral("                    </div>\r\n                </div>\r\n                <div");
 
 WriteLiteral(" class=\"panel-footer\"");
 
@@ -377,7 +376,14 @@ WriteLiteral(" />\r\n                        </div>\r\n                    </div
             
             #line default
             #line hidden
-WriteLiteral("    </div>\r\n</div>");
+WriteLiteral("    </div>\r\n</div>\r\n");
+
+DefineSection("Scripts", () => {
+
+WriteLiteral("\r\n    <script>\r\n        $(function () {\r\n            warningBeforeLoad();\r\n      " +
+"  })\r\n</script>\r\n");
+
+});
 
         }
     }
