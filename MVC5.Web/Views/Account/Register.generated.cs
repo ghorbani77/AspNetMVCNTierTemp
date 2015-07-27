@@ -329,28 +329,6 @@ DefineSection("Scripts", () => {
 
 WriteLiteral("\r\n");
 
-WriteLiteral("    ");
-
-            
-            #line 65 "..\..\Views\Account\Register.cshtml"
-Write(Scripts.Render("~/bundles/bootstrap"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 66 "..\..\Views\Account\Register.cshtml"
-Write(Scripts.Render("~/bundles/jqueryval"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
 });
 
         }

@@ -49,7 +49,31 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n<h2>Index</h2>\r\n\r\n");
+WriteLiteral("\r\n<div");
+
+WriteLiteral(" class=\"row\"");
+
+WriteLiteral(">\r\n    <div");
+
+WriteLiteral(" class=\"col-md-12\"");
+
+WriteLiteral(">\r\n        <div");
+
+WriteLiteral(" class=\"panel panel-default\"");
+
+WriteLiteral(">\r\n            <div");
+
+WriteLiteral(" class=\"panel-heading\"");
+
+WriteLiteral(">\r\n                <strong>طراحی یک فریمورک برای کار با Asp.net MVC , EF</strong>" +
+"\r\n            </div>\r\n            <div");
+
+WriteLiteral(" class=\"panel-body\"");
+
+WriteLiteral(" style=\"min-height: 300px;\"");
+
+WriteLiteral(">\r\n               صفحه مدیریت\r\n            </div>\r\n        </div>\r\n    </div>\r\n</" +
+"div>\r\n\r\n\r\n");
 
         }
     }

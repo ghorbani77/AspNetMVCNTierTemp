@@ -146,28 +146,6 @@ DefineSection("Scripts", () => {
 
 WriteLiteral("\r\n");
 
-WriteLiteral("    ");
-
-            
-            #line 25 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-Write(Scripts.Render("~/bundles/bootstrap"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 26 "..\..\Views\Account\ExternalLoginConfirmation.cshtml"
-Write(Scripts.Render("~/bundles/jqueryval"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
 });
 
         }

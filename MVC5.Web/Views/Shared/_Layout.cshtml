@@ -30,22 +30,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("MVC5", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("MVC5", MVC.Home.ActionNames.Index, MVC.Home.Name, new { area = "" }, new { @class = "navbar-brand" })
 
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("خانه", "Index", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("درباره ما", "About", "Home", new { area = "" }, null)</li>
-                        <li>@Html.ActionLink("تماس با ما", "Contact", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("خانه", MVC.Home.ActionNames.Index, MVC.Home.Name, new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("درباره ما", MVC.Home.ActionNames.About, MVC.Home.Name, new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("تماس با ما", MVC.Home.ActionNames.Contact, MVC.Home.Name, new { area = "" }, null)</li>
 
-
-                        @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                        @if (!User.Identity.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                            <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                            <li>@Html.ActionLink("ورود", MVC.Account.ActionNames.Login, MVC.Account.Name, new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("عضویت", MVC.Account.ActionNames.Register, MVC.Account.Name, new { area = "" }, null)</li>
                         }
-
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink("پنل مدیریت", MVC.Administrator.Home.ActionNames.Index, MVC.Administrator.Home.Name,
+                        new { area = MVC.Administrator.Name }, null)
+                        </li>
+                            <li>@Html.ActionLink("خروج", MVC.Account.ActionNames.LogOff, MVC.Account.Name, new { area = "" }, null)</li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -56,12 +62,10 @@
         @RenderBody()
     </div>
 
-    <footer>
-        <div class="container">
-            <p class="text-muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
-        </div>
-    </footer>
+   
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
     @{Html.RenderPartial(MVC.Shared.Views.ViewNames._Toastr);}
     @MiniProfiler.RenderIncludes()
