@@ -126,10 +126,7 @@
     <Compile Include="AdminArea\Permission\SelectPermissionViewModel.cs" />
     <Compile Include="AdminArea\Role\AddRoleViewModel.cs" />
     <Compile Include="AdminArea\Role\EditRoleViewModel.cs" />
-    <Compile Include="AdminArea\Security\DefaultRoleRecord.cs" />
     <Compile Include="AdminArea\Setting\UserSettingViewModel.cs" />
-    <Compile Include="AdminArea\Security\DefaultPermissionsRecord.cs" />
-    <Compile Include="AdminArea\Security\DefaultUserRecord.cs" />
     <Compile Include="AdminArea\User\UserSearchViewModel.cs" />
     <Compile Include="ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

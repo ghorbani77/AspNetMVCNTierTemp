@@ -4,7 +4,7 @@ using StructureMap;
 
 namespace MVC5.Web
 {
-    class StructureMapFilterProvider : FilterAttributeFilterProvider
+    public class StructureMapFilterProvider : FilterAttributeFilterProvider
     {
         private readonly IContainer _container;
 

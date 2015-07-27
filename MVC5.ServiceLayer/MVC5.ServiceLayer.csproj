@@ -166,7 +166,6 @@
     <Compile Include="QueryExtensions\RoleQueryExtentions.cs" />
     <Compile Include="QueryExtensions\UserQueryExtentions.cs" />
     <Compile Include="Security\SystemRoleNames.cs" />
-    <Compile Include="Security\SystemUsersProvider.cs" />
     <Compile Include="Settings\ExternalAuthSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />
     <Compile Include="Settings\SeoSettings.cs" />

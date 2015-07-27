@@ -4,7 +4,6 @@ using MVC5.Web.Filters;
 
 namespace MVC5.Web.Controllers
 {
-    [MvcAuthorize]
     public partial class HomeController : BaseController
     {
 
@@ -43,13 +42,11 @@ namespace MVC5.Web.Controllers
         //    var content = ImageManage.AddWaterMark(path, text);
         //    return File(content, MediaTypeNames.Image.Gif, fileName);
         //}
-        [AllowAnonymous]
         public virtual ActionResult About()
         {
             ToastrWarning("سلام");
             return RedirectToAction("Index");
         }
-        [AllowAnonymous]
         public virtual ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

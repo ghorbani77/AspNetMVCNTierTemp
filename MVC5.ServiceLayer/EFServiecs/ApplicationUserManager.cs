@@ -21,6 +21,7 @@ using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ServiceLayer.IdentityExtensions;
+using MVC5.ServiceLayer.IdentityExtentions;
 using MVC5.ServiceLayer.QueryExtensions;
 using MVC5.ServiceLayer.Security;
 using MVC5.Utility.EF.Filters;
@@ -109,24 +110,35 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region SeedDatabase
+
         public void SeedDatabase()
         {
-            var newUser = this.FindByName(SystemUsersProvider.GetStandardSystemUser.UserName);
+            const string systemAdminUserName = "SystemAdmin";
+            const string systemAdminEmail = "Admin@gmail.com";
+            const string systemAdminPassword = "Admin1234@gmail.com";
 
+            var newUser = this.FindByName(systemAdminUserName);
             if (newUser == null)
             {
-                newUser = _mappingEngine.Map<ApplicationUser>(SystemUsersProvider.GetStandardSystemUser);
-                newUser.PasswordHash = PasswordHasher.HashPassword(newUser.PasswordHash);
-                _users.Add(newUser);
-                _unitOfWork.SaveChanges();
+                newUser = new ApplicationUser
+                {
+                    UserName = systemAdminUserName,
+                    CanChangeProfilePicture = true,
+                    CanModifyFirsAndLastName = true,
+                    CanUploadFile = true,
+                    EmailConfirmed = true,
+                    IsSystemAccount = true,
+                    LockoutEnabled = false,
+                    PhoneNumberConfirmed = true,
+                    Email = systemAdminEmail,
+                    RegisterDate = DateTime.Now,
+                    AvatarFileName = "avatar.jpg"
+                };
+                var result = this.Create(newUser, systemAdminPassword);
             }
-
-            var roleOfUser = CustomGetUserRoles(newUser.Id);
-            if (roleOfUser.Any(a => a == SystemRoleNames.SuperAdministrators)) return;
-
-            var role = _roleManager.FindRoleByName(SystemRoleNames.SuperAdministrators);
-            newUser.Roles.Add(new ApplicationUserRole { UserId = newUser.Id, RoleId = role.Id });
-            _unitOfWork.SaveChanges();
+            var userRoles = this.GetRoles(newUser.Id);
+            if (userRoles.Any(a => a == SystemRoleNames.SuperAdministrators)) return;
+            this.AddToRole(newUser.Id, SystemRoleNames.SuperAdministrators);
         }
 
         #endregion
@@ -295,7 +307,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             total = users.FutureCount();
             var query =
                 users.OrderByUserName()
-                    .SkipAndTake(search.PageIndex-1, search.PageSize)
+                    .SkipAndTake(search.PageIndex - 1, search.PageSize)
                     .Project(_mappingEngine)
                     .To<UserViewModel>()
                     .Future().ToList();
@@ -351,7 +363,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             var permissions = _permissionService.GetActualPermissions(viewModel.PermissionIds).ToList();
             permissions.ForEach(a => user.OwnPermissions.Add(a));
             _unitOfWork.Update(user, a => a.AssociatedCollection(b => b.OwnPermissions));
-           await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync();
         }
         #endregion
 
@@ -433,9 +445,9 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region CustomGetUserRoles
-        public IList<string> CustomGetUserRoles(int id)
+        public IList<int> CustomGetUserRoles(int id)
         {
-            return _roleManager.FindUserRoles(id);
+            return _roleManager.FindUserRoleIds(id);
         }
 
         #endregion
@@ -467,5 +479,29 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
+        public IUserEmailStore<ApplicationUser, int> GetEmailStore()
+        {
+            var cast = Store as IUserEmailStore<ApplicationUser, int>;
+            if (cast == null)
+            {
+                throw new NotSupportedException("not support");
+            }
+            return cast;
+        }
+
+
+        public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string[] dependencyActionNames)
+        {
+             var controller = controllerName.ToLower();
+            var area = areaName;
+            if (area.IsNotEmpty())
+                area = area.ToLower();
+            var actions = actionName.IsNotEmpty() ? new[] { actionName.ToLower() } : dependencyActionNames;
+            if (_permissionService.HasDirectAccess(userId, area, controller, actions)) return true;
+
+            var rolesOfUser = CustomGetUserRoles(userId);
+            var rolesOfPermission = _permissionService.GetRolesOfPermission(area, controller, actions);
+            return rolesOfPermission.Intersect(rolesOfUser).Any();
+        }
     }
 }

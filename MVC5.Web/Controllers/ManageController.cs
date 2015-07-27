@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -13,6 +14,7 @@ using MVC5.DomainClasses.Entities;
 namespace MVC5.Web.Controllers
 {
     [MvcAuthorize]
+    [DisplayName("بخش مدیرت پروفایل کاربری")]
     public partial class ManageController :BaseController
     {
         // Used for XSRF protection when adding external logins
@@ -26,48 +28,14 @@ namespace MVC5.Web.Controllers
             _authenticationManager = authenticationManager;
         }
 
-        //
-        // GET: /Account/AddPhoneNumber
-        public virtual ActionResult AddPhoneNumber()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/AddPhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public virtual async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            // Generate the token and send it
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId<int>(), model.Number);
-            if (_userManager.SmsService != null)
-            {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await _userManager.SmsService.SendAsync(message);
-            }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
-        }
-
-        //
-        // GET: /Manage/ChangePassword
         public virtual ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DisplayName("تغییر کلمه عبور")]
         public virtual async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -80,78 +48,15 @@ namespace MVC5.Web.Controllers
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
                 if (user != null)
                 {
-                    await signInAsync(user, isPersistent: false);
+                    await SignInAsync(user, isPersistent: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
-            addErrors(result);
+            AddErrors(result);
             return View(model);
         }
 
         //
-        // POST: /Manage/DisableTFA
-        [HttpPost]
-        public virtual async Task<ActionResult> DisableTFA()
-        {
-            await _userManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId<int>(), false);
-            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
-            if (user != null)
-            {
-                await signInAsync(user, isPersistent: false);
-            }
-            return RedirectToAction("Index", "Manage");
-        }
-
-        //
-        // POST: /Manage/EnableTFA
-        [HttpPost]
-        public virtual async Task<ActionResult> EnableTFA()
-        {
-            await _userManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId<int>(), true);
-            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
-            if (user != null)
-            {
-                await signInAsync(user, isPersistent: false);
-            }
-            return RedirectToAction("Index", "Manage");
-        }
-
-        //
-        // POST: /Manage/ForgetBrowser
-        [HttpPost]
-        public virtual ActionResult ForgetBrowser()
-        {
-            _authenticationManager.SignOut(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
-            return RedirectToAction("Index", "Manage");
-        }
-
-        //
-        // GET: /Account/Index
-        public virtual async Task<ActionResult> Index(ManageMessageId? message)
-        {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two factor provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "The phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
-            var userId = User.Identity.GetUserId<int>();
-            var model = new IndexViewModel
-            {
-                HasPassword = await _userManager.HasPassword(userId),
-                PhoneNumber = await _userManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await _userManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await _userManager.GetLoginsAsync(userId),
-                BrowserRemembered = await _authenticationManager.TwoFactorBrowserRememberedAsync(userId.ToString())
-            };
-            return View(model);
-        }
-
-        //
-        // POST: /Manage/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
         public virtual ActionResult LinkLogin(string provider)
@@ -175,6 +80,7 @@ namespace MVC5.Web.Controllers
 
         //
         // GET: /Account/Manage
+        [DisplayName("مدیرت ورود به سیستم")]
         public virtual async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -208,6 +114,7 @@ namespace MVC5.Web.Controllers
 
         //
         // GET: /Account/RemoveLogin
+        [DisplayName("حذف پروایدر ورود")]
         public virtual async Task<ActionResult> RemoveLogin()
         {
             var userId = User.Identity.GetUserId<int>();
@@ -229,7 +136,7 @@ namespace MVC5.Web.Controllers
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
                 if (user != null)
                 {
-                    await signInAsync(user, isPersistent: false);
+                    await SignInAsync(user, isPersistent: false);
                 }
                 message = ManageMessageId.RemoveLoginSuccess;
             }
@@ -251,13 +158,14 @@ namespace MVC5.Web.Controllers
             var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
             if (user != null)
             {
-                await signInAsync(user, isPersistent: false);
+                await SignInAsync(user, isPersistent: false);
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
         //
         // GET: /Manage/SetPassword
+        [DisplayName("تنظیم کلمه عبور حساب کاربری خارجی")]
         public virtual ActionResult SetPassword()
         {
             return View();
@@ -277,11 +185,11 @@ namespace MVC5.Web.Controllers
                     var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
                     if (user != null)
                     {
-                        await signInAsync(user, isPersistent: false);
+                        await SignInAsync(user, isPersistent: false);
                     }
                     return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
-                addErrors(result);
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -315,7 +223,7 @@ namespace MVC5.Web.Controllers
                 var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
                 if (user != null)
                 {
-                    await signInAsync(user, isPersistent: false);
+                    await SignInAsync(user, isPersistent: false);
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
@@ -323,7 +231,7 @@ namespace MVC5.Web.Controllers
             ModelState.AddModelError("", "Failed to verify phone");
             return View(model);
         }
-        private void addErrors(IdentityResult result)
+        private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
@@ -331,7 +239,7 @@ namespace MVC5.Web.Controllers
             }
         }
 
-        private async Task signInAsync(ApplicationUser user, bool isPersistent)
+        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             _authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie, DefaultAuthenticationTypes.TwoFactorCookie);
             _authenticationManager.SignIn(new AuthenticationProperties { IsPersistent = isPersistent },

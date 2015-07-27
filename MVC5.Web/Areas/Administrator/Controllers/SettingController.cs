@@ -11,7 +11,7 @@ using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize]
+    [MvcAuthorize(AreaName = "Administrator")]
     [DisplayName("مدیریت تنظیمات سایت")]
     public partial class SettingController : BaseController
     {

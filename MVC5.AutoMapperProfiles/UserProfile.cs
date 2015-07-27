@@ -3,7 +3,6 @@ using AutoMapper;
 using MVC5.AutoMapperProfiles.Extentions;
 using MVC5.DomainClasses;
 using MVC5.DomainClasses.Entities;
-using MVC5.ViewModel.AdminArea.Security;
 using MVC5.ViewModel.AdminArea.User;
 
 
@@ -33,10 +32,6 @@ namespace MVC5.AutoMapperProfiles
                 .ForMember(u => u.CommentPermission, a => a.MapFrom(b => CommentPermissionType.WithApprove))
                 .ForMember(u => u.AvatarFileName, a => a.MapFrom(b => "avatar.jpg"))
                 .IgnoreAllNonExisting();
-
-            CreateMap<DefaultUserRecord, ApplicationUser>()
-              .ForMember(u => u.AvatarFileName, a => a.MapFrom(b => "avatar.jpg"))
-              .IgnoreAllNonExisting();
         }
 
         public override string ProfileName

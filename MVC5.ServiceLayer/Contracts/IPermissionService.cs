@@ -21,7 +21,10 @@ namespace MVC5.ServiceLayer.Contracts
         IEnumerable<ApplicationPermission> GetActualPermissions(List<ApplicationPermission> permissions);
         Task<IList<string>> GetPermissionByRoleIds(int[] roleIds);
         void SeedDatabase(IEnumerable<ApplicationPermission> permissions);
-        bool CanAccess(int userId, string areaName, string controllerName, string actionName, string[] dependencyActionNames);
+        bool HasDirectAccess(int userId, string areaName, string controllerName,string[] actions);
         Task<IList<int>> GetPermissionIdsByRoleId(int roleId);
+
+        IList<int> GetRolesOfPermission(string areaName, string controllerName, 
+            string[] actions);
     }
 }

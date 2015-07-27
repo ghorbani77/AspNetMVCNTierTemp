@@ -1,29 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Utilities;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using MVC5.DomainClasses.Entities;
+using MVC5.ServiceLayer.EFServiecs;
 
-namespace MVC5.ServiceLayer.IdentityExtensions
+namespace MVC5.ServiceLayer.IdentityExtentions
 {
-    public class CustomUserValidator<TUser, TKey> : IIdentityValidator<TUser>
-        where TUser : class, IUser<TKey>
-        where TKey : IEquatable<TKey>
+    public class CustomUserValidator<TUser, TKey> : IIdentityValidator<ApplicationUser>
+        where TUser : class, IUser<int>
+        where TKey : IEquatable<int>
     {
 
         public bool AllowOnlyAlphanumericUserNames { get; set; }
         public bool RequireUniqueEmail { get; set; }
 
-        private UserManager<TUser, TKey> Manager { get; set; }
-        public CustomUserValidator(UserManager<TUser, TKey> manager)
+        private ApplicationUserManager Manager { get; set; }
+        public CustomUserValidator(ApplicationUserManager manager)
         {
             if (manager == null)
                 throw new ArgumentNullException("manager");
             AllowOnlyAlphanumericUserNames = true;
             Manager = manager;
         }
-        public virtual async Task<IdentityResult> ValidateAsync(TUser item)
+        public virtual async Task<IdentityResult> ValidateAsync(ApplicationUser item)
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -34,7 +37,7 @@ namespace MVC5.ServiceLayer.IdentityExtensions
             return errors.Count <= 0 ? IdentityResult.Success : IdentityResult.Failed(errors.ToArray());
         }
 
-        private async Task ValidateUserName(TUser user, ICollection<string> errors)
+        private async Task ValidateUserName(ApplicationUser user, ICollection<string> errors)
         {
             if (string.IsNullOrWhiteSpace(user.UserName))
                 errors.Add("نام کاربری نباید خالی باشد");
@@ -45,14 +48,14 @@ namespace MVC5.ServiceLayer.IdentityExtensions
             else
             {
                 var owner = await Manager.FindByNameAsync(user.UserName);
-                if (owner != null && !EqualityComparer<TKey>.Default.Equals(owner.Id, user.Id))
+                if (owner != null && !EqualityComparer<int>.Default.Equals(owner.Id, user.Id))
                     errors.Add("این نام کاربری قبلا ثبت شده است");
             }
         }
 
-        private async Task ValidateEmailAsync(TUser user, ICollection<string> errors)
+        private async Task ValidateEmailAsync(ApplicationUser user, ICollection<string> errors)
         {
-            var email = await Manager.GetEmailAsync(user.Id);
+            var email = await Manager.GetEmailStore().GetEmailAsync(user).WithCurrentCulture();
             if (string.IsNullOrWhiteSpace(email))
             {
                 errors.Add("وارد کردن ایمیل ضروریست");
@@ -62,6 +65,7 @@ namespace MVC5.ServiceLayer.IdentityExtensions
                 try
                 {
                     var m = new MailAddress(email);
+
                 }
                 catch (FormatException)
                 {
@@ -69,7 +73,7 @@ namespace MVC5.ServiceLayer.IdentityExtensions
                     return;
                 }
                 var owner = await Manager.FindByEmailAsync(email);
-                if ((object)owner != null && !EqualityComparer<TKey>.Default.Equals(owner.Id, user.Id))
+                if (owner != null && !EqualityComparer<int>.Default.Equals(owner.Id, user.Id))
                     errors.Add("این ایمیل قبلا ثبت شده است");
             }
         }

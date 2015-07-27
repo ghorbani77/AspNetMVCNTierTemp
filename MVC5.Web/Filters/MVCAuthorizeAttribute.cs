@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
@@ -7,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using MVC5.IocConfig;
 using MVC5.ServiceLayer.Contracts;
 
 namespace MVC5.Web.Filters
@@ -19,16 +17,15 @@ namespace MVC5.Web.Filters
     {
         #region Fields
 
-        private readonly IApplicationUserManager _userManager;
         private string _dependencies;
         private string[] _dependenciesSplit = new string[0];
         private static readonly char[] SplitParameter = { ',' };
-        private readonly IPermissionService _permissionService;
-        private readonly IAuthenticationManager _authenticationManager;
         #endregion
 
         #region Properties
 
+        public IApplicationUserManager ApplicationUserManager { get; set; }
+        public IAuthenticationManager AuthenticationManager { get; set; }
         public string DependencyActionNames
         {
             get
@@ -46,20 +43,6 @@ namespace MVC5.Web.Filters
 
         public string AreaName { get; set; }
         public bool IsMenu { get; set; }
-        #endregion
-
-        #region Constructor
-        public MvcAuthorizeAttribute(IApplicationUserManager userManager,IAuthenticationManager authenticationManager, IPermissionService permissionService)
-        {
-            _authenticationManager = authenticationManager;
-            _userManager = userManager;
-            _permissionService = permissionService;
-        }
-
-        public MvcAuthorizeAttribute()
-        {
-
-        }
         #endregion
 
         #region Private
@@ -124,17 +107,16 @@ namespace MVC5.Web.Filters
             }
 
             var userId = user.Identity.GetUserId<int>();
-            if (_userManager.ChecKIsUserBanned(userId))
+            if (ApplicationUserManager.ChecKIsUserBanned(userId))
             {
-                _authenticationManager.SignOut();
+                AuthenticationManager.SignOut();
                 return false;
             }
             var actionName = filterContext.ActionDescriptor.ActionName;
             var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             var areaName = AreaName;
 
-            var permissionService = ProjectObjectFactory.Container.GetInstance<IPermissionService>();
-            return permissionService.CanAccess(userId, controllerName, actionName, areaName,_dependenciesSplit);
+            return ApplicationUserManager.CanAccess(userId,areaName, controllerName, actionName,_dependenciesSplit);
         }
 
         #endregion
@@ -170,11 +152,10 @@ namespace MVC5.Web.Filters
         {
             if (filterContext.HttpContext.Request.IsAuthenticated)
             {
-                _authenticationManager.SignOut();
+              //  AuthenticationManager.SignOut();
                 throw new UnauthorizedAccessException(); //to avoid multiple redirects
             }
             HandleAjaxRequest(filterContext);
-
             filterContext.Result = new HttpUnauthorizedResult();
         }
         #endregion

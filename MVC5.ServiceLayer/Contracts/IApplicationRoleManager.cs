@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MVC5.DomainClasses.Entities;
 using MVC5.ViewModel.AdminArea.Role;
-using MVC5.ViewModel.AdminArea.Security;
 
 namespace MVC5.ServiceLayer.Contracts
 {
@@ -89,5 +88,6 @@ namespace MVC5.ServiceLayer.Contracts
         IList<int> FindUserRoleIds(int userId);
         Task<string> GetDefaultRoleForRegister();
         void ChangeDefaultRegisterRole(int id);
+       
     }
 }

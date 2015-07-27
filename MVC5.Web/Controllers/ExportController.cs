@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Web.Mvc;
 using MVC5.Common.Controller;
 using MVC5.Web.Filters;
@@ -7,9 +9,11 @@ using VikingErik.Mvc.ResumingActionResults;
 namespace MVC5.Web.Controllers
 {
     [MvcAuthorize]
+    [DisplayName("دسترسی به فایل های خروجی")]
     public partial class ExportController : BaseController
     {
         [Route("Export/{*id}")]
+        [DisplayName("امکان دانلود فایل ها")]
         public virtual ActionResult Index(string id)
         {
             if (string.IsNullOrEmpty(id))

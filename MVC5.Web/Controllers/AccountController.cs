@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -20,6 +21,7 @@ using MVC5.ViewModel.Account;
 namespace MVC5.Web.Controllers
 {
     [MvcAuthorize]
+    [DisplayName("عملیات مربوط به احراز هویت")]
     public partial class AccountController : BaseController
     {
         #region Fields
@@ -197,7 +199,8 @@ namespace MVC5.Web.Controllers
                 return View(model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: true);
+            var result = await _signInManager.PasswordSignInAsync
+                (model.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -214,6 +217,7 @@ namespace MVC5.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [DisplayName("دسترسی خروج از سایت")]
         public virtual ActionResult LogOff()
         {
             _authenticationManager.SignOut();

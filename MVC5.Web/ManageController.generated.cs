@@ -58,13 +58,6 @@ namespace MVC5.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult LinkLogin()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLogin);
@@ -99,12 +92,7 @@ namespace MVC5.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string AddPhoneNumber = "AddPhoneNumber";
             public readonly string ChangePassword = "ChangePassword";
-            public readonly string DisableTFA = "DisableTFA";
-            public readonly string EnableTFA = "EnableTFA";
-            public readonly string ForgetBrowser = "ForgetBrowser";
-            public readonly string Index = "Index";
             public readonly string LinkLogin = "LinkLogin";
             public readonly string LinkLoginCallback = "LinkLoginCallback";
             public readonly string ManageLogins = "ManageLogins";
@@ -118,12 +106,7 @@ namespace MVC5.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string AddPhoneNumber = "AddPhoneNumber";
             public const string ChangePassword = "ChangePassword";
-            public const string DisableTFA = "DisableTFA";
-            public const string EnableTFA = "EnableTFA";
-            public const string ForgetBrowser = "ForgetBrowser";
-            public const string Index = "Index";
             public const string LinkLogin = "LinkLogin";
             public const string LinkLoginCallback = "LinkLoginCallback";
             public const string ManageLogins = "ManageLogins";
@@ -135,14 +118,6 @@ namespace MVC5.Web.Controllers
         }
 
 
-        static readonly ActionParamsClass_AddPhoneNumber s_params_AddPhoneNumber = new ActionParamsClass_AddPhoneNumber();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_AddPhoneNumber AddPhoneNumberParams { get { return s_params_AddPhoneNumber; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AddPhoneNumber
-        {
-            public readonly string model = "model";
-        }
         static readonly ActionParamsClass_ChangePassword s_params_ChangePassword = new ActionParamsClass_ChangePassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ChangePassword ChangePasswordParams { get { return s_params_ChangePassword; } }
@@ -150,14 +125,6 @@ namespace MVC5.Web.Controllers
         public class ActionParamsClass_ChangePassword
         {
             public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
-        {
-            public readonly string message = "message";
         }
         static readonly ActionParamsClass_LinkLogin s_params_LinkLogin = new ActionParamsClass_LinkLogin();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -235,29 +202,6 @@ namespace MVC5.Web.Controllers
         public T4MVC_ManageController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void AddPhoneNumberOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult AddPhoneNumber()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPhoneNumber);
-            AddPhoneNumberOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AddPhoneNumberOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.AddPhoneNumberViewModel model);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> AddPhoneNumber(MVC5.ViewModel.Account.AddPhoneNumberViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPhoneNumber);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            AddPhoneNumberOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
         partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
@@ -277,51 +221,6 @@ namespace MVC5.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ChangePasswordOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void DisableTFAOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> DisableTFA()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisableTFA);
-            DisableTFAOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void EnableTFAOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> EnableTFA()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EnableTFA);
-            EnableTFAOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void ForgetBrowserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ForgetBrowser()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ForgetBrowser);
-            ForgetBrowserOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.ManageMessageId? message);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Index(MVC5.ViewModel.Account.ManageMessageId? message)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
-            IndexOverride(callInfo, message);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

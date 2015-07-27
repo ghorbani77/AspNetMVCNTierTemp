@@ -6,8 +6,10 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.Owin.Security;
 using MVC5.Common.Controller;
 using MVC5.DataLayer.Context;
+using MVC5.ServiceLayer.Contracts;
 using StructureMap;
 using StructureMap.Web;
 
@@ -50,6 +52,12 @@ namespace MVC5.IocConfig
                  ioc.AddRegistry<ServiceLayerRegistery>();
 
                  ioc.Scan(scanner => scanner.WithDefaultConventions());
+                 ioc.Policies.SetAllProperties(y =>
+                 {
+                     y.OfType<IApplicationUserManager>();
+                     y.OfType<IPermissionService>();
+                     y.OfType<IAuthenticationManager>();
+                 });
              });
             ConfigureAutoMapper(container);
             return container;

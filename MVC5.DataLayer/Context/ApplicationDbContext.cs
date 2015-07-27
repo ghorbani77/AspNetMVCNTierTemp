@@ -112,7 +112,6 @@ namespace MVC5.DataLayer.Context
 
         public override Task<int> SaveChangesAsync()
         {
-
             return SaveAllChangesAsync();
         }
 

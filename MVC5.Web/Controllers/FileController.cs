@@ -1,24 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MVC5.Web.Filters;
 
 namespace MVC5.Web.Controllers
 {
-    public class FileController : Controller
+    [MvcAuthorize]
+    [DisplayName("دسترسی به بخش فایل ها")]
+    public partial class FileController : Controller
     {
-        public ActionResult Image(string name)
+        [DisplayName("دسترسی به تصاویر")]
+        public virtual ActionResult Image(string name)
         {
             return View();
         }
-
-        public ActionResult UserFile(string name)
+        [DisplayName("دسترسی به فایل های ارسالی")]
+        public virtual ActionResult UserFile(string name)
         {
             return View();
         }
-
-        public ActionResult Avatar(string name)
+        [DisplayName("دسترسی به تصاویر کاربران")]
+        public virtual ActionResult Avatar(string name)
         {
             return View();
         }

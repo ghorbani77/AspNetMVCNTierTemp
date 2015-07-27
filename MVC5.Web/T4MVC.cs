@@ -31,6 +31,7 @@ public static partial class MVC
     public static AdministratorClass Administrator { get { return s_Administrator; } }
     public static MVC5.Web.Controllers.AccountController Account = new MVC5.Web.Controllers.T4MVC_AccountController();
     public static MVC5.Web.Controllers.ExportController Export = new MVC5.Web.Controllers.T4MVC_ExportController();
+    public static MVC5.Web.Controllers.FileController File = new MVC5.Web.Controllers.T4MVC_FileController();
     public static MVC5.Web.Controllers.HomeController Home = new MVC5.Web.Controllers.T4MVC_HomeController();
     public static MVC5.Web.Controllers.ManageController Manage = new MVC5.Web.Controllers.T4MVC_ManageController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
@@ -169,13 +170,6 @@ namespace Links
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class admin {
-            private const string URLPATH = "~/Content/admin";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        }
-    
         public static readonly string bootstrap_flat_min_css = Url("bootstrap-flat.min.css");
         public static readonly string bootstrap_rtl_min_css = Url("bootstrap-rtl.min.css");
         public static readonly string customBootstrap_min_css = Url("customBootstrap.min.css");
@@ -272,8 +266,31 @@ namespace Links
         public static readonly string ionicons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ionicons.min.css") ? Url("ionicons.min.css") : Url("ionicons.css");
              
         public static readonly string ionicons_min_css = Url("ionicons.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Overlays {
+            private const string URLPATH = "~/Content/Overlays";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string _01_png = Url("01.png");
+            public static readonly string _02_png = Url("02.png");
+            public static readonly string _03_png = Url("03.png");
+            public static readonly string _04_png = Url("04.png");
+            public static readonly string _05_png = Url("05.png");
+            public static readonly string _06_png = Url("06.png");
+            public static readonly string _07_png = Url("07.png");
+            public static readonly string _08_png = Url("08.png");
+            public static readonly string _09_png = Url("09.png");
+            public static readonly string _10_png = Url("10.png");
+            public static readonly string _11_png = Url("11.png");
+            public static readonly string _12_png = Url("12.png");
+            public static readonly string _13_png = Url("13.png");
+            public static readonly string _14_png = Url("14.png");
+            public static readonly string _15_png = Url("15.png");
+        }
+    
         public static readonly string PagedList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PagedList.min.css") ? Url("PagedList.min.css") : Url("PagedList.css");
              
+        public static readonly string PagedList_min_css = Url("PagedList.min.css");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class plugins {
             private const string URLPATH = "~/Content/plugins";
@@ -369,12 +386,6 @@ namespace Links
         }
         public static partial class Content 
         {
-            public static partial class admin 
-            {
-                public static class Assets
-                {
-                }
-            }
             public static partial class favicon 
             {
                 public static class Assets
@@ -388,6 +399,12 @@ namespace Links
                 }
             }
             public static partial class images 
+            {
+                public static class Assets
+                {
+                }
+            }
+            public static partial class Overlays 
             {
                 public static class Assets
                 {

@@ -577,11 +577,15 @@ namespace MVC5.ServiceLayer.Contracts
         bool CheckGooglePlusIdExist(string googlePlusId, int? id);
         bool CheckFacebookIdExist(string faceBookId, int? id);
         bool CheckPhoneNumberExist(string phoneNumber, int? id);
-        IList<string> CustomGetUserRoles(int id);
+        IList<int> CustomGetUserRoles(int id);
         Task<int> CreateAsync(RegisterViewModel viewModel);
         Task<string> CustomValidatePasswordAsync(string pass);
         bool ChecKIsUserBanned(int id);
         Task AddUser(AddUserViewModel viewModel);
+        IUserEmailStore<ApplicationUser, int> GetEmailStore();
+
+        bool CanAccess(int userId, string areaName, string controllerName, string actionName,
+            string[] dependencyActionNames);
     }
 
 }

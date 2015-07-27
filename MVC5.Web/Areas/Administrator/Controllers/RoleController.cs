@@ -15,7 +15,7 @@ using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize]
+    [MvcAuthorize(AreaName = "Administrator")]
     [DisplayName("مدیریت گروه های کاربری")]
     public partial class RoleController : BaseController
     {
@@ -53,7 +53,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         //[CheckReferrer]
-        //  [MvcAuthorize(DependencyActionNames = "List")]
+        [MvcAuthorize(DependencyActionNames = "List", AreaName = "Administrator")]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public virtual ActionResult ListAjax(string term = "", int page = 1)
         {
@@ -190,8 +190,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #region RemoteValidation
         [HttpPost]
         [AjaxOnly]
-       // [CheckReferrer]
-        //  [MvcAuthorize(DependencyActionNames = "Edit,Create")]
+        // [CheckReferrer]
+        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult RoleNameExist(string name, int? id)
         {

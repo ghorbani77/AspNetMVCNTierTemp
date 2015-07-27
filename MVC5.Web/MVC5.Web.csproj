@@ -429,6 +429,9 @@
       <DependentUpon>_ViewStart.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="FileController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="RazorHelpers\BootstrapBuilder.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
