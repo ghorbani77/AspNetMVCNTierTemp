@@ -15,45 +15,14 @@ namespace MVC5.Web.Filters
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class MvcAuthorizeAttribute : FilterAttribute, IAuthorizationFilter
     {
-        #region Fields
-
-        private string _dependencies;
-        private string[] _dependenciesSplit = new string[0];
-        private static readonly char[] SplitParameter = { ',' };
-        #endregion
 
         #region Properties
 
         public IApplicationUserManager ApplicationUserManager { get; set; }
         public IAuthenticationManager AuthenticationManager { get; set; }
-        public string DependencyActionNames
-        {
-            get
-            {
-                return _dependencies ?? string.Empty;
-            }
-            set
-            {
-                _dependencies = value;
-                _dependenciesSplit = SplitString(_dependencies);
-            }
-        }
-
-
-
+        public string DependencyActionNames { get; set; }
         public string AreaName { get; set; }
         public bool IsMenu { get; set; }
-        #endregion
-
-        #region Private
-        private static string[] SplitString(string dependencies)
-        {
-            var split = from dependency in dependencies.Split(SplitParameter)
-                        let lowerDependency = dependency.ToLower()
-                        where !string.IsNullOrEmpty(lowerDependency)
-                        select lowerDependency;
-            return split.ToArray();
-        }
         #endregion
 
         #region OnAuthorization
@@ -116,7 +85,8 @@ namespace MVC5.Web.Filters
             var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             var areaName = AreaName;
 
-            return ApplicationUserManager.CanAccess(userId,areaName, controllerName, actionName,_dependenciesSplit);
+            return ApplicationUserManager.CanAccess(userId, areaName, controllerName, actionName,
+                DependencyActionNames);
         }
 
         #endregion
@@ -134,7 +104,7 @@ namespace MVC5.Web.Filters
             return (isAuthorized) ? HttpValidationStatus.Valid : HttpValidationStatus.IgnoreThisRequest;
         }
         #endregion
-     
+
         #region CacheValidateHandler
 
         #endregion
@@ -152,7 +122,7 @@ namespace MVC5.Web.Filters
         {
             if (filterContext.HttpContext.Request.IsAuthenticated)
             {
-              //  AuthenticationManager.SignOut();
+                //  AuthenticationManager.SignOut();
                 throw new UnauthorizedAccessException(); //to avoid multiple redirects
             }
             HandleAjaxRequest(filterContext);

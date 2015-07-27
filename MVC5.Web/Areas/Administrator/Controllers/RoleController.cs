@@ -53,6 +53,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         //[CheckReferrer]
+        [OverrideAuthorization]
         [MvcAuthorize(DependencyActionNames = "List", AreaName = "Administrator")]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public virtual ActionResult ListAjax(string term = "", int page = 1)
@@ -191,6 +192,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         // [CheckReferrer]
+        [OverrideAuthorization]
         [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult RoleNameExist(string name, int? id)

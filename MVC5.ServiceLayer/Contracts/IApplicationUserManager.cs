@@ -585,7 +585,7 @@ namespace MVC5.ServiceLayer.Contracts
         IUserEmailStore<ApplicationUser, int> GetEmailStore();
 
         bool CanAccess(int userId, string areaName, string controllerName, string actionName,
-            string[] dependencyActionNames);
+            string dependencyActionNames);
     }
 
 }

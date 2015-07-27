@@ -909,26 +909,24 @@ WriteLiteral("    </div>\r\n</div>\r\n");
 DefineSection("Scripts", () => {
 
 WriteLiteral(@"
+  
     <script>
-        $(function () {
+        $(function() {
             warningBeforeLoad();
-        })
-    </script>
-
-    <script>
-        $(""#AvatarImage"").fileinput({
-            showUpload: false,
-            previewFileType: ""image"",
-            msgInvalidFileType: ""از فایل معتبر استفاده کنید"",
-            maxFileSize: ""10240"",
-            msgSizeTooLarge: ""حجم فایل مورد نظر بیشتر از حجم مورد قبول است"",
-            browseClass: ""btn btn-success"",
-            browseLabel: ""انتخاب تصویر"",
-            browseIcon: '<i class=""glyphicon glyphicon-picture""></i>',
-            removeClass: ""btn btn-danger"",
-            removeLabel: ""حذف"",
-            removeIcon: '<i class=""glyphicon glyphicon-trash""></i>',
-            allowedFileExtensions: [""jpg"", ""gif"", ""png""]
+            $(""#AvatarImage"").fileinput({
+                showUpload: false,
+                previewFileType: ""image"",
+                msgInvalidFileType: ""از فایل معتبر استفاده کنید"",
+                maxFileSize: ""10240"",
+                msgSizeTooLarge: ""حجم فایل مورد نظر بیشتر از حجم مورد قبول است"",
+                browseClass: ""btn btn-success"",
+                browseLabel: ""انتخاب تصویر"",
+                browseIcon: '<i class=""glyphicon glyphicon-picture""></i>',
+                removeClass: ""btn btn-danger"",
+                removeLabel: ""حذف"",
+                removeIcon: '<i class=""glyphicon glyphicon-trash""></i>',
+                allowedFileExtensions: [""jpg"", ""gif"", ""png""]
+            });
         });
     </script>
 ");

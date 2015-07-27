@@ -490,18 +490,33 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
 
 
-        public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string[] dependencyActionNames)
+        public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string dependencyActionNames)
         {
-             var controller = controllerName.ToLower();
+            var controller = controllerName.ToLower();
+
             var area = areaName;
             if (area.IsNotEmpty())
                 area = area.ToLower();
-            var actions = actionName.IsNotEmpty() ? new[] { actionName.ToLower() } : dependencyActionNames;
-            if (_permissionService.HasDirectAccess(userId, area, controller, actions)) return true;
+
+            var actions = !dependencyActionNames.IsNotEmpty()
+                ? new[] { actionName.ToLower() }
+                : SplitString(dependencyActionNames);
 
             var rolesOfUser = CustomGetUserRoles(userId);
             var rolesOfPermission = _permissionService.GetRolesOfPermission(area, controller, actions);
-            return rolesOfPermission.Intersect(rolesOfUser).Any();
+            return rolesOfPermission.Intersect(rolesOfUser).Any() ||
+                   _permissionService.HasDirectAccess(userId, area, controller, actions);
         }
+        #region Private
+        private static string[] SplitString(string dependencies)
+        {
+            if (dependencies == null) return new string[0];
+            var split = from dependency in dependencies.Split(',')
+                        let lowerDependency = dependency.ToLower()
+                        where !string.IsNullOrEmpty(lowerDependency)
+                        select lowerDependency;
+            return split.ToArray();
+        }
+        #endregion
     }
 }

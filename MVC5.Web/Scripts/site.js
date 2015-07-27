@@ -1,6 +1,5 @@
 ﻿
 $(function () {
-      
     Public.Routin();
     AjaxForm.EnableBootstrapStyleValidation();
     AjaxForm.EnablePostbackValidation();
@@ -84,15 +83,20 @@ AjaxForm.EnableBootstrapStyleValidation = function () {
 var warningBeforeLoad= function() {
     var msg = "اطلاعات دخیره نشده ای در این صفحه دارید و با" +
         " هدایت به صفحه بعد این اطلاعات را از دست خواهید داد";
+    $('input:submit').click(function() {
+        msg = null;
+    });
     $('input:not(:button,:submit),textarea,select').change(function() {
 
-        window.onbeforeunload = function() {
-            if (msg != null) return msg;
-        }
+        window.onbeforeunload = function () {
+            if(msg!=null)
+                 return  msg;
+        };
     });
-    $('input:(:checkbox,:radio)').click(function() {
+    $('input:checkbox,input:radio').click(function() {
         window.onbeforeunload = function() {
-            if (msg != null) return msg;
-        }
+            if (msg != null)
+                return msg;
+        };
     });
 }
