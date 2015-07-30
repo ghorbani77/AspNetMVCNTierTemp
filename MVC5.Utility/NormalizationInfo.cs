@@ -27,7 +27,7 @@ namespace MVC5.Utility
             };
 
             var isFromDomainsAllowedDots = domainsAllowedDots.Any(emailDomain.Equals);
-            return !isFromDomainsAllowedDots ? email : string.Format("{0}@{1}", name, emailDomain);
+            return !isFromDomainsAllowedDots ? email.ToLower() : string.Format("{0}@{1}", name, emailDomain).ToLower();
         }
         #endregion
 

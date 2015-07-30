@@ -154,6 +154,7 @@ namespace MVC5.Web.Controllers
             public readonly string ResetPassword = "ResetPassword";
             public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
             public readonly string ReceiveActivatorEmail = "ReceiveActivatorEmail";
+            public readonly string AdminMenu = "AdminMenu";
             public readonly string IsEmailAvailable = "IsEmailAvailable";
             public readonly string CheckPassword = "CheckPassword";
             public readonly string IsNameForShowExist = "IsNameForShowExist";
@@ -177,6 +178,7 @@ namespace MVC5.Web.Controllers
             public const string ResetPassword = "ResetPassword";
             public const string ResetPasswordConfirmation = "ResetPasswordConfirmation";
             public const string ReceiveActivatorEmail = "ReceiveActivatorEmail";
+            public const string AdminMenu = "AdminMenu";
             public const string IsEmailAvailable = "IsEmailAvailable";
             public const string CheckPassword = "CheckPassword";
             public const string IsNameForShowExist = "IsNameForShowExist";
@@ -316,6 +318,7 @@ namespace MVC5.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
+                public readonly string AdminMenu = "AdminMenu";
                 public readonly string ConfirmEmail = "ConfirmEmail";
                 public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
                 public readonly string ExternalLoginFailure = "ExternalLoginFailure";
@@ -325,8 +328,10 @@ namespace MVC5.Web.Controllers
                 public readonly string ReceiveActivatorEmail = "ReceiveActivatorEmail";
                 public readonly string Register = "Register";
                 public readonly string ResetPassword = "ResetPassword";
+                public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
             }
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
+            public readonly string AdminMenu = "~/Views/Account/AdminMenu.cshtml";
             public readonly string ConfirmEmail = "~/Views/Account/ConfirmEmail.cshtml";
             public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
             public readonly string ExternalLoginFailure = "~/Views/Account/ExternalLoginFailure.cshtml";
@@ -336,6 +341,7 @@ namespace MVC5.Web.Controllers
             public readonly string ReceiveActivatorEmail = "~/Views/Account/ReceiveActivatorEmail.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
             public readonly string ResetPassword = "~/Views/Account/ResetPassword.cshtml";
+            public readonly string ResetPasswordConfirmation = "~/Views/Account/ResetPasswordConfirmation.cshtml";
         }
     }
 
@@ -555,6 +561,17 @@ namespace MVC5.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
             ReceiveActivatorEmailOverride(callInfo, viewModel);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+        }
+
+        [NonAction]
+        partial void AdminMenuOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminMenu()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminMenu);
+            AdminMenuOverride(callInfo);
+            return callInfo;
         }
 
         [NonAction]

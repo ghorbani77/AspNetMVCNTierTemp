@@ -305,7 +305,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_ViewStart.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="ErrorController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="FileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -361,6 +365,11 @@
     <Compile Include="UserMailerController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\Account\AdminMenu.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminMenu.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\ConfirmEmail.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -405,6 +414,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ResetPassword.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ResetPasswordConfirmation.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResetPasswordConfirmation.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\_ExternalLoginsListPartial.generated.cs">
       <AutoGen>True</AutoGen>
@@ -761,6 +775,9 @@
     <Content Include="Scripts\jqueryval-default.min.js.map">
       <DependentUpon>jqueryval-default.min.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.validate.min.js.map">
+      <DependentUpon>jquery.validate.min.js</DependentUpon>
+    </Content>
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -891,6 +908,14 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ReceiveActivatorEmail.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ResetPasswordConfirmation.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\AdminMenu.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AdminMenu.generated.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\ErrorsLog\" />
@@ -899,6 +924,7 @@
     <Folder Include="File\image\" />
     <Folder Include="File\userFile\" />
     <Folder Include="Scripts\admin\" />
+    <Folder Include="Views\Error\" />
     <Folder Include="Views\Export\" />
     <Folder Include="Views\File\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />

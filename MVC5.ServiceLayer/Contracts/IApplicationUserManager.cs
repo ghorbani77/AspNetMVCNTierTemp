@@ -553,16 +553,12 @@ namespace MVC5.ServiceLayer.Contracts
         Task<bool> HasPassword(int userId);
         Task<bool> HasPhoneNumber(int userId);
         Task RemoveAll();
-        bool IsEmailInDatabase(string email);
         Task<List<ApplicationUser>> GetAllUsersAsync();
-        bool IsPhoneNumberInDatabase(string phoneNumber);
-        bool IsUserNameInDatabase(string userName);
         bool Any();
         IList<ApplicationUser> GetUsersWithRoleIds(params int[] ids);
         void AddRange(IEnumerable<ApplicationUser> users);
         bool AutoCommitEnabled { get; set; }
         void SeedDatabase();
-        bool IsExistByUserName(string userName);
         Task<EditUserViewModel> GetUserByRolesAsync(int id);
         IList<UserViewModel> GetPageList(out int total, UserSearchViewModel search);
         void EditUserWithRoles(EditUserViewModel viewModel, int[] roleIds);
@@ -584,7 +580,7 @@ namespace MVC5.ServiceLayer.Contracts
         IUserEmailStore<ApplicationUser, int> GetEmailStore();
         bool CanAccess(int userId, string areaName, string controllerName, string actionName,
             string dependencyActionNames);
-        Task<bool> IsEmailConfirmedByUserNameAsync(string userName);
+        bool IsEmailConfirmedByUserNameAsync(string userName);
 
         bool IsEmailAvailableForConfirm(string emial);
         bool CheckIsUserBannedByEmail(string email);

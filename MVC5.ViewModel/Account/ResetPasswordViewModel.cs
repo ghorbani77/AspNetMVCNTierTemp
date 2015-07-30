@@ -10,7 +10,6 @@ namespace MVC5.ViewModel.Account
         [EmailAddress(ErrorMessage = "لطفا ایمیل را به شکل صحیح وارد کنید")]
         [DisplayName("ایمیل")]
         [StringLength(450, ErrorMessage = "حداکثر طول ایمیل 450 حرف است")]
-        [Remote("IsEmailAvailable", "Account", "", ErrorMessage = "ایمیل مورد نظر یافت نشداست", HttpMethod = "POST")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "لطفا کلمه عبور را وارد کنید")]

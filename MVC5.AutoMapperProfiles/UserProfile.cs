@@ -31,8 +31,8 @@ namespace MVC5.AutoMapperProfiles
                 .ForMember(u => u.RegisterDate, a => a.MapFrom(b => DateTime.Now))
                 .ForMember(u => u.CommentPermission, a => a.MapFrom(b => CommentPermissionType.WithApprove))
                 .ForMember(u => u.AvatarFileName, a => a.MapFrom(b => "avatar.jpg"))
-                .ForMember(u=>u.NameForShow,m=>m.MapFrom(d=>d.NameForShow.GetFriendlyPersianName()))
                 .ForMember(u => u.Email, m => m.MapFrom(d => d.Email.FixGmailDots()))
+                .ForMember(u => u.UserName, m => m.MapFrom(d => d.UserName.ToLower()))
                 .IgnoreAllNonExisting();
             
         }

@@ -31,11 +31,12 @@ namespace MVC5.ViewModel.Account
         [Remote("IsUserNameExist", "Account", "", ErrorMessage = "این نام کاربری قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         [RegularExpression("^[a-zA-Z0-9_]*$", ErrorMessage = "لطفا فقط از حروف انگلیسی و اعدد استفاده کنید")]
         public string UserName { get; set; }
+
         [Required(ErrorMessage = "لطفا نام نمایشی خود را وارد کنید")]
         [DisplayName("نام نمایشی")]
         [StringLength(450, ErrorMessage = "نام نمایشی نباید کمتر از 5 حرف و بیتشر از 450 حرف باشد", MinimumLength = 5)]
         [Remote("IsNameForShowExist", "Account", "", ErrorMessage = "این نام نمایشی قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
-        [RegularExpression(@"^[\u0600-\u06FF,\u0590-\u05FF,0-9\s]*$", ErrorMessage = "لطفا فقط از حروف فارسی استفاده کنید")]
+        [RegularExpression(@"^[\u0600-\u06FF,\u0590-\u05FF,0-9\s]*$", ErrorMessage = "لطفا فقط ازاعداد و حروف  فارسی استفاده کنید")]
         public string NameForShow { get; set; }
     }
 }

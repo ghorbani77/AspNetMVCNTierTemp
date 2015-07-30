@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -56,12 +55,16 @@ namespace MVC5.Web.Controllers
         [AllowAnonymous]
         public virtual async Task<ActionResult> ConfirmEmail(int? userId, string code)
         {
+            //if(enable confirm email feature then show confirm page)
+            //return view("info")
             if (userId == null || code == null)
-            {
-                return View("Error");
-            }
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             var result = await _userManager.ConfirmEmailAsync(userId.Value, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            if (result.Succeeded)
+                return View();
+            ToastrWarning("مشکلی در فعال سازی اکانت شما به وجود آمد");
+            return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
         }
         #endregion
 
@@ -150,6 +153,8 @@ namespace MVC5.Web.Controllers
         [AllowAnonymous]
         public virtual ActionResult ForgotPassword()
         {
+            //if(enable forget feature then show forget page)
+            //return view("info")
             return View();
         }
 
@@ -191,6 +196,8 @@ namespace MVC5.Web.Controllers
         [AllowAnonymous]
         public virtual ActionResult Login(string returnUrl)
         {
+            //if(enable login feature then show login page)
+            //return view("info")
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -199,7 +206,7 @@ namespace MVC5.Web.Controllers
         [AllowAnonymous]
         //[CheckReferrer]
         [ValidateAntiForgeryToken]
-        [CaptchaMvc.Attributes.CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
+        [CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (_userManager.CheckIsUserBannedByUserName(model.UserName))
@@ -207,20 +214,19 @@ namespace MVC5.Web.Controllers
                 this.AddErrors("UserName", "حساب کاربری شما مسدود شده است");
                 return View(model);
             }
-            if (!await _userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
+            if (!_userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
             {
-                ToastrWarning("لطفا برای دریافت ایمیل تأییدیه از این فرم استفاده کنید و حساب خود را فعال کنید");
+                ToastrWarning("برای ورود به سایت لازم است حساب خود را فعال کنید");
                 return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
             }
 
             if (!ModelState.IsValid)
             {
-                ToastrWarning("لطفا با دقت مشخصات خود را وارد کنید");
                 return View(model);
             }
 
             var result = await _signInManager.PasswordSignInAsync
-                (model.UserName, model.Password, model.RememberMe, shouldLockout: true);
+                (model.UserName.ToLower(), model.Password, model.RememberMe, shouldLockout: true);
 
             switch (result)
             {
@@ -244,7 +250,9 @@ namespace MVC5.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [DisplayName("دسترسی خروج از سایت")]
+        // [CheckReferrer]
+        [OverrideAuthorization]
+        [Authorize]
         public virtual ActionResult LogOff()
         {
             _authenticationManager.SignOut();
@@ -266,7 +274,7 @@ namespace MVC5.Web.Controllers
         [AllowAnonymous]
         // [CheckReferrer]
         [ValidateAntiForgeryToken]
-        [CaptchaMvc.Attributes.CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
+        [CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Register(RegisterViewModel model)
         {
             #region Validation
@@ -303,33 +311,44 @@ namespace MVC5.Web.Controllers
         #endregion
 
         #region ResePassword
+
         [AllowAnonymous]
         public virtual ActionResult ResetPassword(string code)
         {
-            return code == null ? View("Error") : View();
+            //if(enable resetpass feature then show resetpass page)
+            //return view("info")
+            if (code == null) return RedirectToAction(MVC.Error.ActionNames.Error404, MVC.Error.Name);
+
+            return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
+        //[CheckReferrer]
         [ValidateAntiForgeryToken]
+        [CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            if (!model.Password.IsSafePasword())
+                this.AddErrors("Password", "این کلمه عبور به راحتی قابل تشخیص است");
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var user = await _userManager.FindByNameAsync(model.Email);
+            var user = await _userManager.FindByNameAsync(model.Email.ToLower());
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction(MVC.Account.ActionNames.ResetPasswordConfirmation, MVC.Account.Name);
             }
             var result = await _userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                await _signInManager.SignInAsync(user, false, false);
+                return RedirectToAction(MVC.Account.ActionNames.ResetPasswordConfirmation, MVC.Account.Name);
             }
             this.AddErrors(result);
+            ToastrError(ModelState.GetListOfErrors());
             return View(model);
         }
 
@@ -344,6 +363,8 @@ namespace MVC5.Web.Controllers
         [AllowAnonymous]
         public virtual ActionResult ReceiveActivatorEmail()
         {
+            //if(enable receiveactivator feature then show receiveactivator page)
+            //return view("info")
             return View();
         }
 
@@ -367,6 +388,18 @@ namespace MVC5.Web.Controllers
             return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
         }
 
+        #endregion
+
+        #region AdminMenu
+        [OverrideAuthorization]
+        [Authorize]
+        public virtual ActionResult AdminMenu()
+        {
+            //get user info 
+            //get adminMneu page content from site setting
+
+            return View();
+        }
         #endregion
 
         #region Validation

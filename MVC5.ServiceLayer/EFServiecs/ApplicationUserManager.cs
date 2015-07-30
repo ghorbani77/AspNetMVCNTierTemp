@@ -115,13 +115,13 @@ namespace MVC5.ServiceLayer.EFServiecs
             const string systemAdminUserName = "SystemAdmin";
             const string systemAdminEmail = "Admin@gmail.com";
             const string systemAdminPassword = "Admin1234@gmail.com";
-
+            const string systemAdminNameforShow = "مدیر سیستم";
             var newUser = this.FindByName(systemAdminUserName);
             if (newUser == null)
             {
                 newUser = new ApplicationUser
                 {
-                    UserName = systemAdminUserName,
+                    UserName = systemAdminUserName.ToLower(),
                     CanChangeProfilePicture = true,
                     CanModifyFirsAndLastName = true,
                     CanUploadFile = true,
@@ -129,9 +129,10 @@ namespace MVC5.ServiceLayer.EFServiecs
                     IsSystemAccount = true,
                     LockoutEnabled = false,
                     PhoneNumberConfirmed = true,
-                    Email = systemAdminEmail,
+                    Email = systemAdminEmail.FixGmailDots(),
                     RegisterDate = DateTime.Now,
-                    AvatarFileName = "avatar.jpg"
+                    AvatarFileName = "avatar.jpg",
+                    NameForShow = systemAdminNameforShow
                 };
                 var result = this.Create(newUser, systemAdminPassword);
             }
@@ -156,30 +157,6 @@ namespace MVC5.ServiceLayer.EFServiecs
         public Task<List<ApplicationUser>> GetAllUsersAsync()
         {
             return Users.ToListAsync();
-        }
-        #endregion
-
-        #region IsEmailInDatabase
-        public bool IsEmailInDatabase(string email)
-        {
-            var user = this.FindByEmail(email);
-            return user != null;
-        }
-        #endregion
-
-        #region IsPhoneNumberInDatabase
-        public bool IsPhoneNumberInDatabase(string phoneNumber)
-        {
-
-            return Users.Any(u => u.PhoneNumber.Equals(phoneNumber, StringComparison.InvariantCultureIgnoreCase));
-
-        }
-        #endregion
-
-        #region IsUserNameInDatabase
-        public bool IsUserNameInDatabase(string userName)
-        {
-            return Users.Any(a => a.UserName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
         }
         #endregion
 
@@ -259,13 +236,6 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
-        #region IsExistByUserName
-
-        public bool IsExistByUserName(string userName)
-        {
-            return Users.Any(a => a.UserName == userName.ToLower());
-        }
-        #endregion
 
         #region GetPageList
         public IList<UserViewModel> GetPageList(out int total, UserSearchViewModel search)
@@ -378,26 +348,26 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         public bool CheckUserNameExist(string userName, int? id)
         {
-            userName = userName.ToLower();
             return id == null
-                ? _users.Any(a => a.UserName.ToLower() == userName)
-                : _users.Any(a => a.UserName.ToLower() == userName && a.Id != id.Value);
+                ? _users.Any(a => a.UserName == userName.ToLower())
+                : _users.Any(a => a.UserName == userName.ToLower() && a.Id != id.Value);
         }
 
         public bool CheckEmailExist(string email, int? id)
         {
-            email = email.FixGmailDots().ToLower();
+            email = email.FixGmailDots();
             return id == null
-               ? _users.Any(a => a.Email.ToLower() == email)
-               : _users.Any(a => a.Email.ToLower() == email && a.Id != id.Value);
+               ? _users.Any(a => a.Email == email.ToLower())
+               : _users.Any(a => a.Email == email.ToLower() && a.Id != id.Value);
         }
 
         public bool CheckNameForShowExist(string nameForShow, int? id)
         {
+            var namesForShow = _users.Select(a => new { Name = a.NameForShow, Id = a.Id }).ToList();
             nameForShow = nameForShow.GetFriendlyPersianName();
             return id == null
-             ? _users.Any(a => a.NameForShow.ToLower() == nameForShow)
-             : _users.Any(a => a.NameForShow.ToLower() == nameForShow && a.Id != id.Value);
+             ? namesForShow.Any(a => a.Name.GetFriendlyPersianName() == nameForShow)
+             : namesForShow.Any(a => a.Name.GetFriendlyPersianName() == nameForShow && a.Id != id.Value);
         }
 
         public bool CheckGooglePlusIdExist(string googlePlusId, int? id)
@@ -449,7 +419,9 @@ namespace MVC5.ServiceLayer.EFServiecs
         {
             var user = _mappingEngine.Map<ApplicationUser>(viewModel);
             await CreateAsync(user, viewModel.Password);
-            await AddToRoleAsync(user.Id, await _roleManager.GetDefaultRoleForRegister());
+            var defultRoleName = await _roleManager.GetDefaultRoleForRegister();
+            if (defultRoleName.IsNotEmpty())
+                await AddToRoleAsync(user.Id, defultRoleName);
             return user.Id;
         }
         #endregion
@@ -482,8 +454,8 @@ namespace MVC5.ServiceLayer.EFServiecs
         public bool CheckIsUserBannedByEmail(string email)
         {
             _unitOfWork.EnableFiltering(UserFilters.BannedList);
-            email = email.FixGmailDots().ToLower();
-            var result = _users.Any(a => a.Email.ToLower()== email);
+            email = email.FixGmailDots();
+            var result = _users.Any(a => a.Email == email);
             _unitOfWork.DisableFiltering(UserFilters.BannedList);
             return result;
         }
@@ -491,7 +463,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         {
             _unitOfWork.EnableFiltering(UserFilters.BannedList);
             userName = userName.ToLower();
-            var result = _users.Any(a => a.UserName.ToLower() == userName);
+            var result = _users.Any(a => a.UserName == userName);
             _unitOfWork.DisableFiltering(UserFilters.BannedList);
             return result;
         }
@@ -543,11 +515,10 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region IsEmailConfirmedByUserNameAsync
-        public async Task<bool> IsEmailConfirmedByUserNameAsync(string userName)
+        public bool IsEmailConfirmedByUserNameAsync(string userName)
         {
-            userName = userName.ToLower();
             _unitOfWork.EnableFiltering(UserFilters.EmailConfirmedList);
-            var result = await _users.AnyAsync(a => a.UserName.ToLower() == userName);
+            var result = _users.Any(a => a.UserName == userName.ToLower());
             _unitOfWork.DisableFiltering(UserFilters.EmailConfirmedList);
             return result;
         }
@@ -557,10 +528,10 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region IsEmailAvailableForConfirm
         public bool IsEmailAvailableForConfirm(string email)
         {
-            email = email.FixGmailDots().ToLower();
+            email = email.FixGmailDots();
             return _users.Any(a => a.Email == email);
         }
         #endregion
-       
+
     }
 }

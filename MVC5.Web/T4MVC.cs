@@ -30,6 +30,7 @@ public static partial class MVC
     static readonly AdministratorClass s_Administrator = new AdministratorClass();
     public static AdministratorClass Administrator { get { return s_Administrator; } }
     public static MVC5.Web.Controllers.AccountController Account = new MVC5.Web.Controllers.T4MVC_AccountController();
+    public static MVC5.Web.Controllers.ErrorController Error = new MVC5.Web.Controllers.T4MVC_ErrorController();
     public static MVC5.Web.Controllers.ExportController Export = new MVC5.Web.Controllers.T4MVC_ExportController();
     public static MVC5.Web.Controllers.FileController File = new MVC5.Web.Controllers.T4MVC_FileController();
     public static MVC5.Web.Controllers.HomeController Home = new MVC5.Web.Controllers.T4MVC_HomeController();
@@ -124,6 +125,7 @@ namespace Links
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
+        public static readonly string jquery_validate_min_js_map = Url("jquery.validate.min.js.map");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
         public static readonly string jqueryval_default_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jqueryval-default.min.js") ? Url("jqueryval-default.min.js") : Url("jqueryval-default.js");

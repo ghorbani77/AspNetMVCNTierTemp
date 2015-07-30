@@ -118,7 +118,7 @@ namespace MVC5.Web.Filters
         {
             if (filterContext.HttpContext.Request.IsAuthenticated)
             {
-                //  AuthenticationManager.SignOut();
+                 AuthenticationManager.SignOut();
                 throw new UnauthorizedAccessException(); //to avoid multiple redirects
             }
             HandleAjaxRequest(filterContext);

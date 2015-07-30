@@ -25,10 +25,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MVC5.Web.Controllers
 {
-    public partial class ManageController
+    public partial class ErrorController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected ManageController(Dummy d) { }
+        public ErrorController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ErrorController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -58,13 +61,13 @@ namespace MVC5.Web.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ManageController Actions { get { return MVC.Manage; } }
+        public ErrorController Actions { get { return MVC.Error; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Manage";
+        public readonly string Name = "Error";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Manage";
+        public const string NameConst = "Error";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -72,13 +75,15 @@ namespace MVC5.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string ChangePassword = "ChangePassword";
+            public readonly string Error404 = "Error404";
+            public readonly string Error500 = "Error500";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string ChangePassword = "ChangePassword";
+            public const string Error404 = "Error404";
+            public const string Error500 = "Error500";
         }
 
 
@@ -92,31 +97,34 @@ namespace MVC5.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string ChangePassword = "ChangePassword";
-                public readonly string ManageLogins = "ManageLogins";
-                public readonly string RemoveLogin = "RemoveLogin";
-                public readonly string SetPassword = "SetPassword";
             }
-            public readonly string ChangePassword = "~/Views/Manage/ChangePassword.cshtml";
-            public readonly string ManageLogins = "~/Views/Manage/ManageLogins.cshtml";
-            public readonly string RemoveLogin = "~/Views/Manage/RemoveLogin.cshtml";
-            public readonly string SetPassword = "~/Views/Manage/SetPassword.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ManageController : MVC5.Web.Controllers.ManageController
+    public partial class T4MVC_ErrorController : MVC5.Web.Controllers.ErrorController
     {
-        public T4MVC_ManageController() : base(Dummy.Instance) { }
+        public T4MVC_ErrorController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void Error404Override(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ChangePassword()
+        public override System.Web.Mvc.ActionResult Error404()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
-            ChangePasswordOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Error404);
+            Error404Override(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void Error500Override(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Error500()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Error500);
+            Error500Override(callInfo);
             return callInfo;
         }
 
