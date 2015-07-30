@@ -391,6 +391,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.cshtml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Account\ReceiveActivatorEmail.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReceiveActivatorEmail.cshtml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Account\Register.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -400,16 +405,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ResetPassword.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\SendCode.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SendCode.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Account\VerifyCode.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VerifyCode.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Account\_ExternalLoginsListPartial.generated.cs">
       <AutoGen>True</AutoGen>
@@ -460,11 +455,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SetPassword.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Manage\VerifyPhoneNumber.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VerifyPhoneNumber.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Shared\Error.generated.cs">
       <AutoGen>True</AutoGen>
@@ -834,10 +824,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>SetPassword.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>VerifyPhoneNumber.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Shared\Error.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Error.generated.cs</LastGenOutput>
@@ -895,14 +881,6 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ResetPassword.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Account\SendCode.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>SendCode.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Account\VerifyCode.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>VerifyCode.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_ExternalLoginsListPartial.generated.cs</LastGenOutput>
@@ -926,6 +904,10 @@
     <Content Include="Views\Shared\_Bootstrap.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>_Bootstrap.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ReceiveActivatorEmail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ReceiveActivatorEmail.generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

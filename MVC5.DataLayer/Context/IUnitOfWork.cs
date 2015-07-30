@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using EntityFramework.Filters;
 using RefactorThis.GraphDiff;
 using RefactorThis.GraphDiff.Internal.Graph;
 namespace MVC5.DataLayer.Context

@@ -1,14 +1,7 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.Infrastructure.Interception;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 using EFSecondLevelCache;
 using EntityFramework.BulkInsert.Extensions;
 using EntityFramework.Filters;
@@ -184,10 +177,10 @@ namespace MVC5.DataLayer.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            Config(modelBuilder);
             DbInterception.Add(new FilterInterceptor());
             DbInterception.Add(new YeKeInterceptor());
+            base.OnModelCreating(modelBuilder);
+            Config(modelBuilder);
             modelBuilder.Configurations.AddFromAssembly(typeof(SettingConfig).GetTypeInfo().Assembly);
             LoadEntities(typeof(ApplicationUser).GetTypeInfo().Assembly, modelBuilder, "MVC5.DomainClasses.Entities");
         }
@@ -214,23 +207,27 @@ namespace MVC5.DataLayer.Context
         private static void Config(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ApplicationUser>()
-                .ToTable("Users")
                 .Filter(UserFilters.DeletedList, a => a.Condition(u => u.IsDeleted))
                 .Filter(UserFilters.BannedList, a => a.Condition(u => u.IsBanned))
                 .Filter(UserFilters.SystemAccountList, a => a.Condition(u => u.IsSystemAccount))
                 .Filter(UserFilters.CanChangeProfilePicList, a => a.Condition(u => u.CanChangeProfilePicture))
                 .Filter(UserFilters.CanModifyFirsAndLastNameList, a => a.Condition(u => u.CanModifyFirsAndLastName))
                 .Filter(UserFilters.EmailConfirmedList, a => a.Condition(u => u.EmailConfirmed))
-                .Filter(UserFilters.AllowForCommentWithApproveList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithApprove))
-                .Filter(UserFilters.AllowForCommentWithOutApproveList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithOutApporove))
-                .Filter(UserFilters.ForbiddenForCommentList, a => a.Condition(u => u.CommentPermission == CommentPermissionType.Forbidden))
+                .Filter(UserFilters.AllowForCommentWithApproveList,
+                    a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithApprove))
+                .Filter(UserFilters.AllowForCommentWithOutApproveList,
+                    a => a.Condition(u => u.CommentPermission == CommentPermissionType.WithOutApporove))
+                .Filter(UserFilters.ForbiddenForCommentList,
+                    a => a.Condition(u => u.CommentPermission == CommentPermissionType.Forbidden))
                 .Filter(UserFilters.CanUploadfileList, a => a.Condition(u => u.CanUploadFile))
-                .Filter(UserFilters.NotSystemAccountList, a => a.Condition(u => !u.IsSystemAccount));
+                .Filter(UserFilters.ActiveList, a => a.Condition(u => !u.IsBanned))
+                .Filter(UserFilters.NotSystemAccountList, a => a.Condition(u => !u.IsSystemAccount))
+                .ToTable("Users");
 
             modelBuilder.Entity<ApplicationRole>()
-                .ToTable("Roles")
-                .Filter(RoleFilters.ActiveList, a => a.Condition(u => u.IsActive));
-              
+                .Filter(RoleFilters.ActiveList, a => a.Condition(u => u.IsActive))
+                .ToTable("Roles");
+
 
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
@@ -249,39 +246,39 @@ namespace MVC5.DataLayer.Context
         #endregion
 
         #region StoredProcedures
-        
-      
+
+
 
         [DbFunction("MVC5.DataLayer.Context", "GetUserPermissions")]
 
         public IList<string> GetUserPermissions(int[] roleIds)
         {
-           
-//            var query = new StringBuilder();
-//            query.Append(
-//                @"
-//    select i.Name as ItemName, f.Name as FirmName, c.Name as CategoryName 
-//    from Item i
-//      inner join Firm f on i.FirmId = f.FirmId
-//      inner join Category c on i.CategoryId = c.CategoryId
-//    where c.CategoryId in (");
 
-//            if (roleIds != null && roleIds.Length > 0)
-//            {
-//                for (var i = 0; i < roleIds.Length; i++)
-//                {
-//                    if (i != 0)
-//                        query.Append(",");
-//                    query.Append(roleIds[i]);
-//                }
-//            }
-//            else
-//            {
-//                query.Append("-1"); // It is for empty result when no one category selected
-//            }
-//            query.Append(")");
+            //            var query = new StringBuilder();
+            //            query.Append(
+            //                @"
+            //    select i.Name as ItemName, f.Name as FirmName, c.Name as CategoryName 
+            //    from Item i
+            //      inner join Firm f on i.FirmId = f.FirmId
+            //      inner join Category c on i.CategoryId = c.CategoryId
+            //    where c.CategoryId in (");
 
-//            var sqlQuery = query.ToString();
+            //            if (roleIds != null && roleIds.Length > 0)
+            //            {
+            //                for (var i = 0; i < roleIds.Length; i++)
+            //                {
+            //                    if (i != 0)
+            //                        query.Append(",");
+            //                    query.Append(roleIds[i]);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                query.Append("-1"); // It is for empty result when no one category selected
+            //            }
+            //            query.Append(")");
+
+            //            var sqlQuery = query.ToString();
             return null;
         }
         #endregion

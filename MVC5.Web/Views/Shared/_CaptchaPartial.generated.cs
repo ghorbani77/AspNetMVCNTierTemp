@@ -157,7 +157,7 @@ WriteAttribute("src", Tuple.Create(" src=\"", 781), Tuple.Create("\"", 802)
 , 787), false)
 );
 
-WriteLiteral("  alt=\"تصویر امنیتی\"");
+WriteLiteral(" alt=\"تصویر امنیتی\"");
 
 WriteLiteral(" />\r\n");
 
@@ -174,24 +174,24 @@ WriteLiteral("\r\n        <figcaption>\r\n            <a");
 
 WriteLiteral(" href=\"javascript:void(0)\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 952), Tuple.Create("\"", 960)
+WriteAttribute("id", Tuple.Create(" id=\"", 951), Tuple.Create("\"", 959)
             
             #line 29 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 957), Tuple.Create<System.Object, System.Int32>(id
+, Tuple.Create(Tuple.Create("", 956), Tuple.Create<System.Object, System.Int32>(id
             
             #line default
             #line hidden
-, 957), false)
+, 956), false)
 );
 
-WriteAttribute("onclick", Tuple.Create(" onclick=\"", 961), Tuple.Create("\"", 984)
+WriteAttribute("onclick", Tuple.Create(" onclick=\"", 960), Tuple.Create("\"", 983)
             
             #line 29 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-, Tuple.Create(Tuple.Create("", 971), Tuple.Create<System.Object, System.Int32>(functionName
+, Tuple.Create(Tuple.Create("", 970), Tuple.Create<System.Object, System.Int32>(functionName
             
             #line default
             #line hidden
-, 971), false)
+, 970), false)
 );
 
 WriteLiteral(" class=\"btn btn-block btn-link btn-info\"");
@@ -207,23 +207,24 @@ WriteLiteral("    ");
 
             
             #line 36 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-Write(Html.TextBox(Model.InputElementId, null, new Dictionary<string, object>() { { "data-val", "true" }, { "data-val-required", "لطفا پاسخ تصویر را وارد کنید" }, { "class", "form-control" } }));
+Write(Html.TextBox(Model.InputElementId, null, new Dictionary<string, object>() { { "data-val", "true" },
+{ "data-val-required", "لطفا پاسخ تصویر را وارد کنید" }, { "class", "form-control" },{"autocomplete","off" },{"dir","ltr"}}));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n");
 
-WriteLiteral("    ");
+WriteLiteral("        ");
 
             
-            #line 37 "..\..\Views\Shared\_CaptchaPartial.cshtml"
-Write(Html.ValidationMessage(Model.InputElementId, new { @class = "text-danger" }));
+            #line 38 "..\..\Views\Shared\_CaptchaPartial.cshtml"
+   Write(Html.ValidationMessage(Model.InputElementId, new { @class = "text-danger" }));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n</div>\r\n");
+WriteLiteral("\r\n    </div>\r\n");
 
         }
     }

@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
+using CaptchaMvc.Attributes;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -11,9 +12,11 @@ using Mvc.Mailer;
 using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.Common.Helpers.Extentions;
+using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Mailers;
 using MVC5.Utility;
+using MVC5.Utility.EF.Filters;
 using MVC5.Web.Extention;
 using MVC5.Web.Filters;
 using MVC5.ServiceLayer.Contracts;
@@ -25,6 +28,8 @@ namespace MVC5.Web.Controllers
     public partial class AccountController : BaseController
     {
         #region Fields
+
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthenticationManager _authenticationManager;
         private readonly IApplicationSignInManager _signInManager;
         private readonly IApplicationUserManager _userManager;
@@ -33,7 +38,7 @@ namespace MVC5.Web.Controllers
 
         #region Constructor
 
-        public AccountController(IApplicationUserManager userManager,
+        public AccountController(IApplicationUserManager userManager, IUnitOfWork unitOfWork,
             IApplicationSignInManager signInManager,
             IAuthenticationManager authenticationManager, IUserMailer userMailer
            )
@@ -42,6 +47,7 @@ namespace MVC5.Web.Controllers
             _signInManager = signInManager;
             _authenticationManager = authenticationManager;
             _userMailer = userMailer;
+            _unitOfWork = unitOfWork;
         }
 
         #endregion
@@ -201,6 +207,7 @@ namespace MVC5.Web.Controllers
                 ToastrWarning("لطفا با دقت مشخصات خود را وارد کنید");
                 return View(model);
             }
+
             if (!await _userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
             {
                 ToastrWarning("لطفا برای ورود به سایت ، حساب خود را فعال کنید");
@@ -257,13 +264,13 @@ namespace MVC5.Web.Controllers
         public virtual async Task<ActionResult> Register(RegisterViewModel model)
         {
             #region Validation
-            if (_userManager.CheckEmailExist(model.Email,null))
+            if (_userManager.CheckEmailExist(model.Email, null))
                 this.AddErrors("Email", "این ایمیل قبلا در سیستم ثبت شده است");
 
-            if (_userManager.CheckUserNameExist(model.UserName,null))
+            if (_userManager.CheckUserNameExist(model.UserName, null))
                 this.AddErrors("UserName", "این نام کاربری قبلا در سیستم ثبت شده است");
 
-            if (_userManager.CheckNameForShowExist(model.NameForShow,null))
+            if (_userManager.CheckNameForShowExist(model.NameForShow, null))
                 this.AddErrors("NameForShow", "این نام نمایشی قبلا در سیستم ثبت شده است");
 
             if (!model.Password.IsSafePasword())
@@ -274,28 +281,13 @@ namespace MVC5.Web.Controllers
                 return View(model);
             }
 
-            if (Request.Url == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             #endregion
 
             var userId = await _userManager.CreateAsync(model);
 
-            #region SendMail
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
-            var callbackUrl = Url.Abs(Url.Action(MVC.Account.ActionNames.ConfirmEmail, MVC.Account.Name,
-                new { userId, code, area = "" }, protocol: Request.Url.Scheme));
-            var email = new ConfirmAccountEmail
-            {
-                Subject = "فعال سازی حساب کاربری",
-                To = model.Email,
-                Message = "با سلام. لطفا برای تایید حساب خود بر روی لینک زیر کلیک کنید ",
-                Url = callbackUrl,
-                UrlText = "برای فعال سازی اینجا کلیک کنید",
-                ViewName = MVC.UserMailer.Views.ViewNames.ConfirmAccount
-            };
+            await SendConfirmationEmail(model.Email.FixGmailDots(), userId);
 
-            await _userMailer.ConfirmAccount(email).SendAsync();
-            #endregion
-         
             ToastrSuccess("حساب کاربری شما با موفقیت ایجاد شد. برای فعال سازی " +
                           "حساب خود به صندوق پستی خود مراجعه کنید",
                 isSticky: true);
@@ -342,84 +334,45 @@ namespace MVC5.Web.Controllers
         }
         #endregion
 
-        #region SendCode
+        #region ReceiveActivatorEmail
         [AllowAnonymous]
-        public virtual async Task<ActionResult> SendCode(string returnUrl)
+        public virtual ActionResult ReceiveActivatorEmail()
         {
-            var userId = await _signInManager.GetVerifiedUserIdAsync();
-            /*if (userId == null)
-            {
-                return View("Error");
-            }*/
-            var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(userId);
-            var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl });
+            return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
+        // [CheckReferrer]
         [ValidateAntiForgeryToken]
-        public virtual async Task<ActionResult> SendCode(SendCodeViewModel model)
+        [CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
+        public virtual async Task<ActionResult> ReceiveActivationEmail(ActivationEmailViewModel viewModel)
         {
+            if (!_userManager.IsEmailAvailableForConfirm(viewModel.Email))
+                this.AddErrors("Email", "ایمیل مورد نظر یافت نشد");
+            if (_userManager.CheckIsUserBannedByEmail(viewModel.Email))
+                this.AddErrors("Email", "اکانت شما مسدود شده است");
             if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            // Generate the token and send it
-            if (!await _signInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
-            {
-                return View("Error");
-            }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, model.ReturnUrl });
-        }
-
-
-        #endregion
-
-        #region  VerifyCode
-        [AllowAnonymous]
-        public virtual async Task<ActionResult> VerifyCode(string provider, string returnUrl)
-        {
-            // Require that the user has already logged in via username/password or external login
-            if (!await _signInManager.HasBeenVerifiedAsync())
-            {
-                return View("Error");
-            }
-            var user = await _userManager.FindByIdAsync(await _signInManager.GetVerifiedUserIdAsync());
-            if (user != null)
-            {
-                ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await _userManager.GenerateTwoFactorTokenAsync(user.Id, provider);
-            }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl });
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public virtual async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var result = await _signInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: false, rememberBrowser: model.RememberBrowser);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                default:
-                    ModelState.AddModelError("", "Invalid code.");
-                    return View(model);
-            }
+                return View(viewModel);
+            _unitOfWork.DisableFiltering(UserFilters.BannedList);
+            var user = await _userManager.FindByEmailAsync(viewModel.Email);
+            await SendConfirmationEmail(viewModel.Email, user.Id);
+            ToastrSuccess("ایمیلی تحت عنوان فعال سازی اکانت به آدرس ایمیل شما ارسال گردید");
+            return RedirectToAction(MVC.Account.ActionNames.ReceiveActivationEmail, MVC.Account.Name);
         }
 
         #endregion
 
         #region Validation
+
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsEmailAvailable(string email)
+        {
+            return _userManager.IsEmailAvailableForConfirm(email) ? Json(true) : Json(false);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -430,27 +383,47 @@ namespace MVC5.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult IsNameForShowExist(string nameForShow,int ? id)
+        public virtual JsonResult IsNameForShowExist(string nameForShow, int? id)
         {
-            return _userManager.CheckNameForShowExist(nameForShow,id) ? Json(false) : Json(true);
+            return _userManager.CheckNameForShowExist(nameForShow, id) ? Json(false) : Json(true);
         }
         [HttpPost]
         [AllowAnonymous]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult IsEmailExist(string email,int ? id)
+        public virtual JsonResult IsEmailExist(string email, int? id)
         {
-            var check = _userManager.CheckEmailExist(email,id);
+            var check = _userManager.CheckEmailExist(email, id);
             return check ? Json(false) : Json(true);
         }
-       
+
         [HttpPost]
         [AllowAnonymous]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult IsUserNameExist(string userName,int ? id)
+        public virtual JsonResult IsUserNameExist(string userName, int? id)
         {
             return _userManager.CheckUserNameExist(userName, id) ? Json(false) : Json(true);
         }
         #endregion
 
+        #region Private
+        [NonAction]
+        private async Task SendConfirmationEmail(string emailAddress, int userId)
+        {
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
+            var callbackUrl = Url.Abs(Url.Action(MVC.Account.ActionNames.ConfirmEmail, MVC.Account.Name,
+                new { userId, code, area = "" }, protocol: Request.Url.Scheme));
+            var email = new ConfirmAccountEmail
+            {
+                Subject = "فعال سازی حساب کاربری",
+                To = emailAddress.FixGmailDots(),
+                Message = "با سلام. لطفا برای تایید حساب خود بر روی لینک زیر کلیک کنید ",
+                Url = callbackUrl,
+                UrlText = "برای فعال سازی اینجا کلیک کنید",
+                ViewName = MVC.UserMailer.Views.ViewNames.ConfirmAccount
+            };
+
+            await _userMailer.ConfirmAccount(email).SendAsync();
+        }
+        #endregion
     }
 }

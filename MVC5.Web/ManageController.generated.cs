@@ -69,13 +69,6 @@ namespace MVC5.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageLogins);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyPhoneNumber()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyPhoneNumber);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ManageController Actions { get { return MVC.Manage; } }
@@ -100,7 +93,6 @@ namespace MVC5.Web.Controllers
             public readonly string RemoveLogin = "RemoveLogin";
             public readonly string RemovePhoneNumber = "RemovePhoneNumber";
             public readonly string SetPassword = "SetPassword";
-            public readonly string VerifyPhoneNumber = "VerifyPhoneNumber";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -114,7 +106,6 @@ namespace MVC5.Web.Controllers
             public const string RemoveLogin = "RemoveLogin";
             public const string RemovePhoneNumber = "RemovePhoneNumber";
             public const string SetPassword = "SetPassword";
-            public const string VerifyPhoneNumber = "VerifyPhoneNumber";
         }
 
 
@@ -159,15 +150,6 @@ namespace MVC5.Web.Controllers
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_VerifyPhoneNumber s_params_VerifyPhoneNumber = new ActionParamsClass_VerifyPhoneNumber();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_VerifyPhoneNumber VerifyPhoneNumberParams { get { return s_params_VerifyPhoneNumber; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_VerifyPhoneNumber
-        {
-            public readonly string phoneNumber = "phoneNumber";
-            public readonly string model = "model";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -184,7 +166,6 @@ namespace MVC5.Web.Controllers
                 public readonly string ManageLogins = "ManageLogins";
                 public readonly string RemoveLogin = "RemoveLogin";
                 public readonly string SetPassword = "SetPassword";
-                public readonly string VerifyPhoneNumber = "VerifyPhoneNumber";
             }
             public readonly string AddPhoneNumber = "~/Views/Manage/AddPhoneNumber.cshtml";
             public readonly string ChangePassword = "~/Views/Manage/ChangePassword.cshtml";
@@ -192,7 +173,6 @@ namespace MVC5.Web.Controllers
             public readonly string ManageLogins = "~/Views/Manage/ManageLogins.cshtml";
             public readonly string RemoveLogin = "~/Views/Manage/RemoveLogin.cshtml";
             public readonly string SetPassword = "~/Views/Manage/SetPassword.cshtml";
-            public readonly string VerifyPhoneNumber = "~/Views/Manage/VerifyPhoneNumber.cshtml";
         }
     }
 
@@ -325,30 +305,6 @@ namespace MVC5.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             SetPasswordOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void VerifyPhoneNumberOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string phoneNumber);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyPhoneNumber(string phoneNumber)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyPhoneNumber);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "phoneNumber", phoneNumber);
-            VerifyPhoneNumberOverride(callInfo, phoneNumber);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void VerifyPhoneNumberOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.VerifyPhoneNumberViewModel model);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyPhoneNumber(MVC5.ViewModel.Account.VerifyPhoneNumberViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyPhoneNumber);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            VerifyPhoneNumberOverride(callInfo, model);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

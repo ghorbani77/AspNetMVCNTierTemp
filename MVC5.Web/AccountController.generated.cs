@@ -97,17 +97,16 @@ namespace MVC5.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendCode()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ReceiveActivationEmail()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendCode);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReceiveActivationEmail);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyCode()
+        public virtual System.Web.Mvc.JsonResult IsEmailAvailable()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyCode);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailAvailable);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -161,8 +160,9 @@ namespace MVC5.Web.Controllers
             public readonly string Register = "Register";
             public readonly string ResetPassword = "ResetPassword";
             public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
-            public readonly string SendCode = "SendCode";
-            public readonly string VerifyCode = "VerifyCode";
+            public readonly string ReceiveActivatorEmail = "ReceiveActivatorEmail";
+            public readonly string ReceiveActivationEmail = "ReceiveActivationEmail";
+            public readonly string IsEmailAvailable = "IsEmailAvailable";
             public readonly string CheckPassword = "CheckPassword";
             public readonly string IsNameForShowExist = "IsNameForShowExist";
             public readonly string IsEmailExist = "IsEmailExist";
@@ -184,8 +184,9 @@ namespace MVC5.Web.Controllers
             public const string Register = "Register";
             public const string ResetPassword = "ResetPassword";
             public const string ResetPasswordConfirmation = "ResetPasswordConfirmation";
-            public const string SendCode = "SendCode";
-            public const string VerifyCode = "VerifyCode";
+            public const string ReceiveActivatorEmail = "ReceiveActivatorEmail";
+            public const string ReceiveActivationEmail = "ReceiveActivationEmail";
+            public const string IsEmailAvailable = "IsEmailAvailable";
             public const string CheckPassword = "CheckPassword";
             public const string IsNameForShowExist = "IsNameForShowExist";
             public const string IsEmailExist = "IsEmailExist";
@@ -262,24 +263,21 @@ namespace MVC5.Web.Controllers
             public readonly string code = "code";
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_SendCode s_params_SendCode = new ActionParamsClass_SendCode();
+        static readonly ActionParamsClass_ReceiveActivationEmail s_params_ReceiveActivationEmail = new ActionParamsClass_ReceiveActivationEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SendCode SendCodeParams { get { return s_params_SendCode; } }
+        public ActionParamsClass_ReceiveActivationEmail ReceiveActivationEmailParams { get { return s_params_ReceiveActivationEmail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SendCode
+        public class ActionParamsClass_ReceiveActivationEmail
         {
-            public readonly string returnUrl = "returnUrl";
-            public readonly string model = "model";
+            public readonly string viewModel = "viewModel";
         }
-        static readonly ActionParamsClass_VerifyCode s_params_VerifyCode = new ActionParamsClass_VerifyCode();
+        static readonly ActionParamsClass_IsEmailAvailable s_params_IsEmailAvailable = new ActionParamsClass_IsEmailAvailable();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_VerifyCode VerifyCodeParams { get { return s_params_VerifyCode; } }
+        public ActionParamsClass_IsEmailAvailable IsEmailAvailableParams { get { return s_params_IsEmailAvailable; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_VerifyCode
+        public class ActionParamsClass_IsEmailAvailable
         {
-            public readonly string provider = "provider";
-            public readonly string returnUrl = "returnUrl";
-            public readonly string model = "model";
+            public readonly string email = "email";
         }
         static readonly ActionParamsClass_CheckPassword s_params_CheckPassword = new ActionParamsClass_CheckPassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -333,10 +331,9 @@ namespace MVC5.Web.Controllers
                 public readonly string ForgotPassword = "ForgotPassword";
                 public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
                 public readonly string Login = "Login";
+                public readonly string ReceiveActivatorEmail = "ReceiveActivatorEmail";
                 public readonly string Register = "Register";
                 public readonly string ResetPassword = "ResetPassword";
-                public readonly string SendCode = "SendCode";
-                public readonly string VerifyCode = "VerifyCode";
             }
             public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
             public readonly string ConfirmEmail = "~/Views/Account/ConfirmEmail.cshtml";
@@ -345,10 +342,9 @@ namespace MVC5.Web.Controllers
             public readonly string ForgotPassword = "~/Views/Account/ForgotPassword.cshtml";
             public readonly string ForgotPasswordConfirmation = "~/Views/Account/ForgotPasswordConfirmation.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
+            public readonly string ReceiveActivatorEmail = "~/Views/Account/ReceiveActivatorEmail.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
             public readonly string ResetPassword = "~/Views/Account/ResetPassword.cshtml";
-            public readonly string SendCode = "~/Views/Account/SendCode.cshtml";
-            public readonly string VerifyCode = "~/Views/Account/VerifyCode.cshtml";
         }
     }
 
@@ -548,52 +544,38 @@ namespace MVC5.Web.Controllers
         }
 
         [NonAction]
-        partial void SendCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+        partial void ReceiveActivatorEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendCode(string returnUrl)
+        public override System.Web.Mvc.ActionResult ReceiveActivatorEmail()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendCode);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            SendCodeOverride(callInfo, returnUrl);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReceiveActivatorEmail);
+            ReceiveActivatorEmailOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ReceiveActivationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.ActivationEmailViewModel viewModel);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ReceiveActivationEmail(MVC5.ViewModel.Account.ActivationEmailViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReceiveActivationEmail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            ReceiveActivationEmailOverride(callInfo, viewModel);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
         [NonAction]
-        partial void SendCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.SendCodeViewModel model);
+        partial void IsEmailAvailableOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string email);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SendCode(MVC5.ViewModel.Account.SendCodeViewModel model)
+        public override System.Web.Mvc.JsonResult IsEmailAvailable(string email)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendCode);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            SendCodeOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void VerifyCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyCode(string provider, string returnUrl)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyCode);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            VerifyCodeOverride(callInfo, provider, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void VerifyCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.VerifyCodeViewModel model);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> VerifyCode(MVC5.ViewModel.Account.VerifyCodeViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VerifyCode);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            VerifyCodeOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailAvailable);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "email", email);
+            IsEmailAvailableOverride(callInfo, email);
+            return callInfo;
         }
 
         [NonAction]

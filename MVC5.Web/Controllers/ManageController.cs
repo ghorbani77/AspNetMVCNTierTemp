@@ -196,40 +196,7 @@ namespace MVC5.Web.Controllers
         }
 
         //
-        // GET: /Account/VerifyPhoneNumber
-        public virtual async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
-        {
-            // This code allows you exercise the flow without actually sending codes
-            // For production use please register a SMS provider in IdentityConfig and generate a code here.
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId<int>(), phoneNumber);
-            ViewBag.Status = "For DEMO purposes only, the current code is " + code;
-            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
-        }
-
-        //
-        // POST: /Account/VerifyPhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public virtual async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var result = await _userManager.ChangePhoneNumberAsync(User.Identity.GetUserId<int>(), model.PhoneNumber, model.Code);
-            if (result.Succeeded)
-            {
-                var user = await _userManager.FindByIdAsync(User.Identity.GetUserId<int>());
-                if (user != null)
-                {
-                    await SignInAsync(user, isPersistent: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
-            }
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
-            return View(model);
-        }
+     
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)

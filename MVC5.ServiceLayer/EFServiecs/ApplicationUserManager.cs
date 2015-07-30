@@ -285,7 +285,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                 users = users.SearchByEmail(search.SearchEmail);
             if (search.SearchNameForShow.IsNotEmpty())
                 users = users.SearchByNameForShow(search.SearchNameForShow);
-           
+
             if (search.SearchIp.IsNotEmpty())
                 users = users.SearchByIp(search.SearchIp);
             if (search.SearchCanChangeProfilePicture)
@@ -315,13 +315,13 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region GetUserByRoles
         public async Task<EditUserViewModel> GetUserByRolesAsync(int id)
         {
-           var userWithRoles= await 
-                _users.AsNoTracking()
-                    .Include(a => a.Roles)
-                    .FirstOrDefaultAsync(a => a.Id == id);
+            var userWithRoles = await
+                 _users.AsNoTracking()
+                     .Include(a => a.Roles)
+                     .FirstOrDefaultAsync(a => a.Id == id);
             return _mappingEngine.Map<EditUserViewModel>(userWithRoles);
         }
-     
+
         #endregion
 
         #region EditUserWithRoles
@@ -464,9 +464,16 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region ChechIsBanneduser
-        public bool ChecKIsUserBanned(int id)
+        public bool CheckIsUserBanned(int id)
         {
-            return _users.Any(a => a.Id == id & a.IsBanned);
+            _unitOfWork.EnableFiltering(UserFilters.BannedList);
+            return _users.Any(a => a.Id == id);
+        }
+        public bool CheckIsUserBannedByEmail(string email)
+        {
+            _unitOfWork.EnableFiltering(UserFilters.BannedList);
+            email = email.FixGmailDots().ToLower();
+            return _users.Any(a => a.Email.ToLower() == email);
         }
         #endregion
 
@@ -483,7 +490,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         #endregion
 
-        #region 
+        #region
         public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string dependencyActionNames)
         {
             var controller = controllerName.ToLower();
@@ -502,7 +509,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                    _permissionService.HasDirectAccess(userId, area, controller, actions);
         }
         #endregion
-      
+
         #region Private
         private static string[] SplitString(string dependencies)
         {
@@ -518,11 +525,18 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region IsEmailConfirmedByUserNameAsync
         public Task<bool> IsEmailConfirmedByUserNameAsync(string userName)
         {
+            userName = userName.ToLower();
             _unitOfWork.EnableFiltering(UserFilters.EmailConfirmedList);
-            return _users.AnyAsync(a => a.UserName == userName);
+            return _users.AnyAsync(a => a.UserName.ToLower() == userName);
         }
 
         #endregion
-     
+
+
+        public bool IsEmailAvailableForConfirm(string email)
+        {
+            email = email.FixGmailDots().ToLower();
+            return _users.Any(a => a.Email.ToLower() == email);
+        }
     }
 }

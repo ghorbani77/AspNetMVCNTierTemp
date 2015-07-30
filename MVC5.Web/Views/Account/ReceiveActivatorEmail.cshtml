@@ -1,0 +1,48 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@using MVC5.Common.Helpers
+@model  MVC5.ViewModel.Account.ActivationEmailViewModel
+@{
+
+}
+<div class="row">
+
+    @using (Html.BeginForm(MVC.Account.ActionNames.ReceiveActivationEmail, MVC.Account.Name, null, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "receiveActivationEmailForm" ,autocomplete="off"}))
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel  panel-default">
+                <div class="panel-heading">
+                    <strong> دریافت ایمیل فعال سازی</strong>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.NoAutoCompleteTextBoxForLtr(m => m.Email)
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.MathCaptcha(MVC.Shared.Views._CaptchaPartial)
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" onclick="AjaxForm.CustomSubmit(this, 'receiveActivationEmailForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-success btn-block">
+                            دریافت ایمیل فعال سازی
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

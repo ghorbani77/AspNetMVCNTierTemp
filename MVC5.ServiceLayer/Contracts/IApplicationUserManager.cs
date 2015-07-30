@@ -579,12 +579,16 @@ namespace MVC5.ServiceLayer.Contracts
         IList<int> CustomGetUserRoles(int id);
         Task<int> CreateAsync(RegisterViewModel viewModel);
         Task<string> CustomValidatePasswordAsync(string pass);
-        bool ChecKIsUserBanned(int id);
+        bool CheckIsUserBanned(int id);
         Task AddUser(AddUserViewModel viewModel);
         IUserEmailStore<ApplicationUser, int> GetEmailStore();
         bool CanAccess(int userId, string areaName, string controllerName, string actionName,
             string dependencyActionNames);
         Task<bool> IsEmailConfirmedByUserNameAsync(string userName);
+
+        bool IsEmailAvailableForConfirm(string emial);
+        bool CheckIsUserBannedByEmail(string email);
+
     }
 
 }
