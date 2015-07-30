@@ -1,25 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace MVC5.ViewModel.Account
 {
     public class ResetPasswordViewModel
     {
-        [Required(ErrorMessage = "وارد کردن ایمیل ضروریست")]
-        [EmailAddress(ErrorMessage = "ایمیل را به شکل صحیح وارد کنید")]
-        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = "لطفا ایمیل خود را وارد کنید")]
+        [EmailAddress(ErrorMessage = "لطفا ایمیل را به شکل صحیح وارد کنید")]
+        [DisplayName("ایمیل")]
+        [StringLength(450, ErrorMessage = "حداکثر طول ایمیل 450 حرف است")]
+        [Remote("IsEmailAvailable", "Account", "", ErrorMessage = "ایمیل مورد نظر یافت نشداست", HttpMethod = "POST")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "وارد کردن کلمه عبور ضروریست")]
-        [StringLength(100, ErrorMessage = "کلمه عبور نباید کمتر از 6 حرف و بیتشر از 100 حرف باشد", MinimumLength = 6)]
+        [Required(ErrorMessage = "لطفا کلمه عبور را وارد کنید")]
+        [StringLength(50, ErrorMessage = "کلمه عبور نباید کمتر از 5 حرف و بیتشر از 50 حرف باشد", MinimumLength = 5)]
         [DataType(DataType.Password)]
-        [Display(Name = "کلمه عبور")]
+        [DisplayName("کلمه عبور")]
+        [Remote("CheckPassword", "Account", "", ErrorMessage = "این کلمه عبور به راحتی قابل تشخیص است", HttpMethod = "POST")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "لطفا کلمه عبور را وارد کنید")]
         [DataType(DataType.Password)]
-        [Display(Name = "تکرار کلمه عبور")]
-        [Compare("Password", ErrorMessage = "کلمات عبور وارد شده مطابقت ندارند")]
+        [DisplayName("تکرار کلمه عبور")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "کلمات عبور وارد شده مطابقت ندارند")]
         public string ConfirmPassword { get; set; }
-
         public string Code { get; set; }
     }
 }

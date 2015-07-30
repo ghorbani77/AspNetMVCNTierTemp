@@ -202,17 +202,23 @@ namespace MVC5.Web.Controllers
         [CaptchaMvc.Attributes.CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            if (_userManager.CheckIsUserBannedByUserName(model.UserName))
+            {
+                this.AddErrors("UserName", "حساب کاربری شما مسدود شده است");
+                return View(model);
+            }
+            if (!await _userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
+            {
+                ToastrWarning("لطفا برای دریافت ایمیل تأییدیه از این فرم استفاده کنید و حساب خود را فعال کنید");
+                return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
+            }
+
             if (!ModelState.IsValid)
             {
                 ToastrWarning("لطفا با دقت مشخصات خود را وارد کنید");
                 return View(model);
             }
 
-            if (!await _userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
-            {
-                ToastrWarning("لطفا برای ورود به سایت ، حساب خود را فعال کنید");
-                return RedirectToAction("send new email for confirm");
-            }
             var result = await _signInManager.PasswordSignInAsync
                 (model.UserName, model.Password, model.RememberMe, shouldLockout: true);
 
@@ -222,7 +228,7 @@ namespace MVC5.Web.Controllers
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     ToastrError(
-                        string.Format("دقیقه دوباره امتحان کنید {0} لطفا بعد از ",
+                        string.Format("دقیقه دوباره امتحان کنید {0} حساب شما قفل شد ! لطفا بعد از ",
                             _userManager.DefaultAccountLockoutTimeSpan), isSticky: true);
                     return View(model);
                 case SignInStatus.Failure:
@@ -346,7 +352,7 @@ namespace MVC5.Web.Controllers
         // [CheckReferrer]
         [ValidateAntiForgeryToken]
         [CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
-        public virtual async Task<ActionResult> ReceiveActivationEmail(ActivationEmailViewModel viewModel)
+        public virtual async Task<ActionResult> ReceiveActivatorEmail(ActivationEmailViewModel viewModel)
         {
             if (!_userManager.IsEmailAvailableForConfirm(viewModel.Email))
                 this.AddErrors("Email", "ایمیل مورد نظر یافت نشد");
@@ -358,7 +364,7 @@ namespace MVC5.Web.Controllers
             var user = await _userManager.FindByEmailAsync(viewModel.Email);
             await SendConfirmationEmail(viewModel.Email, user.Id);
             ToastrSuccess("ایمیلی تحت عنوان فعال سازی اکانت به آدرس ایمیل شما ارسال گردید");
-            return RedirectToAction(MVC.Account.ActionNames.ReceiveActivationEmail, MVC.Account.Name);
+            return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
         }
 
         #endregion

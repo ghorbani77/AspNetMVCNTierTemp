@@ -1,18 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace MVC5.ViewModel.Account
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "وارد کردن نام کاربری ضروریست")]
-        [Display(Name = "نام کاربری")]
+        [Required(ErrorMessage = "لطفا نام کاربری را وارد کنید")]
+        [DisplayName("نام کاربری")]
+        [StringLength(450, ErrorMessage = "کلمه عبور نباید کمتر از 5 حرف و بیشتر از 450 حرف باشد", MinimumLength = 5)]
+        [RegularExpression("^[a-zA-Z0-9_]*$", ErrorMessage = "لطفا فقط از حروف انگلیسی و اعدد استفاده کنید")]
         public string UserName { get; set; }
-
-        [Required(ErrorMessage = "وارد کردن کلمه عبور ضروریست")]
+        [Required(ErrorMessage = "لطفا کلمه عبور را وارد کنید")]
+        [StringLength(50, ErrorMessage = "کلمه عبور نباید کمتر از 5 حرف و بیتشر از 50 حرف باشد", MinimumLength = 5)]
         [DataType(DataType.Password)]
-        [Display(Name = "کلمه عبور")]
+        [DisplayName("کلمه عبور")]
         public string Password { get; set; }
-
         [Display(Name = "مرا به خاطر بسپار")]
         public bool RememberMe { get; set; }
     }

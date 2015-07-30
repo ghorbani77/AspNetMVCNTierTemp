@@ -73,7 +73,7 @@ WriteLiteral(">\r\n\r\n");
             #line hidden
             
             #line 9 "..\..\Views\Account\ReceiveActivatorEmail.cshtml"
-     using (Html.BeginForm(MVC.Account.ActionNames.ReceiveActivationEmail, MVC.Account.Name, null, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "receiveActivationEmailForm" ,autocomplete="off"}))
+     using (Html.BeginForm(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name, null, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "receiveActivationEmailForm" ,autocomplete="off"}))
     {
         
             

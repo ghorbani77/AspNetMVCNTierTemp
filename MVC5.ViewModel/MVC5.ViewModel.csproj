@@ -59,22 +59,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\ActivationEmailViewModel.cs" />
-    <Compile Include="Account\AddPhoneNumberViewModel.cs" />
     <Compile Include="Account\ChangePasswordViewModel.cs" />
-    <Compile Include="Account\ConfigureTwoFactorViewModel.cs" />
-    <Compile Include="Account\EditUserViewModel.cs" />
     <Compile Include="Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Account\ExternalLoginListViewModel.cs" />
     <Compile Include="Account\ForgotPasswordViewModel.cs" />
-    <Compile Include="Account\ForgotViewModel.cs" />
     <Compile Include="Account\IndexViewModel.cs" />
     <Compile Include="Account\LoginViewModel.cs" />
     <Compile Include="Account\ManageLoginsViewModel.cs" />
-    <Compile Include="Account\ManageMessageId.cs" />
     <Compile Include="Account\RegisterViewModel.cs" />
     <Compile Include="Account\ResetPasswordEmail.cs" />
     <Compile Include="Account\ResetPasswordViewModel.cs" />
-    <Compile Include="Account\RoleViewModel.cs" />
     <Compile Include="Account\SetPasswordViewModel.cs" />
     <Compile Include="Account\ConfirmAccountEmail.cs" />
     <Compile Include="AdminArea\Permission\SelectPermissionViewModel.cs" />

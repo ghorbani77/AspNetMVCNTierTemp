@@ -8,7 +8,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using EntityFramework.Extensions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -264,7 +263,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         public bool IsExistByUserName(string userName)
         {
-            return Users.Any(a => a.UserName == userName);
+            return Users.Any(a => a.UserName == userName.ToLower());
         }
         #endregion
 
@@ -404,15 +403,15 @@ namespace MVC5.ServiceLayer.EFServiecs
         public bool CheckGooglePlusIdExist(string googlePlusId, int? id)
         {
             return id == null
-                    ? _users.Any(a => a.GooglePlusId.ToLower() == googlePlusId)
-                    : _users.Any(a => a.GooglePlusId.ToLower() == googlePlusId && a.Id != id.Value);
+                    ? _users.Any(a => a.GooglePlusId == googlePlusId)
+                    : _users.Any(a => a.GooglePlusId == googlePlusId && a.Id != id.Value);
         }
 
         public bool CheckFacebookIdExist(string faceBookId, int? id)
         {
             return id == null
-              ? _users.Any(a => a.FaceBookId.ToLower() == faceBookId)
-              : _users.Any(a => a.FaceBookId.ToLower() == faceBookId && a.Id != id.Value);
+              ? _users.Any(a => a.FaceBookId == faceBookId)
+              : _users.Any(a => a.FaceBookId == faceBookId && a.Id != id.Value);
         }
 
         public bool CheckPhoneNumberExist(string phoneNumber, int? id)
@@ -464,16 +463,37 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region ChechIsBanneduser
+        public bool CheckIsUserBannedOrDelete(int id)
+        {
+            _unitOfWork.EnableFiltering(UserFilters.BannedList);
+            _unitOfWork.EnableFiltering(UserFilters.DeletedList);
+            var result = _users.Any(a => a.Id == id);
+            _unitOfWork.DisableFiltering(UserFilters.BannedList);
+            _unitOfWork.DisableFiltering(UserFilters.DeletedList);
+            return result;
+        }
         public bool CheckIsUserBanned(int id)
         {
             _unitOfWork.EnableFiltering(UserFilters.BannedList);
-            return _users.Any(a => a.Id == id);
+            var result = _users.Any(a => a.Id == id);
+            _unitOfWork.DisableFiltering(UserFilters.BannedList);
+            return result;
         }
         public bool CheckIsUserBannedByEmail(string email)
         {
             _unitOfWork.EnableFiltering(UserFilters.BannedList);
             email = email.FixGmailDots().ToLower();
-            return _users.Any(a => a.Email.ToLower() == email);
+            var result = _users.Any(a => a.Email.ToLower()== email);
+            _unitOfWork.DisableFiltering(UserFilters.BannedList);
+            return result;
+        }
+        public bool CheckIsUserBannedByUserName(string userName)
+        {
+            _unitOfWork.EnableFiltering(UserFilters.BannedList);
+            userName = userName.ToLower();
+            var result = _users.Any(a => a.UserName.ToLower() == userName);
+            _unitOfWork.DisableFiltering(UserFilters.BannedList);
+            return result;
         }
         #endregion
 
@@ -490,7 +510,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         #endregion
 
-        #region
+        #region CanAccess
         public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string dependencyActionNames)
         {
             var controller = controllerName.ToLower();
@@ -523,20 +543,24 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region IsEmailConfirmedByUserNameAsync
-        public Task<bool> IsEmailConfirmedByUserNameAsync(string userName)
+        public async Task<bool> IsEmailConfirmedByUserNameAsync(string userName)
         {
             userName = userName.ToLower();
             _unitOfWork.EnableFiltering(UserFilters.EmailConfirmedList);
-            return _users.AnyAsync(a => a.UserName.ToLower() == userName);
+            var result = await _users.AnyAsync(a => a.UserName.ToLower() == userName);
+            _unitOfWork.DisableFiltering(UserFilters.EmailConfirmedList);
+            return result;
         }
 
         #endregion
 
-
+        #region IsEmailAvailableForConfirm
         public bool IsEmailAvailableForConfirm(string email)
         {
             email = email.FixGmailDots().ToLower();
-            return _users.Any(a => a.Email.ToLower() == email);
+            return _users.Any(a => a.Email == email);
         }
+        #endregion
+       
     }
 }

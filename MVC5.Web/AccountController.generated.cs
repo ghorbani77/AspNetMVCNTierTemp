@@ -97,13 +97,6 @@ namespace MVC5.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ReceiveActivationEmail()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReceiveActivationEmail);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult IsEmailAvailable()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailAvailable);
@@ -161,7 +154,6 @@ namespace MVC5.Web.Controllers
             public readonly string ResetPassword = "ResetPassword";
             public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
             public readonly string ReceiveActivatorEmail = "ReceiveActivatorEmail";
-            public readonly string ReceiveActivationEmail = "ReceiveActivationEmail";
             public readonly string IsEmailAvailable = "IsEmailAvailable";
             public readonly string CheckPassword = "CheckPassword";
             public readonly string IsNameForShowExist = "IsNameForShowExist";
@@ -185,7 +177,6 @@ namespace MVC5.Web.Controllers
             public const string ResetPassword = "ResetPassword";
             public const string ResetPasswordConfirmation = "ResetPasswordConfirmation";
             public const string ReceiveActivatorEmail = "ReceiveActivatorEmail";
-            public const string ReceiveActivationEmail = "ReceiveActivationEmail";
             public const string IsEmailAvailable = "IsEmailAvailable";
             public const string CheckPassword = "CheckPassword";
             public const string IsNameForShowExist = "IsNameForShowExist";
@@ -263,11 +254,11 @@ namespace MVC5.Web.Controllers
             public readonly string code = "code";
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_ReceiveActivationEmail s_params_ReceiveActivationEmail = new ActionParamsClass_ReceiveActivationEmail();
+        static readonly ActionParamsClass_ReceiveActivatorEmail s_params_ReceiveActivatorEmail = new ActionParamsClass_ReceiveActivatorEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ReceiveActivationEmail ReceiveActivationEmailParams { get { return s_params_ReceiveActivationEmail; } }
+        public ActionParamsClass_ReceiveActivatorEmail ReceiveActivatorEmailParams { get { return s_params_ReceiveActivatorEmail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ReceiveActivationEmail
+        public class ActionParamsClass_ReceiveActivatorEmail
         {
             public readonly string viewModel = "viewModel";
         }
@@ -555,14 +546,14 @@ namespace MVC5.Web.Controllers
         }
 
         [NonAction]
-        partial void ReceiveActivationEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.ActivationEmailViewModel viewModel);
+        partial void ReceiveActivatorEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.ActivationEmailViewModel viewModel);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ReceiveActivationEmail(MVC5.ViewModel.Account.ActivationEmailViewModel viewModel)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ReceiveActivatorEmail(MVC5.ViewModel.Account.ActivationEmailViewModel viewModel)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReceiveActivationEmail);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReceiveActivatorEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
-            ReceiveActivationEmailOverride(callInfo, viewModel);
+            ReceiveActivatorEmailOverride(callInfo, viewModel);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

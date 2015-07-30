@@ -76,11 +76,7 @@ namespace MVC5.Web.Filters
             }
 
             var userId = user.Identity.GetUserId<int>();
-            if (ApplicationUserManager.CheckIsUserBanned(userId))
-            {
-                AuthenticationManager.SignOut();
-                return false;
-            }
+         
             var actionName = filterContext.ActionDescriptor.ActionName;
             var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
             var areaName = AreaName;

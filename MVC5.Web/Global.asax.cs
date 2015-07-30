@@ -1,4 +1,8 @@
-﻿using StackExchange.Profiling;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using MVC5.IocConfig;
+using MVC5.ServiceLayer.Contracts;
+using StackExchange.Profiling;
 using StructureMap.Web.Pipeline;
 using System;
 using System.Linq;
@@ -78,10 +82,15 @@ namespace MVC5.Web
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-            if (ShouldIgnoreRequest()) return;
+           // for forms Authentication if (ShouldIgnoreRequest()) return;
 
             if (Context.User == null)
                 return;
+
+            if (
+                !ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>()
+                    .CheckIsUserBannedOrDelete(User.Identity.GetUserId<int>())) return;
+            ProjectObjectFactory.Container.GetInstance<IAuthenticationManager>().SignOut();
         }
         #endregion
     }

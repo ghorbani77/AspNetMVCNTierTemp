@@ -426,20 +426,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Manage\AddPhoneNumber.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AddPhoneNumber.cshtml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Manage\ChangePassword.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ChangePassword.cshtml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Manage\Index.generated.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Index.cshtml</DependentUpon>
     </Compile>
     <Compile Include="Views\Manage\ManageLogins.generated.cs">
       <AutoGen>True</AutoGen>
@@ -800,17 +790,9 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>Index.generated.cs</LastGenOutput>
     </Content>
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>AddPhoneNumber.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\Manage\ChangePassword.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ChangePassword.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Manage\Index.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Manage\ManageLogins.cshtml">
       <Generator>RazorGenerator</Generator>

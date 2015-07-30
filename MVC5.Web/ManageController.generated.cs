@@ -56,19 +56,6 @@ namespace MVC5.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LinkLogin()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLogin);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ManageLogins()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageLogins);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ManageController Actions { get { return MVC.Manage; } }
@@ -86,70 +73,15 @@ namespace MVC5.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string ChangePassword = "ChangePassword";
-            public readonly string LinkLogin = "LinkLogin";
-            public readonly string LinkLoginCallback = "LinkLoginCallback";
-            public readonly string ManageLogins = "ManageLogins";
-            public readonly string RememberBrowser = "RememberBrowser";
-            public readonly string RemoveLogin = "RemoveLogin";
-            public readonly string RemovePhoneNumber = "RemovePhoneNumber";
-            public readonly string SetPassword = "SetPassword";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string ChangePassword = "ChangePassword";
-            public const string LinkLogin = "LinkLogin";
-            public const string LinkLoginCallback = "LinkLoginCallback";
-            public const string ManageLogins = "ManageLogins";
-            public const string RememberBrowser = "RememberBrowser";
-            public const string RemoveLogin = "RemoveLogin";
-            public const string RemovePhoneNumber = "RemovePhoneNumber";
-            public const string SetPassword = "SetPassword";
         }
 
 
-        static readonly ActionParamsClass_ChangePassword s_params_ChangePassword = new ActionParamsClass_ChangePassword();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ChangePassword ChangePasswordParams { get { return s_params_ChangePassword; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ChangePassword
-        {
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_LinkLogin s_params_LinkLogin = new ActionParamsClass_LinkLogin();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LinkLogin LinkLoginParams { get { return s_params_LinkLogin; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LinkLogin
-        {
-            public readonly string provider = "provider";
-        }
-        static readonly ActionParamsClass_ManageLogins s_params_ManageLogins = new ActionParamsClass_ManageLogins();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ManageLogins ManageLoginsParams { get { return s_params_ManageLogins; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ManageLogins
-        {
-            public readonly string message = "message";
-        }
-        static readonly ActionParamsClass_RemoveLogin s_params_RemoveLogin = new ActionParamsClass_RemoveLogin();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_RemoveLogin RemoveLoginParams { get { return s_params_RemoveLogin; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RemoveLogin
-        {
-            public readonly string loginProvider = "loginProvider";
-            public readonly string providerKey = "providerKey";
-        }
-        static readonly ActionParamsClass_SetPassword s_params_SetPassword = new ActionParamsClass_SetPassword();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SetPassword SetPasswordParams { get { return s_params_SetPassword; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SetPassword
-        {
-            public readonly string model = "model";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -190,122 +122,6 @@ namespace MVC5.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
             ChangePasswordOverride(callInfo);
             return callInfo;
-        }
-
-        [NonAction]
-        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.ChangePasswordViewModel model);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ChangePassword(MVC5.ViewModel.Account.ChangePasswordViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ChangePasswordOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void LinkLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult LinkLogin(string provider)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLogin);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
-            LinkLoginOverride(callInfo, provider);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void LinkLoginCallbackOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> LinkLoginCallback()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LinkLoginCallback);
-            LinkLoginCallbackOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void ManageLoginsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.ManageMessageId? message);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ManageLogins(MVC5.ViewModel.Account.ManageMessageId? message)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageLogins);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "message", message);
-            ManageLoginsOverride(callInfo, message);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void RememberBrowserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult RememberBrowser()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RememberBrowser);
-            RememberBrowserOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void RemoveLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RemoveLogin()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveLogin);
-            RemoveLoginOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void RemoveLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string loginProvider, string providerKey);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RemoveLogin(string loginProvider, string providerKey)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveLogin);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "loginProvider", loginProvider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "providerKey", providerKey);
-            RemoveLoginOverride(callInfo, loginProvider, providerKey);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void RemovePhoneNumberOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> RemovePhoneNumber()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemovePhoneNumber);
-            RemovePhoneNumberOverride(callInfo);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void SetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult SetPassword()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetPassword);
-            SetPasswordOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.Account.SetPasswordViewModel model);
-
-        [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SetPassword(MVC5.ViewModel.Account.SetPasswordViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetPassword);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            SetPasswordOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 
     }

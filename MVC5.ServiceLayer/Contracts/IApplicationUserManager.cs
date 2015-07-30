@@ -588,6 +588,8 @@ namespace MVC5.ServiceLayer.Contracts
 
         bool IsEmailAvailableForConfirm(string emial);
         bool CheckIsUserBannedByEmail(string email);
+        bool CheckIsUserBannedByUserName(string userName);
+        bool CheckIsUserBannedOrDelete(int id);
 
     }
 

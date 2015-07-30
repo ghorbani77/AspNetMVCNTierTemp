@@ -6,7 +6,7 @@
 }
 <div class="row">
 
-    @using (Html.BeginForm(MVC.Account.ActionNames.ReceiveActivationEmail, MVC.Account.Name, null, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "receiveActivationEmailForm" ,autocomplete="off"}))
+    @using (Html.BeginForm(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name, null, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "receiveActivationEmailForm" ,autocomplete="off"}))
     {
         @Html.AntiForgeryToken()
         <div class="col-md-10 col-md-offset-1">
