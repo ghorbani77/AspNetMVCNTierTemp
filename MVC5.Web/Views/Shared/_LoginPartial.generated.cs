@@ -11,14 +11,31 @@
 
 namespace ASP
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.Web;
+    using System.Web.Helpers;
     using System.Web.Mvc;
+    using System.Web.Mvc.Ajax;
     using System.Web.Mvc.Html;
-#line 1 "..\..\Views\Shared\_LoginPartial.cshtml"
+    using System.Web.Optimization;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using System.Web.UI;
+    using System.Web.WebPages;
+    
+    #line 1 "..\..\Views\Shared\_LoginPartial.cshtml"
     using Microsoft.AspNet.Identity;
     
     #line default
     #line hidden
-
+    using MVC5.ViewModel;
+    using MVC5.Web;
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Shared/_LoginPartial.cshtml")]
     public partial class _Views_Shared__LoginPartial_cshtml : System.Web.Mvc.WebViewPage<dynamic>
@@ -32,7 +49,7 @@ namespace ASP
             #line 2 "..\..\Views\Shared\_LoginPartial.cshtml"
  if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new {area="", id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new {id = "logoutForm", @class = "navbar-right" }))
     {
         
             
@@ -72,7 +89,7 @@ WriteLiteral("\r\n            </li>\r\n            <li><a");
 
 WriteLiteral(" href=\"javascript:document.getElementById(\'logoutForm\').submit()\"");
 
-WriteLiteral(">Log off</a></li>\r\n        </ul>\r\n");
+WriteLiteral(">خروج</a></li>\r\n        </ul>\r\n");
 
             
             #line 14 "..\..\Views\Shared\_LoginPartial.cshtml"
@@ -92,7 +109,7 @@ WriteLiteral(">\r\n        <li>");
 
             
             #line 19 "..\..\Views\Shared\_LoginPartial.cshtml"
-       Write(Html.ActionLink("عضویت", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink"  ,@class="nofollow"}));
+       Write(Html.ActionLink("ورود", MVC.Account.ActionNames.Login, MVC.Account.Name, null, null));
 
             
             #line default
@@ -101,7 +118,7 @@ WriteLiteral("</li>\r\n        <li>");
 
             
             #line 20 "..\..\Views\Shared\_LoginPartial.cshtml"
-       Write(Html.ActionLink("ورود", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" ,@class="nofollow"}));
+       Write(Html.ActionLink("عضویت", MVC.Account.ActionNames.Register, MVC.Account.Name, null, null));
 
             
             #line default

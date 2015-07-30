@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Mvc.Mailer;
 using MVC5.Common.Controller;
 using MVC5.Common.Filters;
+using MVC5.Common.Helpers.Extentions;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Mailers;
 using MVC5.Utility;
@@ -21,7 +22,6 @@ using MVC5.ViewModel.Account;
 namespace MVC5.Web.Controllers
 {
     [MvcAuthorize]
-    [DisplayName("عملیات مربوط به احراز هویت")]
     public partial class AccountController : BaseController
     {
         #region Fields
@@ -191,26 +191,40 @@ namespace MVC5.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        //[CheckReferrer]
         [ValidateAntiForgeryToken]
+        [CaptchaMvc.Attributes.CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
+                ToastrWarning("لطفا با دقت مشخصات خود را وارد کنید");
                 return View(model);
             }
-
+            if (!await _userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
+            {
+                ToastrWarning("لطفا برای ورود به سایت ، حساب خود را فعال کنید");
+                return RedirectToAction("send new email for confirm");
+            }
             var result = await _signInManager.PasswordSignInAsync
                 (model.UserName, model.Password, model.RememberMe, shouldLockout: true);
+
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
+                    ToastrError(
+                        string.Format("دقیقه دوباره امتحان کنید {0} لطفا بعد از ",
+                            _userManager.DefaultAccountLockoutTimeSpan), isSticky: true);
+                    return View(model);
+                case SignInStatus.Failure:
+                    ToastrError(ModelState.GetListOfErrors());
+                    return View(model);
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ToastrError(
+                        "در این لحظه امکان ورود به  سابت وجود ندارد . مراتب را با مسئولان سایت در میان بگذارید",
+                        isSticky: true);
                     return View(model);
             }
         }
@@ -230,41 +244,45 @@ namespace MVC5.Web.Controllers
         [AllowAnonymous]
         public virtual ActionResult Register()
         {
+            // if("register is enable")
+            // return RedirectToAction("info)
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-       // [CheckReferrer]
+        // [CheckReferrer]
         [ValidateAntiForgeryToken]
         [CaptchaMvc.Attributes.CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (_userManager.IsEmailInDatabase(model.Email))
+            #region Validation
+            if (_userManager.CheckEmailExist(model.Email,null))
                 this.AddErrors("Email", "این ایمیل قبلا در سیستم ثبت شده است");
 
-            if (_userManager.IsUserNameInDatabase(model.UserName))
-                this.AddErrors("UserName", "این شماره همراه قبلا در سیستم ثبت شده است");
+            if (_userManager.CheckUserNameExist(model.UserName,null))
+                this.AddErrors("UserName", "این نام کاربری قبلا در سیستم ثبت شده است");
+
+            if (_userManager.CheckNameForShowExist(model.NameForShow,null))
+                this.AddErrors("NameForShow", "این نام نمایشی قبلا در سیستم ثبت شده است");
 
             if (!model.Password.IsSafePasword())
-                this.AddErrors("Password", "از کلمه عبور امن تری استفاده کنید");
-
-            if (await _userManager.PasswordValidator.ValidateAsync(model.Password) != IdentityResult.Success)
-                this.AddErrors("Password", await _userManager.CustomValidatePasswordAsync(model.Password));
+                this.AddErrors("Password", "این کلمه عبور به راحتی قابل تشخیص است");
 
             if (!ModelState.IsValid)
             {
-                ToastrError(ModelState.GetListOfErrors());
                 return View(model);
             }
 
-            var userId = await _userManager.CreateAsync(model);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
             if (Request.Url == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            #endregion
 
+            var userId = await _userManager.CreateAsync(model);
+
+            #region SendMail
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
             var callbackUrl = Url.Abs(Url.Action(MVC.Account.ActionNames.ConfirmEmail, MVC.Account.Name,
-                new {userId, code, area = "" }, protocol: Request.Url.Scheme));
-
+                new { userId, code, area = "" }, protocol: Request.Url.Scheme));
             var email = new ConfirmAccountEmail
             {
                 Subject = "فعال سازی حساب کاربری",
@@ -276,9 +294,13 @@ namespace MVC5.Web.Controllers
             };
 
             await _userMailer.ConfirmAccount(email).SendAsync();
-            ToastrSuccess("حساب کاربری شما با موفقیت ایجاد شد");
-            ViewBag.Link = callbackUrl;
-            return View(MVC.Account.Views.ViewNames.Register);
+            #endregion
+         
+            ToastrSuccess("حساب کاربری شما با موفقیت ایجاد شد. برای فعال سازی " +
+                          "حساب خود به صندوق پستی خود مراجعه کنید",
+                isSticky: true);
+
+            return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name);
         }
         #endregion
 
@@ -398,30 +420,35 @@ namespace MVC5.Web.Controllers
         #endregion
 
         #region Validation
-
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult CheckPassword(string password)
+        {
+            return password.IsSafePasword() ? Json(true) : Json(false);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsNameForShowExist(string nameForShow,int ? id)
+        {
+            return _userManager.CheckNameForShowExist(nameForShow,id) ? Json(false) : Json(true);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsEmailExist(string email,int ? id)
+        {
+            var check = _userManager.CheckEmailExist(email,id);
+            return check ? Json(false) : Json(true);
+        }
        
         [HttpPost]
         [AllowAnonymous]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult IsEmailExist(string email)
+        public virtual JsonResult IsUserNameExist(string userName,int ? id)
         {
-            var check = _userManager.IsEmailInDatabase(email);
-            return check ? Json(false) : Json(true);
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult IsPhoneNumberExist(string phoneNumber)
-        {
-            return _userManager.IsPhoneNumberInDatabase(phoneNumber) ? Json(false) : Json(true);
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult IsUserNameExist(string userName)
-        {
-            return _userManager.IsUserNameInDatabase(userName) ? Json(false) : Json(true);
+            return _userManager.CheckUserNameExist(userName, id) ? Json(false) : Json(true);
         }
         #endregion
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 
-namespace MVC5.ServiceLayer.IdentityExtensions
+namespace MVC5.ServiceLayer.IdentityExtentions
 {
 
     public class CustomPasswordValidator : IIdentityValidator<string>

@@ -411,24 +411,24 @@ WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"PermissionIds\"");
 
-WriteAttribute("checked", Tuple.Create(" checked=\"", 3958), Tuple.Create("\"", 3988)
+WriteAttribute("checked", Tuple.Create(" checked=\"", 3966), Tuple.Create("\"", 3996)
             
             #line 76 "..\..\Areas\Administrator\Views\Role\Edit.cshtml"
-         , Tuple.Create(Tuple.Create("", 3968), Tuple.Create<System.Object, System.Int32>(permission.Selected
+         , Tuple.Create(Tuple.Create("", 3976), Tuple.Create<System.Object, System.Int32>(permission.Selected
             
             #line default
             #line hidden
-, 3968), false)
+, 3976), false)
 );
 
-WriteAttribute("value", Tuple.Create(" value=\"", 3989), Tuple.Create("\"", 4014)
+WriteAttribute("value", Tuple.Create(" value=\"", 3997), Tuple.Create("\"", 4022)
             
             #line 76 "..\..\Areas\Administrator\Views\Role\Edit.cshtml"
-                                      , Tuple.Create(Tuple.Create("", 3997), Tuple.Create<System.Object, System.Int32>(permission.Value
+                                      , Tuple.Create(Tuple.Create("", 4005), Tuple.Create<System.Object, System.Int32>(permission.Value
             
             #line default
             #line hidden
-, 3997), false)
+, 4005), false)
 );
 
 WriteLiteral(" class=\"checkbox-inline\"");
@@ -491,6 +491,15 @@ WriteLiteral("    </div>\r\n</div>\r\n");
 
 DefineSection("Scripts", () => {
 
+WriteLiteral("\r\n");
+
+            
+            #line 96 "..\..\Areas\Administrator\Views\Role\Edit.cshtml"
+Write(Scripts.Render("~/bundles/jqueryval"));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n");
 
 });

@@ -3,7 +3,10 @@ using AutoMapper;
 using MVC5.AutoMapperProfiles.Extentions;
 using MVC5.DomainClasses;
 using MVC5.DomainClasses.Entities;
+using MVC5.Utility;
+using MVC5.ViewModel.Account;
 using MVC5.ViewModel.AdminArea.User;
+using EditUserViewModel = MVC5.ViewModel.AdminArea.User.EditUserViewModel;
 
 
 namespace MVC5.AutoMapperProfiles
@@ -12,12 +15,9 @@ namespace MVC5.AutoMapperProfiles
     {
         protected override void Configure()
         {
-            //CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
+           CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
 
             CreateMap<ApplicationUser, UserViewModel>()
-                .ForMember(d => d.LastActivityDate, m => m.Ignore())
-                .ForMember(d => d.RegisterDate, m => m.Ignore())
-                .ForMember(d => d.Name, m => m.MapFrom(s => s.LastName + " " + s.LastName))
                 .ForMember(d => d.Roles, s => s.Ignore()).IgnoreAllNonExisting();
 
             CreateMap<AddUserViewModel, ApplicationUser>()
@@ -27,11 +27,13 @@ namespace MVC5.AutoMapperProfiles
             CreateMap<EditUserViewModel, ApplicationUser>().ForMember(s => s.Roles, d => d.Ignore()).IgnoreAllNonExisting();
             CreateMap<ApplicationUser, EditUserViewModel>().IgnoreAllNonExisting();
 
-            CreateMap<MVC5.ViewModel.Account.RegisterViewModel, ApplicationUser>()
+            CreateMap<RegisterViewModel, ApplicationUser>()
                 .ForMember(u => u.RegisterDate, a => a.MapFrom(b => DateTime.Now))
                 .ForMember(u => u.CommentPermission, a => a.MapFrom(b => CommentPermissionType.WithApprove))
                 .ForMember(u => u.AvatarFileName, a => a.MapFrom(b => "avatar.jpg"))
+                .ForMember(u=>u.NameForShow,m=>m.MapFrom(d=>d.NameForShow.GetFriendlyPersianName()))
                 .IgnoreAllNonExisting();
+            
         }
 
         public override string ProfileName

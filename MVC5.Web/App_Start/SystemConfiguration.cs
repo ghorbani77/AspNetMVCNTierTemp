@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using MVC5.Common.Controller;
 using MVC5.Common.Helpers.Extentions;
@@ -25,9 +23,6 @@ namespace MVC5.Web
                         t =>
                             t.BaseType == typeof(BaseController) &&
                             t.CustomAttributes.Any(a => a.AttributeType == typeof(MvcAuthorizeAttribute)))
-                            .Where(controller =>
-                            controller.CustomAttributes.Any(
-                                a => a.AttributeType == typeof(DisplayNameAttribute)))
                     .ToList();
 
             var permissionsListToAdd = new List<ApplicationPermission>();
@@ -39,17 +34,8 @@ namespace MVC5.Web
 
                 if (authorizeAttribute == null)
                     continue;
-                var displayName = controller.GetCustomAttribut<DisplayNameAttribute>().DisplayName;
                 var controllerName = controller.Name.Replace("Controller", "").ToLower();
                 var areaName = authorizeAttribute.AreaName.IsNotEmpty() ? authorizeAttribute.AreaName.ToLower() : "";
-
-                var parentPermission = new ApplicationPermission
-                {
-                    AreaName = areaName,
-                    ControllerName = controllerName,
-                    IsMenu = false,
-                    Name = displayName
-                };
 
                 var actionMethodsList =
                     controller.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
@@ -65,22 +51,14 @@ namespace MVC5.Web
                                          method.CustomAttributes.Any(
                                              a => a.AttributeType == typeof(DisplayNameAttribute)))
                         .ToList();
-                permissionsListToAdd.Add(parentPermission);
 
-                foreach (var methodInfo in actionMethodsList)
-                {
-                    var actionName = methodInfo.Name.ToLower();
-                    displayName = methodInfo.GetCustomAttribute<DisplayNameAttribute>().DisplayName;
-                    var childPermission = new ApplicationPermission
+                permissionsListToAdd.AddRange(from methodInfo in actionMethodsList
+                    let actionName = methodInfo.Name.ToLower()
+                    let displayName = methodInfo.GetCustomAttribute<DisplayNameAttribute>().DisplayName
+                    select new ApplicationPermission
                     {
-                        AreaName = areaName,
-                        ControllerName = controllerName,
-                        ActionName = actionName,
-                        IsMenu = authorizeAttribute.IsMenu,
-                        Name = displayName
-                    };
-                    permissionsListToAdd.Add(childPermission);
-                }
+                        AreaName = areaName, ControllerName = controllerName, ActionName = actionName, IsMenu = authorizeAttribute.IsMenu, Name = displayName
+                    });
             }
 
             return permissionsListToAdd;

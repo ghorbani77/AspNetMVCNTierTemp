@@ -27,9 +27,15 @@ namespace ASP
     using System.Web.Security;
     using System.Web.UI;
     using System.Web.WebPages;
-    using MVC5.ViewModel;
     
     #line 1 "..\..\Views\Account\Login.cshtml"
+    using CaptchaMvc.HtmlHelpers;
+    
+    #line default
+    #line hidden
+    using MVC5.ViewModel;
+    
+    #line 2 "..\..\Views\Account\Login.cshtml"
     using MVC5.ViewModel.Account;
     
     #line default
@@ -46,7 +52,7 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\Account\Login.cshtml"
+            #line 5 "..\..\Views\Account\Login.cshtml"
   
     
 
@@ -60,13 +66,13 @@ WriteLiteral(" class=\"row\"");
 WriteLiteral(">\r\n\r\n");
 
             
-            #line 10 "..\..\Views\Account\Login.cshtml"
+            #line 11 "..\..\Views\Account\Login.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 10 "..\..\Views\Account\Login.cshtml"
+            #line 11 "..\..\Views\Account\Login.cshtml"
      using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         
@@ -74,14 +80,14 @@ WriteLiteral(">\r\n\r\n");
             #line default
             #line hidden
             
-            #line 12 "..\..\Views\Account\Login.cshtml"
+            #line 13 "..\..\Views\Account\Login.cshtml"
    Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 12 "..\..\Views\Account\Login.cshtml"
+            #line 13 "..\..\Views\Account\Login.cshtml"
                                 
 
             
@@ -109,7 +115,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 19 "..\..\Views\Account\Login.cshtml"
+            #line 20 "..\..\Views\Account\Login.cshtml"
                Write(Html.ValidationSummary(true, null, new { @class = "text-danger" }));
 
             
@@ -124,7 +130,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 21 "..\..\Views\Account\Login.cshtml"
+            #line 22 "..\..\Views\Account\Login.cshtml"
                    Write(Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" }));
 
             
@@ -139,7 +145,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 23 "..\..\Views\Account\Login.cshtml"
+            #line 24 "..\..\Views\Account\Login.cshtml"
                        Write(Html.TextBoxFor(m => m.UserName, new { @class = "form-control" }));
 
             
@@ -150,7 +156,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                            ");
 
             
-            #line 24 "..\..\Views\Account\Login.cshtml"
+            #line 25 "..\..\Views\Account\Login.cshtml"
                        Write(Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" }));
 
             
@@ -166,7 +172,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 28 "..\..\Views\Account\Login.cshtml"
+            #line 29 "..\..\Views\Account\Login.cshtml"
                    Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
 
             
@@ -181,7 +187,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 30 "..\..\Views\Account\Login.cshtml"
+            #line 31 "..\..\Views\Account\Login.cshtml"
                        Write(Html.PasswordFor(m => m.Password, new { @class = "form-control" }));
 
             
@@ -192,7 +198,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                            ");
 
             
-            #line 31 "..\..\Views\Account\Login.cshtml"
+            #line 32 "..\..\Views\Account\Login.cshtml"
                        Write(Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }));
 
             
@@ -216,7 +222,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                ");
 
             
-            #line 37 "..\..\Views\Account\Login.cshtml"
+            #line 38 "..\..\Views\Account\Login.cshtml"
                            Write(Html.CheckBoxFor(m => m.RememberMe));
 
             
@@ -227,14 +233,29 @@ WriteLiteral("\r\n");
 WriteLiteral("                                ");
 
             
-            #line 38 "..\..\Views\Account\Login.cshtml"
+            #line 39 "..\..\Views\Account\Login.cshtml"
                            Write(Html.LabelFor(m => m.RememberMe));
 
             
             #line default
             #line hidden
 WriteLiteral("\r\n                            </div>\r\n                        </div>\r\n           " +
-"         </div>\r\n\r\n                </div>\r\n                <div");
+"         </div>\r\n\r\n                    <div");
+
+WriteLiteral(" class=\"form-group\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                        ");
+
+            
+            #line 45 "..\..\Views\Account\Login.cshtml"
+                   Write(Html.MathCaptcha(MVC.Shared.Views._CaptchaPartial));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                    </div>\r\n                </div>\r\n                <div");
 
 WriteLiteral(" class=\"panel-footer\"");
 
@@ -258,7 +279,7 @@ WriteLiteral(" />\r\n                        </div>\r\n\r\n                    <
 "  </div>\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 54 "..\..\Views\Account\Login.cshtml"
+            #line 58 "..\..\Views\Account\Login.cshtml"
     }
 
             
@@ -290,7 +311,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                    ");
 
             
-            #line 63 "..\..\Views\Account\Login.cshtml"
+            #line 67 "..\..\Views\Account\Login.cshtml"
                Write(Html.Partial(MVC.Account.Views.ViewNames._ExternalLoginsListPartial, new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl }));
 
             
@@ -301,6 +322,15 @@ WriteLiteral("\r\n                </div>\r\n            </div>\r\n\r\n        </
 
 DefineSection("Scripts", () => {
 
+WriteLiteral("\r\n");
+
+            
+            #line 78 "..\..\Views\Account\Login.cshtml"
+Write(Scripts.Render("~/bundles/jqueryval"));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n");
 
 });

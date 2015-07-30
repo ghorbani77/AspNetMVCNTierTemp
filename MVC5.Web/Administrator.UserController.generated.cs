@@ -84,15 +84,9 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult FirstNameExist()
+        public virtual System.Web.Mvc.JsonResult LastNameForShowExist()
         {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.FirstNameExist);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult LastNameExist()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.LastNameExist);
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.LastNameForShowExist);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -140,8 +134,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public readonly string Create = "Create";
             public readonly string SoftDelete = "SoftDelete";
             public readonly string UserNameExist = "UserNameExist";
-            public readonly string FirstNameExist = "FirstNameExist";
-            public readonly string LastNameExist = "LastNameExist";
+            public readonly string LastNameForShowExist = "LastNameForShowExist";
             public readonly string EmailExist = "EmailExist";
             public readonly string PhoneNumberExist = "PhoneNumberExist";
             public readonly string GooglePlusIdExist = "GooglePlusIdExist";
@@ -157,8 +150,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public const string Create = "Create";
             public const string SoftDelete = "SoftDelete";
             public const string UserNameExist = "UserNameExist";
-            public const string FirstNameExist = "FirstNameExist";
-            public const string LastNameExist = "LastNameExist";
+            public const string LastNameForShowExist = "LastNameForShowExist";
             public const string EmailExist = "EmailExist";
             public const string PhoneNumberExist = "PhoneNumberExist";
             public const string GooglePlusIdExist = "GooglePlusIdExist";
@@ -209,22 +201,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public readonly string userName = "userName";
             public readonly string id = "id";
         }
-        static readonly ActionParamsClass_FirstNameExist s_params_FirstNameExist = new ActionParamsClass_FirstNameExist();
+        static readonly ActionParamsClass_LastNameForShowExist s_params_LastNameForShowExist = new ActionParamsClass_LastNameForShowExist();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_FirstNameExist FirstNameExistParams { get { return s_params_FirstNameExist; } }
+        public ActionParamsClass_LastNameForShowExist LastNameForShowExistParams { get { return s_params_LastNameForShowExist; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_FirstNameExist
+        public class ActionParamsClass_LastNameForShowExist
         {
-            public readonly string firstName = "firstName";
-            public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_LastNameExist s_params_LastNameExist = new ActionParamsClass_LastNameExist();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LastNameExist LastNameExistParams { get { return s_params_LastNameExist; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LastNameExist
-        {
-            public readonly string lastName = "lastName";
+            public readonly string nameForShow = "nameForShow";
             public readonly string id = "id";
         }
         static readonly ActionParamsClass_EmailExist s_params_EmailExist = new ActionParamsClass_EmailExist();
@@ -387,28 +370,15 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         [NonAction]
-        partial void FirstNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string firstName, int? id);
+        partial void LastNameForShowExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string nameForShow, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.JsonResult FirstNameExist(string firstName, int? id)
+        public override System.Web.Mvc.JsonResult LastNameForShowExist(string nameForShow, int? id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.FirstNameExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "firstName", firstName);
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.LastNameForShowExist);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "nameForShow", nameForShow);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            FirstNameExistOverride(callInfo, firstName, id);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void LastNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string lastName, int? id);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult LastNameExist(string lastName, int? id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.LastNameExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "lastName", lastName);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            LastNameExistOverride(callInfo, lastName, id);
+            LastNameForShowExistOverride(callInfo, nameForShow, id);
             return callInfo;
         }
 

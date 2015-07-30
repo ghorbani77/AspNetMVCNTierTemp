@@ -20,10 +20,10 @@ using MVC5.Common.Helpers.Extentions;
 using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
-using MVC5.ServiceLayer.IdentityExtensions;
 using MVC5.ServiceLayer.IdentityExtentions;
 using MVC5.ServiceLayer.QueryExtensions;
 using MVC5.ServiceLayer.Security;
+using MVC5.Utility;
 using MVC5.Utility.EF.Filters;
 using MVC5.ViewModel.AdminArea.User;
 using RefactorThis.GraphDiff;
@@ -196,9 +196,9 @@ namespace MVC5.ServiceLayer.EFServiecs
 
             PasswordValidator = new CustomPasswordValidator
             {
-                RequiredLength = 6,
+                RequiredLength = 5,
                 RequireNonLetterOrDigit = false,
-                RequireDigit = true,
+                RequireDigit = false,
                 RequireLowercase = false,
                 RequireUppercase = false
             };
@@ -283,10 +283,9 @@ namespace MVC5.ServiceLayer.EFServiecs
                 users = users.SearchByUserName(search.SearchUserName);
             if (search.SearchEmail.IsNotEmpty())
                 users = users.SearchByEmail(search.SearchEmail);
-            if (search.SearchFirstName.IsNotEmpty())
-                users = users.SearchByFirstName(search.SearchFirstName);
-            if (search.SearchLastName.IsNotEmpty())
-                users = users.SearchByLastName(search.SearchLastName);
+            if (search.SearchNameForShow.IsNotEmpty())
+                users = users.SearchByNameForShow(search.SearchNameForShow);
+           
             if (search.SearchIp.IsNotEmpty())
                 users = users.SearchByIp(search.SearchIp);
             if (search.SearchCanChangeProfilePicture)
@@ -308,23 +307,21 @@ namespace MVC5.ServiceLayer.EFServiecs
             var query =
                 users.OrderByUserName()
                     .SkipAndTake(search.PageIndex - 1, search.PageSize)
-                    .Project(_mappingEngine)
-                    .To<UserViewModel>()
                     .Future().ToList();
-            return query;
+            return _mappingEngine.Map<IList<UserViewModel>>(query);
         }
         #endregion
 
         #region GetUserByRoles
-        public Task<EditUserViewModel> GetUserByRoles(int id)
+        public async Task<EditUserViewModel> GetUserByRolesAsync(int id)
         {
-            return
+           var userWithRoles= await 
                 _users.AsNoTracking()
                     .Include(a => a.Roles)
-                    .Project(_mappingEngine)
-                    .To<EditUserViewModel>()
                     .FirstOrDefaultAsync(a => a.Id == id);
+            return _mappingEngine.Map<EditUserViewModel>(userWithRoles);
         }
+     
         #endregion
 
         #region EditUserWithRoles
@@ -382,6 +379,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         public bool CheckUserNameExist(string userName, int? id)
         {
+            userName = userName.ToLower();
             return id == null
                 ? _users.Any(a => a.UserName.ToLower() == userName)
                 : _users.Any(a => a.UserName.ToLower() == userName && a.Id != id.Value);
@@ -389,23 +387,18 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         public bool CheckEmailExist(string email, int? id)
         {
+            email = email.FixGmailDots().ToLower();
             return id == null
                ? _users.Any(a => a.Email.ToLower() == email)
                : _users.Any(a => a.Email.ToLower() == email && a.Id != id.Value);
         }
 
-        public bool CheckFirstNameExist(string firstName, int? id)
+        public bool CheckNameForShowExist(string nameForShow, int? id)
         {
+            nameForShow = nameForShow.GetFriendlyPersianName();
             return id == null
-               ? _users.Any(a => a.FirstName.ToLower() == firstName)
-               : _users.Any(a => a.FirstName.ToLower() == firstName && a.Id != id.Value);
-        }
-
-        public bool CheckLastNameExist(string lastName, int? id)
-        {
-            return id == null
-               ? _users.Any(a => a.LastName.ToLower() == lastName)
-               : _users.Any(a => a.LastName.ToLower() == lastName && a.Id != id.Value);
+             ? _users.Any(a => a.NameForShow.ToLower() == nameForShow)
+             : _users.Any(a => a.NameForShow.ToLower() == nameForShow && a.Id != id.Value);
         }
 
         public bool CheckGooglePlusIdExist(string googlePlusId, int? id)
@@ -425,8 +418,8 @@ namespace MVC5.ServiceLayer.EFServiecs
         public bool CheckPhoneNumberExist(string phoneNumber, int? id)
         {
             return id == null
-               ? _users.Any(a => a.PhoneNumber.ToLower() == phoneNumber)
-               : _users.Any(a => a.PhoneNumber.ToLower() == phoneNumber && a.Id != id.Value);
+               ? _users.Any(a => a.PhoneNumber == phoneNumber)
+               : _users.Any(a => a.PhoneNumber == phoneNumber && a.Id != id.Value);
         }
         #endregion
 
@@ -456,9 +449,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         public async Task<int> CreateAsync(ViewModel.Account.RegisterViewModel viewModel)
         {
             var user = _mappingEngine.Map<ApplicationUser>(viewModel);
-            user.PasswordHash = PasswordHasher.HashPassword(viewModel.Password);
-            _users.Add(user);
-            await _unitOfWork.SaveChangesAsync();
+            await CreateAsync(user, viewModel.Password);
             await AddToRoleAsync(user.Id, await _roleManager.GetDefaultRoleForRegister());
             return user.Id;
         }
@@ -479,6 +470,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
+        #region GetEmailStore
         public IUserEmailStore<ApplicationUser, int> GetEmailStore()
         {
             var cast = Store as IUserEmailStore<ApplicationUser, int>;
@@ -489,7 +481,9 @@ namespace MVC5.ServiceLayer.EFServiecs
             return cast;
         }
 
+        #endregion
 
+        #region 
         public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string dependencyActionNames)
         {
             var controller = controllerName.ToLower();
@@ -507,6 +501,8 @@ namespace MVC5.ServiceLayer.EFServiecs
             return rolesOfPermission.Intersect(rolesOfUser).Any() ||
                    _permissionService.HasDirectAccess(userId, area, controller, actions);
         }
+        #endregion
+      
         #region Private
         private static string[] SplitString(string dependencies)
         {
@@ -518,5 +514,15 @@ namespace MVC5.ServiceLayer.EFServiecs
             return split.ToArray();
         }
         #endregion
+
+        #region IsEmailConfirmedByUserNameAsync
+        public Task<bool> IsEmailConfirmedByUserNameAsync(string userName)
+        {
+            _unitOfWork.EnableFiltering(UserFilters.EmailConfirmedList);
+            return _users.AnyAsync(a => a.UserName == userName);
+        }
+
+        #endregion
+     
     }
 }

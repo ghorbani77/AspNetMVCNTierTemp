@@ -14,22 +14,17 @@ namespace MVC5.DomainClasses
         /// Show emails
         /// </summary>
         [Display(Name = "نمایش ایمیل")]
-        ShowEmails = 1,
+        ShowEmail = 1,
         /// <summary>
         /// Show usernames
         /// </summary>
         [Display(Name = "نایش نام کاربری")]
-        ShowUsernames = 2,
-        /// <summary>
-        /// Show full names
-        /// </summary>
-        [Display(Name = "نمایش نام - نام خانوادگی")]
-        ShowFullNames = 3,
+        ShowUsername = 2,
         /// <summary>
         /// Show first name
         /// </summary>
         [Display(Name = "نمایش نام")]
-        ShowFirstName = 4
+        ShowName = 3
     }
 
     public enum UserRegistrationType : int

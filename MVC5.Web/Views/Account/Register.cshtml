@@ -1,12 +1,14 @@
 ﻿@using CaptchaMvc.HtmlHelpers
+@using MVC5.Common.Helpers
 @using MVC5.ViewModel.Account
 @model RegisterViewModel
 @{
-    
+
 }
 <div class="row">
 
-    @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post, new { area = "", @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post,
+        new { id = "registerForm", area = "", @class = "form-horizontal", role = "form", autocomplete = "off" }))
     {
         @Html.AntiForgeryToken()
         <div class="col-md-10 col-md-offset-1">
@@ -18,48 +20,58 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.NoAutoCompleteTextBoxForLtr(m => m.Email)
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.NameForShow, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.NoAutoCompleteTextBoxFor(m => m.NameForShow)
+
+                            @Html.ValidationMessageFor(m => m.NameForShow, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.NoAutoCompleteTextBoxForLtr(m => m.UserName)
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.FormControlPasswordFor(m => m.Password)
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            @Html.FormControlPasswordFor(m => m.ConfirmPassword)
                             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         @Html.MathCaptcha(MVC.Shared.Views._CaptchaPartial)
-
                     </div>
                 </div>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-success btn-block" value="تأیید اطلاعات برای تکمیل عضویت" />
+                            <button type="button" onclick=" AjaxForm.CustomSubmit(this, 'registerForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-success btn-block">
+                                تأیید اطلاعات برای تکمیل عضویت
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     }
 
 </div>
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

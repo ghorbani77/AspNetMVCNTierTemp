@@ -68,13 +68,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             ViewBag.SearchCanUploadFile = search.SearchCanUploadFile;
             ViewBag.SearchCommentPermission = search.SearchCommentPermission;
             ViewBag.SearchEmail = search.SearchEmail;
-            ViewBag.SearchFirstName = search.SearchFirstName;
+            ViewBag.SearchFirstName = search.SearchNameForShow;
             ViewBag.SearchIp = search.SearchIp;
             ViewBag.SearchIsBanned = search.SearchIsBanned;
             ViewBag.SearchIsDeleted = search.SearchIsDeleted;
             ViewBag.SearchIsEmailConfirmed = search.SearchIsEmailConfirmed;
             ViewBag.SearchIsSystemAccount = search.SearchIsSystemAccount;
-            ViewBag.SearchLastName = search.SearchLastName;
+            ViewBag.SearchNameForShow = search.SearchNameForShow;
             ViewBag.SearchUserName = search.SearchUserName;
             ViewBag.TotalUsers = total;
             ViewBag.PageNumber = search.PageIndex;
@@ -91,9 +91,9 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var viewModel = await _userManager.GetUserByRoles(id.Value);
+            var viewModel = await _userManager.GetUserByRolesAsync(id.Value);
             if (viewModel == null) return HttpNotFound();
-            await PopulateRoles(viewModel.Roles.Select(a => a.RoleId).ToArray());
+           await PopulateRoles(viewModel.Roles.Select(a => a.RoleId).ToArray());
             return View(viewModel);
         }
 
@@ -233,8 +233,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult UserNameExist(string userName, int? id)
         {
-            return _userManager.CheckUserNameExist(userName.ToLower(), id) ? Json(false) : Json(true);
+            return _userManager.CheckUserNameExist(userName, id) ? Json(false) : Json(true);
         }
+
+      
 
         [HttpPost]
         [AjaxOnly]
@@ -242,21 +244,9 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [OverrideAuthorization]
         [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult FirstNameExist(string firstName, int? id)
+        public virtual JsonResult LastNameForShowExist(string nameForShow, int? id)
         {
-            return _userManager.CheckFirstNameExist(firstName.ToLower(), id) ? Json(false) :
-            Json(true);
-        }
-
-        [HttpPost]
-        [AjaxOnly]
-        //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult LastNameExist(string lastName, int? id)
-        {
-            return _userManager.CheckLastNameExist(lastName.ToLower(), id) ? Json(false) : Json(true);
+            return _userManager.CheckNameForShowExist(nameForShow, id) ? Json(false) : Json(true);
         }
 
         [HttpPost]
@@ -267,7 +257,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult EmailExist(string email, int? id)
         {
-            return _userManager.CheckEmailExist(email.ToLower(), id) ? Json(false) : Json(true);
+            return _userManager.CheckEmailExist(email, id) ? Json(false) : Json(true);
         }
 
         [HttpPost]
@@ -278,7 +268,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult PhoneNumberExist(string phoneNumber, int? id)
         {
-            return _userManager.CheckPhoneNumberExist(phoneNumber.ToLower(), id) ? Json(false) : Json(true);
+            return _userManager.CheckPhoneNumberExist(phoneNumber, id) ? Json(false) : Json(true);
         }
 
 
@@ -290,7 +280,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult GooglePlusIdExist(string googlePlusId, int? id)
         {
-            return _userManager.CheckGooglePlusIdExist(googlePlusId.ToLower(), id) ? Json(false) : Json(true);
+            return _userManager.CheckGooglePlusIdExist(googlePlusId, id) ? Json(false) : Json(true);
         }
 
 
@@ -302,7 +292,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FaceBookIdExist(string faceBookId, int? id)
         {
-            return _userManager.CheckFacebookIdExist(faceBookId.ToLower(), id) ? Json(false) : Json(true);
+            return _userManager.CheckFacebookIdExist(faceBookId, id) ? Json(false) : Json(true);
         }
 
         #endregion

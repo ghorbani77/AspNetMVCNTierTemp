@@ -380,6 +380,15 @@ WriteLiteral("    </div>\r\n</div>\r\n");
 
 DefineSection("Scripts", () => {
 
+WriteLiteral("\r\n");
+
+            
+            #line 75 "..\..\Areas\Administrator\Views\Role\Create.cshtml"
+Write(Scripts.Render("~/bundles/jqueryval"));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n    <script>\r\n        $(function () {\r\n            warningBeforeLoad();\r\n      " +
 "  })\r\n</script>\r\n");
 

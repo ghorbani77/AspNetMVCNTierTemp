@@ -1,0 +1,35 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension="cs" #>
+<#@ import namespace="System" #>
+<#@ parameter type="System.String" name="ControllerName" #>
+<#@ parameter type="System.String" name="ControllerRootName" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="AreaName" #>
+<#
+var routePrefix = String.Empty;
+if (!String.IsNullOrWhiteSpace(AreaName)) {
+    routePrefix = AreaName + "/";
+}
+routePrefix += ControllerRootName;
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace <#= Namespace #>
+{
+<#
+if (!String.IsNullOrWhiteSpace(AreaName)) {
+#>
+    [RouteArea("<#= AreaName #>")]
+<#
+}
+#>
+    [RoutePrefix("<#= ControllerRootName #>")]
+    [Route("{action}")]
+    public class <#= ControllerName #> : Controller
+    {
+    }
+}

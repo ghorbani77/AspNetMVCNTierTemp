@@ -9,7 +9,6 @@ using VikingErik.Mvc.ResumingActionResults;
 namespace MVC5.Web.Controllers
 {
     [MvcAuthorize]
-    [DisplayName("دسترسی به فایل های خروجی")]
     public partial class ExportController : BaseController
     {
         [Route("Export/{*id}")]

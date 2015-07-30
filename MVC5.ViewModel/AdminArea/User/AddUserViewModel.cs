@@ -11,7 +11,7 @@ namespace MVC5.ViewModel.AdminArea.User
         [DisplayName("ایمیل")]
         [EmailAddress(ErrorMessage = "لطفا ایمیل را صحیح وارد کنید")]
         [Required(ErrorMessage = "لطفا ایمیل را وارد کنید")]
-        [MaxLength(50, ErrorMessage = "تعداد حروف ایمیل غیر مجاز است")]
+        [MaxLength(450, ErrorMessage = "تعداد حروف ایمیل غیر مجاز است")]
         [Remote("EmailExist", "User", "Administrator", ErrorMessage = "این ایمیل قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string Email { get; set; }
         [DisplayName("کلمه عبور")]
@@ -34,10 +34,12 @@ namespace MVC5.ViewModel.AdminArea.User
         [DisplayName("قفل شود")]
         public bool IsBanned { get; set; }
         [DisplayName("نام")]
+        [RegularExpression(@"^[\u0600-\u06FF,\u0590-\u05FF,0-9\s]*$", ErrorMessage = "لطفا فقط از حروف فارسی استفاده کنید")]
         [MaxLength(50, ErrorMessage = "تعداد حروف نام  غیر مجاز است")]
         [Required(ErrorMessage = "لطفا نام را وارد کنید")]
         [Remote("FirstNameExist", "User", "Administrator", ErrorMessage = "این نام قبلا در سیستم ثبت شده است", HttpMethod = "POST")]
         public string FirstName { get; set; }
+        [RegularExpression(@"^[\u0600-\u06FF,\u0590-\u05FF,0-9\s]*$", ErrorMessage = "لطفا فقط از حروف فارسی استفاده کنید")]
         [DisplayName("نام خانوادگی")]
         [MaxLength(50, ErrorMessage = "تعداد حروف نام خانوادگی  غیر مجاز است")]
         [Required(ErrorMessage = "لطفا نام خانوادگی را وارد کنید")]

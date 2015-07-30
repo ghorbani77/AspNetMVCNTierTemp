@@ -9,7 +9,6 @@ using MVC5.Web.Filters;
 namespace MVC5.Web.Controllers
 {
     [MvcAuthorize]
-    [DisplayName("دسترسی به بخش فایل ها")]
     public partial class FileController : Controller
     {
         [DisplayName("دسترسی به تصاویر")]

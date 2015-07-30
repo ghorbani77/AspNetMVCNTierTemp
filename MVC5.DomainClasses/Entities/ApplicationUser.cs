@@ -12,10 +12,8 @@ namespace MVC5.DomainClasses.Entities
     public class ApplicationUser : IdentityUser<int, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
         public virtual bool IsBanned { get; set; }
-        [MaxLength(50)]
-        public virtual string FirstName { get; set; }
-        [MaxLength(50)]
-        public virtual string LastName { get; set; }
+        [MaxLength(512)]
+        public string NameForShow { get; set; }
         public virtual bool IsDeleted { get; set; }
         public virtual bool IsSystemAccount { get; set; }
         [MaxLength(1024)]

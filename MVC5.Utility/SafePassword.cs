@@ -44,6 +44,7 @@ namespace MVC5.Utility
             if (string.IsNullOrWhiteSpace(data)) return false;
             if (data.Length < 5) return false;
             if (BadPasswords.Contains(data.ToLowerInvariant())) return false;
+            if (!HasDigitOrLowerOrUperCase(data)) return false;
             return !data.AreAllCharsEuqal();
         }
 
@@ -54,6 +55,32 @@ namespace MVC5.Utility
             var firstElement = data.ElementAt(0);
             var euqalCharsLen = data.ToCharArray().Count(x => x == firstElement);
             return euqalCharsLen == data.Length;
+        }
+
+        public static bool HasDigitOrLowerOrUperCase(this string data)
+        {
+            return data.ToCharArray().Any(a => a.IsDigit() || a.IsLower() || a.IsUpper());
+        }
+        private static bool IsDigit(this char c)
+        {
+            if (c >= 48)
+                return c <= 57;
+            return false;
+        }
+
+        private static bool IsLower(this char c)
+        {
+            if (c >= 97)
+                return c <= 122;
+            return false;
+        }
+
+
+        private static bool IsUpper(this char c)
+        {
+            if (c >= 65)
+                return c <= 90;
+            return false;
         }
     }
 }

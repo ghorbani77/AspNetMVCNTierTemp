@@ -221,7 +221,7 @@ WriteLiteral("                                ");
 
             
             #line 55 "..\..\Areas\Administrator\Views\User\List.cshtml"
-                           Write(Html.LabelFor(m => m.SearchFirstName, new { @class = "col-md-3 control-label" }));
+                           Write(Html.LabelFor(m => m.SearchNameForShow, new { @class = "col-md-3 control-label" }));
 
             
             #line default
@@ -236,7 +236,7 @@ WriteLiteral("                                    ");
 
             
             #line 57 "..\..\Areas\Administrator\Views\User\List.cshtml"
-                               Write(Html.TextBoxFor(m => m.SearchFirstName, new { @class = "form-control" }));
+                               Write(Html.TextBoxFor(m => m.SearchNameForShow, new { @class = "form-control" }));
 
             
             #line default
@@ -277,43 +277,8 @@ WriteLiteral("                                    ");
             #line default
             #line hidden
 WriteLiteral("\r\n                                </div>\r\n                            </div>\r\n   " +
-"                     </div>\r\n                        <div");
-
-WriteLiteral(" class=\"col-md-6\"");
-
-WriteLiteral(">\r\n                            <div");
-
-WriteLiteral(" class=\"form-group\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                ");
-
-            
-            #line 71 "..\..\Areas\Administrator\Views\User\List.cshtml"
-                           Write(Html.LabelFor(m => m.SearchLastName, new { @class = "col-md-3 control-label" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                <div");
-
-WriteLiteral(" class=\"col-md-7\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                                    ");
-
-            
-            #line 73 "..\..\Areas\Administrator\Views\User\List.cshtml"
-                               Write(Html.TextBoxFor(m => m.SearchLastName, new { @class = "form-control" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                                </div>\r\n                            </div>\r\n   " +
-"                     </div>\r\n                    </div>\r\n\r\n                </div" +
-">\r\n\r\n                <div");
+"                     </div>\r\n                        \r\n                    </div" +
+">\r\n\r\n                </div>\r\n\r\n                <div");
 
 WriteLiteral(" class=\"tab-pane\"");
 
@@ -328,7 +293,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 83 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 76 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchCommentPermission, new { @class = "col-md-3 control-label" }));
 
             
@@ -343,7 +308,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 85 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 78 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.EditorFor(m => m.SearchCommentPermission, new { @class = "form-control" }));
 
             
@@ -359,7 +324,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 89 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 82 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchIsEmailConfirmed, new { @class = "col-md-3 control-label" }));
 
             
@@ -374,7 +339,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 91 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 84 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.CheckBoxFor(m => m.SearchIsEmailConfirmed, new { @class = "checkbox-inline" }));
 
             
@@ -390,7 +355,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 95 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 88 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchIsBanned, new { @class = "col-md-3 control-label" }));
 
             
@@ -405,7 +370,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 97 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 90 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.CheckBoxFor(m => m.SearchIsBanned, new { @class = "checkbox-inline" }));
 
             
@@ -421,7 +386,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 101 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 94 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchIsDeleted, new { @class = "col-md-3 control-label" }));
 
             
@@ -436,7 +401,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 103 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 96 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.CheckBoxFor(m => m.SearchIsDeleted, new { @class = "checkbox-inline" }));
 
             
@@ -452,7 +417,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 107 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 100 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchIsSystemAccount, new { @class = "col-md-3 control-label" }));
 
             
@@ -467,7 +432,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 109 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 102 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.CheckBoxFor(m => m.SearchIsSystemAccount, new { @class = "checkbox-inline" }));
 
             
@@ -483,7 +448,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 114 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 107 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchCanUploadFile, new { @class = "col-md-3 control-label" }));
 
             
@@ -498,7 +463,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 116 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 109 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.CheckBoxFor(m => m.SearchCanUploadFile, new { @class = "checkbox-inline" }));
 
             
@@ -514,7 +479,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 120 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 113 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchCanChangeProfilePicture, new { @class = "col-md-3 control-label" }));
 
             
@@ -529,7 +494,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 122 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 115 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.CheckBoxFor(m => m.SearchCanChangeProfilePicture, new { @class = "checkbox-inline" }));
 
             
@@ -545,7 +510,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 126 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 119 "..\..\Areas\Administrator\Views\User\List.cshtml"
                    Write(Html.LabelFor(m => m.SearchCanModifyFirsAndLastName, new { @class = "col-md-3 control-label" }));
 
             
@@ -560,7 +525,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 128 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 121 "..\..\Areas\Administrator\Views\User\List.cshtml"
                        Write(Html.CheckBoxFor(m => m.SearchCanModifyFirsAndLastName, new { @class = "checkbox-inline" }));
 
             
@@ -580,13 +545,13 @@ WriteLiteral(" class=\"row\"");
 WriteLiteral(">\r\n");
 
             
-            #line 135 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 128 "..\..\Areas\Administrator\Views\User\List.cshtml"
                         
             
             #line default
             #line hidden
             
-            #line 135 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 128 "..\..\Areas\Administrator\Views\User\List.cshtml"
                          foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
                         {
 
@@ -603,40 +568,40 @@ WriteLiteral(">\r\n                                    <input");
 
 WriteLiteral(" type=\"checkbox\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 7423), Tuple.Create("\"", 7439)
+WriteAttribute("id", Tuple.Create(" id=\"", 6963), Tuple.Create("\"", 6979)
             
-            #line 139 "..\..\Areas\Administrator\Views\User\List.cshtml"
-, Tuple.Create(Tuple.Create("", 7428), Tuple.Create<System.Object, System.Int32>(role.Value
+            #line 132 "..\..\Areas\Administrator\Views\User\List.cshtml"
+, Tuple.Create(Tuple.Create("", 6968), Tuple.Create<System.Object, System.Int32>(role.Value
             
             #line default
             #line hidden
-, 7428), false)
+, 6968), false)
 );
 
 WriteLiteral(" name=\"RoleIds\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 7455), Tuple.Create("\"", 7474)
+WriteAttribute("value", Tuple.Create(" value=\"", 6995), Tuple.Create("\"", 7014)
             
-            #line 139 "..\..\Areas\Administrator\Views\User\List.cshtml"
-                  , Tuple.Create(Tuple.Create("", 7463), Tuple.Create<System.Object, System.Int32>(role.Value
+            #line 132 "..\..\Areas\Administrator\Views\User\List.cshtml"
+                  , Tuple.Create(Tuple.Create("", 7003), Tuple.Create<System.Object, System.Int32>(role.Value
             
             #line default
             #line hidden
-, 7463), false)
+, 7003), false)
 );
 
 WriteLiteral(" class=\"checkbox-inline\"");
 
 WriteLiteral(" />\r\n                                    <label");
 
-WriteAttribute("for", Tuple.Create(" for=\"", 7546), Tuple.Create("\"", 7563)
+WriteAttribute("for", Tuple.Create(" for=\"", 7086), Tuple.Create("\"", 7103)
             
-            #line 140 "..\..\Areas\Administrator\Views\User\List.cshtml"
-, Tuple.Create(Tuple.Create("", 7552), Tuple.Create<System.Object, System.Int32>(role.Value
+            #line 133 "..\..\Areas\Administrator\Views\User\List.cshtml"
+, Tuple.Create(Tuple.Create("", 7092), Tuple.Create<System.Object, System.Int32>(role.Value
             
             #line default
             #line hidden
-, 7552), false)
+, 7092), false)
 );
 
 WriteLiteral(" class=\"control-label\"");
@@ -644,7 +609,7 @@ WriteLiteral(" class=\"control-label\"");
 WriteLiteral(">");
 
             
-            #line 140 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 133 "..\..\Areas\Administrator\Views\User\List.cshtml"
                                                                               Write(role.Text);
 
             
@@ -655,7 +620,7 @@ WriteLiteral("</label>\r\n                                </div>\r\n            
 WriteLiteral("\r\n");
 
             
-            #line 143 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 136 "..\..\Areas\Administrator\Views\User\List.cshtml"
                         }
 
             
@@ -665,7 +630,7 @@ WriteLiteral("\r\n                    </div>\r\n                </div>\r\n\r\n  
 "     </div>\r\n");
 
             
-            #line 151 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 144 "..\..\Areas\Administrator\Views\User\List.cshtml"
 
 
             
@@ -686,7 +651,7 @@ WriteLiteral(" class=\"btn btn-success btn-block btn-sm\"");
 WriteLiteral(" />\r\n        </div>\r\n");
 
             
-            #line 155 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 148 "..\..\Areas\Administrator\Views\User\List.cshtml"
     }
 
             
@@ -701,13 +666,13 @@ WriteLiteral(" id=\"userList\"");
 WriteLiteral(">\r\n\r\n\r\n");
 
             
-            #line 162 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 155 "..\..\Areas\Administrator\Views\User\List.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 162 "..\..\Areas\Administrator\Views\User\List.cshtml"
+            #line 155 "..\..\Areas\Administrator\Views\User\List.cshtml"
       Html.RenderAction(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name);
             
             #line default

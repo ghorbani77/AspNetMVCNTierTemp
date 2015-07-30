@@ -563,7 +563,7 @@ namespace MVC5.ServiceLayer.Contracts
         bool AutoCommitEnabled { get; set; }
         void SeedDatabase();
         bool IsExistByUserName(string userName);
-        Task<EditUserViewModel> GetUserByRoles(int id);
+        Task<EditUserViewModel> GetUserByRolesAsync(int id);
         IList<UserViewModel> GetPageList(out int total, UserSearchViewModel search);
         void EditUserWithRoles(EditUserViewModel viewModel, int[] roleIds);
 
@@ -572,8 +572,7 @@ namespace MVC5.ServiceLayer.Contracts
         Task<bool> LogicalRemove(int id);
         bool CheckUserNameExist(string userName, int? id);
         bool CheckEmailExist(string email, int? id);
-        bool CheckFirstNameExist(string firstName, int? id);
-        bool CheckLastNameExist(string lastName, int? id);
+        bool CheckNameForShowExist(string nameForShow, int? id);
         bool CheckGooglePlusIdExist(string googlePlusId, int? id);
         bool CheckFacebookIdExist(string faceBookId, int? id);
         bool CheckPhoneNumberExist(string phoneNumber, int? id);
@@ -583,9 +582,9 @@ namespace MVC5.ServiceLayer.Contracts
         bool ChecKIsUserBanned(int id);
         Task AddUser(AddUserViewModel viewModel);
         IUserEmailStore<ApplicationUser, int> GetEmailStore();
-
         bool CanAccess(int userId, string areaName, string controllerName, string actionName,
             string dependencyActionNames);
+        Task<bool> IsEmailConfirmedByUserNameAsync(string userName);
     }
 
 }

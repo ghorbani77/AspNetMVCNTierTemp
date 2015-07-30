@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new {area="", id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new {id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
@@ -9,14 +9,14 @@
             <li>
                 @Html.ActionLink("سلام " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage", @class = "nofollow" })
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">خروج</a></li>
         </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("عضویت", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink"  ,@class="nofollow"})</li>
-        <li>@Html.ActionLink("ورود", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" ,@class="nofollow"})</li>
+        <li>@Html.ActionLink("ورود", MVC.Account.ActionNames.Login, MVC.Account.Name, null, null)</li>
+        <li>@Html.ActionLink("عضویت", MVC.Account.ActionNames.Register, MVC.Account.Name, null, null)</li>
     </ul>
 }

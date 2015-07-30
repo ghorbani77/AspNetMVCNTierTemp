@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -15,7 +14,7 @@ namespace MVC5.ViewModel.AdminArea.Role
         public int Id { get; set; }
         [Required(ErrorMessage = "لطفا نام گروه را وارد کنید")]
         [DisplayName("نام گروه")]
-        [MaxLength(50, ErrorMessage = "تعداد کاراکتر های نام گروه غیر مجاز است")]
+        [MaxLength(20, ErrorMessage = "تعداد کاراکتر های نام گروه غیر مجاز است")]
         [Remote("RoleNameExist", "Role", "Administrator", ErrorMessage = "این گروه قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
         public string Name { get; set; }
         [Required(ErrorMessage = "لطفا توضیحاتی برای گروه وارد کنید")]

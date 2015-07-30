@@ -1,8 +1,6 @@
 ﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MVC5.ServiceLayer.Mailers;
-using MVC5.Web.Controllers;
 using NUnit.Framework;
 
 namespace MVC5.Tests.Controllers

@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNet.Identity;
-using MVC5.Common.Caching;
-using MVC5.IocConfig;
-using MVC5.ServiceLayer.Contracts;
-using StackExchange.Profiling;
+﻿using StackExchange.Profiling;
 using StructureMap.Web.Pipeline;
 using System;
 using System.Linq;
@@ -14,7 +9,7 @@ using System.Web.Routing;
 
 namespace MVC5.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
 
         #region Application_Start
@@ -23,8 +18,8 @@ namespace MVC5.Web
             try
             {
                 AreaRegistration.RegisterAllAreas();
+                RoutingConfig.RegisterRoutes(RouteTable.Routes);
                 FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-                RouteConfig.RegisterRoutes(RouteTable.Routes);
                 BundleConfig.RegisterBundles(BundleTable.Bundles);
                 CustomAppConfig.Config();
             }

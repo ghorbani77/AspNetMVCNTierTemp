@@ -33,9 +33,15 @@ namespace ASP
     
     #line default
     #line hidden
-    using MVC5.ViewModel;
     
     #line 2 "..\..\Views\Account\Register.cshtml"
+    using MVC5.Common.Helpers;
+    
+    #line default
+    #line hidden
+    using MVC5.ViewModel;
+    
+    #line 3 "..\..\Views\Account\Register.cshtml"
     using MVC5.ViewModel.Account;
     
     #line default
@@ -52,9 +58,9 @@ namespace ASP
         public override void Execute()
         {
             
-            #line 4 "..\..\Views\Account\Register.cshtml"
+            #line 5 "..\..\Views\Account\Register.cshtml"
   
-    
+
 
             
             #line default
@@ -66,28 +72,29 @@ WriteLiteral(" class=\"row\"");
 WriteLiteral(">\r\n\r\n");
 
             
-            #line 9 "..\..\Views\Account\Register.cshtml"
+            #line 10 "..\..\Views\Account\Register.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 9 "..\..\Views\Account\Register.cshtml"
-     using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post, new { area = "", @class = "form-horizontal", role = "form" }))
+            #line 10 "..\..\Views\Account\Register.cshtml"
+     using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post,
+        new { id = "registerForm", area = "", @class = "form-horizontal", role = "form", autocomplete = "off" }))
     {
         
             
             #line default
             #line hidden
             
-            #line 11 "..\..\Views\Account\Register.cshtml"
+            #line 13 "..\..\Views\Account\Register.cshtml"
    Write(Html.AntiForgeryToken());
 
             
             #line default
             #line hidden
             
-            #line 11 "..\..\Views\Account\Register.cshtml"
+            #line 13 "..\..\Views\Account\Register.cshtml"
                                 
 
             
@@ -119,7 +126,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 19 "..\..\Views\Account\Register.cshtml"
+            #line 21 "..\..\Views\Account\Register.cshtml"
                    Write(Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" }));
 
             
@@ -134,8 +141,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 21 "..\..\Views\Account\Register.cshtml"
-                       Write(Html.TextBoxFor(m => m.Email, new { @class = "form-control" }));
+            #line 23 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.NoAutoCompleteTextBoxForLtr(m => m.Email));
 
             
             #line default
@@ -145,7 +152,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                            ");
 
             
-            #line 22 "..\..\Views\Account\Register.cshtml"
+            #line 24 "..\..\Views\Account\Register.cshtml"
                        Write(Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" }));
 
             
@@ -161,8 +168,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 26 "..\..\Views\Account\Register.cshtml"
-                   Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
+            #line 28 "..\..\Views\Account\Register.cshtml"
+                   Write(Html.LabelFor(m => m.NameForShow, new { @class = "col-md-2 control-label" }));
 
             
             #line default
@@ -176,19 +183,19 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 28 "..\..\Views\Account\Register.cshtml"
-                       Write(Html.PasswordFor(m => m.Password, new { @class = "form-control" }));
+            #line 30 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.NoAutoCompleteTextBoxFor(m => m.NameForShow));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n");
+WriteLiteral("\r\n\r\n");
 
 WriteLiteral("                            ");
 
             
-            #line 29 "..\..\Views\Account\Register.cshtml"
-                       Write(Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }));
+            #line 32 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.ValidationMessageFor(m => m.NameForShow, "", new { @class = "text-danger" }));
 
             
             #line default
@@ -201,51 +208,9 @@ WriteLiteral(" class=\"form-group\"");
 WriteLiteral(">\r\n");
 
 WriteLiteral("                        ");
-
-            
-            #line 33 "..\..\Views\Account\Register.cshtml"
-                   Write(Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                        <div");
-
-WriteLiteral(" class=\"col-md-10\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                            ");
-
-            
-            #line 35 "..\..\Views\Account\Register.cshtml"
-                       Write(Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("                            ");
 
             
             #line 36 "..\..\Views\Account\Register.cshtml"
-                       Write(Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" }));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n                   " +
-" <div");
-
-WriteLiteral(" class=\"form-group\"");
-
-WriteLiteral(">\r\n");
-
-WriteLiteral("                        ");
-
-            
-            #line 40 "..\..\Views\Account\Register.cshtml"
                    Write(Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" }));
 
             
@@ -260,8 +225,8 @@ WriteLiteral(">\r\n");
 WriteLiteral("                            ");
 
             
-            #line 42 "..\..\Views\Account\Register.cshtml"
-                       Write(Html.TextBoxFor(m => m.UserName, new { @class = "form-control" }));
+            #line 38 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.NoAutoCompleteTextBoxForLtr(m => m.UserName));
 
             
             #line default
@@ -271,7 +236,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                            ");
 
             
-            #line 43 "..\..\Views\Account\Register.cshtml"
+            #line 39 "..\..\Views\Account\Register.cshtml"
                        Write(Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" }));
 
             
@@ -287,13 +252,97 @@ WriteLiteral(">\r\n");
 WriteLiteral("                        ");
 
             
-            #line 47 "..\..\Views\Account\Register.cshtml"
+            #line 43 "..\..\Views\Account\Register.cshtml"
+                   Write(Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        <div");
+
+WriteLiteral(" class=\"col-md-10\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 45 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.FormControlPasswordFor(m => m.Password));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 46 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n                   " +
+" <div");
+
+WriteLiteral(" class=\"form-group\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                        ");
+
+            
+            #line 50 "..\..\Views\Account\Register.cshtml"
+                   Write(Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        <div");
+
+WriteLiteral(" class=\"col-md-10\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 52 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.FormControlPasswordFor(m => m.ConfirmPassword));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n");
+
+WriteLiteral("                            ");
+
+            
+            #line 53 "..\..\Views\Account\Register.cshtml"
+                       Write(Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                        </div>\r\n                    </div>\r\n\r\n                 " +
+"   <div");
+
+WriteLiteral(" class=\"form-group\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                        ");
+
+            
+            #line 58 "..\..\Views\Account\Register.cshtml"
                    Write(Html.MathCaptcha(MVC.Shared.Views._CaptchaPartial));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n                    </div>\r\n                </div>\r\n                <div");
+WriteLiteral("\r\n                    </div>\r\n                </div>\r\n                <div");
 
 WriteLiteral(" class=\"panel-footer\"");
 
@@ -305,19 +354,22 @@ WriteLiteral(">\r\n                        <div");
 
 WriteLiteral(" class=\"col-md-12\"");
 
-WriteLiteral(">\r\n                            <input");
+WriteLiteral(">\r\n                            <button");
 
-WriteLiteral(" type=\"submit\"");
+WriteLiteral(" type=\"button\"");
+
+WriteLiteral(" onclick=\" AjaxForm.CustomSubmit(this, \'registerForm\')\"");
+
+WriteLiteral(" data-loading-text=\"در حال ارسال اطلاعات\"");
 
 WriteLiteral(" class=\"btn btn-success btn-block\"");
 
-WriteLiteral(" value=\"تأیید اطلاعات برای تکمیل عضویت\"");
-
-WriteLiteral(" />\r\n                        </div>\r\n                    </div>\r\n                " +
-"</div>\r\n            </div>\r\n\r\n        </div>\r\n");
+WriteLiteral(">\r\n                                تأیید اطلاعات برای تکمیل عضویت\r\n              " +
+"              </button>\r\n                        </div>\r\n                    </d" +
+"iv>\r\n                </div>\r\n            </div>\r\n        </div>\r\n");
 
             
-            #line 61 "..\..\Views\Account\Register.cshtml"
+            #line 72 "..\..\Views\Account\Register.cshtml"
     }
 
             
@@ -327,6 +379,17 @@ WriteLiteral("\r\n</div>\r\n");
 
 DefineSection("Scripts", () => {
 
+WriteLiteral("\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 76 "..\..\Views\Account\Register.cshtml"
+Write(Scripts.Render("~/bundles/jqueryval"));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n");
 
 });

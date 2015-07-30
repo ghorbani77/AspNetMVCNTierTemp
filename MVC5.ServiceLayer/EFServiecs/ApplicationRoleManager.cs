@@ -200,6 +200,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                 Description = "مدیران سیستمی برنامه",
                 Permissions = new Collection<ApplicationPermission>()
             };
+
             _roles.AddOrUpdate(a => a.Name, superAdministrators);
             _unitOfWork.SaveChanges();
             _unitOfWork.MarkAsDetached(superAdministrators);

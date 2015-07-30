@@ -111,15 +111,21 @@ namespace MVC5.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult IsEmailExist()
+        public virtual System.Web.Mvc.JsonResult CheckPassword()
         {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailExist);
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.CheckPassword);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult IsPhoneNumberExist()
+        public virtual System.Web.Mvc.JsonResult IsNameForShowExist()
         {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsPhoneNumberExist);
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsNameForShowExist);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult IsEmailExist()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailExist);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -157,8 +163,9 @@ namespace MVC5.Web.Controllers
             public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
             public readonly string SendCode = "SendCode";
             public readonly string VerifyCode = "VerifyCode";
+            public readonly string CheckPassword = "CheckPassword";
+            public readonly string IsNameForShowExist = "IsNameForShowExist";
             public readonly string IsEmailExist = "IsEmailExist";
-            public readonly string IsPhoneNumberExist = "IsPhoneNumberExist";
             public readonly string IsUserNameExist = "IsUserNameExist";
         }
 
@@ -179,8 +186,9 @@ namespace MVC5.Web.Controllers
             public const string ResetPasswordConfirmation = "ResetPasswordConfirmation";
             public const string SendCode = "SendCode";
             public const string VerifyCode = "VerifyCode";
+            public const string CheckPassword = "CheckPassword";
+            public const string IsNameForShowExist = "IsNameForShowExist";
             public const string IsEmailExist = "IsEmailExist";
-            public const string IsPhoneNumberExist = "IsPhoneNumberExist";
             public const string IsUserNameExist = "IsUserNameExist";
         }
 
@@ -273,6 +281,23 @@ namespace MVC5.Web.Controllers
             public readonly string returnUrl = "returnUrl";
             public readonly string model = "model";
         }
+        static readonly ActionParamsClass_CheckPassword s_params_CheckPassword = new ActionParamsClass_CheckPassword();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CheckPassword CheckPasswordParams { get { return s_params_CheckPassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CheckPassword
+        {
+            public readonly string password = "password";
+        }
+        static readonly ActionParamsClass_IsNameForShowExist s_params_IsNameForShowExist = new ActionParamsClass_IsNameForShowExist();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IsNameForShowExist IsNameForShowExistParams { get { return s_params_IsNameForShowExist; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IsNameForShowExist
+        {
+            public readonly string nameForShow = "nameForShow";
+            public readonly string id = "id";
+        }
         static readonly ActionParamsClass_IsEmailExist s_params_IsEmailExist = new ActionParamsClass_IsEmailExist();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_IsEmailExist IsEmailExistParams { get { return s_params_IsEmailExist; } }
@@ -280,14 +305,7 @@ namespace MVC5.Web.Controllers
         public class ActionParamsClass_IsEmailExist
         {
             public readonly string email = "email";
-        }
-        static readonly ActionParamsClass_IsPhoneNumberExist s_params_IsPhoneNumberExist = new ActionParamsClass_IsPhoneNumberExist();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_IsPhoneNumberExist IsPhoneNumberExistParams { get { return s_params_IsPhoneNumberExist; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_IsPhoneNumberExist
-        {
-            public readonly string phoneNumber = "phoneNumber";
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_IsUserNameExist s_params_IsUserNameExist = new ActionParamsClass_IsUserNameExist();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -296,6 +314,7 @@ namespace MVC5.Web.Controllers
         public class ActionParamsClass_IsUserNameExist
         {
             public readonly string userName = "userName";
+            public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -578,38 +597,53 @@ namespace MVC5.Web.Controllers
         }
 
         [NonAction]
-        partial void IsEmailExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string email);
+        partial void CheckPasswordOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string password);
 
         [NonAction]
-        public override System.Web.Mvc.JsonResult IsEmailExist(string email)
+        public override System.Web.Mvc.JsonResult CheckPassword(string password)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.CheckPassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "password", password);
+            CheckPasswordOverride(callInfo, password);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IsNameForShowExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string nameForShow, int? id);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult IsNameForShowExist(string nameForShow, int? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsNameForShowExist);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "nameForShow", nameForShow);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            IsNameForShowExistOverride(callInfo, nameForShow, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IsEmailExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string email, int? id);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult IsEmailExist(string email, int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailExist);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "email", email);
-            IsEmailExistOverride(callInfo, email);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            IsEmailExistOverride(callInfo, email, id);
             return callInfo;
         }
 
         [NonAction]
-        partial void IsPhoneNumberExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string phoneNumber);
+        partial void IsUserNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string userName, int? id);
 
         [NonAction]
-        public override System.Web.Mvc.JsonResult IsPhoneNumberExist(string phoneNumber)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsPhoneNumberExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "phoneNumber", phoneNumber);
-            IsPhoneNumberExistOverride(callInfo, phoneNumber);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void IsUserNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string userName);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult IsUserNameExist(string userName)
+        public override System.Web.Mvc.JsonResult IsUserNameExist(string userName, int? id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsUserNameExist);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userName", userName);
-            IsUserNameExistOverride(callInfo, userName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            IsUserNameExistOverride(callInfo, userName, id);
             return callInfo;
         }
 

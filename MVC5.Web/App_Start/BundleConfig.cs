@@ -1,4 +1,5 @@
-﻿using System.Web.Optimization;
+﻿using System.Collections.Generic;
+using System.Web.Optimization;
 
 namespace MVC5.Web
 {
@@ -11,8 +12,12 @@ namespace MVC5.Web
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                "~/Scripts/jquery.validate*"));
+            var jqueryVal = new ScriptBundle("~/bundles/jqueryval").Include(
+                "~/Scripts/jqueryval-default.min.js")
+                .Include("~/Scripts/jquery.validate*"
+                );
+            jqueryVal.Orderer = new NonOrderingBundleOrderer();
+            bundles.Add(jqueryVal);
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"
@@ -54,6 +59,14 @@ namespace MVC5.Web
 
             BundleTable.EnableOptimizations = true;
 
+        }
+
+    }
+    class NonOrderingBundleOrderer : IBundleOrderer
+    {
+        public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
+        {
+            return files;
         }
     }
 }

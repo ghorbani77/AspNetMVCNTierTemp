@@ -794,14 +794,24 @@ WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"RoleIds\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 9508), Tuple.Create("\"", 9527)
+WriteAttribute("checked", Tuple.Create(" checked=\"", 9508), Tuple.Create("\"", 9532)
             
             #line 157 "..\..\Areas\Administrator\Views\User\Edit.cshtml"
-             , Tuple.Create(Tuple.Create("", 9516), Tuple.Create<System.Object, System.Int32>(role.Value
+               , Tuple.Create(Tuple.Create("", 9518), Tuple.Create<System.Object, System.Int32>(role.Selected
             
             #line default
             #line hidden
-, 9516), false)
+, 9518), false)
+);
+
+WriteAttribute("value", Tuple.Create(" value=\"", 9533), Tuple.Create("\"", 9552)
+            
+            #line 157 "..\..\Areas\Administrator\Views\User\Edit.cshtml"
+                                      , Tuple.Create(Tuple.Create("", 9541), Tuple.Create<System.Object, System.Int32>(role.Value
+            
+            #line default
+            #line hidden
+, 9541), false)
 );
 
 WriteLiteral(" class=\"checkbox-inline\"");
@@ -867,6 +877,15 @@ WriteLiteral("    </div>\r\n</div>\r\n");
 
 DefineSection("Scripts", () => {
 
+WriteLiteral("\r\n");
+
+            
+            #line 181 "..\..\Areas\Administrator\Views\User\Edit.cshtml"
+Write(Scripts.Render("~/bundles/jqueryval"));
+
+            
+            #line default
+            #line hidden
 WriteLiteral("\r\n    <script>\r\n        $(function() {\r\n            warningBeforeLoad();\r\n       " +
 " })\r\n    </script>\r\n");
 

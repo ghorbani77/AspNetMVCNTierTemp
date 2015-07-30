@@ -215,17 +215,6 @@ WriteLiteral("    ");
 
             
             #line 59 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
-Write(Scripts.Render("~/bundles/jqueryval"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\r\n");
-
-WriteLiteral("    ");
-
-            
-            #line 60 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
 Write(RenderSection("scripts", required: false));
 
             
@@ -234,13 +223,13 @@ Write(RenderSection("scripts", required: false));
 WriteLiteral("\r\n");
 
             
-            #line 61 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 60 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 61 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 60 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
       Html.RenderPartial(MVC.Shared.Views._Toastr);
             
             #line default
@@ -250,7 +239,7 @@ WriteLiteral("\r\n");
 WriteLiteral("    ");
 
             
-            #line 62 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
+            #line 61 "..\..\Areas\Administrator\Views\Shared\_Layout.cshtml"
 Write(MiniProfiler.RenderIncludes());
 
             

@@ -12,7 +12,7 @@ namespace MVC5.ServiceLayer.Settings
             UserRegistrationType = UserRegistrationType.Standard;
             AvatarMaximumSizeBytes = 20000;
             DefaultAvatarEnabled = true;
-            UserNameFormat = UserShowNameFormat.ShowFirstName;
+            UserNameFormat = UserShowNameFormat.ShowName;
             DateOfBirthEnabled = true;
             NewsletterEnabled = true;
         }

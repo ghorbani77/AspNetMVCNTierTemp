@@ -56,8 +56,7 @@ namespace MVC5.Common.HtmlCleaner
         /// <returns>Processed Text</returns>
         public static string ApplyPersianYeKe(this string text)
         {
-            if (string.IsNullOrEmpty(text)) return string.Empty;
-            return text.Replace(ArabicYeChar, PersianYeChar).Replace(ArabicKeChar, PersianKeChar).Trim();
+            return string.IsNullOrEmpty(text) ? string.Empty : text.Replace(ArabicYeChar, PersianYeChar).Replace(ArabicKeChar, PersianKeChar).Trim();
         }
 
         /// <summary>

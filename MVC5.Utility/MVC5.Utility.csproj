@@ -35,23 +35,15 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeConverter.cs" />
     <Compile Include="EF.Filters\RoleFilters.cs" />
     <Compile Include="EF.Filters\UserFilters.cs" />
+    <Compile Include="NormalizationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemainingDateTime.cs" />
     <Compile Include="SafePassword.cs" />

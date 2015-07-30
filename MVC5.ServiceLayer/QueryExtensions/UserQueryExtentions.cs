@@ -32,20 +32,16 @@ namespace MVC5.ServiceLayer.QueryExtensions
             return users.Where(a => a.UserName.Contains(userName));
         }
 
-        public static IQueryable<ApplicationUser> SearchByFirstName(this IQueryable<ApplicationUser> users,
-            string firstName)
+        public static IQueryable<ApplicationUser> SearchByNameForShow(this IQueryable<ApplicationUser> users,
+            string nameForShow)
         {
-            return users.Where(a => a.FirstName.Contains(firstName));
+            return users.Where(a => a.NameForShow.Contains(nameForShow));
         }
         public static IQueryable<ApplicationUser> SearchByIp(this IQueryable<ApplicationUser> users,
            string ip)
         {
             return users.Where(a => a.LastIp.Contains(ip));
         }
-        public static IQueryable<ApplicationUser> SearchByLastName(this IQueryable<ApplicationUser> users,
-           string lastName)
-        {
-            return users.Where(a => a.LastName.Contains(lastName));
-        }
+      
     }
 }

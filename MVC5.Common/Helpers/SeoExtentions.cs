@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using MVC5.Utility;
 
 namespace MVC5.Common.Helpers
 {
@@ -108,7 +109,12 @@ namespace MVC5.Common.Helpers
             slug = Regex.Replace(slug, @"-+", "-");
             slug = slug.Substring(0, slug.Length <= MaxLenghtSlug ? slug.Length : MaxLenghtSlug).Trim();
 
-            return slug;
+            return slug.RemoveDiacritics();
+        }
+        private static string RemoveAccent(this string text)
+        {
+            var bytes = Encoding.GetEncoding("UTF-8").GetBytes(text);
+            return Encoding.UTF8.GetString(bytes);
         }
         #endregion
 
@@ -126,16 +132,7 @@ namespace MVC5.Common.Helpers
                 ? string.Empty
                 : Regex.Replace(Regex.Replace(title, "[^\\w]", "-"), "[-]{2,}", "-");
         }
-        private static string RemoveAccent(this string text)
-        {
-            var bytes = Encoding.GetEncoding("UTF-8").GetBytes(text);
-            return Encoding.UTF8.GetString(bytes);
-        }
-
-        public static string RemoveHtmlTags(this string text)
-        {
-            return string.IsNullOrEmpty(text) ? string.Empty : Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
-        }
+        
 
         public static string GeneratePageTitle(params string[] crumbs)
         {
@@ -153,7 +150,7 @@ namespace MVC5.Common.Helpers
 
             title = title.Substring(0, title.Length <= MaxLenghtTitle ? title.Length : MaxLenghtTitle).Trim();
 
-            return title;
+            return title.RemoveDiacritics();
         }
 
         public static string GeneratePageDescription(string description)

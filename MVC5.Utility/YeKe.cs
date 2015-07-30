@@ -22,7 +22,12 @@ namespace MVC5.Utility
                         string.Empty :
                         data.Replace(ArabicYeChar, PersianYeChar).Replace(ArabicKeChar, PersianKeChar).Trim();
         }
-
+        public static string ApplyCorrectYeKeWitOutTrim(this string data)
+        {
+            return string.IsNullOrWhiteSpace(data) ?
+                        string.Empty :
+                        data.Replace(ArabicYeChar, PersianYeChar).Replace(ArabicKeChar, PersianKeChar);
+        }
         public static void ApplyCorrectYeKe(this DbCommand command)
         {
             command.CommandText = command.CommandText.ApplyCorrectYeKe();

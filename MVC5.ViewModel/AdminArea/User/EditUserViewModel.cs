@@ -35,6 +35,7 @@ namespace MVC5.ViewModel.AdminArea.User
         public string UserName { get; set; }
         [DisplayName("قفل شود")]
         public bool IsBanned { get; set; }
+        [RegularExpression(@"^[\u0600-\u06FF,\u0590-\u05FF,0-9\s]*$", ErrorMessage = "لطفا فقط از حروف فارسی استفاده کنید")]
         [DisplayName("نام")]
         [MaxLength(50, ErrorMessage = "تعداد حروف نام  غیر مجاز است")]
         [Required(ErrorMessage = "لطفا نام را وارد کنید")]
@@ -42,6 +43,7 @@ namespace MVC5.ViewModel.AdminArea.User
         public string FirstName { get; set; }
         [DisplayName("نام خانوادگی")]
         [MaxLength(50, ErrorMessage = "تعداد حروف نام خانوادگی  غیر مجاز است")]
+        [RegularExpression(@"^[\u0600-\u06FF,\u0590-\u05FF,0-9\s]*$", ErrorMessage = "لطفا فقط از حروف فارسی استفاده کنید")]
         [Required(ErrorMessage = "لطفا نام خانوادگی را وارد کنید")]
         [Remote("LastNameExist", "User", "Administrator", ErrorMessage = "این نام خانوادگی قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
         public string LastName { get; set; }
