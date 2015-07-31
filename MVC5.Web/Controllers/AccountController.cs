@@ -212,16 +212,16 @@ namespace MVC5.Web.Controllers
         [CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            //if (_userManager.CheckIsUserBannedOrDelete(model.UserName))
-            //{
-            //    this.AddErrors("UserName", "حساب کاربری شما مسدود شده است");
-            //    return View(model);
-            //}
-            //if (!_userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
-            //{
-            //    ToastrWarning("برای ورود به سایت لازم است حساب خود را فعال کنید");
-            //    return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
-            //}
+            if (_userManager.CheckIsUserBannedOrDelete(model.UserName))
+            {
+                this.AddErrors("UserName", "حساب کاربری شما مسدود شده است");
+                return View(model);
+            }
+            if (!_userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
+            {
+                ToastrWarning("برای ورود به سایت لازم است حساب خود را فعال کنید");
+                return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
+            }
 
             if (!ModelState.IsValid)
             {
@@ -346,7 +346,7 @@ namespace MVC5.Web.Controllers
             var result = await _userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false, false);
+                await _signInManager.SignInAsync(user,false, false);
                 return RedirectToAction(MVC.Account.ActionNames.ResetPasswordConfirmation, MVC.Account.Name);
             }
             this.AddErrors(result);

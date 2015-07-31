@@ -15,16 +15,19 @@ namespace MVC5.AutoMapperProfiles
     {
         protected override void Configure()
         {
-           CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
+            CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
 
             CreateMap<ApplicationUser, UserViewModel>()
                 .ForMember(d => d.Roles, s => s.Ignore()).IgnoreAllNonExisting();
 
             CreateMap<AddUserViewModel, ApplicationUser>()
-                .ForMember(d => d.RegisterDate, m => m.MapFrom(s => DateTime.Now))
+                .ForMember(u => u.RegisterDate, a => a.MapFrom(b => DateTime.Now))
+                .ForMember(u => u.Email, m => m.MapFrom(d => d.Email.FixGmailDots()))
+                .ForMember(u => u.UserName, m => m.MapFrom(d => d.UserName.ToLower()))
                 .IgnoreAllNonExisting();
 
-            CreateMap<EditUserViewModel, ApplicationUser>().ForMember(s => s.Roles, d => d.Ignore()).IgnoreAllNonExisting();
+            CreateMap<EditUserViewModel, ApplicationUser>()
+                .ForMember(s => s.Roles, d => d.Ignore()).IgnoreAllNonExisting();
             CreateMap<ApplicationUser, EditUserViewModel>().IgnoreAllNonExisting();
 
             CreateMap<RegisterViewModel, ApplicationUser>()
@@ -34,7 +37,7 @@ namespace MVC5.AutoMapperProfiles
                 .ForMember(u => u.Email, m => m.MapFrom(d => d.Email.FixGmailDots()))
                 .ForMember(u => u.UserName, m => m.MapFrom(d => d.UserName.ToLower()))
                 .IgnoreAllNonExisting();
-            
+
         }
 
         public override string ProfileName

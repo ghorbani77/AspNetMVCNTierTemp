@@ -75,6 +75,7 @@
     <Compile Include="AdminArea\Role\AddRoleViewModel.cs" />
     <Compile Include="AdminArea\Role\EditRoleViewModel.cs" />
     <Compile Include="AdminArea\Setting\UserSettingViewModel.cs" />
+    <Compile Include="AdminArea\User\UserListViewModel.cs" />
     <Compile Include="AdminArea\User\UserSearchViewModel.cs" />
     <Compile Include="ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,6 +11,8 @@ namespace MVC5.ViewModel.AdminArea.User
             this.PageIndex = 1;
             this.PageSize = 10;
         }
+
+        public int UsersTotal { get; set; }
         [DisplayName("نام کاربری")]
         public string SearchUserName { get; set; }
         [DisplayName("ایمیل")]

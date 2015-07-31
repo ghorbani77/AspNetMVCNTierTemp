@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNet.Identity
+@using MVC5.ServiceLayer.Security
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new {id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
@@ -10,8 +11,15 @@
                 @Html.ActionLink("سلام " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: new { area = "" }, htmlAttributes: new { title = "Manage", @class = "nofollow" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">خروج</a></li>
+            @if (User.IsInRole(SystemPermissionNames.CanViewAdminPanel))
+            {
+            <text>
+                <li>@Html.ActionLink("پنل مدیریت", MVC.Administrator.Home.ActionNames.Index, MVC.Administrator.Home.Name, new { area = MVC.Administrator.Name }, null)</li>
+            </text>
+            }
         </ul>
     }
+   
 }
 else
 {

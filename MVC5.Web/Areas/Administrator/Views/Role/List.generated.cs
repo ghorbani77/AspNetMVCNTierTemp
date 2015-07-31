@@ -88,7 +88,7 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 11 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                 using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList", OnComplete = "onComplete" }, new { @class = "form-horizontal" }))
+                 using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList", OnComplete = "onComplete", OnSuccess = "AjaxForm.ResetButton('searchRoleButton')" }, new { @class = "form-horizontal", autocomplete = "off", id = "roleSearchForm" }))
                 {
 
             
@@ -104,15 +104,22 @@ WriteLiteral(">\r\n                        <span");
 
 WriteLiteral(" class=\"input-group-btn\"");
 
-WriteLiteral(">\r\n                            <input");
+WriteLiteral(">\r\n                            <button");
+
+WriteLiteral(" type=\"button\"");
+
+WriteLiteral(" id=\"searchRoleButton\"");
+
+WriteLiteral(" onclick=\"AjaxForm.CustomSubmit(this, \'roleSearchForm\')\"");
+
+WriteLiteral(" autocomplete=\"off\"");
+
+WriteLiteral(" data-loading-text=\"جستجو\"");
 
 WriteLiteral(" class=\"btn btn-info btn-sm\"");
 
-WriteLiteral(" type=\"submit\"");
-
-WriteLiteral(" value=\"بگرد\"");
-
-WriteLiteral(">\r\n                        </span>\r\n\r\n                        <input");
+WriteLiteral(">\r\n                                جستجو\r\n                            </button>\r\n" +
+"                        </span>\r\n\r\n                        <input");
 
 WriteLiteral(" dir=\"rtl\"");
 
@@ -127,7 +134,7 @@ WriteLiteral("\r\n                               placeholder=\"کلمه جستج
 WriteLiteral(">\r\n                    </div>\r\n");
 
             
-            #line 21 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+            #line 23 "..\..\Areas\Administrator\Views\Role\List.cshtml"
                 }
 
             
@@ -142,13 +149,13 @@ WriteLiteral(" id=\"roleList\"");
 WriteLiteral(">\r\n");
 
             
-            #line 27 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+            #line 29 "..\..\Areas\Administrator\Views\Role\List.cshtml"
     
             
             #line default
             #line hidden
             
-            #line 27 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+            #line 29 "..\..\Areas\Administrator\Views\Role\List.cshtml"
       Html.RenderAction(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name);
             
             #line default
@@ -157,8 +164,17 @@ WriteLiteral("\r\n</div>\r\n\r\n");
 
 DefineSection("Scripts", () => {
 
-WriteLiteral("\r\n<script>\r\n        $(function () {\r\n            warningBeforeLoad();\r\n        })" +
-"\r\n</script>\r\n");
+WriteLiteral("\r\n");
+
+            
+            #line 34 "..\..\Areas\Administrator\Views\Role\List.cshtml"
+Write(Scripts.Render("~/bundles/jqueryval"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n    <script>\r\n        $(function () {\r\n            warningBeforeLoad();\r\n      " +
+"  })\r\n    </script>\r\n");
 
 });
 

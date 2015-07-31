@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Security.Principal;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using MVC5.Common.Caching;
 using MVC5.IocConfig;
 using MVC5.ServiceLayer.Contracts;
 using StackExchange.Profiling;
@@ -63,7 +63,6 @@ namespace MVC5.Web
             string[] reservedPath =
               {
                   "/__browserLink",
-                  "/Images",
                   "/Scripts",
                   "/Content"
               };
@@ -83,9 +82,11 @@ namespace MVC5.Web
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-            // for forms Authentication if (ShouldIgnoreRequest()) return;
-
+            if (ShouldIgnoreRequest()) 
+                return;
             if (Context.User == null)
+                return;
+            if (!Context.User.Identity.IsAuthenticated)
                 return;
 
             var userId = Context.User.Identity.GetUserId<int>();
@@ -108,9 +109,9 @@ namespace MVC5.Web
 
         #region Private
         private void SetPermissions(IEnumerable<string> permissions)
-        {
+        { 
             Context.User =
-                new GenericPrincipal(System.Web.HttpContext.Current.User.Identity, permissions.ToArray());
+                new GenericPrincipal(Context.User.Identity, permissions.ToArray());
         }
         #endregion
     }

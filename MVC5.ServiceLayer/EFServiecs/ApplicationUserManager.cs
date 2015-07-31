@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
+using EFSecondLevelCache;
 using EntityFramework.Extensions;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -238,7 +239,6 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
-
         #region GetPageList
         public IList<UserViewModel> GetPageList(out int total, UserSearchViewModel search)
         {
@@ -298,14 +298,13 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region EditUserWithRoles
         public void EditUserWithRoles(EditUserViewModel viewModel, int[] roleIds)
         {
-            var key = viewModel.Id.ToString(CultureInfo.InvariantCulture) + "_roles";
-            _contextBase.InvalidateCache(key);
             var user = _users.Include(a => a.Roles).First(a => a.Id == viewModel.Id);
             _mappingEngine.Map(viewModel, user);
 
             foreach (var roleId in from roleId in roleIds let userRoleRecord = user.Roles.FirstOrDefault(a => a.RoleId == roleId) where userRoleRecord == null select roleId)
             {
                 user.Roles.Add(new ApplicationUserRole { RoleId = roleId, UserId = user.Id });
+                user.PermissionsOrRolesModified = true;
             }
 
         }
@@ -323,10 +322,12 @@ namespace MVC5.ServiceLayer.EFServiecs
         {
             var user = _mappingEngine.Map<ApplicationUser>(viewModel);
             viewModel.RoleIds.ToList().ForEach(roleId => user.Roles.Add(new ApplicationUserRole { RoleId = roleId }));
-            _users.Add(user);
-            await _unitOfWork.SaveChangesAsync();
+            this.Create(user, viewModel.Password);
+
             _unitOfWork.MarkAsDetached(user);
+
             if (viewModel.PermissionIds == null || viewModel.PermissionIds.Length <= 0) return;
+
             user.OwnPermissions = new Collection<ApplicationPermission>();
             var permissions = _permissionService.GetActualPermissions(viewModel.PermissionIds).ToList();
             permissions.ForEach(a => user.OwnPermissions.Add(a));
@@ -397,7 +398,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region override GetRolesAsync
         public async override Task<IList<string>> GetRolesAsync(int userId)
         {
-            var permissions=await GetUserPermissionsAsync(userId);
+            var permissions = await GetUserPermissionsAsync(userId);
 
             return permissions;
         }
@@ -427,12 +428,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region ChechIsBanneduser
         public bool CheckIsUserBannedOrDelete(int id)
         {
-            _unitOfWork.EnableFiltering(UserFilters.BannedList);
-            _unitOfWork.EnableFiltering(UserFilters.DeletedList);
-            var result = _users.Any(a => a.Id == id);
-            _unitOfWork.DisableFiltering(UserFilters.BannedList);
-            _unitOfWork.DisableFiltering(UserFilters.DeletedList);
-            return result;
+            return _users.Any(a => a.Id == id && (a.IsBanned || a.IsDeleted));
         }
         public bool CheckIsUserBanned(int id)
         {
@@ -444,21 +440,11 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         public bool CheckIsUserBannedOrDelete(string userName)
         {
-            _unitOfWork.EnableFiltering(UserFilters.BannedList);
-            _unitOfWork.EnableFiltering(UserFilters.DeletedList);
-            var result = _users.Any(a => a.UserName == userName.ToLower());
-            _unitOfWork.DisableFiltering(UserFilters.BannedList);
-            _unitOfWork.DisableFiltering(UserFilters.DeletedList);
-            return result;
+            return _users.Any(a => a.UserName == userName.ToLower() && (a.IsBanned || a.IsDeleted));
         }
         public bool CheckIsUserBannedOrDeleteByEmail(string email)
         {
-            _unitOfWork.EnableFiltering(UserFilters.BannedList);
-            _unitOfWork.EnableFiltering(UserFilters.DeletedList);
-            var result = _users.Any(a => a.Email == email.FixGmailDots());
-            _unitOfWork.DisableFiltering(UserFilters.BannedList);
-            _unitOfWork.DisableFiltering(UserFilters.DeletedList);
-            return result;
+            return _users.Any(a => a.Email == email.FixGmailDots() && (a.IsBanned || a.IsDeleted));
         }
         public bool CheckIsUserBannedByEmail(string email)
         {
@@ -546,6 +532,6 @@ namespace MVC5.ServiceLayer.EFServiecs
         {
             _users.Where(a => a.Id == userId).Update(a => new ApplicationUser { PermissionsOrRolesModified = false });
         }
-       
+
     }
 }

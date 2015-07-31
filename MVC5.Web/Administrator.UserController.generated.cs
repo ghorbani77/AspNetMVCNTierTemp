@@ -71,28 +71,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SoftDelete()
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SoftDelete);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult UserNameExist()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.UserNameExist);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult LastNameForShowExist()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.LastNameForShowExist);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult EmailExist()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.EmailExist);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -111,6 +93,36 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public virtual System.Web.Mvc.JsonResult FaceBookIdExist()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.FaceBookIdExist);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult IsEmailAvailable()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailAvailable);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult CheckPassword()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.CheckPassword);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult IsNameForShowExist()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsNameForShowExist);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult IsEmailExist()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailExist);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult IsUserNameExist()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsUserNameExist);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -132,13 +144,15 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public readonly string ListAjax = "ListAjax";
             public readonly string Edit = "Edit";
             public readonly string Create = "Create";
-            public readonly string SoftDelete = "SoftDelete";
-            public readonly string UserNameExist = "UserNameExist";
-            public readonly string LastNameForShowExist = "LastNameForShowExist";
-            public readonly string EmailExist = "EmailExist";
+            public readonly string Delete = "Delete";
             public readonly string PhoneNumberExist = "PhoneNumberExist";
             public readonly string GooglePlusIdExist = "GooglePlusIdExist";
             public readonly string FaceBookIdExist = "FaceBookIdExist";
+            public readonly string IsEmailAvailable = "IsEmailAvailable";
+            public readonly string CheckPassword = "CheckPassword";
+            public readonly string IsNameForShowExist = "IsNameForShowExist";
+            public readonly string IsEmailExist = "IsEmailExist";
+            public readonly string IsUserNameExist = "IsUserNameExist";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -148,13 +162,15 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             public const string ListAjax = "ListAjax";
             public const string Edit = "Edit";
             public const string Create = "Create";
-            public const string SoftDelete = "SoftDelete";
-            public const string UserNameExist = "UserNameExist";
-            public const string LastNameForShowExist = "LastNameForShowExist";
-            public const string EmailExist = "EmailExist";
+            public const string Delete = "Delete";
             public const string PhoneNumberExist = "PhoneNumberExist";
             public const string GooglePlusIdExist = "GooglePlusIdExist";
             public const string FaceBookIdExist = "FaceBookIdExist";
+            public const string IsEmailAvailable = "IsEmailAvailable";
+            public const string CheckPassword = "CheckPassword";
+            public const string IsNameForShowExist = "IsNameForShowExist";
+            public const string IsEmailExist = "IsEmailExist";
+            public const string IsUserNameExist = "IsUserNameExist";
         }
 
 
@@ -184,39 +200,12 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             public readonly string viewModel = "viewModel";
         }
-        static readonly ActionParamsClass_SoftDelete s_params_SoftDelete = new ActionParamsClass_SoftDelete();
+        static readonly ActionParamsClass_Delete s_params_Delete = new ActionParamsClass_Delete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SoftDelete SoftDeleteParams { get { return s_params_SoftDelete; } }
+        public ActionParamsClass_Delete DeleteParams { get { return s_params_Delete; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SoftDelete
+        public class ActionParamsClass_Delete
         {
-            public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_UserNameExist s_params_UserNameExist = new ActionParamsClass_UserNameExist();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_UserNameExist UserNameExistParams { get { return s_params_UserNameExist; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UserNameExist
-        {
-            public readonly string userName = "userName";
-            public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_LastNameForShowExist s_params_LastNameForShowExist = new ActionParamsClass_LastNameForShowExist();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LastNameForShowExist LastNameForShowExistParams { get { return s_params_LastNameForShowExist; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LastNameForShowExist
-        {
-            public readonly string nameForShow = "nameForShow";
-            public readonly string id = "id";
-        }
-        static readonly ActionParamsClass_EmailExist s_params_EmailExist = new ActionParamsClass_EmailExist();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EmailExist EmailExistParams { get { return s_params_EmailExist; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EmailExist
-        {
-            public readonly string email = "email";
             public readonly string id = "id";
         }
         static readonly ActionParamsClass_PhoneNumberExist s_params_PhoneNumberExist = new ActionParamsClass_PhoneNumberExist();
@@ -244,6 +233,49 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         public class ActionParamsClass_FaceBookIdExist
         {
             public readonly string faceBookId = "faceBookId";
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_IsEmailAvailable s_params_IsEmailAvailable = new ActionParamsClass_IsEmailAvailable();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IsEmailAvailable IsEmailAvailableParams { get { return s_params_IsEmailAvailable; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IsEmailAvailable
+        {
+            public readonly string email = "email";
+        }
+        static readonly ActionParamsClass_CheckPassword s_params_CheckPassword = new ActionParamsClass_CheckPassword();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CheckPassword CheckPasswordParams { get { return s_params_CheckPassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CheckPassword
+        {
+            public readonly string password = "password";
+        }
+        static readonly ActionParamsClass_IsNameForShowExist s_params_IsNameForShowExist = new ActionParamsClass_IsNameForShowExist();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IsNameForShowExist IsNameForShowExistParams { get { return s_params_IsNameForShowExist; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IsNameForShowExist
+        {
+            public readonly string nameForShow = "nameForShow";
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_IsEmailExist s_params_IsEmailExist = new ActionParamsClass_IsEmailExist();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IsEmailExist IsEmailExistParams { get { return s_params_IsEmailExist; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IsEmailExist
+        {
+            public readonly string email = "email";
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_IsUserNameExist s_params_IsUserNameExist = new ActionParamsClass_IsUserNameExist();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_IsUserNameExist IsUserNameExistParams { get { return s_params_IsUserNameExist; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_IsUserNameExist
+        {
+            public readonly string userName = "userName";
             public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -345,54 +377,15 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         [NonAction]
-        partial void SoftDeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+        partial void DeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> SoftDelete(int? id)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Delete(int? id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SoftDelete);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Delete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            SoftDeleteOverride(callInfo, id);
+            DeleteOverride(callInfo, id);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
-        }
-
-        [NonAction]
-        partial void UserNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string userName, int? id);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult UserNameExist(string userName, int? id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.UserNameExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userName", userName);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            UserNameExistOverride(callInfo, userName, id);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void LastNameForShowExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string nameForShow, int? id);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult LastNameForShowExist(string nameForShow, int? id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.LastNameForShowExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "nameForShow", nameForShow);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            LastNameForShowExistOverride(callInfo, nameForShow, id);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void EmailExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string email, int? id);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult EmailExist(string email, int? id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.EmailExist);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "email", email);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            EmailExistOverride(callInfo, email, id);
-            return callInfo;
         }
 
         [NonAction]
@@ -431,6 +424,69 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "faceBookId", faceBookId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             FaceBookIdExistOverride(callInfo, faceBookId, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IsEmailAvailableOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string email);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult IsEmailAvailable(string email)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailAvailable);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "email", email);
+            IsEmailAvailableOverride(callInfo, email);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CheckPasswordOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string password);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult CheckPassword(string password)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.CheckPassword);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "password", password);
+            CheckPasswordOverride(callInfo, password);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IsNameForShowExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string nameForShow, int? id);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult IsNameForShowExist(string nameForShow, int? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsNameForShowExist);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "nameForShow", nameForShow);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            IsNameForShowExistOverride(callInfo, nameForShow, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IsEmailExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string email, int? id);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult IsEmailExist(string email, int? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsEmailExist);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "email", email);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            IsEmailExistOverride(callInfo, email, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IsUserNameExistOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string userName, int? id);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult IsUserNameExist(string userName, int? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.IsUserNameExist);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userName", userName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            IsUserNameExistOverride(callInfo, userName, id);
             return callInfo;
         }
 

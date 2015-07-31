@@ -21,6 +21,9 @@ AjaxForm.CustomSubmit = function (element, formId) {
     $(element).button('loading');
     $('#' + formId).submit();
 };
+AjaxForm.ResetButton = function(id) {
+    $('#' + id).button('reset');
+};
 
 AjaxForm.EnablePostbackValidation = function () {
     $('form').each(function () {

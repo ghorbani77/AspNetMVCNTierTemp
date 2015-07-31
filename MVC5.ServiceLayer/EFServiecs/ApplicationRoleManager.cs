@@ -14,6 +14,7 @@ using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ServiceLayer.Security;
+using MVC5.Utility;
 using MVC5.Utility.EF.Filters;
 using MVC5.ViewModel.AdminArea.Role;
 using RefactorThis.GraphDiff;
@@ -120,7 +121,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
             return roles.ToArray();
         }
-     
+
         #endregion
 
         #region IsUserInRole
@@ -181,7 +182,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region SetPermissionsToRole
         public void SetPermissionsToRole(ApplicationRole role, IEnumerable<ApplicationPermission> permissions)
         {
-            role.Permissions=new Collection<ApplicationPermission>();
+            role.Permissions = new Collection<ApplicationPermission>();
             foreach (var permission in permissions)
             {
                 role.Permissions.Add(permission);
@@ -298,8 +299,9 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region ChechForExisByName
         public bool ChechForExisByName(string name, int? id)
         {
-            return id == null ? _roles.Any(a => a.Name.ToLower() == name)
-                : _roles.Any(a => a.Name.ToLower() == name && id.Value != a.Id);
+            var roles = _roles.ToList();
+            return id == null ? roles.Any(a => a.Name.GetFriendlyPersianName() == name.GetFriendlyPersianName())
+                : roles.Any(a => a.Name.GetFriendlyPersianName() == name.GetFriendlyPersianName() && id.Value != a.Id);
         }
         #endregion
 
@@ -361,7 +363,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         public void ChangeDefaultRegisterRole(int id)
         {
-            _roles.Where(a => a.Id != id).Update(a => new ApplicationRole {IsDefaultForRegister = false});
+            _roles.Where(a => a.Id != id).Update(a => new ApplicationRole { IsDefaultForRegister = false });
         }
 
     }

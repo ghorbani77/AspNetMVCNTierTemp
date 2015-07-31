@@ -1,4 +1,5 @@
-﻿@model MVC5.ViewModel.AdminArea.User.UserSearchViewModel
+﻿@using MVC5.Web.RazorHelpers
+@model MVC5.ViewModel.AdminArea.User.UserSearchViewModel
 @{
     ViewBag.Title = "مدیریت کاربران";
 }
@@ -13,7 +14,7 @@
     </div>
 
 
-    @using (Ajax.BeginForm(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" }, new { @class = "form-horizontal" }))
+    @using (Ajax.BeginForm(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete", OnSuccess = "AjaxForm.ResetButton('userSearchButton')" }, new { @class = "form-horizontal", id = "userSearchForm" }))
     {
         <div class="panel-body">
             <ul class="nav nav-tabs">
@@ -124,18 +125,7 @@
                 </div>
 
                 <div class="tab-pane" id="roles">
-                    <div class="row">
-                        @foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
-                        {
-                            <text>
-                                <div class="col-md-3">
-                                    <input type="checkbox" id="@role.Value" name="RoleIds" value="@role.Value" class="checkbox-inline" />
-                                    <label for="@role.Value" class="control-label">@role.Text</label>
-                                </div>
-                            </text>
-                        }
-
-                    </div>
+                  @CheckBoxListBuilder.CheckBoxList("RoleIds", ViewBag.Roles)
                 </div>
 
             </div>
@@ -143,7 +133,14 @@
         </div>
 
         <div class="panel-footer">
-            <input type="submit" value="جستجو" class="btn btn-success btn-block btn-sm" />
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'userSearchForm')" id="userSearchButton"
+                            data-loading-text="در حال ارسال اطلاعات" class="btn btn-success btn-block">
+                        جستجو
+                    </button>
+                </div>
+            </div>
         </div>
     }
 
@@ -155,3 +152,6 @@
     @{Html.RenderAction(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name);}
 
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")}

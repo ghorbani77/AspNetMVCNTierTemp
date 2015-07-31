@@ -11,13 +11,15 @@ using MVC5.Common.Filters;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ServiceLayer.Security;
+using MVC5.Utility;
 using MVC5.ViewModel.AdminArea.User;
+using MVC5.Web.Extention;
 using MVC5.Web.Filters;
 using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    
+
     public partial class UserController : BaseController
     {
         #region Fields
@@ -60,29 +62,18 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             int total;
             var users = _userManager.GetPageList(out total, search);
-            ViewBag.PageNumber = search.PageIndex;
-            ViewBag.RoleIds = search.RoleIds;
-            ViewBag.SearchCanChangeProfilePicture = search.SearchCanChangeProfilePicture;
-            ViewBag.SearchCanModifyFirsAndLastName = search.SearchCanModifyFirsAndLastName;
-            ViewBag.SearchCanUploadFile = search.SearchCanUploadFile;
-            ViewBag.SearchCommentPermission = search.SearchCommentPermission;
-            ViewBag.SearchEmail = search.SearchEmail;
-            ViewBag.SearchFirstName = search.SearchNameForShow;
-            ViewBag.SearchIp = search.SearchIp;
-            ViewBag.SearchIsBanned = search.SearchIsBanned;
-            ViewBag.SearchIsDeleted = search.SearchIsDeleted;
-            ViewBag.SearchIsEmailConfirmed = search.SearchIsEmailConfirmed;
-            ViewBag.SearchIsSystemAccount = search.SearchIsSystemAccount;
-            ViewBag.SearchNameForShow = search.SearchNameForShow;
-            ViewBag.SearchUserName = search.SearchUserName;
-            ViewBag.TotalUsers = total;
-            ViewBag.PageNumber = search.PageIndex;
-            return PartialView(MVC.Administrator.User.Views.ViewNames._ListAjax, users);
+            search.UsersTotal = total;
+            var viewModel = new UserListViewModel
+            {
+                Users = users,
+                UserSearchViewModel = search
+            };
+            return PartialView(MVC.Administrator.User.Views.ViewNames._ListAjax, viewModel);
         }
         #endregion
 
         #region Edit
-        // [Route("Edit/{id}")]
+        [Route("Edit/{id}")]
         [HttpGet]
         [DisplayName("ویرایش کاربر")]
         [Mvc5Authorize(SystemPermissionNames.CanEditUser, AreaName = "Administrator")]
@@ -93,17 +84,30 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
             var viewModel = await _userManager.GetUserByRolesAsync(id.Value);
             if (viewModel == null) return HttpNotFound();
-           await PopulateRoles(viewModel.Roles.Select(a => a.RoleId).ToArray());
+            await PopulateRoles(viewModel.Roles.Select(a => a.RoleId).ToArray());
             return View(viewModel);
         }
 
         [HttpPost]
-        //  [Route("Edit/{id}")]
+        [Route("Edit/{id}")]
         //[CheckReferrer]
         [ValidateAntiForgeryToken]
         [Mvc5Authorize(SystemPermissionNames.CanEditUser)]
         public virtual async Task<ActionResult> Edit(EditUserViewModel viewModel, params int[] roleIds)
         {
+            if (_userManager.CheckUserNameExist(viewModel.UserName, viewModel.Id))
+                this.AddErrors("UserName", "این نام کاربری قبلا در سیستم ثبت شده است");
+            if (_userManager.CheckNameForShowExist(viewModel.NameForShow, viewModel.Id))
+                this.AddErrors("NameForShow", "این نام نمایشی قبلا  در سیستم ثبت شده است");
+            if (!viewModel.Password.IsSafePasword())
+                this.AddErrors("Password", "این کلمه عبور به راحتی قابل تشخیص است");
+            if (_userManager.CheckEmailExist(viewModel.Email, viewModel.Id))
+                this.AddErrors("Email", "این ایمیل قبلا در سیستم ثبت شده است");
+            if (_userManager.CheckFacebookIdExist(viewModel.FaceBookId, viewModel.Id))
+                this.AddErrors("FaceBookId", "این آد دی قبلا در سیستم ثبت شده است");
+            if (_userManager.CheckFacebookIdExist(viewModel.GooglePlusId, viewModel.Id))
+                this.AddErrors("GooglePlusId", "این آد دی قبلا در سیستم ثبت شده است");
+
             if (!ModelState.IsValid)
             {
                 ToastrError("لطفا فیلد های مورد نظر را با دقت وارد کنید");
@@ -153,7 +157,19 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         //[CheckReferrer]
         public virtual async Task<ActionResult> Create(AddUserViewModel viewModel)
         {
-            var avatarName = "avatar.jpg";
+            if (_userManager.CheckUserNameExist(viewModel.UserName, null))
+                this.AddErrors("UserName", "این نام کاربری قبلا در سیستم ثبت شده است");
+            if (_userManager.CheckNameForShowExist(viewModel.NameForShow, null))
+                this.AddErrors("NameForShow", "این نام نمایشی قبلا  در سیستم ثبت شده است");
+            if (!viewModel.Password.IsSafePasword())
+                this.AddErrors("Password", "این کلمه عبور به راحتی قابل تشخیص است");
+            if (_userManager.CheckEmailExist(viewModel.Email, null))
+                this.AddErrors("Email", "این ایمیل قبلا در سیستم ثبت شده است");
+            if (_userManager.CheckFacebookIdExist(viewModel.FaceBookId, null))
+                this.AddErrors("FaceBookId", "این آد دی قبلا در سیستم ثبت شده است");
+            if (_userManager.CheckFacebookIdExist(viewModel.GooglePlusId, null))
+                this.AddErrors("GooglePlusId", "این آد دی قبلا در سیستم ثبت شده است");
+
             if (!ModelState.IsValid)
             {
                 ToastrError("لطفا فیلد های مورد نظر را با دقت وارد کنید");
@@ -168,6 +184,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
                 await PopulatePermissions();
                 return View(viewModel);
             }
+
+            var avatarName = "avatar.jpg";
             if (viewModel.AvatarImage != null && viewModel.AvatarImage.ContentLength > 0)
             {
                 avatarName = this.UploadFile(viewModel.AvatarImage);
@@ -180,17 +198,15 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         #endregion
 
-        #region SoftDelete
+        #region Delete
 
         [HttpPost]
-        [Route("SoftDelete/{id}")]
-        [AjaxOnly]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
-        [Mvc5Authorize(SystemPermissionNames.CanSoftDeleteUser)]
-        [DisplayName("حذف منطقی کاربر")]
-        [ActivityLog(Name = "SoftDeleteUser")]
-        public virtual async Task<ActionResult> SoftDelete(int? id)
+        [Mvc5Authorize(SystemPermissionNames.CanDeleteUser)]
+        [DisplayName("حذف کاربر")]
+        [ActivityLog(Name = "DeleteUser", Description = "عملیات حذف کاربر")]
+        public virtual async Task<ActionResult> Delete(int? id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (!await _userManager.LogicalRemove(id.Value))
@@ -205,66 +221,13 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         #endregion
 
-        #region Delete
-        //[HttpPost]
-        //[Route("SoftDelete/{id}")]
-        //[AjaxOnly]
-        //[ValidateAntiForgeryToken]
-        ////[CheckReferrer]
-        ////[MvcAuthorize( Roles = "CanSoftDeleteUser")]
-        //[ActivityLog(Name = "SoftDeleteUser")]
-        //public virtual async Task<ActionResult> SoftDelete(int? id)
-        //{
-        //    if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    if (!await _userManager.LogicalRemove(id.Value))
-        //    {
-        //        ToastrWarning("این  کاربر ، کاربر سیستمی است و حذف آن باعث اختلال در سیستم خواهد شد");
-        //        return RedirectToAction(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name);
-        //    }
-        //    ToastrSuccess("کاربر مورد نظر با موفقیت حذف شد");
-        //    return RedirectToAction(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name);
-
-        //}
-        #endregion
-
         #region RemoteValidations
 
-        [HttpPost]
-        [AjaxOnly]
-        //[CheckReferrer]
-        [Mvc5Authorize(SystemPermissionNames.CanEditUser,SystemPermissionNames.CanCreateUser)]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult UserNameExist(string userName, int? id)
-        {
-            return _userManager.CheckUserNameExist(userName, id) ? Json(false) : Json(true);
-        }
 
-      
-
-        [HttpPost]
-        [AjaxOnly]
-        //[CheckReferrer]
-        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult LastNameForShowExist(string nameForShow, int? id)
-        {
-            return _userManager.CheckNameForShowExist(nameForShow, id) ? Json(false) : Json(true);
-        }
-
-        [HttpPost]
-        [AjaxOnly]
-        //[CheckReferrer]
-        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public virtual JsonResult EmailExist(string email, int? id)
-        {
-            return _userManager.CheckEmailExist(email, id) ? Json(false) : Json(true);
-        }
 
         [HttpPost]
         [AjaxOnly]
         // [CheckReferrer]
-        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult PhoneNumberExist(string phoneNumber, int? id)
         {
@@ -275,7 +238,6 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         //[CheckReferrer]
-        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult GooglePlusIdExist(string googlePlusId, int? id)
         {
@@ -286,13 +248,49 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         //[CheckReferrer]
-        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FaceBookIdExist(string faceBookId, int? id)
         {
             return _userManager.CheckFacebookIdExist(faceBookId, id) ? Json(false) : Json(true);
         }
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsEmailAvailable(string email)
+        {
+            return _userManager.IsEmailAvailableForConfirm(email) ? Json(true) : Json(false);
+        }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult CheckPassword(string password)
+        {
+            return password.IsSafePasword() ? Json(true) : Json(false);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsNameForShowExist(string nameForShow, int? id)
+        {
+            return _userManager.CheckNameForShowExist(nameForShow, id) ? Json(false) : Json(true);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsEmailExist(string email, int? id)
+        {
+            var check = _userManager.CheckEmailExist(email, id);
+            return check ? Json(false) : Json(true);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true, Duration = 0, VaryByParam = "*")]
+        public virtual JsonResult IsUserNameExist(string userName, int? id)
+        {
+            return _userManager.CheckUserNameExist(userName, id) ? Json(false) : Json(true);
+        }
         #endregion
 
         #region Private

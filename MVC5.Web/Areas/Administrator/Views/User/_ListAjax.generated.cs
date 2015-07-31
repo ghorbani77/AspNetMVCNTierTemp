@@ -50,7 +50,7 @@ namespace MVC5.Web.Areas.Administrator.Views.User
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Areas/Administrator/Views/User/_ListAjax.cshtml")]
-    public partial class _ListAjax : System.Web.Mvc.WebViewPage<IEnumerable<UserViewModel>>
+    public partial class _ListAjax : System.Web.Mvc.WebViewPage<UserListViewModel>
     {
         public _ListAjax()
         {
@@ -87,7 +87,7 @@ WriteLiteral("><i");
 
 WriteLiteral(" class=\"fa fa-refresh\"");
 
-WriteLiteral("></i></a>\r\n        </div>\r\n    </div>\r\n  \r\n</div>\r\n\r\n<div");
+WriteLiteral("></i></a>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n<div");
 
 WriteLiteral(" class=\"panel-body\"");
 
@@ -162,7 +162,7 @@ WriteLiteral(">تاریخ آخرین فعالیت</th>\r\n                    </
             #line hidden
             
             #line 44 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                     foreach (var user in Model)
+                     foreach (var user in Model.Users)
                     {
 
             
@@ -174,14 +174,14 @@ WriteLiteral(" type=\"checkbox\"");
 
 WriteLiteral(" name=\"userIds\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 1802), Tuple.Create("\"", 1818)
+WriteAttribute("value", Tuple.Create(" value=\"", 1797), Tuple.Create("\"", 1813)
             
             #line 47 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-, Tuple.Create(Tuple.Create("", 1810), Tuple.Create<System.Object, System.Int32>(user.Id
+, Tuple.Create(Tuple.Create("", 1805), Tuple.Create<System.Object, System.Int32>(user.Id
             
             #line default
             #line hidden
-, 1810), false)
+, 1805), false)
 );
 
 WriteLiteral(" /></td>\r\n                            <td>");
@@ -252,7 +252,7 @@ WriteLiteral(">\r\n");
             
             #line 62 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
                                  if (!user.IsBanned)
-                                    {
+                                {
 
             
             #line default
@@ -269,9 +269,9 @@ WriteLiteral("\r\n");
 
             
             #line 67 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
 
             
             #line default
@@ -288,7 +288,7 @@ WriteLiteral("\r\n");
 
             
             #line 73 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
+                                }
 
             
             #line default
@@ -308,7 +308,7 @@ WriteLiteral(">\r\n");
             
             #line 76 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
                                  if (user.IsDeleted)
-                                    {
+                                {
 
             
             #line default
@@ -325,9 +325,9 @@ WriteLiteral("\r\n");
 
             
             #line 81 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
 
             
             #line default
@@ -344,7 +344,7 @@ WriteLiteral("\r\n");
 
             
             #line 87 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
+                                }
 
             
             #line default
@@ -364,7 +364,7 @@ WriteLiteral(">\r\n");
             
             #line 91 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
                                  if (user.EmailConfirmed)
-                                    {
+                                {
 
             
             #line default
@@ -381,9 +381,9 @@ WriteLiteral("\r\n");
 
             
             #line 96 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
 
             
             #line default
@@ -400,7 +400,7 @@ WriteLiteral("\r\n");
 
             
             #line 102 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
+                                }
 
             
             #line default
@@ -420,7 +420,7 @@ WriteLiteral(">\r\n");
             
             #line 105 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
                                  if (user.IsSystemAccount)
-                                    {
+                                {
 
             
             #line default
@@ -437,9 +437,9 @@ WriteLiteral("\r\n");
 
             
             #line 110 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
 
             
             #line default
@@ -456,7 +456,7 @@ WriteLiteral("\r\n");
 
             
             #line 116 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                    }
+                                }
 
             
             #line default
@@ -471,12 +471,12 @@ WriteLiteral("                                ");
 
             
             #line 120 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                           Write(Html.DisplayFor(a=>user.CommentPermission));
+                           Write(Html.DisplayFor(a => user.CommentPermission));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n                                </td>\r\n                                <td");
+WriteLiteral("\r\n                            </td>\r\n                            <td");
 
 WriteLiteral(" class=\"text-center\"");
 
@@ -484,12 +484,12 @@ WriteLiteral(">");
 
             
             #line 122 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                                   Write(user.RegisterDate);
+                                               Write(user.RegisterDate);
 
             
             #line default
             #line hidden
-WriteLiteral("</td>\r\n                                <td");
+WriteLiteral("</td>\r\n                            <td");
 
 WriteLiteral(" class=\"text-center\"");
 
@@ -497,7 +497,7 @@ WriteLiteral(">");
 
             
             #line 123 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-                                                   Write(user.LastActivityDate);
+                                               Write(user.LastActivityDate);
 
             
             #line default
@@ -519,7 +519,7 @@ WriteLiteral("                                ");
             
             #line default
             #line hidden
-WriteLiteral("\r\n                            </td>\r\n                            </tr>\r\n");
+WriteLiteral("\r\n                            </td>\r\n                        </tr>\r\n");
 
             
             #line 130 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
@@ -528,8 +528,8 @@ WriteLiteral("\r\n                            </td>\r\n                         
             
             #line default
             #line hidden
-WriteLiteral("                </tbody>\r\n\r\n            </table>\r\n        </div>\r\n        </div>\r" +
-"\n    </div>\r\n<div");
+WriteLiteral("                </tbody>\r\n\r\n            </table>\r\n        </div>\r\n    </div>\r\n</d" +
+"iv>\r\n<div");
 
 WriteLiteral(" class=\"panel-footer\"");
 
@@ -539,29 +539,16 @@ WriteLiteral("    ");
 
             
             #line 138 "..\..\Areas\Administrator\Views\User\_ListAjax.cshtml"
-Write(Html.PagedListPager(new StaticPagedList<UserViewModel>(Model, ViewBag.PageNumber,10, ViewBag.TotalUsers), pageNumber => Url.Action(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name, new UserSearchViewModel
-    {
-        PageIndex = ViewBag.PageNumber,
-        PageSize = 10,
-        RoleIds = ViewBag.RoleIds,
-        SearchCanChangeProfilePicture = ViewBag.SearchCanChangeProfilePicture,
-        SearchCanModifyFirsAndLastName = ViewBag.SearchCanModifyFirsAndLastName,
-        SearchCanUploadFile = ViewBag.SearchCanUploadFile,
-        SearchCommentPermission = ViewBag.SearchCommentPermission,
-        SearchEmail = ViewBag.SearchEmail,
-        SearchNameForShow = ViewBag.SearchNameForShow,
-        SearchIp = ViewBag.SearchIp,
-        SearchIsBanned = ViewBag.SearchIsBanned,
-        SearchIsDeleted = ViewBag.SearchIsDeleted,
-        SearchIsEmailConfirmed = ViewBag.SearchIsEmailConfirmed,
-        SearchIsSystemAccount = ViewBag.SearchIsSystemAccount,
-        SearchUserName = ViewBag.SearchUserName
-    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" })));
+Write(Html.PagedListPager(new StaticPagedList<UserViewModel>(Model.Users, Model.UserSearchViewModel.PageIndex,
+       Model.UserSearchViewModel.PageSize, Model.UserSearchViewModel.UsersTotal),
+       pageNumber => Url.Action(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name, new { Model.UserSearchViewModel }),
+       PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast,
+       new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" })));
 
             
             #line default
             #line hidden
-WriteLiteral("\r\n\r\n</div>\r\n<script>\r\n    Public.Routin();\r\n</script>\r\n\r\n");
+WriteLiteral("\r\n\r\n</div>\r\n<script>\r\n    Public.Routin();\r\n</script>\r\n");
 
         }
     }

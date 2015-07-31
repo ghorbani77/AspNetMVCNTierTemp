@@ -58,7 +58,7 @@ WriteLiteral("\r\n\r\n<hgroup>\r\n    <h2>");
             #line hidden
 WriteLiteral(".</h2>\r\n    <h3");
 
-WriteLiteral(" class=\"text-error\"");
+WriteLiteral(" class=\"text-danger\"");
 
 WriteLiteral(">Unsuccessful login with service.</h3>\r\n</hgroup>\r\n");
 

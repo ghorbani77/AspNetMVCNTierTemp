@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Owin.Security;
+using MVC5.ServiceLayer.Contracts;
 
 namespace MVC5.Web.Filters
 {
@@ -23,6 +25,7 @@ namespace MVC5.Web.Filters
         #region Properties
         public string AreaName { get; set; }
         public bool IsMenu { get; set; }
+        public IAuthenticationManager AuthenticationManager { get; set; }
         #endregion
 
         #region HandleUnauthorizedRequest
@@ -30,7 +33,7 @@ namespace MVC5.Web.Filters
         {
             if (filterContext.HttpContext.Request.IsAuthenticated)
             {
-                System.Web.Security.FormsAuthentication.SignOut();
+                AuthenticationManager.SignOut();
                 throw new UnauthorizedAccessException(); //to avoid multiple redirects
             }
             else

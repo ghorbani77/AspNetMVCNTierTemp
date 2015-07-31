@@ -8,11 +8,13 @@
                 @Html.ActionLink("درج گروه کاربری جدید", MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new { @class = "btn btn-sm btn-info" })
             </div>
             <div class="col-md-6">
-                @using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList", OnComplete = "onComplete" }, new { @class = "form-horizontal" }))
+                @using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList", OnComplete = "onComplete", OnSuccess = "AjaxForm.ResetButton('searchRoleButton')" }, new { @class = "form-horizontal", autocomplete = "off", id = "roleSearchForm" }))
                 {
                     <div class="input-group" dir="ltr">
                         <span class="input-group-btn">
-                            <input class="btn btn-info btn-sm" type="submit" value="بگرد">
+                            <button type="button" id="searchRoleButton" onclick="AjaxForm.CustomSubmit(this, 'roleSearchForm')" autocomplete="off" data-loading-text="جستجو" class="btn btn-info btn-sm">
+                                جستجو
+                            </button>
                         </span>
 
                         <input dir="rtl" type="text" name="term" class="form-control"
@@ -29,9 +31,10 @@
 
 @section Scripts
 {
-<script>
+@Scripts.Render("~/bundles/jqueryval")
+    <script>
         $(function () {
             warningBeforeLoad();
         })
-</script>
+    </script>
 }

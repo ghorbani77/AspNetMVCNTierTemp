@@ -2,7 +2,7 @@
 @using MVC5.ViewModel.AdminArea.User
 @using PagedList
 @using PagedList.Mvc
-@model IEnumerable<UserViewModel>
+@model UserListViewModel
 
 
 <div class="panel-heading">
@@ -15,7 +15,7 @@
             <a href="javascript:void(0)" id="refreshBtn" class="btn btn-sm btn-success pull-right"><i class="fa fa-refresh"></i></a>
         </div>
     </div>
-  
+
 </div>
 
 <div class="panel-body">
@@ -41,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var user in Model)
+                    @foreach (var user in Model.Users)
                     {
                         <tr>
                             <td><input type="checkbox" name="userIds" value="@user.Id" /></td>
@@ -60,102 +60,88 @@
 
                             <td class="text-center">
                                 @if (!user.IsBanned)
-                                    {
+                                {
                                     <text>
                                         <i class="fa fa-check text-success"></i>
                                     </text>
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
                                     <text>
                                         <i class="fa fa-minus text-info"></i>
                                     </text>
-                                    }
+                                }
                             </td>
                             <td class="text-center">
                                 @if (user.IsDeleted)
-                                    {
+                                {
                                     <text>
                                         <i class="fa fa-check text-success"></i>
                                     </text>
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
                                     <text>
                                         <i class="fa fa-minus text-info"></i>
                                     </text>
-                                    }
+                                }
                             </td>
 
                             <td class="text-center">
                                 @if (user.EmailConfirmed)
-                                    {
+                                {
                                     <text>
                                         <i class="fa fa-check text-success"></i>
                                     </text>
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
                                     <text>
                                         <i class="fa fa-minus text-info"></i>
                                     </text>
-                                    }
+                                }
                             </td>
                             <td class="text-center">
                                 @if (user.IsSystemAccount)
-                                    {
+                                {
                                     <text>
                                         <i class="fa fa-check text-success"></i>
                                     </text>
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
                                     <text>
                                         <i class="fa fa-minus text-info"></i>
                                     </text>
-                                    }
+                                }
                             </td>
 
                             <td class="text-center text-info">
-                                @Html.DisplayFor(a=>user.CommentPermission)
-                                </td>
-                                <td class="text-center">@user.RegisterDate</td>
-                                <td class="text-center">@user.LastActivityDate</td>
+                                @Html.DisplayFor(a => user.CommentPermission)
+                            </td>
+                            <td class="text-center">@user.RegisterDate</td>
+                            <td class="text-center">@user.LastActivityDate</td>
                             <td class="text-left">
                                 @Html.ActionLink("ویرایش", MVC.Administrator.User.ActionNames.Edit,
                                     MVC.Administrator.User.Name, new { id = user.Id, area = MVC.Administrator.Name },
                                     new { @class = "btn btn-sm btn-primary" })
                             </td>
-                            </tr>
+                        </tr>
                     }
                 </tbody>
 
             </table>
         </div>
-        </div>
     </div>
+</div>
 <div class="panel-footer">
-    @Html.PagedListPager(new StaticPagedList<UserViewModel>(Model, ViewBag.PageNumber,10, ViewBag.TotalUsers), pageNumber => Url.Action(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name, new UserSearchViewModel
-    {
-        PageIndex = ViewBag.PageNumber,
-        PageSize = 10,
-        RoleIds = ViewBag.RoleIds,
-        SearchCanChangeProfilePicture = ViewBag.SearchCanChangeProfilePicture,
-        SearchCanModifyFirsAndLastName = ViewBag.SearchCanModifyFirsAndLastName,
-        SearchCanUploadFile = ViewBag.SearchCanUploadFile,
-        SearchCommentPermission = ViewBag.SearchCommentPermission,
-        SearchEmail = ViewBag.SearchEmail,
-        SearchNameForShow = ViewBag.SearchNameForShow,
-        SearchIp = ViewBag.SearchIp,
-        SearchIsBanned = ViewBag.SearchIsBanned,
-        SearchIsDeleted = ViewBag.SearchIsDeleted,
-        SearchIsEmailConfirmed = ViewBag.SearchIsEmailConfirmed,
-        SearchIsSystemAccount = ViewBag.SearchIsSystemAccount,
-        SearchUserName = ViewBag.SearchUserName
-    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" }))
+    @Html.PagedListPager(new StaticPagedList<UserViewModel>(Model.Users, Model.UserSearchViewModel.PageIndex,
+       Model.UserSearchViewModel.PageSize, Model.UserSearchViewModel.UsersTotal),
+       pageNumber => Url.Action(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name, new { Model.UserSearchViewModel }),
+       PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast,
+       new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" }))
 
 </div>
 <script>
     Public.Routin();
 </script>
-

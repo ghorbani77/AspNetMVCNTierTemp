@@ -1,11 +1,36 @@
-﻿@model MVC5.ViewModel.AdminArea.User.EditUserViewModel
+﻿@using MVC5.Web.RazorHelpers
+@model MVC5.ViewModel.AdminArea.User.EditUserViewModel
 @{
     ViewBag.Title = "ویرایش کاربر";
+}
+@if (!Model.IsSystemAccount)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Delete,
+                    MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal", autocomplete = "off", id = "deleteUserForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(a => a.Id)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'deleteUserForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-danger btn-sm">
+                                    حذف کاربر
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = "Administrator" }, FormMethod.Post, new { User = "form", @class = "form-horizontal" }))
+        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = "Administrator" }, FormMethod.Post, new { User = "form", @class = "form-horizontal" ,autocomplate="off",id="editUserForm"}))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(a => a.Id)
@@ -54,33 +79,17 @@
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
 
                             <div class="form-group">
-                                @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                                @Html.LabelFor(m => m.NameForShow, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(m => m.NameForShow, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.NameForShow, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
 
                         <div class="tab-pane" id="optionalInfo">
-
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.AdministratorComment, new { @class = "col-md-2 control-label" })
@@ -115,15 +124,7 @@
                         </div>
 
                         <div class="tab-pane" id="permissions">
-                         
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.IsSystemAccount, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    <strong>
-                                        @Html.DisplayFor(m => m.IsSystemAccount, new { @class = "text-info" })
-                                    </strong>
-                                </div>
-                            </div>
+
                             <div class="col-md-4">
                                 @Html.CheckBoxFor(m => m.IsBanned, new { @class = "checkbox-inline" })
                                 @Html.LabelFor(m => m.IsBanned, new { @class = "control-label" })
@@ -148,19 +149,7 @@
                         </div>
 
                         <div class="tab-pane" id="roles">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    @foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
-                                    {
-                                        <text>
-                                            <div class="col-md-4">
-                                                <input type="checkbox" name="RoleIds" checked="@role.Selected" value="@role.Value" class="checkbox-inline" />
-                                                <label class="control-label">@role.Text</label>
-                                            </div>
-                                        </text>
-                                    }
-                                </div>
-                            </div>
+                            @CheckBoxListBuilder.CheckBoxList("RoleIds", ViewBag.Roles)
                         </div>
                     </div>
 
@@ -169,7 +158,9 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-success btn-sm btn-block" value="ذخیره اطلاعات" />
+                            <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'editUserForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-success btn-block">
+                                دخیره اطلاعات
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -178,9 +169,9 @@
     </div>
 </div>
 @section Scripts {
-@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $(function() {
+        $(function () {
             warningBeforeLoad();
         })
     </script>

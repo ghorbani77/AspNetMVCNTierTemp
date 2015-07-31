@@ -282,15 +282,17 @@ WriteLiteral(">\r\n                            <button");
 
 WriteLiteral(" type=\"button\"");
 
+WriteLiteral(" autocomplete=\"off\"");
+
 WriteLiteral(" onclick=\" AjaxForm.CustomSubmit(this, \'resetPasswordForm\')\"");
 
 WriteLiteral(" data-loading-text=\"در حال ارسال اطلاعات\"");
 
 WriteLiteral(" class=\"btn btn-success btn-block\"");
 
-WriteLiteral(">\r\n                               تغییر کلمه عبور\r\n                            </" +
-"button>\r\n                        </div>\r\n\r\n                    </div>\r\n         " +
-"       </div>\r\n            </div>\r\n        </div>\r\n");
+WriteLiteral(">\r\n                                تغییر کلمه عبور\r\n                            <" +
+"/button>\r\n                        </div>\r\n\r\n                    </div>\r\n        " +
+"        </div>\r\n            </div>\r\n        </div>\r\n");
 
             
             #line 57 "..\..\Views\Account\ResetPassword.cshtml"

@@ -183,15 +183,17 @@ WriteLiteral(">\r\n                            <button");
 
 WriteLiteral(" type=\"button\"");
 
+WriteLiteral(" autocomplete=\"off\"");
+
 WriteLiteral(" onclick=\"AjaxForm.CustomSubmit(this, \'receiveActivationEmailForm\')\"");
 
 WriteLiteral(" data-loading-text=\"در حال ارسال اطلاعات\"");
 
 WriteLiteral(" class=\"btn btn-success btn-block\"");
 
-WriteLiteral(">\r\n                            دریافت ایمیل فعال سازی\r\n                          " +
-"  </button>\r\n                        </div>\r\n\r\n                    </div>\r\n     " +
-"           </div>\r\n            </div>\r\n        </div>\r\n");
+WriteLiteral(">\r\n                                دریافت ایمیل فعال سازی\r\n                      " +
+"      </button>\r\n                        </div>\r\n\r\n                    </div>\r\n " +
+"               </div>\r\n            </div>\r\n        </div>\r\n");
 
             
             #line 42 "..\..\Views\Account\ReceiveActivatorEmail.cshtml"

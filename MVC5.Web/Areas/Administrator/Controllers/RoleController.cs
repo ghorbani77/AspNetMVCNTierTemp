@@ -204,7 +204,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult RoleNameExist(string name, int? id)
         {
-            return _roleManager.ChechForExisByName(name.ToLower(), id) ? Json(false) : Json(true);
+            return _roleManager.ChechForExisByName(name, id) ? Json(false) : Json(true);
         }
 
         #endregion

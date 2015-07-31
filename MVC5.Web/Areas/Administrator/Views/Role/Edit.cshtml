@@ -1,4 +1,6 @@
-﻿@model MVC5.ViewModel.AdminArea.Role.EditRoleViewModel
+﻿@using MVC5.Common.Helpers
+@using MVC5.Web.RazorHelpers
+@model MVC5.ViewModel.AdminArea.Role.EditRoleViewModel
 @{
     ViewBag.Title = "ویرایش گروه کاربری کاربری";
 }
@@ -6,14 +8,14 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Delete, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+                @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Delete, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" ,autocomplate="off",id="deleteRoleForm"}))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(a => a.Id)
                     <div class="row">
-                        <div class="col-md-12">
-                            <input type="submit" class="btn btn-danger btn-sm" value="حذف گروه کاربری" />
-                        </div>
+                        <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'deleteRoleForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-danger btn-sm">
+                            حذف گروه کاربری
+                        </button>
                     </div>
                 }
             </div>
@@ -22,7 +24,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Edit, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal", autocomplete = "off", id = "editRoleForm" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(a => a.Id)
@@ -35,14 +37,14 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            @Html.NoAutoCompleteTextBoxFor(m => m.Name)
                             @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                            @Html.NoAutoCompleteTextBoxFor(m => m.Description)
                             @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -68,23 +70,14 @@
                     <strong>دسترسی ها</strong>
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                        {
-                            <text>
-                                <div class="col-md-3">
-                                    <input type="checkbox" name="PermissionIds" checked="@permission.Selected" value="@permission.Value" class="checkbox-inline" />
-                                    <label class="control-label">@permission.Text</label>
-                                </div>
-                            </text>
-                        }
-                    </div>
+                   @CheckBoxListBuilder.CheckBoxList("PermissioinIds", ViewBag.Permissions)
                 </div>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
-
+                            <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'editRoleForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-success btn-block">
+                                ذخیره تغییرات
+                            </button>
                         </div>
                     </div>
                 </div>

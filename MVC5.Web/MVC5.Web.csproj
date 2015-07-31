@@ -285,7 +285,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Create.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Administrator\Views\User\Edit1.generated.cs">
+    <Compile Include="Areas\Administrator\Views\User\Edit.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Edit.cshtml</DependentUpon>
@@ -318,6 +318,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BootstrapBuilder.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="RazorHelpers\CheckBoxListBuilder.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CheckBoxListBuilder.cshtml</DependentUpon>
     </Compile>
     <Compile Include="RazorHelpers\ToastrBuilder.generated.cs">
       <AutoGen>True</AutoGen>
@@ -695,8 +700,8 @@
       <LastGenOutput>Create.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\User\Edit.cshtml">
-      <LastGenOutput>Edit1.generated.cs</LastGenOutput>
       <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
     </Content>
     <Content Include="Areas\Administrator\Views\User\List.cshtml">
       <Generator>RazorGenerator</Generator>
@@ -720,6 +725,10 @@
     <Content Include="CodeTemplates\MvcControllerWithContext\Controller.cs.t4" />
     <Content Include="CodeTemplates\MvcControllerWithActions\Controller.cs.t4" />
     <Content Include="CodeTemplates\MvcControllerEmpty\Controller.cs.t4" />
+    <Content Include="RazorHelpers\CheckBoxListBuilder.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>CheckBoxListBuilder.generated.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

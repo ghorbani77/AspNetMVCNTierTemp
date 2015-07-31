@@ -12,7 +12,6 @@ namespace MVC5.Web
             #region IgnoreRoutes
             routes.IgnoreRoute("Content/{*pathInfo}");
             routes.IgnoreRoute("Scripts/{*pathInfo}");
-            routes.IgnoreRoute("Images/{*pathInfo}");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("favicon.ico");
             routes.IgnoreRoute("{resource}.ico");

@@ -29,11 +29,10 @@ Public.Routin = function () {
 var warningBeforeLoad= function() {
     var msg = "اطلاعات دخیره نشده ای در این صفحه دارید و با" +
         " هدایت به صفحه بعد این اطلاعات را از دست خواهید داد";
-    $('input:submit').click(function() {
+    $('button:button').click(function() {
         msg = null;
     });
     $('input:not(:button,:submit),textarea,select').change(function() {
-
         window.onbeforeunload = function () {
             if(msg!=null)
                  return  msg;

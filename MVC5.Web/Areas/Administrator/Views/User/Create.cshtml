@@ -1,11 +1,14 @@
-﻿@model MVC5.ViewModel.AdminArea.User.AddUserViewModel
+﻿@using MVC5.Common.Helpers
+@using MVC5.Web.RazorHelpers
+@model MVC5.ViewModel.AdminArea.User.AddUserViewModel
+           
 @{
     ViewBag.Title = "درج کاربر";
 }
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { User = "form", @class = "form-horizontal" }))
+        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { User = "form", @class = "form-horizontal",autocomplete="off",id="createUserForm" }))
         {
             @Html.AntiForgeryToken()
             <div class="panel panel-default">
@@ -37,14 +40,14 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.NoAutoCompleteTextBoxForLtr(m => m.Email)
                                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    @Html.NoAutoCompleteTextBoxForLtr(m => m.UserName)
                                     @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -52,37 +55,21 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.FormControlPasswordFor(m => m.Password)
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                                @Html.LabelFor(m => m.NameForShow, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                    @Html.NoAutoCompleteTextBoxFor(m => m.NameForShow)
+                                    @Html.ValidationMessageFor(m => m.NameForShow, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
-
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
                         </div>
 
                         <div class="tab-pane" id="optionalInfo">
-
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
 
                             <div class="form-group">
                                 @Html.LabelFor(m => m.AdministratorComment, new { @class = "col-md-2 control-label" })
@@ -96,14 +83,14 @@
                             <div class="form-group">
                                 @Html.LabelFor(m => m.GooglePlusId, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.GooglePlusId, new { @class = "form-control" })
+                                    @Html.NoAutoCompleteTextBoxForLtr(m => m.GooglePlusId)
                                     @Html.ValidationMessageFor(m => m.GooglePlusId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.FaceBookId, new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.FaceBookId, new { @class = "form-control" })
+                                    @Html.NoAutoCompleteTextBoxForLtr(m => m.FaceBookId)
                                     @Html.ValidationMessageFor(m => m.FaceBookId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -115,17 +102,7 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="permissions">
-                            <div class="row">
-                                @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                                {
-                                    <text>
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="@permission.Value" name="PermissionIds" value="@permission.Value" class="checkbox-inline" />
-                                            <label for="@permission.Value" class="control-label">@permission.Text</label>
-                                        </div>
-                                    </text>
-                                }
-                            </div>
+                           @CheckBoxListBuilder.CheckBoxList("PermissionIds", ViewBag.Permissions)
                         </div>
                         <div class="tab-pane" id="settings">
                             <div class="row">
@@ -150,17 +127,7 @@
                         </div>
 
                         <div class="tab-pane" id="roles">
-                            <div class="row">
-                                @foreach (var role in (IEnumerable<SelectListItem>)ViewBag.Roles)
-                                {
-                                    <text>
-                                        <div class="col-md-4">
-                                            <input type="checkbox" id="@role.Value" name="RoleIds" value="@role.Value" class="checkbox-inline" />
-                                            <label for="@role.Value" class="control-label">@role.Text</label>
-                                        </div>
-                                    </text>
-                                }
-                            </div>
+                               @CheckBoxListBuilder.CheckBoxList("RoleIds",ViewBag.Roles)
                         </div>
                     </div>
 
@@ -169,7 +136,9 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
+                            <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'createUserForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-success btn-block">
+                                ثبت کاربر جدید
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -186,7 +155,7 @@
                 showUpload: false,
                 previewFileType: "image",
                 msgInvalidFileType: "از فایل معتبر استفاده کنید",
-                maxFileSize: "10240",
+                //maxFileSize: "10000",
                 msgSizeTooLarge: "حجم فایل مورد نظر بیشتر از حجم مورد قبول است",
                 browseClass: "btn btn-success",
                 browseLabel: "انتخاب تصویر",

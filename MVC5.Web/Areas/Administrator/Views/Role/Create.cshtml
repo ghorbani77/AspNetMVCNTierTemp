@@ -1,11 +1,13 @@
-﻿@model MVC5.ViewModel.AdminArea.Role.AddRoleViewModel
+﻿@using MVC5.Common.Helpers
+@using MVC5.Web.RazorHelpers
+@model MVC5.ViewModel.AdminArea.Role.AddRoleViewModel
 @{
     ViewBag.Title = "درج گروه کاربری کاربری";
 }
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area =MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" }))
+        @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Create, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal", autocomplete = "off", id = "createRoleForm" }))
         {
             @Html.AntiForgeryToken()
             <div class="panel panel-default">
@@ -16,14 +18,14 @@
                     <div class="form-group">
                         @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            @Html.NoAutoCompleteTextBoxFor(m => m.Name)
                             @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                            @Html.NoAutoCompleteTextBoxFor(m => m.Description)
                             @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -46,23 +48,15 @@
                 <div class="panel-heading">
                     <strong>دسترسی ها</strong>
                 </div>
-                <div class="panel-body" >
-                    <div class="row">
-                        @foreach (var permission in (IEnumerable<SelectListItem>)ViewBag.Permissions)
-                        {
-                            <text>
-                                <div class="col-md-4">
-                                    <input type="checkbox" id="@permission.Value" name="PermissionIds" value="@permission.Value" class="checkbox-inline" />
-                                    <label for="@permission.Value" class="control-label">@permission.Text</label>
-                                </div>
-                            </text>
-                        }
-                    </div>
+                <div class="panel-body">
+                  @CheckBoxListBuilder.CheckBoxList("PermissionIds", ViewBag.Permissions)
                 </div>
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" class="btn btn-success btn-sm btn-block" value="ثبت اطلاعات" />
+                            <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'createRoleForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-success btn-block">
+                                ثبت گروه کاربری
+                            </button>
                         </div>
                     </div>
 
@@ -72,10 +66,10 @@
     </div>
 </div>
 @section Scripts{
-@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(function () {
             warningBeforeLoad();
         })
-</script>
+    </script>
 }
