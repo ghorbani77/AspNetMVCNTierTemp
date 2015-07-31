@@ -12,7 +12,7 @@ namespace MVC5.AutoMapperProfiles
         protected override void Configure()
         {
             CreateMap<ApplicationPermission, SelectListItem>()
-                .ForMember(d => d.Text, m => m.MapFrom(s => s.Name))
+                .ForMember(d => d.Text, m => m.MapFrom(s => s.Description))
                   .ForMember(d => d.Value, m => m.MapFrom(s => s.Id))
                 .IgnoreAllNonExisting();
         }

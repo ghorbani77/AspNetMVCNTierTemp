@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
+using EFSecondLevelCache;
 using EntityFramework.Extensions;
 using Microsoft.AspNet.Identity;
 using MVC5.DataLayer.Context;
@@ -84,7 +85,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                                  where user.UserId == userId
                                  select role;
 
-            return userRolesQuery.OrderBy(x => x.Name).Select(a => a.Name).ToList();
+            return userRolesQuery.OrderBy(x => x.Name).Select(a => a.Name).Cacheable().ToList();
         }
 
         public IList<int> FindUserRoleIds(int userId)
@@ -94,7 +95,17 @@ namespace MVC5.ServiceLayer.EFServiecs
                                  where user.UserId == userId
                                  select role;
 
-            return userRolesQuery.Select(a => a.Id).ToList();
+            return userRolesQuery.Select(a => a.Id).Cacheable().ToList();
+        }
+
+        public async Task<IList<int>> FindUserRoleIdsAsync(int userId)
+        {
+            var userRolesQuery = from role in Roles
+                                 from user in role.Users
+                                 where user.UserId == userId
+                                 select role;
+
+            return await userRolesQuery.Select(a => a.Id).Cacheable().ToListAsync();
         }
         #endregion
 
@@ -109,8 +120,7 @@ namespace MVC5.ServiceLayer.EFServiecs
 
             return roles.ToArray();
         }
-
-
+     
         #endregion
 
         #region IsUserInRole
@@ -338,7 +348,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         public async Task<IEnumerable<SelectListItem>> GetAllAsSelectList()
         {
             _unitOfWork.EnableFiltering(RoleFilters.ActiveList);
-            var roles = await _roles.AsNoTracking().Project(_mappingEngine).To<SelectListItem>().ToListAsync();
+            var roles = await _roles.AsNoTracking().Project(_mappingEngine).To<SelectListItem>().Cacheable().ToListAsync();
             return roles;
         }
         #endregion

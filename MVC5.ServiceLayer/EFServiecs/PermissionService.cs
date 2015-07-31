@@ -3,9 +3,12 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
+using EFSecondLevelCache;
 using EntityFramework.Extensions;
+using MVC5.Common.Caching;
 using MVC5.Common.Helpers.Extentions;
 using MVC5.DataLayer.Context;
 using MVC5.DomainClasses.Entities;
@@ -18,6 +21,7 @@ namespace MVC5.ServiceLayer.EFServiecs
     {
         #region Fields
 
+        private readonly HttpContextBase _httpContextBase;
         private readonly IMappingEngine _mappingEngine;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDbSet<ApplicationPermission> _permissions;
@@ -25,12 +29,13 @@ namespace MVC5.ServiceLayer.EFServiecs
 
         #region Ctor
 
-        public PermissionService(IUnitOfWork unitOfWork, IMappingEngine mappingEngine)
+        public PermissionService(HttpContextBase httpContextBase,IUnitOfWork unitOfWork, IMappingEngine mappingEngine)
         {
             AutoCommitEnabled = true;
             _unitOfWork = unitOfWork;
             _permissions = _unitOfWork.Set<ApplicationPermission>();
             _mappingEngine = mappingEngine;
+            _httpContextBase = httpContextBase;
         }
         #endregion
 
@@ -85,7 +90,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             var items =
                 await
                     _permissions.Project(_mappingEngine).To<SelectListItem>()
-                        .AsNoTracking()
+                        .AsNoTracking().Cacheable()
                         .ToListAsync();
 
             return items;
@@ -139,14 +144,31 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
-        #region GetPermissionByRoleIds
-        public async Task<IList<string>> GetPermissionByRoleIds(int[] roleIds)
+        #region GetUserPermissions,GetPermissionByRoleIdsAsync
+        public async Task<IList<string>> GetPermissionByRoleIdsAync(int[] roleIds)
         {
             return await (from p in _permissions
                           from r in p.ApplicationRoles
                           where roleIds.Contains(r.Id)
                           select p.Name).ToListAsync();
         }
+
+        public IList<string> GetUserPermissions(int[] roleIds, int userId)
+        {
+            var permissionsOfRoles = (from p in _permissions
+                                      from r in p.ApplicationRoles
+                                      where roleIds.Contains(r.Id)
+                                      select p.Name).Future();
+
+            var permissionsOfUser = (from p in _permissions
+                                     from r in p.AssignedUsers
+                                     where userId == r.Id
+                                     select p.Name).Future().ToList();
+
+            var result = permissionsOfUser.Union(permissionsOfRoles).ToList();
+            return result;
+        }
+       
         #endregion
 
         #region SeedDatabase
@@ -157,10 +179,9 @@ namespace MVC5.ServiceLayer.EFServiecs
             foreach (var permission in applicationPermissions)
             {
                 _permissions.AddOrUpdate(
-                    x => new { x.Name, x.ActionName, x.ControllerName}, permission);
+                    x => new { x.Name }, permission);
             }
             _unitOfWork.SaveChanges();
-
         }
         #endregion
 
@@ -168,7 +189,7 @@ namespace MVC5.ServiceLayer.EFServiecs
         public bool HasDirectAccess(int userId, string areaName, string controllerName,
          string[] dependencyActionNames)
         {
-           
+
             var directAccessWithOwnPermissions =
                 _permissions.Include(a => a.AssignedUsers).AsNoTracking().Any(
                     p =>
@@ -179,25 +200,13 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
-        #region GetRolesOfPermission
-        public IList<int> GetRolesOfPermission(string areaName, string controllerName, string[] actions)
-        {
-            var rolesOfPermission =
-                _permissions.Where(
-                    a => actions.Contains(a.ActionName) & a.ControllerName == controllerName & a.AreaName == areaName)
-                    .Include(a => a.ApplicationRoles)
-                    .SelectMany(a => a.ApplicationRoles).Select(a => a.Id).ToList();
-            return rolesOfPermission;
-        }
-        #endregion
-
         #region GetPermissionsByRoleId
         public async Task<IList<string>> GetPermissionsByRoleId(int roleId)
         {
             return await (from p in _permissions
-                from r in p.ApplicationRoles
-                where r.Id == roleId
-                select p.Name).ToListAsync();
+                          from r in p.ApplicationRoles
+                          where r.Id == roleId
+                          select p.Name).ToListAsync();
         }
         #endregion
 
@@ -210,7 +219,16 @@ namespace MVC5.ServiceLayer.EFServiecs
                           select p.Id).ToListAsync();
         }
         #endregion
-      
-     
+
+        #region GetPermissionsWithUserId
+        public IList<string> GetPermissionsWithUserId(int userId)
+        {
+            return (from p in _permissions
+                    from r in p.AssignedUsers
+                    where userId == r.Id
+                    select p.Name).ToList();
+        }
+        #endregion
+
     }
 }

@@ -21,44 +21,47 @@ namespace MVC5.Web
                 Assembly.GetExecutingAssembly().GetTypes()
                     .Where(
                         t =>
-                            t.BaseType == typeof(BaseController) &&
-                            t.CustomAttributes.Any(a => a.AttributeType == typeof(MvcAuthorizeAttribute)))
+                            t.BaseType == typeof(BaseController))
                     .ToList();
 
             var permissionsListToAdd = new List<ApplicationPermission>();
 
             foreach (var controller in controllers)
             {
-                var authorizeAttribute =
-                   controller.GetCustomAttribut<MvcAuthorizeAttribute>();
-
-                if (authorizeAttribute == null)
-                    continue;
                 var controllerName = controller.Name.Replace("Controller", "").ToLower();
-                var areaName = authorizeAttribute.AreaName.IsNotEmpty() ? authorizeAttribute.AreaName.ToLower() : "";
 
                 var actionMethodsList =
                     controller.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                        .Where(method => (typeof(ActionResult).IsAssignableFrom(method.ReturnType) ||
-                            typeof(Task<ActionResult>).IsAssignableFrom(method.ReturnType))
+                        .Where(method => (typeof (ActionResult).IsAssignableFrom(method.ReturnType) ||
+                                          typeof (Task<ActionResult>).IsAssignableFrom(method.ReturnType))
                                          &&
                                          method.CustomAttributes.All(
-                                             a => a.AttributeType != typeof(ChildActionOnlyAttribute))
+                                             a => a.AttributeType != typeof (ChildActionOnlyAttribute))
                                          &&
                                          method.CustomAttributes.All(
-                                             a => a.AttributeType != typeof(AllowAnonymousAttribute))
+                                             a => a.AttributeType != typeof (AllowAnonymousAttribute))
                                          &&
                                          method.CustomAttributes.Any(
-                                             a => a.AttributeType == typeof(DisplayNameAttribute)))
+                                             a => a.AttributeType == typeof (DisplayNameAttribute))
+                                         &&
+                                         method.CustomAttributes.Any(
+                                             a => a.AttributeType == typeof (Mvc5AuthorizeAttribute)))
                         .ToList();
 
                 permissionsListToAdd.AddRange(from methodInfo in actionMethodsList
-                    let actionName = methodInfo.Name.ToLower()
-                    let displayName = methodInfo.GetCustomAttribute<DisplayNameAttribute>().DisplayName
-                    select new ApplicationPermission
-                    {
-                        AreaName = areaName, ControllerName = controllerName, ActionName = actionName, IsMenu = authorizeAttribute.IsMenu, Name = displayName
-                    });
+                                              let actionName = methodInfo.Name.ToLower()
+                                              let displayName = methodInfo.GetCustomAttribute<DisplayNameAttribute>().DisplayName
+                                              let authorizeAttribute = methodInfo.GetCustomAttribute<Mvc5AuthorizeAttribute>()
+                                              let areaName = authorizeAttribute.AreaName.IsNotEmpty() ? authorizeAttribute.AreaName.ToLower() : ""
+                                              select new ApplicationPermission
+                                              {
+                                                  Description = displayName,
+                                                  AreaName = areaName,
+                                                  ControllerName = controllerName,
+                                                  ActionName = actionName,
+                                                  IsMenu = authorizeAttribute.IsMenu,
+                                                  Name = authorizeAttribute.Roles
+                                              });
             }
 
             return permissionsListToAdd;

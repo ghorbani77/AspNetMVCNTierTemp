@@ -13,7 +13,7 @@
     </div>
 
 
-    @using (Ajax.BeginForm(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList" }, new { @class = "form-horizontal" }))
+    @using (Ajax.BeginForm(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" }, new { @class = "form-horizontal" }))
     {
         <div class="panel-body">
             <ul class="nav nav-tabs">

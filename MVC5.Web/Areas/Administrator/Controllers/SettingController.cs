@@ -6,13 +6,13 @@ using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
+using MVC5.ServiceLayer.Security;
 using MVC5.ViewModel.AdminArea.Setting;
 using MVC5.Web.Filters;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize(AreaName = "Administrator")]
-    [DisplayName("مدیریت تنظیمات سایت")]
+    
     public partial class SettingController : BaseController
     {
         #region Fields
@@ -36,6 +36,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         #region User
         [HttpGet]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUsersSetting, AreaName = "Administrator", IsMenu = true)]
         [DisplayName("ویرایش تنظیمات کاربران")]
         [ActivityLog(Description = "ویرایش تنظیمات مرتبط به کاربران", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting()
@@ -46,6 +47,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUsersSetting)]
        // [CheckReferrer]
         [ActivityLog(Description = "ویرایش تنظیمات کاربری", Name = "EditUserSetting")]
         public virtual async Task<ActionResult> UserSetting(UserSettingsViewModel viewModel)

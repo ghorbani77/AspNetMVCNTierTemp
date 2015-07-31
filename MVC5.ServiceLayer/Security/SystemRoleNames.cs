@@ -5,7 +5,7 @@ namespace MVC5.ServiceLayer.Security
 {
     public static class SystemRoleNames
     {
-        public static string SuperAdministrators = "مدیران ارشد";
+        public const string SuperAdministrators = "مدیران ارشد";
 
     }
 }

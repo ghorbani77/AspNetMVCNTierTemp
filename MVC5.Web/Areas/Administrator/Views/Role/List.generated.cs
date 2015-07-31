@@ -88,7 +88,7 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 11 "..\..\Areas\Administrator\Views\Role\List.cshtml"
-                 using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList" }, new { @class = "form-horizontal" }))
+                 using (Ajax.BeginForm(MVC.Administrator.Role.ActionNames.ListAjax, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList", OnComplete = "onComplete" }, new { @class = "form-horizontal" }))
                 {
 
             

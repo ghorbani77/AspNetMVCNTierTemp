@@ -572,20 +572,24 @@ namespace MVC5.ServiceLayer.Contracts
         bool CheckGooglePlusIdExist(string googlePlusId, int? id);
         bool CheckFacebookIdExist(string faceBookId, int? id);
         bool CheckPhoneNumberExist(string phoneNumber, int? id);
-        IList<int> CustomGetUserRoles(int id);
         Task<int> CreateAsync(RegisterViewModel viewModel);
         Task<string> CustomValidatePasswordAsync(string pass);
         bool CheckIsUserBanned(int id);
         Task AddUser(AddUserViewModel viewModel);
         IUserEmailStore<ApplicationUser, int> GetEmailStore();
-        bool CanAccess(int userId, string areaName, string controllerName, string actionName,
-            string dependencyActionNames);
+        IList<string> GetUserPermissions(int userId);
+
         bool IsEmailConfirmedByUserNameAsync(string userName);
+        
 
         bool IsEmailAvailableForConfirm(string emial);
         bool CheckIsUserBannedByEmail(string email);
         bool CheckIsUserBannedByUserName(string userName);
         bool CheckIsUserBannedOrDelete(int id);
+        bool CheckIsUserBannedOrDelete(string  userName);
+        bool CheckIsUserBannedOrDeleteByEmail(string email);
+        bool IsModifiedRolesOrPermissions(int userId);
+        void SetFalseModifyRolesOrPermissions(int userId);
 
     }
 

@@ -9,14 +9,14 @@ using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
+using MVC5.ServiceLayer.Security;
 using MVC5.ViewModel.AdminArea.Role;
 using MVC5.Web.Filters;
 using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize(AreaName = "Administrator")]
-    [DisplayName("مدیریت گروه های کاربری")]
+
     public partial class RoleController : BaseController
     {
         #region Fields
@@ -45,6 +45,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         #region ListAjax , List
         [HttpGet]
+        [Mvc5Authorize(SystemPermissionNames.CanViewRolesList, AreaName = "Administrator", IsMenu = true)]
         [DisplayName("مشاهده لیست گروه های کاربری")]
         [ActivityLog(Name = "ViewRoles", Description = "مشاده گروه های کاربری")]
         public virtual ActionResult List()
@@ -53,8 +54,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "List", AreaName = "Administrator")]
+        [Mvc5Authorize( SystemPermissionNames.CanViewRolesList, AreaName = "Administrator", IsMenu = true)]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public virtual ActionResult ListAjax(string term = "", int page = 1)
         {
@@ -69,6 +69,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #region Create
 
         [HttpGet]
+        [Mvc5Authorize( SystemPermissionNames.CanCreateRole, AreaName = "Administrator", IsMenu = true)]
         [DisplayName("ثبت گروه کاربری جدید")]
         [ActivityLog(Name = "CreateRole", Description = "درج گروه کاربری")]
         public virtual async Task<ActionResult> Create()
@@ -81,6 +82,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [Mvc5Authorize(SystemPermissionNames.CanCreateRole)]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
         public virtual async Task<ActionResult> Create(AddRoleViewModel viewModel, params int[] permissionIds)
@@ -107,6 +109,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #region Edit
         [HttpGet]
         [DisplayName("ویرایش گروه کاربری")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditRole, AreaName = "Administrator", IsMenu = false)]
         [ActivityLog(Name = "EditRole", Description = " ویرایش گروه کاربری")]
         //[Route("Edit/{id}")]
         public virtual async Task<ActionResult> Edit(int? id)
@@ -119,7 +122,9 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             await PopulatePermissions(viewModel.Permissions.Select(a => a.Id).ToArray());
             return View(viewModel);
         }
+
         //[Route("Edit/{id}")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditRole)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
@@ -153,6 +158,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         //[Route("Delete/{id}")]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
+        [Mvc5Authorize(SystemPermissionNames.CanDeleteRole, AreaName = "Administrator", IsMenu = false)]
         [DisplayName("حذف گروه کاربری")]
         [ActivityLog(Name = "DeleteRole", Description = " حذف گروه کاربری")]
         public virtual async Task<ActionResult> Delete(int? id)
@@ -175,6 +181,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [AjaxOnly]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
+        [Mvc5Authorize(SystemPermissionNames.CanSetDefaultRoleForRegister, AreaName = "Administrator", IsMenu = false)]
         [DisplayName("تغییر گروه کاربری پیش فرض")]
         [Route("SetForRegister/{id}")]
         [ActivityLog(Name = "SetDefaultRoleForRegister", Description = "انتخاب گروه کاربری پیشفرض برای ثبت نام کاربران")]
@@ -189,11 +196,11 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         #endregion
 
         #region RemoteValidation
+
         [HttpPost]
         [AjaxOnly]
         // [CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanCreateRole, SystemPermissionNames.CanEditRole)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult RoleNameExist(string name, int? id)
         {

@@ -17,6 +17,7 @@ using MVC5.Common.Caching;
 using MVC5.Common.Controller;
 using MVC5.Common.Helpers.Extentions;
 using MVC5.DataLayer.Context;
+using MVC5.DomainClasses;
 using MVC5.DomainClasses.Entities;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ServiceLayer.IdentityExtentions;
@@ -132,11 +133,12 @@ namespace MVC5.ServiceLayer.EFServiecs
                     Email = systemAdminEmail.FixGmailDots(),
                     RegisterDate = DateTime.Now,
                     AvatarFileName = "avatar.jpg",
+                    CommentPermission = CommentPermissionType.WithOutApporove,
                     NameForShow = systemAdminNameforShow
                 };
                 var result = this.Create(newUser, systemAdminPassword);
             }
-            var userRoles = this.GetRoles(newUser.Id);
+            var userRoles = _roleManager.FindUserRoles(newUser.Id);
             if (userRoles.Any(a => a == SystemRoleNames.SuperAdministrators)) return;
             this.AddToRole(newUser.Id, SystemRoleNames.SuperAdministrators);
         }
@@ -395,21 +397,9 @@ namespace MVC5.ServiceLayer.EFServiecs
         #region override GetRolesAsync
         public async override Task<IList<string>> GetRolesAsync(int userId)
         {
-            var key = userId.ToString(CultureInfo.InvariantCulture) + "_roles";
-            var cachedRoles = _contextBase.CacheRead<List<string>>(key);
-            if (cachedRoles != null && cachedRoles.Count >= 1) return cachedRoles;
-            var userRoleIds = _roleManager.FindUserRoleIds(userId);
-            var result = await _permissionService.GetPermissionByRoleIds(userRoleIds.ToArray());
-            _contextBase.CacheInsert(key, result, 20);
-            return result;
-        }
+            var permissions=await GetUserPermissionsAsync(userId);
 
-        #endregion
-
-        #region CustomGetUserRoles
-        public IList<int> CustomGetUserRoles(int id)
-        {
-            return _roleManager.FindUserRoleIds(id);
+            return permissions;
         }
 
         #endregion
@@ -451,6 +441,25 @@ namespace MVC5.ServiceLayer.EFServiecs
             _unitOfWork.DisableFiltering(UserFilters.BannedList);
             return result;
         }
+
+        public bool CheckIsUserBannedOrDelete(string userName)
+        {
+            _unitOfWork.EnableFiltering(UserFilters.BannedList);
+            _unitOfWork.EnableFiltering(UserFilters.DeletedList);
+            var result = _users.Any(a => a.UserName == userName.ToLower());
+            _unitOfWork.DisableFiltering(UserFilters.BannedList);
+            _unitOfWork.DisableFiltering(UserFilters.DeletedList);
+            return result;
+        }
+        public bool CheckIsUserBannedOrDeleteByEmail(string email)
+        {
+            _unitOfWork.EnableFiltering(UserFilters.BannedList);
+            _unitOfWork.EnableFiltering(UserFilters.DeletedList);
+            var result = _users.Any(a => a.Email == email.FixGmailDots());
+            _unitOfWork.DisableFiltering(UserFilters.BannedList);
+            _unitOfWork.DisableFiltering(UserFilters.DeletedList);
+            return result;
+        }
         public bool CheckIsUserBannedByEmail(string email)
         {
             _unitOfWork.EnableFiltering(UserFilters.BannedList);
@@ -480,26 +489,6 @@ namespace MVC5.ServiceLayer.EFServiecs
             return cast;
         }
 
-        #endregion
-
-        #region CanAccess
-        public bool CanAccess(int userId, string areaName, string controllerName, string actionName, string dependencyActionNames)
-        {
-            var controller = controllerName.ToLower();
-
-            var area = areaName;
-            if (area.IsNotEmpty())
-                area = area.ToLower();
-
-            var actions = !dependencyActionNames.IsNotEmpty()
-                ? new[] { actionName.ToLower() }
-                : SplitString(dependencyActionNames);
-
-            var rolesOfUser = CustomGetUserRoles(userId);
-            var rolesOfPermission = _permissionService.GetRolesOfPermission(area, controller, actions);
-            return rolesOfPermission.Intersect(rolesOfUser).Any() ||
-                   _permissionService.HasDirectAccess(userId, area, controller, actions);
-        }
         #endregion
 
         #region Private
@@ -533,5 +522,30 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
+        #region GetUserPermissions
+        public IList<string> GetUserPermissions(int userId)
+        {
+            var rolesOfUser = _roleManager.FindUserRoleIds(userId);
+            var userPermissions = _permissionService.GetUserPermissions(rolesOfUser.ToArray(), userId);
+            return userPermissions;
+        }
+        private async Task<IList<string>> GetUserPermissionsAsync(int userId)
+        {
+            var rolesOfUser = await _roleManager.FindUserRoleIdsAsync(userId);
+            var userPermissions = _permissionService.GetUserPermissions(rolesOfUser.ToArray(), userId);
+            return userPermissions;
+        }
+        #endregion
+
+        public bool IsModifiedRolesOrPermissions(int userId)
+        {
+            return _users.Any(a => a.Id == userId && a.PermissionsOrRolesModified);
+        }
+
+        public void SetFalseModifyRolesOrPermissions(int userId)
+        {
+            _users.Where(a => a.Id == userId).Update(a => new ApplicationUser { PermissionsOrRolesModified = false });
+        }
+       
     }
 }

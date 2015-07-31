@@ -10,14 +10,14 @@ using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.Contracts;
+using MVC5.ServiceLayer.Security;
 using MVC5.ViewModel.AdminArea.User;
 using MVC5.Web.Filters;
 using WebGrease.Css.Extensions;
 
 namespace MVC5.Web.Areas.Administrator.Controllers
 {
-    [MvcAuthorize(AreaName = "Administrator")]
-    [DisplayName("مدیریت کاربران")]
+    
     public partial class UserController : BaseController
     {
         #region Fields
@@ -44,6 +44,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         #region List,ListAjax
         [HttpGet]
+        [Mvc5Authorize(SystemPermissionNames.CanViewUsersList, AreaName = "Administrator", IsMenu = true)]
         [DisplayName("مشاهده لیست کاربران")]
         [ActivityLog(Name = "ViewUsers", Description = "مشاهده کاربران")]
         public virtual async Task<ActionResult> List()
@@ -53,10 +54,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "List", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanViewUsersList)]
         [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
-       
         public virtual ActionResult ListAjax(UserSearchViewModel search)
         {
             int total;
@@ -86,6 +85,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         // [Route("Edit/{id}")]
         [HttpGet]
         [DisplayName("ویرایش کاربر")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser, AreaName = "Administrator")]
         [ActivityLog(Name = "EditUser", Description = "ویرایش کاربر")]
         public virtual async Task<ActionResult> Edit(int? id)
         {
@@ -101,6 +101,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         //  [Route("Edit/{id}")]
         //[CheckReferrer]
         [ValidateAntiForgeryToken]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser)]
         public virtual async Task<ActionResult> Edit(EditUserViewModel viewModel, params int[] roleIds)
         {
             if (!ModelState.IsValid)
@@ -130,6 +131,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpGet]
         [DisplayName("ثبت کاربر جدید")]
+        [Mvc5Authorize(SystemPermissionNames.CanCreateUser, AreaName = "Administrator", IsMenu = true)]
         [ActivityLog(Name = "AddUser", Description = "درج کاربر جدید")]
         public virtual async Task<ActionResult> Create()
         {
@@ -146,6 +148,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Mvc5Authorize(SystemPermissionNames.CanCreateUser)]
         [AllowUploadSpecialFilesOnly(".jpg,.png,.gif", true)]
         //[CheckReferrer]
         public virtual async Task<ActionResult> Create(AddUserViewModel viewModel)
@@ -184,6 +187,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [AjaxOnly]
         [ValidateAntiForgeryToken]
         //[CheckReferrer]
+        [Mvc5Authorize(SystemPermissionNames.CanSoftDeleteUser)]
         [DisplayName("حذف منطقی کاربر")]
         [ActivityLog(Name = "SoftDeleteUser")]
         public virtual async Task<ActionResult> SoftDelete(int? id)
@@ -228,8 +232,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser,SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult UserNameExist(string userName, int? id)
         {
@@ -241,8 +244,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult LastNameForShowExist(string nameForShow, int? id)
         {
@@ -252,8 +254,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult EmailExist(string email, int? id)
         {
@@ -263,8 +264,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         // [CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult PhoneNumberExist(string phoneNumber, int? id)
         {
@@ -275,8 +275,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult GooglePlusIdExist(string googlePlusId, int? id)
         {
@@ -287,8 +286,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [HttpPost]
         [AjaxOnly]
         //[CheckReferrer]
-        [OverrideAuthorization]
-        [MvcAuthorize(DependencyActionNames = "Edit,Create", AreaName = "Administrator")]
+        [Mvc5Authorize(SystemPermissionNames.CanEditUser, SystemPermissionNames.CanCreateUser)]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public virtual JsonResult FaceBookIdExist(string faceBookId, int? id)
         {

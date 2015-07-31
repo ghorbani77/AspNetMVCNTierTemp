@@ -101,8 +101,8 @@ WriteLiteral(">گروه کاربری سیستمی</th>\r\n                      
 
 WriteLiteral(" class=\"text-center\"");
 
-WriteLiteral(">گروه کاربری پیشفرض برای عضویت</th>\r\n                        </tr>\r\n                    <" +
-"/thead>\r\n                    <tbody>\r\n");
+WriteLiteral(">گروه کاربری پیشفرض برای عضویت</th>\r\n                        </tr>\r\n             " +
+"       </thead>\r\n                    <tbody>\r\n");
 
             
             #line 25 "..\..\Areas\Administrator\Views\Role\_ListAjax.cshtml"
@@ -356,7 +356,7 @@ Write(Html.PagedListPager(new StaticPagedList<RoleViewModel>(Model, ViewBag.Page
                 {
                     term = ViewBag.Term,
                     page = pageNumber
-                }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList" })));
+                }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "roleList", OnComplete = "onComplete" })));
 
             
             #line default

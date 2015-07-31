@@ -10,19 +10,20 @@ namespace MVC5.DomainClasses.Configurations
     {
         public ApplicationPermissionConfig()
         {
-            Property(p => p.ActionName).HasMaxLength(50).IsOptional();
+            Property(p => p.ActionName).HasMaxLength(50).IsRequired();
             Property(p => p.ControllerName).HasMaxLength(50).IsRequired();
             Property(p => p.AreaName).HasMaxLength(50).IsOptional();
+            Property(p => p.Description).HasMaxLength(50).IsRequired();
+            Property(p => p.Name)
+              .HasMaxLength(100)
+              .IsRequired()
+              .HasColumnAnnotation("Index",
+                  new IndexAnnotation(new IndexAttribute("IX_PermissionName") { IsUnique = true }));
 
             ToTable("Permissions");
-
             this.Filter("IsMenu", a => a.Condition(p => p.IsMenu));
 
-            Property(p => p.Name)
-                .HasMaxLength(100)
-                .IsRequired()
-                .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new IndexAttribute("IX_PermissionName") { IsUnique = true }));
+          
 
             HasMany(p => p.ApplicationRoles)
                 .WithMany(a => a.Permissions)

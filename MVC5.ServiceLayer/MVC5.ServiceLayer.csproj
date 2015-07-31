@@ -105,6 +105,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryExtensions\RoleQueryExtentions.cs" />
     <Compile Include="QueryExtensions\UserQueryExtentions.cs" />
+    <Compile Include="Security\SystemPermissionNames.cs" />
     <Compile Include="Security\SystemRoleNames.cs" />
     <Compile Include="Settings\ExternalAuthSettings.cs" />
     <Compile Include="Settings\ISettings.cs" />

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Web.Mvc;
 using MVC5.Common.Controller;
@@ -8,11 +7,11 @@ using VikingErik.Mvc.ResumingActionResults;
 
 namespace MVC5.Web.Controllers
 {
-    [MvcAuthorize]
     public partial class ExportController : BaseController
     {
         [Route("Export/{*id}")]
         [DisplayName("امکان دانلود فایل ها")]
+        [Mvc5Authorize(Roles = "CanDownLoadExports", IsMenu = false)]
         public virtual ActionResult Index(string id)
         {
             if (string.IsNullOrEmpty(id))

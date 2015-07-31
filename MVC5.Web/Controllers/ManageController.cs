@@ -13,7 +13,6 @@ using MVC5.DomainClasses.Entities;
 
 namespace MVC5.Web.Controllers
 {
-    [MvcAuthorize]
     public partial class ManageController :BaseController
     {
         // Used for XSRF protection when adding external logins

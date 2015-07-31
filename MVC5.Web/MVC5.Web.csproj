@@ -313,6 +313,7 @@
     <Compile Include="FileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Filters\Mvc5AuthorizeAttribute.cs" />
     <Compile Include="RazorHelpers\BootstrapBuilder.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

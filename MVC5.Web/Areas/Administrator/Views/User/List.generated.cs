@@ -84,7 +84,7 @@ WriteLiteral("\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n
             #line hidden
             
             #line 16 "..\..\Areas\Administrator\Views\User\List.cshtml"
-     using (Ajax.BeginForm(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList" }, new { @class = "form-horizontal" }))
+     using (Ajax.BeginForm(MVC.Administrator.User.ActionNames.ListAjax, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" }, new { @class = "form-horizontal" }))
     {
 
             
@@ -568,40 +568,40 @@ WriteLiteral(">\r\n                                    <input");
 
 WriteLiteral(" type=\"checkbox\"");
 
-WriteAttribute("id", Tuple.Create(" id=\"", 6963), Tuple.Create("\"", 6979)
+WriteAttribute("id", Tuple.Create(" id=\"", 6990), Tuple.Create("\"", 7006)
             
             #line 132 "..\..\Areas\Administrator\Views\User\List.cshtml"
-, Tuple.Create(Tuple.Create("", 6968), Tuple.Create<System.Object, System.Int32>(role.Value
+, Tuple.Create(Tuple.Create("", 6995), Tuple.Create<System.Object, System.Int32>(role.Value
             
             #line default
             #line hidden
-, 6968), false)
+, 6995), false)
 );
 
 WriteLiteral(" name=\"RoleIds\"");
 
-WriteAttribute("value", Tuple.Create(" value=\"", 6995), Tuple.Create("\"", 7014)
+WriteAttribute("value", Tuple.Create(" value=\"", 7022), Tuple.Create("\"", 7041)
             
             #line 132 "..\..\Areas\Administrator\Views\User\List.cshtml"
-                  , Tuple.Create(Tuple.Create("", 7003), Tuple.Create<System.Object, System.Int32>(role.Value
+                  , Tuple.Create(Tuple.Create("", 7030), Tuple.Create<System.Object, System.Int32>(role.Value
             
             #line default
             #line hidden
-, 7003), false)
+, 7030), false)
 );
 
 WriteLiteral(" class=\"checkbox-inline\"");
 
 WriteLiteral(" />\r\n                                    <label");
 
-WriteAttribute("for", Tuple.Create(" for=\"", 7086), Tuple.Create("\"", 7103)
+WriteAttribute("for", Tuple.Create(" for=\"", 7113), Tuple.Create("\"", 7130)
             
             #line 133 "..\..\Areas\Administrator\Views\User\List.cshtml"
-, Tuple.Create(Tuple.Create("", 7092), Tuple.Create<System.Object, System.Int32>(role.Value
+, Tuple.Create(Tuple.Create("", 7119), Tuple.Create<System.Object, System.Int32>(role.Value
             
             #line default
             #line hidden
-, 7092), false)
+, 7119), false)
 );
 
 WriteLiteral(" class=\"control-label\"");

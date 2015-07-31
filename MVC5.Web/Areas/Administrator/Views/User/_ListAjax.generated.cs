@@ -556,7 +556,7 @@ Write(Html.PagedListPager(new StaticPagedList<UserViewModel>(Model, ViewBag.Page
         SearchIsEmailConfirmed = ViewBag.SearchIsEmailConfirmed,
         SearchIsSystemAccount = ViewBag.SearchIsSystemAccount,
         SearchUserName = ViewBag.SearchUserName
-    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList" })));
+    }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.ClassicPlusFirstAndLast, new AjaxOptions { AllowCache = false, HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "userList", OnComplete = "onComplete" })));
 
             
             #line default

@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System.Collections.Generic;
+using System.Security.Principal;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using MVC5.Common.Caching;
 using MVC5.IocConfig;
 using MVC5.ServiceLayer.Contracts;
 using StackExchange.Profiling;
@@ -47,12 +50,10 @@ namespace MVC5.Web
         #region Application_BeginRequest
         private void Application_BeginRequest(object sender, EventArgs e)
         {
-#if DEBUG
             if (Request.IsLocal)
             {
                 MiniProfiler.Start();
             }
-#endif
         }
         #endregion
 
@@ -82,15 +83,34 @@ namespace MVC5.Web
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-           // for forms Authentication if (ShouldIgnoreRequest()) return;
+            // for forms Authentication if (ShouldIgnoreRequest()) return;
 
             if (Context.User == null)
                 return;
 
-            if (
-                !ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>()
-                    .CheckIsUserBannedOrDelete(User.Identity.GetUserId<int>())) return;
-            ProjectObjectFactory.Container.GetInstance<IAuthenticationManager>().SignOut();
+            var userId = Context.User.Identity.GetUserId<int>();
+            var authenticationManager = ProjectObjectFactory.Container.GetInstance<IAuthenticationManager>();
+            var userManager = ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>();
+
+            if (userManager.CheckIsUserBannedOrDelete(User.Identity.GetUserId<int>()))
+            {
+                authenticationManager.SignOut();
+                return;
+            }
+
+            if (!userManager.IsModifiedRolesOrPermissions(User.Identity.GetUserId<int>())) return;
+
+            userManager.SetFalseModifyRolesOrPermissions(userId);
+            var permissions = userManager.GetUserPermissions(userId);
+            SetPermissions(permissions);
+        }
+        #endregion
+
+        #region Private
+        private void SetPermissions(IEnumerable<string> permissions)
+        {
+            Context.User =
+                new GenericPrincipal(System.Web.HttpContext.Current.User.Identity, permissions.ToArray());
         }
         #endregion
     }

@@ -35,6 +35,7 @@ namespace MVC5.DomainClasses.Entities
         public virtual bool CanUploadFile { get; set; }
         public virtual bool CanChangeProfilePicture { get; set; }
         public virtual bool CanModifyFirsAndLastName { get; set; }
+        public virtual bool PermissionsOrRolesModified { get; set; }
         public virtual ICollection<ActivityLog> ActivityLogs { get; set; }
         public virtual ICollection<ApplicationPermission> OwnPermissions { get; set; }
 

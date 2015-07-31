@@ -46,3 +46,10 @@ var warningBeforeLoad= function() {
         };
     });
 }
+
+function onComplete(xhr, status) {
+    var data = xhr.responseText;
+    if (xhr.status == 403) {
+        window.location ='/Account/Login'; 
+    }
+}

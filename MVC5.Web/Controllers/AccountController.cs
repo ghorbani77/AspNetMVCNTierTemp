@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using CaptchaMvc.Attributes;
@@ -8,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Mvc.Mailer;
+using MVC5.Common.Caching;
 using MVC5.Common.Controller;
 using MVC5.Common.Filters;
 using MVC5.Common.Helpers.Extentions;
@@ -23,11 +25,11 @@ using MVC5.ViewModel.Account;
 
 namespace MVC5.Web.Controllers
 {
-    [MvcAuthorize]
     public partial class AccountController : BaseController
     {
         #region Fields
 
+        private readonly HttpContextBase _httpContextBase;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthenticationManager _authenticationManager;
         private readonly IApplicationSignInManager _signInManager;
@@ -37,7 +39,7 @@ namespace MVC5.Web.Controllers
 
         #region Constructor
 
-        public AccountController(IApplicationUserManager userManager, IUnitOfWork unitOfWork,
+        public AccountController(HttpContextBase httpContextBase,IApplicationUserManager userManager, IUnitOfWork unitOfWork,
             IApplicationSignInManager signInManager,
             IAuthenticationManager authenticationManager, IUserMailer userMailer
            )
@@ -47,6 +49,7 @@ namespace MVC5.Web.Controllers
             _authenticationManager = authenticationManager;
             _userMailer = userMailer;
             _unitOfWork = unitOfWork;
+            _httpContextBase = httpContextBase;
         }
 
         #endregion
@@ -209,16 +212,16 @@ namespace MVC5.Web.Controllers
         [CaptchaVerify("تصویر امنیتی را درست وارد کنید")]
         public virtual async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (_userManager.CheckIsUserBannedByUserName(model.UserName))
-            {
-                this.AddErrors("UserName", "حساب کاربری شما مسدود شده است");
-                return View(model);
-            }
-            if (!_userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
-            {
-                ToastrWarning("برای ورود به سایت لازم است حساب خود را فعال کنید");
-                return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
-            }
+            //if (_userManager.CheckIsUserBannedOrDelete(model.UserName))
+            //{
+            //    this.AddErrors("UserName", "حساب کاربری شما مسدود شده است");
+            //    return View(model);
+            //}
+            //if (!_userManager.IsEmailConfirmedByUserNameAsync(model.UserName))
+            //{
+            //    ToastrWarning("برای ورود به سایت لازم است حساب خود را فعال کنید");
+            //    return RedirectToAction(MVC.Account.ActionNames.ReceiveActivatorEmail, MVC.Account.Name);
+            //}
 
             if (!ModelState.IsValid)
             {
@@ -251,8 +254,7 @@ namespace MVC5.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         // [CheckReferrer]
-        [OverrideAuthorization]
-        [Authorize]
+        [Mvc5Authorize]
         public virtual ActionResult LogOff()
         {
             _authenticationManager.SignOut();
@@ -377,7 +379,7 @@ namespace MVC5.Web.Controllers
         {
             if (!_userManager.IsEmailAvailableForConfirm(viewModel.Email))
                 this.AddErrors("Email", "ایمیل مورد نظر یافت نشد");
-            if (_userManager.CheckIsUserBannedByEmail(viewModel.Email))
+            if (_userManager.CheckIsUserBannedOrDeleteByEmail(viewModel.Email))
                 this.AddErrors("Email", "اکانت شما مسدود شده است");
             if (!ModelState.IsValid)
                 return View(viewModel);
