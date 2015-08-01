@@ -39,7 +39,7 @@ namespace MVC5.Web.Controllers
 
         #region Constructor
 
-        public AccountController(HttpContextBase httpContextBase,IApplicationUserManager userManager, IUnitOfWork unitOfWork,
+        public AccountController(HttpContextBase httpContextBase, IApplicationUserManager userManager, IUnitOfWork unitOfWork,
             IApplicationSignInManager signInManager,
             IAuthenticationManager authenticationManager, IUserMailer userMailer
            )
@@ -167,24 +167,31 @@ namespace MVC5.Web.Controllers
         [ValidateAntiForgeryToken]
         public virtual async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByNameAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user.Id)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
-                }
 
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
-                if (Request.Url == null) return View("ForgotPasswordConfirmation");
-                var callbackUrl = Url.Action("ResetPassword", "Account",
-                    new { userId = user.Id, code }, protocol: Request.Url.Scheme);
-                await _userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
-                ViewBag.Link = callbackUrl;
-                return View("ForgotPasswordConfirmation");
+            if (!ModelState.IsValid) return View(model);
+            var user = await _userManager.FindByNameAsync(model.Email);
+            if (user == null || !(await _userManager.IsEmailConfirmedAsync(user.Id)))
+            {
+                // Don't reveal that the user does not exist or is not confirmed
+                return View(MVC.Account.Views.ViewNames.ResetPasswordConfirmation);
             }
-            return View(model);
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user.Id);
+            if (Request.Url == null) return View(MVC.Account.Views.ViewNames.ForgotPasswordConfirmation);
+            var callbackUrl = Url.Action(MVC.Account.ActionNames.ResetPassword, MVC.Account.Name,
+                new { userId = user.Id, code }, protocol: Request.Url.Scheme);
+            await _userMailer.ResetPassword(new EmailViewModel
+            {
+                Message = "با سلام کاربر گرامی.برای بازیابی کلمه عبور خود لازم است بر روی لینک مقابل کلیک کنید",
+                To = model.Email,
+                Url = callbackUrl,
+                UrlText = "بازیابی کلمه عبور",
+                Subject = "بازیابی کلمه عبور",
+                ViewName = MVC.UserMailer.Views.ViewNames.ResetPassword
+            }
+               ).SendAsync();
+
+            return View(MVC.Account.ActionNames.ForgotPasswordConfirmation, MVC.Account.Name);
         }
 
         [AllowAnonymous]
@@ -302,7 +309,7 @@ namespace MVC5.Web.Controllers
 
             var userId = await _userManager.CreateAsync(model);
 
-            await SendConfirmationEmail(model.Email.FixGmailDots(), userId);
+            await SendConfirmationEmail(model.Email, userId);
 
             ToastrSuccess("حساب کاربری شما با موفقیت ایجاد شد. برای فعال سازی " +
                           "حساب خود به صندوق پستی خود مراجعه کنید",
@@ -319,7 +326,7 @@ namespace MVC5.Web.Controllers
         {
             //if(enable resetpass feature then show resetpass page)
             //return view("info")
-            if (code == null) return RedirectToAction(MVC.Error.ActionNames.Error404, MVC.Error.Name);
+            if (code == null) return HttpNotFound();
 
             return View();
         }
@@ -346,7 +353,7 @@ namespace MVC5.Web.Controllers
             var result = await _userManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user,false, false);
+                await _signInManager.SignInAsync(user, false, false);
                 return RedirectToAction(MVC.Account.ActionNames.ResetPasswordConfirmation, MVC.Account.Name);
             }
             this.AddErrors(result);
@@ -383,7 +390,6 @@ namespace MVC5.Web.Controllers
                 this.AddErrors("Email", "اکانت شما مسدود شده است");
             if (!ModelState.IsValid)
                 return View(viewModel);
-            _unitOfWork.DisableFiltering(UserFilters.BannedList);
             var user = await _userManager.FindByEmailAsync(viewModel.Email);
             await SendConfirmationEmail(viewModel.Email, user.Id);
             ToastrSuccess("ایمیلی تحت عنوان فعال سازی اکانت به آدرس ایمیل شما ارسال گردید");
@@ -447,23 +453,23 @@ namespace MVC5.Web.Controllers
         #endregion
 
         #region Private
-        [NonAction]
-        private async Task SendConfirmationEmail(string emailAddress, int userId)
+
+        public async Task SendConfirmationEmail(string email,int userId)
         {
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
+             var code = await _userManager.GenerateEmailConfirmationTokenAsync(userId);
             var callbackUrl = Url.Abs(Url.Action(MVC.Account.ActionNames.ConfirmEmail, MVC.Account.Name,
                 new { userId, code, area = "" }, protocol: Request.Url.Scheme));
-            var email = new ConfirmAccountEmail
-            {
-                Subject = "فعال سازی حساب کاربری",
-                To = emailAddress.FixGmailDots(),
-                Message = "با سلام. لطفا برای تایید حساب خود بر روی لینک زیر کلیک کنید ",
-                Url = callbackUrl,
-                UrlText = "برای فعال سازی اینجا کلیک کنید",
-                ViewName = MVC.UserMailer.Views.ViewNames.ConfirmAccount
-            };
 
-            await _userMailer.ConfirmAccount(email).SendAsync();
+            await _userMailer.ConfirmAccount(new EmailViewModel
+            {
+                Message = "با سلام کاربر گرامی.برای فعال سازی حساب خود لازم است بر روی لینک مقابل کلیک کنید",
+                To = email,
+                Url = callbackUrl,
+                UrlText = "فعال سازی",
+                Subject = "فعال سازی اکانت کاربری",
+                ViewName = MVC.UserMailer.Views.ViewNames.ConfirmAccount
+            }
+                ).SendAsync();
         }
         #endregion
     }

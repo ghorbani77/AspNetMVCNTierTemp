@@ -30,7 +30,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = "Administrator" }, FormMethod.Post, new { User = "form", @class = "form-horizontal" ,autocomplate="off",id="editUserForm"}))
+        @using (Html.BeginForm(MVC.Administrator.User.ActionNames.Edit, MVC.Administrator.User.Name, new { area = "Administrator" }, FormMethod.Post, new { User = "form", @class = "form-horizontal" ,autocomplate="off",id="editUserForm"}))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(a => a.Id)
@@ -47,8 +47,9 @@
                         <li>
                             <a href="#optionalInfo" data-toggle="tab">مشخصات اختیاری</a>
                         </li>
+                        <li><a href="#settings" data-toggle="tab">تنظیمات کاربر</a></li>
                         <li>
-                            <a href="#permissions" data-toggle="tab">دسترسی های جزئی</a>
+                            <a href="#permissions" data-toggle="tab">دسترسی های </a>
                         </li>
                         <li>
                             <a href="#roles" data-toggle="tab">گروه های کاربری</a>
@@ -121,33 +122,51 @@
                                     @Html.ValidationMessageFor(m => m.FaceBookId, "", new { @class = "text-danger" })
                                 </div>
                             </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.AvatarFileName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10" dir="ltr">
+                                    <input id="AvatarImage" name="AvatarImage" type="file" accept="image/*">
+                                </div>
+                            </div>
                         </div>
 
+                        <div class="tab-pane" id="settings">
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CommentPermission, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.EditorFor(m => m.CommentPermission, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.CommentPermission, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(m => m.IsBanned, new { @class = "checkbox-inline" })
+                                    @Html.LabelFor(m => m.IsBanned, new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(m => m.IsDeleted, new { @class = "checkbox-inline" })
+                                    @Html.LabelFor(m => m.IsDeleted, new { @class = "control-label" })
+                                </div>
+
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(m => m.CanChangeProfilePicture, new { @class = "checkbox-inline" })
+                                    @Html.LabelFor(m => m.CanChangeProfilePicture, new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(m => m.CanUploadFile, new { @class = "checkbox-inline" })
+                                    @Html.LabelFor(m => m.CanUploadFile, new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(m => m.CanModifyFirsAndLastName, new { @class = "checkbox-inline" })
+                                    @Html.LabelFor(m => m.CanModifyFirsAndLastName, new { @class = "control-label" })
+                                </div>
+                            </div>
+                          
+                        </div>
                         <div class="tab-pane" id="permissions">
-
-                            <div class="col-md-4">
-                                @Html.CheckBoxFor(m => m.IsBanned, new { @class = "checkbox-inline" })
-                                @Html.LabelFor(m => m.IsBanned, new { @class = "control-label" })
-                            </div>
-                            <div class="col-md-4">
-                                @Html.CheckBoxFor(m => m.IsDeleted, new { @class = "checkbox-inline" })
-                                @Html.LabelFor(m => m.IsDeleted, new { @class = "control-label" })
-                            </div>
-
-                            <div class="col-md-4">
-                                @Html.CheckBoxFor(m => m.CanChangeProfilePicture, new { @class = "checkbox-inline" })
-                                @Html.LabelFor(m => m.CanChangeProfilePicture, new { @class = "control-label" })
-                            </div>
-                            <div class="col-md-4">
-                                @Html.CheckBoxFor(m => m.CanUploadFile, new { @class = "checkbox-inline" })
-                                @Html.LabelFor(m => m.CanUploadFile, new { @class = "control-label" })
-                            </div>
-                            <div class="col-md-4">
-                                @Html.CheckBoxFor(m => m.CanModifyFirsAndLastName, new { @class = "checkbox-inline" })
-                                @Html.LabelFor(m => m.CanModifyFirsAndLastName, new { @class = "control-label" })
-                            </div>
+                            @CheckBoxListBuilder.CheckBoxList("PermissionIds", ViewBag.Permissions)
                         </div>
-
                         <div class="tab-pane" id="roles">
                             @CheckBoxListBuilder.CheckBoxList("RoleIds", ViewBag.Roles)
                         </div>
@@ -173,6 +192,7 @@
     <script>
         $(function () {
             warningBeforeLoad();
+            makeUploadFile("AvatarImage");
         })
     </script>
 }

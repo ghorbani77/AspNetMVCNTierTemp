@@ -82,34 +82,34 @@ namespace MVC5.Web
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
-            if (ShouldIgnoreRequest()) 
-                return;
-            if (Context.User == null)
-                return;
-            if (!Context.User.Identity.IsAuthenticated)
-                return;
+            //if (ShouldIgnoreRequest())
+            //    return;
+            //if (Context.User == null)
+            //    return;
+            //if (!Context.User.Identity.IsAuthenticated)
+            //    return;
 
-            var userId = Context.User.Identity.GetUserId<int>();
-            var authenticationManager = ProjectObjectFactory.Container.GetInstance<IAuthenticationManager>();
-            var userManager = ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>();
+            //var userId = Context.User.Identity.GetUserId<int>();
+            //var authenticationManager = ProjectObjectFactory.Container.GetInstance<IAuthenticationManager>();
+            //var userManager = ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>();
 
-            if (userManager.CheckIsUserBannedOrDelete(User.Identity.GetUserId<int>()))
-            {
-                authenticationManager.SignOut();
-                return;
-            }
+            //if (userManager.CheckIsUserBannedOrDelete(userId))
+            //{
+            //    authenticationManager.SignOut();
+            //    return;
+            //}
 
-            if (!userManager.IsModifiedRolesOrPermissions(User.Identity.GetUserId<int>())) return;
+            //if (!userManager.IsModifiedRolesOrPermissions(userId)) return;
 
-            userManager.SetFalseModifyRolesOrPermissions(userId);
-            var permissions = userManager.GetUserPermissions(userId);
-            SetPermissions(permissions);
+            //userManager.SetFalseModifyRolesOrPermissions(userId);
+            //var permissions = userManager.GetUserPermissions(userId);
+            //SetPermissions(permissions);
         }
         #endregion
 
         #region Private
         private void SetPermissions(IEnumerable<string> permissions)
-        { 
+        {
             Context.User =
                 new GenericPrincipal(Context.User.Identity, permissions.ToArray());
         }

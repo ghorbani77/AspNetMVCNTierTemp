@@ -221,12 +221,12 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region GetPermissionsWithUserId
-        public IList<string> GetPermissionsWithUserId(int userId)
+        public IList<int> GetPermissionsWithUserId(int userId)
         {
             return (from p in _permissions
                     from r in p.AssignedUsers
                     where userId == r.Id
-                    select p.Name).ToList();
+                    select p.Id).ToList();
         }
         #endregion
 

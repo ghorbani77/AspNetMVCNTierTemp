@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Timers;
 using System.Web;
+using MVC5.Common.Helpers.Extentions;
+using MVC5.Common.Helpers.Http;
 
-namespace MVC5.Common.Filters
+namespace MVC5.Common.HttpModules
 {
     /// <summary>
     /// ماژولی برای جلوگیری از حملات 
@@ -15,7 +17,7 @@ namespace MVC5.Common.Filters
         #region  Fields
         private const int BannedRequests = 10;
         private const int ReductionInterval = 1000; // 1 second
-        private const int ReleaseInterval = 5 * 60 * 1000; // 5 minutes
+        private const int ReleaseInterval = 12 * 60 * 60 * 1000; // 12 hour
 
         public static Dictionary<string, short> IpAdresses { get; private set; }
         public static Stack<string> Banned { get; private set; }
@@ -25,7 +27,7 @@ namespace MVC5.Common.Filters
         #endregion
 
         #region Constructor
-          static DosAttackModule()
+        static DosAttackModule()
         {
             IpAdresses = new Dictionary<string, short>();
             Banned = new Stack<string>();
@@ -33,7 +35,7 @@ namespace MVC5.Common.Filters
             BannedTimer = CreateBanningTimer();
         }
         #endregion
-      
+
         #region IHttpModule Members
         void IHttpModule.Dispose()
         {
@@ -47,7 +49,11 @@ namespace MVC5.Common.Filters
 
         private static void Context_BeginRequest(object sender, EventArgs e)
         {
-            var ip = HttpContext.Current.Request.UserHostAddress;
+            //اگر عمل 
+            //Forwarding 
+            //صورت نگیرد در این صورت آدرس اصلی در متغییر زیر است
+            var ip = HttpContext.Current.Request.GetIp();
+
             if (Banned.Contains(ip))
             {
                 HttpContext.Current.Response.StatusCode = 403;

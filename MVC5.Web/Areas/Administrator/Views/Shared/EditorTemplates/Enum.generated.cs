@@ -42,7 +42,7 @@ namespace ASP
             
             #line 3 "..\..\Areas\Administrator\Views\Shared\EditorTemplates\Enum.cshtml"
 Write(EnumHelper.IsValidForEnumHelper(ViewData.ModelMetadata) ?
-Html.EnumDropDownListFor(model => model, htmlAttributes: new { @class = "form-control" }) 
+Html.EnumDropDownListFor(model => model, htmlAttributes: new { @class = "form-control input-sm" }) 
 : Html.TextBoxFor(model => model, htmlAttributes: new { @class = "form-control" }));
 
             

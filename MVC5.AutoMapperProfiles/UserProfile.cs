@@ -18,24 +18,33 @@ namespace MVC5.AutoMapperProfiles
             CreateMap<DateTime, string>().ConvertUsing(new ToPersianDateTimeConverter());
 
             CreateMap<ApplicationUser, UserViewModel>()
-                .ForMember(d => d.Roles, s => s.Ignore()).IgnoreAllNonExisting();
+                .ForMember(d => d.Roles, m => m.Ignore()).IgnoreAllNonExisting();
 
             CreateMap<AddUserViewModel, ApplicationUser>()
-                .ForMember(u => u.RegisterDate, a => a.MapFrom(b => DateTime.Now))
-                .ForMember(u => u.Email, m => m.MapFrom(d => d.Email.FixGmailDots()))
-                .ForMember(u => u.UserName, m => m.MapFrom(d => d.UserName.ToLower()))
+                .ForMember(d => d.RegisterDate, m => m.MapFrom(s => DateTime.Now))
+                .ForMember(d => d.LastActivityDate, m => m.MapFrom(s => DateTime.Now))
+                .ForMember(d => d.Email, m => m.MapFrom(s => s.Email.FixGmailDots()))
+                .ForMember(d => d.UserName, m => m.MapFrom(s => s.UserName.ToLower()))
                 .IgnoreAllNonExisting();
 
             CreateMap<EditUserViewModel, ApplicationUser>()
-                .ForMember(s => s.Roles, d => d.Ignore()).IgnoreAllNonExisting();
+                .ForMember(d => d.Roles, m => m.Ignore())
+                .ForMember(d => d.RegisterDate, m => m.Ignore())
+                .ForMember(d => d.LastActivityDate, m => m.Ignore())
+                .ForMember(d => d.BirthDay, m => m.Ignore())
+                .ForMember(d => d.Email, m => m.MapFrom(s => s.Email.FixGmailDots()))
+                .ForMember(d => d.UserName, m => m.MapFrom(s => s.UserName.ToLower()))
+                 .IgnoreAllNonExisting();
+
             CreateMap<ApplicationUser, EditUserViewModel>().IgnoreAllNonExisting();
 
             CreateMap<RegisterViewModel, ApplicationUser>()
-                .ForMember(u => u.RegisterDate, a => a.MapFrom(b => DateTime.Now))
-                .ForMember(u => u.CommentPermission, a => a.MapFrom(b => CommentPermissionType.WithApprove))
-                .ForMember(u => u.AvatarFileName, a => a.MapFrom(b => "avatar.jpg"))
-                .ForMember(u => u.Email, m => m.MapFrom(d => d.Email.FixGmailDots()))
-                .ForMember(u => u.UserName, m => m.MapFrom(d => d.UserName.ToLower()))
+                .ForMember(d => d.RegisterDate, a => a.MapFrom(s => DateTime.Now))
+                .ForMember(d => d.LastActivityDate, m => m.MapFrom(s => DateTime.Now))
+                .ForMember(d => d.CommentPermission, a => a.MapFrom(s => CommentPermissionType.WithApprove))
+                .ForMember(d => d.AvatarFileName, a => a.MapFrom(s => "avatar.jpg"))
+                .ForMember(d => d.Email, m => m.MapFrom(s => s.Email.FixGmailDots()))
+                .ForMember(d => d.UserName, m => m.MapFrom(s => s.UserName.ToLower()))
                 .IgnoreAllNonExisting();
 
         }

@@ -77,7 +77,7 @@ WriteLiteral(">\r\n");
             #line hidden
             
             #line 11 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-         using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { User = "form", @class = "form-horizontal",autocomplete="off",id="createUserForm" }))
+         using (Html.BeginForm(MVC.Administrator.User.ActionNames.Create, MVC.Administrator.User.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { User = "form", @class = "form-horizontal", autocomplete = "off", id = "createUserForm" }))
         {
             
             
@@ -503,11 +503,11 @@ WriteLiteral(" id=\"permissions\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("                           ");
+WriteLiteral("                            ");
 
             
             #line 105 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-                      Write(CheckBoxListBuilder.CheckBoxList("PermissionIds", ViewBag.Permissions));
+                       Write(CheckBoxListBuilder.CheckBoxList("PermissionIds", ViewBag.Permissions));
 
             
             #line default
@@ -524,7 +524,7 @@ WriteLiteral(" class=\"row\"");
 
 WriteLiteral(">\r\n                                <div");
 
-WriteLiteral(" class=\"col-md-4\"");
+WriteLiteral(" class=\"form-group\"");
 
 WriteLiteral(">\r\n");
 
@@ -532,6 +532,37 @@ WriteLiteral("                                    ");
 
             
             #line 110 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+                               Write(Html.LabelFor(m => m.CommentPermission, new { @class = "col-md-3 control-label" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                    <div");
+
+WriteLiteral(" class=\"col-md-6\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                        ");
+
+            
+            #line 112 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+                                   Write(Html.EditorFor(m => m.CommentPermission, new { @class = "form-control" }));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n                                    </div>\r\n                                </d" +
+"iv>\r\n                                <div");
+
+WriteLiteral(" class=\"col-md-4\"");
+
+WriteLiteral(">\r\n");
+
+WriteLiteral("                                    ");
+
+            
+            #line 116 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.IsBanned, new { @class = "checkbox-inline" }));
 
             
@@ -542,7 +573,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 111 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 117 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.IsBanned, new { @class = "control-label" }));
 
             
@@ -557,7 +588,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 115 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 121 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.CanChangeProfilePicture, new { @class = "checkbox-inline" }));
 
             
@@ -568,7 +599,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 116 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 122 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.CanChangeProfilePicture, new { @class = "control-label" }));
 
             
@@ -583,7 +614,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 119 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 125 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.CanUploadFile, new { @class = "checkbox-inline" }));
 
             
@@ -594,7 +625,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 120 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 126 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.CanUploadFile, new { @class = "control-label" }));
 
             
@@ -609,7 +640,7 @@ WriteLiteral(">\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 123 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 129 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.CheckBoxFor(m => m.CanModifyFirsAndLastName, new { @class = "checkbox-inline" }));
 
             
@@ -620,7 +651,7 @@ WriteLiteral("\r\n");
 WriteLiteral("                                    ");
 
             
-            #line 124 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 130 "..\..\Areas\Administrator\Views\User\Create.cshtml"
                                Write(Html.LabelFor(m => m.CanModifyFirsAndLastName, new { @class = "control-label" }));
 
             
@@ -635,11 +666,11 @@ WriteLiteral(" id=\"roles\"");
 
 WriteLiteral(">\r\n");
 
-WriteLiteral("                               ");
+WriteLiteral("                            ");
 
             
-            #line 130 "..\..\Areas\Administrator\Views\User\Create.cshtml"
-                          Write(CheckBoxListBuilder.CheckBoxList("RoleIds",ViewBag.Roles));
+            #line 136 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+                       Write(CheckBoxListBuilder.CheckBoxList("RoleIds", ViewBag.Roles));
 
             
             #line default
@@ -674,7 +705,7 @@ WriteLiteral(">\r\n                                ثبت کاربر جدید\r\
 "     </div>\r\n            </div>\r\n");
 
             
-            #line 146 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 152 "..\..\Areas\Administrator\Views\User\Create.cshtml"
         }
 
             
@@ -686,36 +717,17 @@ DefineSection("Scripts", () => {
 
 WriteLiteral("\r\n");
 
-WriteLiteral("  ");
+WriteLiteral("    ");
 
             
-            #line 150 "..\..\Areas\Administrator\Views\User\Create.cshtml"
+            #line 156 "..\..\Areas\Administrator\Views\User\Create.cshtml"
 Write(Scripts.Render("~/bundles/jqueryval"));
 
             
             #line default
             #line hidden
-WriteLiteral(@"
-    <script>
-        $(function() {
-            warningBeforeLoad();
-            $(""#AvatarImage"").fileinput({
-                showUpload: false,
-                previewFileType: ""image"",
-                msgInvalidFileType: ""از فایل معتبر استفاده کنید"",
-                //maxFileSize: ""10000"",
-                msgSizeTooLarge: ""حجم فایل مورد نظر بیشتر از حجم مورد قبول است"",
-                browseClass: ""btn btn-success"",
-                browseLabel: ""انتخاب تصویر"",
-                browseIcon: '<i class=""glyphicon glyphicon-picture""></i>',
-                removeClass: ""btn btn-danger"",
-                removeLabel: ""حذف"",
-                removeIcon: '<i class=""glyphicon glyphicon-trash""></i>',
-                allowedFileExtensions: [""jpg"", ""gif"", ""png""]
-            });
-        });
-    </script>
-");
+WriteLiteral("\r\n    <script>\r\n        $(function () {\r\n            warningBeforeLoad();\r\n      " +
+"      makeUploadFile(\"AvatarImage\");\r\n        });\r\n    </script>\r\n");
 
 });
 

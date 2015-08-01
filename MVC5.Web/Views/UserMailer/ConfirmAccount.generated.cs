@@ -15,7 +15,7 @@ namespace ASP
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/UserMailer/ConfirmAccount.cshtml")]
-    public partial class _Views_UserMailer_ConfirmAccount_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.ConfirmAccountEmail>
+    public partial class _Views_UserMailer_ConfirmAccount_cshtml : System.Web.Mvc.WebViewPage<MVC5.ViewModel.Account.EmailViewModel>
     {
         public _Views_UserMailer_ConfirmAccount_cshtml()
         {

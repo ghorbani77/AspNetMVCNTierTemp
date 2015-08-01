@@ -561,7 +561,7 @@ namespace MVC5.ServiceLayer.Contracts
         void SeedDatabase();
         Task<EditUserViewModel> GetUserByRolesAsync(int id);
         IList<UserViewModel> GetPageList(out int total, UserSearchViewModel search);
-        void EditUserWithRoles(EditUserViewModel viewModel, int[] roleIds);
+        void EditUserWithRoles(EditUserViewModel viewModel);
 
         void SetRolesToUser(ApplicationUser user, IEnumerable<ApplicationRole> roles);
     
@@ -580,8 +580,8 @@ namespace MVC5.ServiceLayer.Contracts
         IList<string> GetUserPermissions(int userId);
 
         bool IsEmailConfirmedByUserNameAsync(string userName);
-        
 
+        void EditSecurityStamp(int userId);
         bool IsEmailAvailableForConfirm(string emial);
         bool CheckIsUserBannedByEmail(string email);
         bool CheckIsUserBannedByUserName(string userName);

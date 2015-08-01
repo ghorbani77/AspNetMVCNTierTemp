@@ -1,14 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
+using Microsoft.AspNet.Identity;
 using MVC5.Common.Controller;
 using MVC5.Common.Filters;
+using MVC5.Common.Helpers.Extentions;
 using MVC5.DataLayer.Context;
+using MVC5.DomainClasses;
 using MVC5.ServiceLayer.Contracts;
 using MVC5.ServiceLayer.Security;
 using MVC5.Utility;
@@ -51,6 +53,9 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [ActivityLog(Name = "ViewUsers", Description = "مشاهده کاربران")]
         public virtual async Task<ActionResult> List()
         {
+            await _userManager.UpdateSecurityStampAsync(User.Identity.GetUserId<int>());
+
+            await PopulatePermissions();
             await PopulateRoles();
             return View();
         }
@@ -85,21 +90,25 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             var viewModel = await _userManager.GetUserByRolesAsync(id.Value);
             if (viewModel == null) return HttpNotFound();
             await PopulateRoles(viewModel.Roles.Select(a => a.RoleId).ToArray());
+            var userPermissions = _permissionService.GetPermissionsWithUserId(id.Value);
+            await PopulatePermissions(userPermissions.ToArray());
             return View(viewModel);
         }
 
         [HttpPost]
         [Route("Edit/{id}")]
         //[CheckReferrer]
+        [AllowUploadSpecialFilesOnly(".jpg,.png,.gif", true)]
         [ValidateAntiForgeryToken]
         [Mvc5Authorize(SystemPermissionNames.CanEditUser)]
-        public virtual async Task<ActionResult> Edit(EditUserViewModel viewModel, params int[] roleIds)
+        public virtual async Task<ActionResult> Edit(EditUserViewModel viewModel)
         {
+            #region Validation
             if (_userManager.CheckUserNameExist(viewModel.UserName, viewModel.Id))
                 this.AddErrors("UserName", "این نام کاربری قبلا در سیستم ثبت شده است");
             if (_userManager.CheckNameForShowExist(viewModel.NameForShow, viewModel.Id))
                 this.AddErrors("NameForShow", "این نام نمایشی قبلا  در سیستم ثبت شده است");
-            if (!viewModel.Password.IsSafePasword())
+            if (viewModel.Password.IsNotEmpty() && !viewModel.Password.IsSafePasword())
                 this.AddErrors("Password", "این کلمه عبور به راحتی قابل تشخیص است");
             if (_userManager.CheckEmailExist(viewModel.Email, viewModel.Id))
                 this.AddErrors("Email", "این ایمیل قبلا در سیستم ثبت شده است");
@@ -108,22 +117,28 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             if (_userManager.CheckFacebookIdExist(viewModel.GooglePlusId, viewModel.Id))
                 this.AddErrors("GooglePlusId", "این آد دی قبلا در سیستم ثبت شده است");
 
+            #endregion
+
             if (!ModelState.IsValid)
             {
-                ToastrError("لطفا فیلد های مورد نظر را با دقت وارد کنید");
-                await PopulateRoles(roleIds);
+                await PopulatePermissions(viewModel.PermissionIds);
+                await PopulateRoles(viewModel.RoleIds);
                 return View(viewModel);
             }
-            if (roleIds == null || roleIds.Length < 1)
+            if (viewModel.RoleIds == null || viewModel.RoleIds.Length < 1)
             {
                 ToastrWarning("لطفا برای کاربر مورد نظر ، گروه کاربری تعیین کنید");
                 await PopulateRoles();
+                await PopulatePermissions(viewModel.PermissionIds);
                 return View(viewModel);
             }
-
-            _userManager.EditUserWithRoles(viewModel, roleIds);
-
-            await _unitOfWork.SaveChangesAsync();
+            var avatarName = "avatar.jpg";
+            if (viewModel.AvatarImage != null && viewModel.AvatarImage.ContentLength > 0)
+            {
+                avatarName = this.UploadFile(viewModel.AvatarImage);
+            }
+            viewModel.AvatarFileName = avatarName;
+            _userManager.EditUserWithRoles(viewModel);
 
             ToastrSuccess("عملیات  ویرایش کاربر با موفقیت انجام شد");
             return RedirectToAction(MVC.Administrator.User.ActionNames.List, MVC.Administrator.User.Name);
@@ -145,7 +160,8 @@ namespace MVC5.Web.Areas.Administrator.Controllers
             {
                 CanUploadFile = true,
                 CanModifyFirsAndLastName = true,
-                CanChangeProfilePicture = true
+                CanChangeProfilePicture = true,
+                CommentPermission = CommentPermissionType.WithApprove
             };
             return View(viewModel);
         }
@@ -157,6 +173,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         //[CheckReferrer]
         public virtual async Task<ActionResult> Create(AddUserViewModel viewModel)
         {
+            #region Validation
             if (_userManager.CheckUserNameExist(viewModel.UserName, null))
                 this.AddErrors("UserName", "این نام کاربری قبلا در سیستم ثبت شده است");
             if (_userManager.CheckNameForShowExist(viewModel.NameForShow, null))
@@ -169,10 +186,10 @@ namespace MVC5.Web.Areas.Administrator.Controllers
                 this.AddErrors("FaceBookId", "این آد دی قبلا در سیستم ثبت شده است");
             if (_userManager.CheckFacebookIdExist(viewModel.GooglePlusId, null))
                 this.AddErrors("GooglePlusId", "این آد دی قبلا در سیستم ثبت شده است");
+            #endregion
 
             if (!ModelState.IsValid)
             {
-                ToastrError("لطفا فیلد های مورد نظر را با دقت وارد کنید");
                 await PopulateRoles(viewModel.RoleIds);
                 await PopulatePermissions(viewModel.PermissionIds);
                 return View(viewModel);

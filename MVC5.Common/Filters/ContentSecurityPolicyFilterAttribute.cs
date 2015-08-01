@@ -15,27 +15,25 @@ namespace MVC5.Common.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
             var response = filterContext.HttpContext.Response;
-
             // for prevent attack
             response.Headers.Remove("Server");
 
-            response.Headers.Set(SecurityHeadersConstants.XFrameOptionsHeader, "SameOrigin");
+            //response.Headers.Set(SecurityHeadersConstants.XFrameOptionsHeader, "SameOrigin");
 
-            // For IE 8+
-            response.Headers.Set(SecurityHeadersConstants.XXssProtectionHeader, "1; mode=block");
-            response.Headers.Set(SecurityHeadersConstants.XContentTypeOptionsHeader, "nosniff");
+            //// For IE 8+
+            //response.Headers.Set(SecurityHeadersConstants.XXssProtectionHeader, "1; mode=block");
+            //response.Headers.Set(SecurityHeadersConstants.XContentTypeOptionsHeader, "nosniff");
 
-            //todo: Add /Home/Report --> public JsonResult Report() { return Json(true); }
+            ////todo: Add /Home/Report --> public JsonResult Report() { return Json(true); }
 
-            const string cspValue = "default-src 'self';";
-            // For Chrome 16+
-            response.Headers.Set(SecurityHeadersConstants.XWebKitCspHeader, cspValue);
+            //const string cspValue = "default-src 'self';";
+            //// For Chrome 16+
+            //response.Headers.Set(SecurityHeadersConstants.XWebKitCspHeader, cspValue);
 
-            // For Firefox 4+
-            response.Headers.Set(SecurityHeadersConstants.XContentSecurityPolicyHeader, cspValue);
-            response.Headers.Set(SecurityHeadersConstants.ContentSecurityPolicyHeader, cspValue);
+            //// For Firefox 4+
+            //response.Headers.Set(SecurityHeadersConstants.XContentSecurityPolicyHeader, cspValue);
+            //response.Headers.Set(SecurityHeadersConstants.ContentSecurityPolicyHeader, cspValue);
             base.OnActionExecuting(filterContext);
         }
     }

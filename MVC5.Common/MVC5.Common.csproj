@@ -100,7 +100,7 @@
     <Compile Include="Filters\AllowUploadSpecialFilesAttribute.cs" />
     <Compile Include="Filters\ChallengeResult.cs" />
     <Compile Include="Filters\ContentSecurityPolicyFilterAttribute.cs" />
-    <Compile Include="Filters\DosAttackModule.cs" />
+    <Compile Include="HttpModules\DosAttackModule.cs" />
     <Compile Include="Filters\ElmahHandledErrorLoggerFilter.cs" />
     <Compile Include="Filters\ForceWww.cs" />
     <Compile Include="HttpCompress\GZipFilter.cs" />
@@ -122,6 +122,7 @@
     <Compile Include="HtmlCleaner\PersianProofWriter.cs" />
     <Compile Include="HttpCompress\HttpModule.cs" />
     <Compile Include="HttpCompress\HttpOutputFilter.cs" />
+    <Compile Include="HttpModules\IpBlockModule.cs" />
     <Compile Include="MVC\AspNetMvcHelpers.cs" />
     <Compile Include="MVC\PlayerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

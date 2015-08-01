@@ -8,14 +8,16 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Delete, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal" ,autocomplate="off",id="deleteRoleForm"}))
+                @using (Html.BeginForm(MVC.Administrator.Role.ActionNames.Delete, MVC.Administrator.Role.Name, new { area = MVC.Administrator.Name }, FormMethod.Post, new { role = "form", @class = "form-horizontal", autocomplate = "off", id = "deleteRoleForm" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(a => a.Id)
                     <div class="row">
-                        <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'deleteRoleForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-danger btn-sm">
-                            حذف گروه کاربری
-                        </button>
+                        <div class="col-md-12">
+                            <button type="button" autocomplete="off" onclick="AjaxForm.CustomSubmit(this, 'deleteRoleForm')" data-loading-text="در حال ارسال اطلاعات" class="btn btn-danger btn-sm">
+                                حذف گروه کاربری
+                            </button>
+                        </div>
                     </div>
                 }
             </div>
@@ -70,7 +72,7 @@
                     <strong>دسترسی ها</strong>
                 </div>
                 <div class="panel-body">
-                   @CheckBoxListBuilder.CheckBoxList("PermissioinIds", ViewBag.Permissions)
+                    @CheckBoxListBuilder.CheckBoxList("PermissioinIds", ViewBag.Permissions)
                 </div>
                 <div class="panel-footer">
                     <div class="row">
@@ -86,5 +88,5 @@
     </div>
 </div>
 @section Scripts {
-@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
 }

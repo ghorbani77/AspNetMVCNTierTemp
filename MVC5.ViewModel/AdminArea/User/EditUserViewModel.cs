@@ -11,7 +11,7 @@ namespace MVC5.ViewModel.AdminArea.User
     public class EditUserViewModel
     {
         public int Id { get; set; }
-       
+
         [DisplayName("کاربر سیستمی")]
         public bool IsSystemAccount { get; set; }
         [DisplayName("تاریخ تولد")]
@@ -23,17 +23,16 @@ namespace MVC5.ViewModel.AdminArea.User
         [EmailAddress(ErrorMessage = "ایمیل را به شکل صحیح وارد کنید")]
         [DisplayName("ایمیل")]
         [StringLength(450, ErrorMessage = "حداکثر طول ایمیل 450 حرف است")]
-        [Remote("IsEmailExist", "User", "Administrator", ErrorMessage = "این ایمیل قبلا در سیستم ثبت شده است", HttpMethod = "POST",AdditionalFields = "Id")]
+        [Remote("IsEmailExist", "User", "Administrator", ErrorMessage = "این ایمیل قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "لطفا کلمه عبور را وارد کنید")]
         [StringLength(50, ErrorMessage = "کلمه عبور نباید کمتر از 5 حرف و بیتشر از 50 حرف باشد", MinimumLength = 5)]
         [DataType(DataType.Password)]
         [DisplayName("کلمه عبور")]
         [Remote("CheckPassword", "User", "Administrator", ErrorMessage = "این کلمه عبور به راحتی قابل تشخیص است", HttpMethod = "POST", AdditionalFields = "Id")]
         public string Password { get; set; }
 
-              [Required(ErrorMessage = "لطفا نام کاربری را وارد کنید")]
+        [Required(ErrorMessage = "لطفا نام کاربری را وارد کنید")]
         [DisplayName("نام کاربری")]
         [StringLength(450, ErrorMessage = "کلمه عبور نباید کمتر از 5 حرف و بیتشر از 450 حرف باشد", MinimumLength = 5)]
         [Remote("IsUserNameExist", "User", "Administrator", ErrorMessage = "این نام کاربری قبلا در سیستم ثبت شده است", HttpMethod = "POST", AdditionalFields = "Id")]
@@ -76,6 +75,8 @@ namespace MVC5.ViewModel.AdminArea.User
         public int[] PermissionIds { get; set; }
         [DisplayName("به صورت منطقی حذف شود")]
         public bool IsDeleted { get; set; }
+        [DisplayName("تاریخ عضویت")]
+        public string RegisterDate { get; set; }
         public HttpPostedFileBase AvatarImage { get; set; }
     }
 }

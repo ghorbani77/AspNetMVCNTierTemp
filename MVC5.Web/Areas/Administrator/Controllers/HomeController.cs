@@ -13,6 +13,7 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         [DisplayName("مشاهده پنل مدیریت")]
         public virtual ActionResult Index()
         {
+
             return View();
         }
     }

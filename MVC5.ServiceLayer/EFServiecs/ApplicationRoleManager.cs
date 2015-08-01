@@ -355,16 +355,20 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
+        #region GetDefaultRoleForRegister
         public Task<string> GetDefaultRoleForRegister()
         {
             return _roles.Where(a => a.IsDefaultForRegister).Select(a => a.Name).FirstOrDefaultAsync();
         }
+        #endregion
 
-
+        #region ChangeDefaultRegisterRole
         public void ChangeDefaultRegisterRole(int id)
         {
             _roles.Where(a => a.Id != id).Update(a => new ApplicationRole { IsDefaultForRegister = false });
         }
+        #endregion
+
 
     }
 }

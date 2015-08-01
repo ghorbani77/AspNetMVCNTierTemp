@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MVC5.ViewModel.Account
 {
-    public class ConfirmAccountEmail
+    public class EmailViewModel
     {
         public string To { get; set; }
         public string Subject { get; set; }

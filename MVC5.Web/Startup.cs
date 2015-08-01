@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
+using Microsoft.Owin.Security.Twitter;
 using MVC5.DataLayer.Context;
 using MVC5.ServiceLayer.EFServiecs;
 using Owin;
@@ -31,13 +32,11 @@ namespace MVC5.Web
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
-                SlidingExpiration = true,
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity =
                             ProjectObjectFactory.Container.GetInstance<IApplicationUserManager>().OnValidateIdentity()
                 }
-
             });
 
             ProjectObjectFactory.Container.GetInstance<IApplicationRoleManager>()
@@ -56,8 +55,12 @@ namespace MVC5.Web
             // Once you check this option, your second step of verification during the login process will be remembered on the device where you logged in from.
             // This is similar to the RememberMe option when you log in.
            // appBuilder.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
-          
-          
+
+            appBuilder.UseTwitterAuthentication(
+                consumerKey:"fdslkfjlsf",
+                consumerSecret:"dlfkjdljfs"
+                );
+        
             appBuilder.UseFacebookAuthentication(
                appId: "fdsfdsfs",
                appSecret: "fdfsfs");

@@ -70,7 +70,7 @@
     <Compile Include="Account\ResetPasswordEmail.cs" />
     <Compile Include="Account\ResetPasswordViewModel.cs" />
     <Compile Include="Account\SetPasswordViewModel.cs" />
-    <Compile Include="Account\ConfirmAccountEmail.cs" />
+    <Compile Include="Account\EmailViewModel.cs" />
     <Compile Include="AdminArea\Permission\SelectPermissionViewModel.cs" />
     <Compile Include="AdminArea\Role\AddRoleViewModel.cs" />
     <Compile Include="AdminArea\Role\EditRoleViewModel.cs" />

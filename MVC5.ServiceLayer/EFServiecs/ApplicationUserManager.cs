@@ -133,6 +133,7 @@ namespace MVC5.ServiceLayer.EFServiecs
                     PhoneNumberConfirmed = true,
                     Email = systemAdminEmail.FixGmailDots(),
                     RegisterDate = DateTime.Now,
+                    LastActivityDate = DateTime.Now,
                     AvatarFileName = "avatar.jpg",
                     CommentPermission = CommentPermissionType.WithOutApporove,
                     NameForShow = systemAdminNameforShow
@@ -152,6 +153,7 @@ namespace MVC5.ServiceLayer.EFServiecs
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(applicationUser, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+
             return userIdentity;
         }
         #endregion
@@ -172,7 +174,6 @@ namespace MVC5.ServiceLayer.EFServiecs
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
-
             PasswordValidator = new CustomPasswordValidator
             {
                 RequiredLength = 5,
@@ -296,17 +297,40 @@ namespace MVC5.ServiceLayer.EFServiecs
         #endregion
 
         #region EditUserWithRoles
-        public void EditUserWithRoles(EditUserViewModel viewModel, int[] roleIds)
+        public void EditUserWithRoles(EditUserViewModel viewModel)
         {
-            var user = _users.Include(a => a.Roles).First(a => a.Id == viewModel.Id);
+            _unitOfWork.ValidateOnSaveEnabled = false;
+            var user = _users.Include(a => a.Roles).AsNoTracking().First(a => a.Id == viewModel.Id);
+
+            if (viewModel.IsBanned)
+                viewModel.IsBanned = !user.IsSystemAccount;
+            if (viewModel.IsDeleted)
+                viewModel.IsDeleted = !user.IsSystemAccount;
+            viewModel.IsSystemAccount = user.IsSystemAccount;
+
             _mappingEngine.Map(viewModel, user);
 
-            foreach (var roleId in from roleId in roleIds let userRoleRecord = user.Roles.FirstOrDefault(a => a.RoleId == roleId) where userRoleRecord == null select roleId)
+            if (viewModel.Password.IsNotEmpty())
+                user.PasswordHash = PasswordHasher.HashPassword(viewModel.Password);
+            foreach (var roleId in from roleId in viewModel.RoleIds let userRoleRecord = user.Roles.FirstOrDefault(a => a.RoleId == roleId) where userRoleRecord == null select roleId)
             {
                 user.Roles.Add(new ApplicationUserRole { RoleId = roleId, UserId = user.Id });
-                user.PermissionsOrRolesModified = true;
             }
 
+            if (viewModel.PermissionIds != null && viewModel.PermissionIds.Length > 0)
+            {
+                user.OwnPermissions = new Collection<ApplicationPermission>();
+                var permissions = _permissionService.GetActualPermissions(viewModel.PermissionIds).ToList();
+                permissions.ForEach(a => user.OwnPermissions.Add(a));
+                _unitOfWork.Update(user, a => a.AssociatedCollection(b => b.OwnPermissions));
+            }
+
+            if (user.IsDeleted || user.IsBanned)
+                this.UpdateSecurityStamp(user.Id);
+            else
+            {
+                _unitOfWork.SaveChanges();
+            }
         }
         #endregion
 
@@ -523,15 +547,26 @@ namespace MVC5.ServiceLayer.EFServiecs
         }
         #endregion
 
+        #region IsModifiedRolesOrPermissions
         public bool IsModifiedRolesOrPermissions(int userId)
         {
             return _users.Any(a => a.Id == userId && a.PermissionsOrRolesModified);
         }
+        #endregion
 
+        #region SetFalseModifyRolesOrPermissions
         public void SetFalseModifyRolesOrPermissions(int userId)
         {
             _users.Where(a => a.Id == userId).Update(a => new ApplicationUser { PermissionsOrRolesModified = false });
         }
+        #endregion
+
+        #region EditSecurityStamp
+        public void EditSecurityStamp(int userId)
+        {
+            this.UpdateSecurityStamp(userId);
+        }
+        #endregion
 
     }
 }

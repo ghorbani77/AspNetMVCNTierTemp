@@ -29,9 +29,9 @@ namespace MVC5.Web
             FilterProviders.Providers.Remove(filterProider);
             FilterProviders.Providers.Add(ProjectObjectFactory.Container.GetInstance<StructureMapFilterProvider>());
 
-            // Database.SetInitializer<ApplicationDbContext>(null);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
-            ProjectObjectFactory.Container.GetInstance<IUnitOfWork>().ForceDatabaseInitialize();
+             Database.SetInitializer<ApplicationDbContext>(null);
+           // Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            //ProjectObjectFactory.Container.GetInstance<IUnitOfWork>().ForceDatabaseInitialize();
 
             var defaultJsonFactory = ValueProviderFactories.Factories
                 .OfType<JsonValueProviderFactory>().FirstOrDefault();

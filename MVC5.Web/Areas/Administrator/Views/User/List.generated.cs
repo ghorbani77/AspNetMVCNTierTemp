@@ -338,7 +338,7 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-7\"");
+WriteLiteral(" class=\"col-md-3\"");
 
 WriteLiteral(">\r\n");
 
@@ -369,7 +369,7 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-7\"");
+WriteLiteral(" class=\"col-md-3\"");
 
 WriteLiteral(">\r\n");
 
@@ -400,7 +400,7 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-7\"");
+WriteLiteral(" class=\"col-md-3\"");
 
 WriteLiteral(">\r\n");
 
@@ -431,7 +431,7 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-7\"");
+WriteLiteral(" class=\"col-md-3\"");
 
 WriteLiteral(">\r\n");
 
@@ -462,7 +462,7 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-7\"");
+WriteLiteral(" class=\"col-md-3\"");
 
 WriteLiteral(">\r\n");
 
@@ -493,7 +493,7 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-7\"");
+WriteLiteral(" class=\"col-md-3\"");
 
 WriteLiteral(">\r\n");
 
@@ -524,7 +524,7 @@ WriteLiteral("                        ");
             #line hidden
 WriteLiteral("\r\n                        <div");
 
-WriteLiteral(" class=\"col-md-7\"");
+WriteLiteral(" class=\"col-md-3\"");
 
 WriteLiteral(">\r\n");
 

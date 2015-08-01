@@ -51,7 +51,7 @@ namespace MVC5.Tests.Mailers
             //Arrange
             _usermailerMock.Setup(
                 mailer => mailer.PopulateBody(It.IsAny<MvcMailMessage>(), "ConfirmAccount", It.IsAny<string>(), null));
-            var email = new ConfirmAccountEmail
+            var email = new EmailViewModel
             {
                 From = "me",
                 Url = "http://wwww.google.com",
@@ -67,7 +67,7 @@ namespace MVC5.Tests.Mailers
 
             //Assert
             _usermailerMock.VerifyAll();
-            var confirmAccountEmail = _usermailerMock.Object.ViewData.Model as ConfirmAccountEmail;
+            var confirmAccountEmail = _usermailerMock.Object.ViewData.Model as EmailViewModel;
             if (confirmAccountEmail != null)
                 Assert.AreEqual("me", confirmAccountEmail.From);
             Assert.AreEqual("gholamrezarabbal@gmail.com", mailMessage.To.First().ToString());

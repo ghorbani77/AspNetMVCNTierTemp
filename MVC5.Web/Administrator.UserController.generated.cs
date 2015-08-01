@@ -190,7 +190,6 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         {
             public readonly string id = "id";
             public readonly string viewModel = "viewModel";
-            public readonly string roleIds = "roleIds";
         }
         static readonly ActionParamsClass_Create s_params_Create = new ActionParamsClass_Create();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -341,15 +340,14 @@ namespace MVC5.Web.Areas.Administrator.Controllers
         }
 
         [NonAction]
-        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel, int[] roleIds);
+        partial void EditOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit(MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel, int[] roleIds)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Edit(MVC5.ViewModel.AdminArea.User.EditUserViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Edit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "roleIds", roleIds);
-            EditOverride(callInfo, viewModel, roleIds);
+            EditOverride(callInfo, viewModel);
             return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
         }
 

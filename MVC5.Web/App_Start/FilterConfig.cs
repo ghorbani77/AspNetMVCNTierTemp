@@ -13,7 +13,7 @@ namespace MVC5.Web
            // filters.Add(new ElmahRequestValidationErrorFilter());
             filters.Add(new ForceWww("http://localhost:25890/"));
             //with this filter you cann't user inline script or css on page
-            //filters.Add(new ContentSecurityPolicyFilterAttribute());
+            filters.Add(new ContentSecurityPolicyFilterAttribute());
         }
     }
 }
